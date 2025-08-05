@@ -1,0 +1,32 @@
+[
+  {
+    "crew_member": "Captain Picard",
+    "activity": "Strategic planning session for upcoming diplomatic mission",
+    "timestamp": "2025-08-04 22:51:53.952958",
+    "status": "completed"
+  },
+  {
+    "crew_member": "Counselor Troi",
+    "activity": "Crew morale assessment and psychological evaluation",
+    "timestamp": "2025-08-04 23:51:53.952964",
+    "status": "in_progress"
+  },
+  {
+    "crew_member": "Mr. Spock",
+    "activity": "Logical analysis of quantum communication protocols",
+    "timestamp": "2025-08-05 00:21:53.952966",
+    "status": "completed"
+  },
+  {
+    "crew_member": "Lt. Commander Data",
+    "activity": "System optimization and performance monitoring",
+    "timestamp": "2025-08-05 00:36:53.952968",
+    "status": "in_progress"
+  },
+  {
+    "crew_member": "Chief Engineer Scott",
+    "activity": "Warp core maintenance and efficiency review",
+    "timestamp": "2025-08-05 00:51:53.952969",
+    "status": "in_progress"
+  }
+]
