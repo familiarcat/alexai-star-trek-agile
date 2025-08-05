@@ -146,7 +146,7 @@ ensure_zshrc_exists() {
 # Function to backup ~/.zshrc
 backup_zshrc() {
     if [ -f ~/.zshrc ]; then
-        local backup_file="~/.zshrc.backup.$(date +%Y%m%d_%H%M%S)"
+        local backup_file="$HOME/.zshrc.backup.$(date +%Y%m%d_%H%M%S)"
         cp ~/.zshrc "$backup_file"
         print_success "Backed up ~/.zshrc to $backup_file"
     fi

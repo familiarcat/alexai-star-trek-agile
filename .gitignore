@@ -56,3 +56,4 @@ supabase_db_password
 *_password
 *_secret
 *_key
+.vercel

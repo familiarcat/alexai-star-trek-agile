@@ -51,8 +51,11 @@ load_secrets_from_zshrc() {
         return 1
     fi
     
-    # Source ~/.zshrc to load environment variables
-    source ~/.zshrc
+    # Load environment variables from ~/.zshrc
+    if [ -f ~/.zshrc ]; then
+        # Extract only export statements to avoid zsh-specific commands
+        export $(grep -E '^export ' ~/.zshrc | sed 's/export //' | xargs)
+    fi
     
     # Check if required secrets are available
     local missing_secrets=()
