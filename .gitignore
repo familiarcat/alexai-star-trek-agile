@@ -50,3 +50,9 @@ Thumbs.db
 # Temporary files
 *.tmp
 *.temp
+
+# Secrets and passwords
+supabase_db_password
+*_password
+*_secret
+*_key
