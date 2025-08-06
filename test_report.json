@@ -1,0 +1,21 @@
+{
+  "timestamp": "2025-08-06T02:08:07.325086",
+  "tests": {
+    "flask_app": true,
+    "socket_connection": true,
+    "environment": true,
+    "file_structure": true,
+    "dashboard": true
+  },
+  "environment_vars": {
+    "openai_api_key": true,
+    "supabase_url": true,
+    "supabase_key": true,
+    "vercel_token": true
+  },
+  "system_info": {
+    "python_version": "3.13.5 (main, Jun 11 2025, 15:36:57) [Clang 16.0.0 (clang-1600.0.26.6)]",
+    "platform": "darwin",
+    "working_directory": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7"
+  }
+}
