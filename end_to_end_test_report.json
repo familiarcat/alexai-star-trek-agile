@@ -1,0 +1,59 @@
+{
+  "timestamp": "2025-08-05T21:53:25.157271",
+  "summary": {
+    "total_tests": 7,
+    "passed": 3,
+    "failed": 2,
+    "warnings": 2,
+    "success_rate": 42.857142857142854
+  },
+  "test_results": [
+    {
+      "timestamp": "2025-08-05 21:53:14",
+      "test": "Local Main Page",
+      "status": "PASS",
+      "details": "Status: 200"
+    },
+    {
+      "timestamp": "2025-08-05 21:53:14",
+      "test": "Local AlexAI Status",
+      "status": "PASS",
+      "details": "AlexAI core agent responding"
+    },
+    {
+      "timestamp": "2025-08-05 21:53:14",
+      "test": "Local Observation Lounge",
+      "status": "PASS",
+      "details": "Enhanced AlexAI interface accessible"
+    },
+    {
+      "timestamp": "2025-08-05 21:53:24",
+      "test": "Local Deployment",
+      "status": "FAIL",
+      "details": "Connection error: HTTPConnectionPool(host='localhost', port=8000): Read timed out. (read timeout=10)"
+    },
+    {
+      "timestamp": "2025-08-05 21:53:24",
+      "test": "Remote Main Page",
+      "status": "PASSWORD_PROTECTED",
+      "details": "Requires authentication"
+    },
+    {
+      "timestamp": "2025-08-05 21:53:25",
+      "test": "Remote AlexAI Status",
+      "status": "PASSWORD_PROTECTED",
+      "details": "Requires authentication"
+    },
+    {
+      "timestamp": "2025-08-05 21:53:25",
+      "test": "Remote Dashboard",
+      "status": "FAIL",
+      "details": "Status: 401"
+    }
+  ],
+  "deployment_urls": {
+    "local": "http://localhost:8000",
+    "remote_main": "https://alexaikatratransferpackageremotev7-em8uv8wwo-pbradygeorgen.vercel.app",
+    "remote_dashboard": "https://alexaikatratransferpackageremotev7-5a0huy992-pbradygeorgen.vercel.app"
+  }
+}
