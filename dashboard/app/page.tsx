@@ -15,6 +15,9 @@ import {
   Clock,
   AlertCircle
 } from 'lucide-react'
+import { AgentStatus } from '@/components/AgentStatus'
+import { HolographicElements } from '@/components/HolographicElements'
+import { CrossDomainLinking } from '@/components/CrossDomainLinking'
 
 // Mock data for demonstration
 const mockProjects = [
@@ -239,11 +242,28 @@ export default function DashboardPage() {
         </div>
       </motion.div>
 
-      {/* Projects Grid */}
+      {/* Enhanced Dashboard Components */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
+        className="space-y-6"
+      >
+        {/* Agent Status */}
+        <AgentStatus />
+
+        {/* Holographic Elements */}
+        <HolographicElements />
+
+        {/* Cross-Domain Linking */}
+        <CrossDomainLinking />
+      </motion.div>
+
+      {/* Projects Grid */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.4 }}
       >
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-bold text-white">
