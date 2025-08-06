@@ -11,6 +11,7 @@ import json
 import uuid
 from datetime import datetime, timedelta
 from agile_project_manager import AgileProjectManager, Project, Task, TaskStatus, Priority, ProjectType
+from alexai_core_agent import alexai_core, AlexAIMode
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'alexai-agile-secret-key'
@@ -77,8 +78,12 @@ def index():
 
 @app.route('/observation-lounge')
 def observation_lounge():
-    """LCARS-style Observation Lounge"""
-    return render_template('observation_lounge.html')
+    """LCARS-style Observation Lounge with AlexAI consultation"""
+    crew_status = alexai_core.get_crew_status()
+    latest_analysis = alexai_core.get_latest_analysis()
+    return render_template('observation_lounge.html', 
+                         crew_status=crew_status, 
+                         latest_analysis=latest_analysis)
 
 @app.route('/agent/<agent_name>')
 def agent_detail(agent_name):
@@ -261,7 +266,7 @@ def api_create_task():
 
 @app.route('/api/agents/insights', methods=['POST'])
 def api_get_agent_insights():
-    """API endpoint to get multi-agent insights"""
+    """API endpoint to get multi-agent insights with AlexAI augmentation"""
     data = request.json
     context = data.get('context', '')
     
@@ -274,6 +279,81 @@ def api_get_agent_insights():
         loop.close()
     
     return jsonify({'success': True, 'insights': insights})
+
+@app.route('/api/alexai/consultation', methods=['POST'])
+def api_alexai_consultation():
+    """Get comprehensive AlexAI consultation"""
+    try:
+        data = request.get_json()
+        context = data.get('context', 'Comprehensive system analysis')
+        
+        # Conduct comprehensive AlexAI analysis
+        analysis = asyncio.run(alexai_core.conduct_comprehensive_analysis(context))
+        
+        return jsonify({
+            'success': True,
+            'analysis': {
+                'timestamp': analysis.timestamp.isoformat(),
+                'mode': analysis.mode.value,
+                'context': analysis.context,
+                'insights': analysis.insights,
+                'recommendations': analysis.recommendations,
+                'risk_assessment': analysis.risk_assessment,
+                'performance_metrics': analysis.performance_metrics,
+                'crew_coordination': analysis.crew_coordination,
+                'strategic_vision': analysis.strategic_vision
+            },
+            'timestamp': datetime.now().isoformat()
+        })
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+@app.route('/api/alexai/mode', methods=['POST'])
+def api_alexai_mode():
+    """Switch AlexAI operational mode"""
+    try:
+        data = request.get_json()
+        mode_name = data.get('mode', 'orchestrator')
+        
+        # Convert string to enum
+        mode = AlexAIMode(mode_name)
+        alexai_core.switch_mode(mode)
+        
+        return jsonify({
+            'success': True,
+            'mode': mode.value,
+            'message': f'AlexAI switched to {mode.value} mode'
+        })
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+@app.route('/api/alexai/status')
+def api_alexai_status():
+    """Get AlexAI system status"""
+    try:
+        crew_status = alexai_core.get_crew_status()
+        latest_analysis = alexai_core.get_latest_analysis()
+        
+        return jsonify({
+            'success': True,
+            'crew_status': crew_status,
+            'latest_analysis': {
+                'timestamp': latest_analysis.timestamp.isoformat() if latest_analysis else None,
+                'mode': latest_analysis.mode.value if latest_analysis else None,
+                'context': latest_analysis.context if latest_analysis else None
+            }
+        })
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
 
 @app.route('/api/workspace/scan', methods=['POST'])
 def api_scan_workspace():

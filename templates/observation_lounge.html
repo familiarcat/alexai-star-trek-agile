@@ -9,6 +9,31 @@
         min-height: 100vh;
     }
     
+    .alexai-core {
+        background: linear-gradient(135deg, #2a2a4e 0%, #1a1a3e 100%);
+        border-radius: 20px;
+        border: 3px solid #00ff88;
+        box-shadow: 0 8px 32px rgba(0, 255, 136, 0.3);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .alexai-core::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(45deg, transparent 30%, rgba(0, 255, 136, 0.1) 50%, transparent 70%);
+        animation: alexai-pulse 4s infinite;
+    }
+    
+    @keyframes alexai-pulse {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(100%); }
+    }
+    
     .crew-hologram {
         position: relative;
         overflow: hidden;
@@ -89,6 +114,23 @@
         box-shadow: 0 8px 25px rgba(255, 156, 0, 0.5);
     }
     
+    .alexai-button {
+        background: linear-gradient(135deg, #00ff88 0%, #00cc66 100%);
+        border: none;
+        border-radius: 8px;
+        color: white;
+        padding: 12px 20px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: bold;
+        font-size: 1.1em;
+    }
+    
+    .alexai-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 255, 136, 0.5);
+    }
+    
     .crew-stats {
         background: rgba(255, 255, 255, 0.05);
         border-radius: 10px;
@@ -98,54 +140,175 @@
     
     .observation-window {
         background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3e 100%);
-        border-radius: 20px;
-        border: 2px solid #9999cc;
-        position: relative;
-        overflow: hidden;
+        border-radius: 15px;
+        border: 2px solid #4a90e2;
+        box-shadow: 0 8px 32px rgba(74, 144, 226, 0.3);
     }
     
-    .observation-window::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="1" fill="white" opacity="0.3"/><circle cx="80" cy="40" r="1" fill="white" opacity="0.2"/><circle cx="40" cy="80" r="1" fill="white" opacity="0.4"/><circle cx="90" cy="90" r="1" fill="white" opacity="0.1"/></svg>');
-        animation: starfield 20s linear infinite;
+    .consultation-panel {
+        background: rgba(0, 255, 136, 0.05);
+        border-radius: 15px;
+        border: 2px solid #00ff88;
+        box-shadow: 0 8px 32px rgba(0, 255, 136, 0.2);
+        max-height: 400px;
+        overflow-y: auto;
     }
     
-    @keyframes starfield {
-        0% { transform: translateY(0); }
-        100% { transform: translateY(-100px); }
+    .mode-selector {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+    }
+    
+    .mode-button {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 6px;
+        color: white;
+        padding: 6px 12px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 0.9em;
+    }
+    
+    .mode-button.active {
+        background: linear-gradient(135deg, #00ff88 0%, #00cc66 100%);
+        border-color: #00ff88;
+    }
+    
+    .mode-button:hover {
+        background: rgba(0, 255, 136, 0.2);
+        border-color: #00ff88;
+    }
+    
+    .status-indicator {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        display: inline-block;
+        margin-left: 8px;
+    }
+    
+    .status-active {
+        background: #00ff88;
+        box-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+    }
+    
+    .status-inactive {
+        background: #ff4444;
+        box-shadow: 0 0 10px rgba(255, 68, 68, 0.5);
+    }
+    
+    .lcars-text {
+        color: #ffffff;
+        font-family: 'Courier New', monospace;
+    }
+    
+    .alexai-text {
+        color: #00ff88;
+        font-family: 'Courier New', monospace;
+        font-weight: bold;
+    }
+    
+    .consultation-result {
+        background: rgba(0, 255, 136, 0.1);
+        border-radius: 10px;
+        padding: 15px;
+        margin: 10px 0;
+        border-left: 4px solid #00ff88;
+    }
+    
+    .recommendation-item {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 8px;
+        padding: 10px;
+        margin: 8px 0;
+        border-left: 3px solid #ff9c00;
+    }
+    
+    .metric-display {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .metric-value {
+        font-weight: bold;
+        color: #00ff88;
     }
 </style>
 {% endblock %}
 
 {% block content %}
-<div class="observation-lounge">
-    <!-- Observation Lounge Header -->
-    <div class="lcars-panel p-6 mb-8">
-        <div class="flex justify-between items-center">
-            <div>
-                <h1 class="lcars-text text-4xl font-bold">Observation Lounge</h1>
-                <p class="lcars-text text-lg opacity-90">USS Enterprise NCC-1701-D - Crew Monitoring Station</p>
+<div class="observation-lounge p-8">
+    <!-- AlexAI Core Agent Section -->
+    <div class="alexai-core p-6 mb-8">
+        <div class="text-center mb-6">
+            <h1 class="alexai-text text-3xl font-bold mb-2">🤖 AlexAI Core Agent</h1>
+            <p class="lcars-text text-lg opacity-90">Central Orchestrator & Multimodal Agency Coordinator</p>
+        </div>
+        
+        <!-- Mode Selector -->
+        <div class="mode-selector justify-center">
+            <button class="mode-button active" onclick="switchAlexAIMode('orchestrator')">🎯 Orchestrator</button>
+            <button class="mode-button" onclick="switchAlexAIMode('analyzer')">🔍 Analyzer</button>
+            <button class="mode-button" onclick="switchAlexAIMode('strategist')">📊 Strategist</button>
+            <button class="mode-button" onclick="switchAlexAIMode('mediator')">🤝 Mediator</button>
+            <button class="mode-button" onclick="switchAlexAIMode('innovator')">💡 Innovator</button>
+            <button class="mode-button" onclick="switchAlexAIMode('monitor')">📈 Monitor</button>
+        </div>
+        
+        <!-- AlexAI Status -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+            <div class="metric-display">
+                <span class="lcars-text">Current Mode:</span>
+                <span class="metric-value" id="currentMode">Orchestrator</span>
             </div>
-            <div class="text-right">
-                <div class="lcars-text text-sm opacity-75">Location: Deck 10, Forward</div>
-                <div class="lcars-text text-sm opacity-75">Status: All Crew Members Active</div>
+            <div class="metric-display">
+                <span class="lcars-text">Crew Coordination:</span>
+                <span class="metric-value" id="crewCoordination">95%</span>
             </div>
+            <div class="metric-display">
+                <span class="lcars-text">System Efficiency:</span>
+                <span class="metric-value" id="systemEfficiency">92%</span>
+            </div>
+            <div class="metric-display">
+                <span class="lcars-text">Innovation Index:</span>
+                <span class="metric-value" id="innovationIndex">87%</span>
+            </div>
+        </div>
+        
+        <!-- AlexAI Actions -->
+        <div class="flex justify-center gap-4 mb-6">
+            <button class="alexai-button" onclick="conductAlexAIConsultation()">
+                <i class="fas fa-brain mr-2"></i>Conduct Comprehensive Analysis
+            </button>
+            <button class="alexai-button" onclick="getCrewInsights()">
+                <i class="fas fa-users mr-2"></i>Gather Crew Insights
+            </button>
+            <button class="alexai-button" onclick="scanWorkspace()">
+                <i class="fas fa-search mr-2"></i>Scan Workspace
+            </button>
+        </div>
+        
+        <!-- Consultation Results -->
+        <div id="consultationResults" class="consultation-panel p-4" style="display: none;">
+            <h3 class="alexai-text text-xl font-bold mb-4">AlexAI Consultation Results</h3>
+            <div id="consultationContent"></div>
         </div>
     </div>
 
-    <!-- Crew Holographic Display -->
-    <div class="grid grid-cols-1 lg:grid-cols-5 gap-6 mb-8">
+    <!-- Enhanced Crew Holograms -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
         <!-- Captain Picard -->
         <div class="crew-hologram p-6">
             <div class="text-center">
                 <div class="crew-avatar picard mb-4">
                     <lottie-player 
-                        src="https://assets2.lottiefiles.com/packages/lf20_xyadoh9h.json"
+                        src="https://assets8.lottiefiles.com/packages/lf20_xyadoh9h.json"
                         background="transparent"
                         speed="1"
                         style="width: 100%; height: 100%;"
@@ -157,12 +320,16 @@
                 <p class="lcars-text text-sm opacity-90 mb-4">Strategic Leadership & Decision Making</p>
                 <div class="crew-stats">
                     <div class="flex justify-between text-sm mb-2">
-                        <span class="lcars-text opacity-75">Active Decisions:</span>
-                        <span class="lcars-text font-semibold">12</span>
+                        <span class="lcars-text opacity-75">Strategic Accuracy:</span>
+                        <span class="lcars-text font-semibold">94%</span>
                     </div>
                     <div class="flex justify-between text-sm mb-2">
-                        <span class="lcars-text opacity-75">Risk Assessments:</span>
-                        <span class="lcars-text font-semibold">8</span>
+                        <span class="lcars-text opacity-75">Decision Speed:</span>
+                        <span class="lcars-text font-semibold">88%</span>
+                    </div>
+                    <div class="flex justify-between text-sm mb-2">
+                        <span class="lcars-text opacity-75">Project Success:</span>
+                        <span class="lcars-text font-semibold">96%</span>
                     </div>
                     <div class="flex justify-between text-sm">
                         <span class="lcars-text opacity-75">Status:</span>
@@ -180,7 +347,7 @@
             <div class="text-center">
                 <div class="crew-avatar troi mb-4">
                     <lottie-player 
-                        src="https://assets5.lottiefiles.com/packages/lf20_xyadoh9h.json"
+                        src="https://assets8.lottiefiles.com/packages/lf20_xyadoh9h.json"
                         background="transparent"
                         speed="1"
                         style="width: 100%; height: 100%;"
@@ -192,12 +359,16 @@
                 <p class="lcars-text text-sm opacity-90 mb-4">UX Analysis & Team Morale</p>
                 <div class="crew-stats">
                     <div class="flex justify-between text-sm mb-2">
-                        <span class="lcars-text opacity-75">UX Reviews:</span>
-                        <span class="lcars-text font-semibold">15</span>
+                        <span class="lcars-text opacity-75">Empathy Accuracy:</span>
+                        <span class="lcars-text font-semibold">96%</span>
                     </div>
                     <div class="flex justify-between text-sm mb-2">
-                        <span class="lcars-text opacity-75">Morale Reports:</span>
-                        <span class="lcars-text font-semibold">6</span>
+                        <span class="lcars-text opacity-75">UX Improvement:</span>
+                        <span class="lcars-text font-semibold">89%</span>
+                    </div>
+                    <div class="flex justify-between text-sm mb-2">
+                        <span class="lcars-text opacity-75">Team Morale:</span>
+                        <span class="lcars-text font-semibold">94%</span>
                     </div>
                     <div class="flex justify-between text-sm">
                         <span class="lcars-text opacity-75">Status:</span>
@@ -227,12 +398,16 @@
                 <p class="lcars-text text-sm opacity-90 mb-4">Logical Analysis & Time Management</p>
                 <div class="crew-stats">
                     <div class="flex justify-between text-sm mb-2">
-                        <span class="lcars-text opacity-75">Analyses:</span>
-                        <span class="lcars-text font-semibold">23</span>
+                        <span class="lcars-text opacity-75">Logical Accuracy:</span>
+                        <span class="lcars-text font-semibold">98%</span>
                     </div>
                     <div class="flex justify-between text-sm mb-2">
-                        <span class="lcars-text opacity-75">Efficiency Reports:</span>
-                        <span class="lcars-text font-semibold">11</span>
+                        <span class="lcars-text opacity-75">Efficiency:</span>
+                        <span class="lcars-text font-semibold">91%</span>
+                    </div>
+                    <div class="flex justify-between text-sm mb-2">
+                        <span class="lcars-text opacity-75">Scientific Rigor:</span>
+                        <span class="lcars-text font-semibold">95%</span>
                     </div>
                     <div class="flex justify-between text-sm">
                         <span class="lcars-text opacity-75">Status:</span>
@@ -262,11 +437,15 @@
                 <p class="lcars-text text-sm opacity-90 mb-4">UI Systems & Technical Implementation</p>
                 <div class="crew-stats">
                     <div class="flex justify-between text-sm mb-2">
-                        <span class="lcars-text opacity-75">System Reviews:</span>
-                        <span class="lcars-text font-semibold">18</span>
+                        <span class="lcars-text opacity-75">Code Quality:</span>
+                        <span class="lcars-text font-semibold">96%</span>
                     </div>
                     <div class="flex justify-between text-sm mb-2">
-                        <span class="lcars-text opacity-75">Code Quality:</span>
+                        <span class="lcars-text opacity-75">Implementation:</span>
+                        <span class="lcars-text font-semibold">89%</span>
+                    </div>
+                    <div class="flex justify-between text-sm mb-2">
+                        <span class="lcars-text opacity-75">System Reliability:</span>
                         <span class="lcars-text font-semibold">94%</span>
                     </div>
                     <div class="flex justify-between text-sm">
@@ -297,12 +476,16 @@
                 <p class="lcars-text text-sm opacity-90 mb-4">Infrastructure & Deployment</p>
                 <div class="crew-stats">
                     <div class="flex justify-between text-sm mb-2">
-                        <span class="lcars-text opacity-75">Deployments:</span>
-                        <span class="lcars-text font-semibold">7</span>
+                        <span class="lcars-text opacity-75">Deployment Success:</span>
+                        <span class="lcars-text font-semibold">97%</span>
                     </div>
                     <div class="flex justify-between text-sm mb-2">
-                        <span class="lcars-text opacity-75">System Health:</span>
-                        <span class="lcars-text font-semibold">98%</span>
+                        <span class="lcars-text opacity-75">System Uptime:</span>
+                        <span class="lcars-text font-semibold">99.5%</span>
+                    </div>
+                    <div class="flex justify-between text-sm mb-2">
+                        <span class="lcars-text opacity-75">Infrastructure:</span>
+                        <span class="lcars-text font-semibold">93%</span>
                     </div>
                     <div class="flex justify-between text-sm">
                         <span class="lcars-text opacity-75">Status:</span>
@@ -334,6 +517,7 @@
             <div class="lcars-text text-sm opacity-75">
                 <p>Viewing: Deep Space - Current Mission Status</p>
                 <p>Warp Factor: 6.0 | Shields: 100% | Weapons: Standby</p>
+                <p>AlexAI Status: Active | Crew Coordination: Optimal</p>
             </div>
         </div>
 
@@ -350,84 +534,71 @@
                     <span class="lcars-text font-semibold text-blue-400">100%</span>
                 </div>
                 <div class="flex justify-between items-center">
-                    <span class="lcars-text">Life Support:</span>
-                    <span class="lcars-text font-semibold text-green-400">Optimal</span>
+                    <span class="lcars-text">AlexAI Core:</span>
+                    <span class="alexai-text font-semibold">Active</span>
                 </div>
                 <div class="flex justify-between items-center">
-                    <span class="lcars-text">Communications:</span>
-                    <span class="lcars-text font-semibold text-green-400">Online</span>
+                    <span class="lcars-text">Crew Coordination:</span>
+                    <span class="lcars-text font-semibold text-green-400">95%</span>
                 </div>
                 <div class="flex justify-between items-center">
-                    <span class="lcars-text">Sensors:</span>
-                    <span class="lcars-text font-semibold text-green-400">Active</span>
+                    <span class="lcars-text">Multimodal Agency:</span>
+                    <span class="lcars-text font-semibold text-blue-400">Optimal</span>
                 </div>
             </div>
             
-            <div class="mt-6 space-y-3">
-                <button class="lcars-button w-full" onclick="getCrewInsights()">
-                    <i class="fas fa-lightbulb mr-2"></i>Get Crew Insights
-                </button>
-                <button class="lcars-button w-full" onclick="scanWorkspace()">
-                    <i class="fas fa-search mr-2"></i>Scan Workspace
-                </button>
-                <button class="lcars-button w-full" onclick="window.location.href='/'">
-                    <i class="fas fa-tachometer-alt mr-2"></i>Return to Bridge
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Recent Crew Activities -->
-    <div class="lcars-accent p-6 mt-8">
-        <h2 class="lcars-text text-2xl font-bold mb-6">Recent Crew Activities</h2>
-        <div class="space-y-4">
-            <div class="bg-white bg-opacity-10 rounded-lg p-4">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <h4 class="lcars-text font-semibold">Captain Picard - Strategic Decision</h4>
-                        <p class="lcars-text text-sm opacity-75">Approved deployment strategy for new project architecture</p>
+            <div class="mt-6">
+                <h3 class="lcars-text text-lg font-bold mb-4">Recent Activities</h3>
+                <div class="space-y-3">
+                    <div class="bg-white bg-opacity-10 rounded-lg p-4">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h4 class="alexai-text font-semibold">AlexAI - Comprehensive Analysis</h4>
+                                <p class="lcars-text text-sm opacity-75">Conducted multimodal analysis of all crew activities</p>
+                            </div>
+                            <span class="lcars-text text-xs opacity-60">2 minutes ago</span>
+                        </div>
                     </div>
-                    <span class="lcars-text text-xs opacity-60">2 minutes ago</span>
-                </div>
-            </div>
 
-            <div class="bg-white bg-opacity-10 rounded-lg p-4">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <h4 class="lcars-text font-semibold">Counselor Troi - UX Analysis</h4>
-                        <p class="lcars-text text-sm opacity-75">Completed user experience review for dashboard interface</p>
+                    <div class="bg-white bg-opacity-10 rounded-lg p-4">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h4 class="lcars-text font-semibold">Captain Picard - Strategic Review</h4>
+                                <p class="lcars-text text-sm opacity-75">Enhanced decision-making with AlexAI augmentation</p>
+                            </div>
+                            <span class="lcars-text text-xs opacity-60">5 minutes ago</span>
+                        </div>
                     </div>
-                    <span class="lcars-text text-xs opacity-60">5 minutes ago</span>
-                </div>
-            </div>
 
-            <div class="bg-white bg-opacity-10 rounded-lg p-4">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <h4 class="lcars-text font-semibold">Mr. Spock - Efficiency Report</h4>
-                        <p class="lcars-text text-sm opacity-75">Identified optimization opportunities in task workflow</p>
+                    <div class="bg-white bg-opacity-10 rounded-lg p-4">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h4 class="lcars-text font-semibold">Mr. Spock - Efficiency Report</h4>
+                                <p class="lcars-text text-sm opacity-75">Optimization analysis with predictive modeling</p>
+                            </div>
+                            <span class="lcars-text text-xs opacity-60">8 minutes ago</span>
+                        </div>
                     </div>
-                    <span class="lcars-text text-xs opacity-60">8 minutes ago</span>
-                </div>
-            </div>
 
-            <div class="bg-white bg-opacity-10 rounded-lg p-4">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <h4 class="lcars-text font-semibold">Lt. Commander Data - System Review</h4>
-                        <p class="lcars-text text-sm opacity-75">Completed code quality assessment for new features</p>
+                    <div class="bg-white bg-opacity-10 rounded-lg p-4">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h4 class="lcars-text font-semibold">Lt. Commander Data - System Review</h4>
+                                <p class="lcars-text text-sm opacity-75">AI-assisted code quality assessment completed</p>
+                            </div>
+                            <span class="lcars-text text-xs opacity-60">12 minutes ago</span>
+                        </div>
                     </div>
-                    <span class="lcars-text text-xs opacity-60">12 minutes ago</span>
-                </div>
-            </div>
 
-            <div class="bg-white bg-opacity-10 rounded-lg p-4">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <h4 class="lcars-text font-semibold">Chief Engineer Scott - Deployment</h4>
-                        <p class="lcars-text text-sm opacity-75">Successfully deployed new version to production</p>
+                    <div class="bg-white bg-opacity-10 rounded-lg p-4">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h4 class="lcars-text font-semibold">Chief Engineer Scott - Deployment</h4>
+                                <p class="lcars-text text-sm opacity-75">Automated deployment with predictive maintenance</p>
+                            </div>
+                            <span class="lcars-text text-xs opacity-60">15 minutes ago</span>
+                        </div>
                     </div>
-                    <span class="lcars-text text-xs opacity-60">15 minutes ago</span>
                 </div>
             </div>
         </div>
@@ -458,6 +629,153 @@
 
     function hideLoadingSpinner() {
         document.getElementById('loadingSpinner').classList.add('hidden');
+    }
+
+    function switchAlexAIMode(mode) {
+        showLoadingSpinner();
+        
+        // Update UI
+        document.querySelectorAll('.mode-button').forEach(btn => btn.classList.remove('active'));
+        event.target.classList.add('active');
+        
+        fetch('/api/alexai/mode', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ mode: mode })
+        })
+        .then(response => response.json())
+        .then(data => {
+            hideLoadingSpinner();
+            if (data.success) {
+                document.getElementById('currentMode').textContent = mode.charAt(0).toUpperCase() + mode.slice(1);
+                alert(`AlexAI switched to ${mode} mode`);
+            } else {
+                alert('Error switching AlexAI mode');
+            }
+        })
+        .catch(error => {
+            hideLoadingSpinner();
+            console.error('Error:', error);
+            alert('Error switching AlexAI mode');
+        });
+    }
+
+    function conductAlexAIConsultation() {
+        showLoadingSpinner();
+        
+        const context = `Observation Lounge: Comprehensive system analysis requested. 
+                        All crew members active with AlexAI augmentation. 
+                        Current mission: Multimodal agency coordination and project management. 
+                        Status: All systems operational with enhanced capabilities.`;
+        
+        fetch('/api/alexai/consultation', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ context: context })
+        })
+        .then(response => response.json())
+        .then(data => {
+            hideLoadingSpinner();
+            if (data.success) {
+                displayConsultationResults(data.analysis);
+            } else {
+                alert('Error conducting AlexAI consultation');
+            }
+        })
+        .catch(error => {
+            hideLoadingSpinner();
+            console.error('Error:', error);
+            alert('Error conducting AlexAI consultation');
+        });
+    }
+
+    function displayConsultationResults(analysis) {
+        const resultsDiv = document.getElementById('consultationResults');
+        const contentDiv = document.getElementById('consultationContent');
+        
+        let html = `
+            <div class="consultation-result">
+                <h4 class="alexai-text font-bold mb-2">Strategic Vision</h4>
+                <p class="lcars-text text-sm">${analysis.strategic_vision}</p>
+            </div>
+            
+            <div class="consultation-result">
+                <h4 class="alexai-text font-bold mb-2">Performance Metrics</h4>
+                <div class="grid grid-cols-2 gap-2">
+                    <div class="metric-display">
+                        <span class="lcars-text text-sm">Crew Performance:</span>
+                        <span class="metric-value">${analysis.performance_metrics.crew_performance?.toFixed(1) || 'N/A'}%</span>
+                    </div>
+                    <div class="metric-display">
+                        <span class="lcars-text text-sm">Coordination:</span>
+                        <span class="metric-value">${analysis.performance_metrics.coordination_efficiency?.toFixed(1) || 'N/A'}%</span>
+                    </div>
+                    <div class="metric-display">
+                        <span class="lcars-text text-sm">Project Velocity:</span>
+                        <span class="metric-value">${analysis.performance_metrics.project_velocity?.toFixed(1) || 'N/A'}%</span>
+                    </div>
+                    <div class="metric-display">
+                        <span class="lcars-text text-sm">Innovation Index:</span>
+                        <span class="metric-value">${analysis.performance_metrics.innovation_index?.toFixed(1) || 'N/A'}%</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="consultation-result">
+                <h4 class="alexai-text font-bold mb-2">Recommendations</h4>
+                <div class="space-y-2">
+        `;
+        
+        if (analysis.recommendations && analysis.recommendations.length > 0) {
+            analysis.recommendations.forEach((rec, index) => {
+                html += `
+                    <div class="recommendation-item">
+                        <span class="lcars-text text-sm font-semibold">${index + 1}.</span>
+                        <span class="lcars-text text-sm">${rec}</span>
+                    </div>
+                `;
+            });
+        } else {
+            html += '<p class="lcars-text text-sm opacity-75">No specific recommendations available.</p>';
+        }
+        
+        html += `
+                </div>
+            </div>
+            
+            <div class="consultation-result">
+                <h4 class="alexai-text font-bold mb-2">Risk Assessment</h4>
+                <p class="lcars-text text-sm">${analysis.risk_assessment.assessment || 'Risk assessment data not available.'}</p>
+            </div>
+            
+            <div class="consultation-result">
+                <h4 class="alexai-text font-bold mb-2">Crew Coordination</h4>
+                <p class="lcars-text text-sm">Coordination Score: ${analysis.crew_coordination.coordination_score?.toFixed(1) || 'N/A'}%</p>
+                <p class="lcars-text text-sm">Active Collaborations: ${analysis.crew_coordination.active_collaborations?.length || 0}</p>
+            </div>
+        `;
+        
+        contentDiv.innerHTML = html;
+        resultsDiv.style.display = 'block';
+        
+        // Update system metrics
+        updateSystemMetrics(analysis.performance_metrics);
+    }
+
+    function updateSystemMetrics(metrics) {
+        if (metrics.coordination_efficiency) {
+            document.getElementById('crewCoordination').textContent = metrics.coordination_efficiency.toFixed(0) + '%';
+        }
+        if (metrics.project_velocity) {
+            document.getElementById('systemEfficiency').textContent = metrics.project_velocity.toFixed(0) + '%';
+        }
+        if (metrics.innovation_index) {
+            document.getElementById('innovationIndex').textContent = metrics.innovation_index.toFixed(0) + '%';
+        }
     }
 
     function getCrewInsights() {
@@ -510,5 +828,23 @@
                 alert('Error scanning workspace');
             });
     }
+
+    // Initialize AlexAI status on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        fetch('/api/alexai/status')
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    const crewStatus = data.crew_status;
+                    document.getElementById('currentMode').textContent = crewStatus.current_mode.charAt(0).toUpperCase() + crewStatus.current_mode.slice(1);
+                    document.getElementById('crewCoordination').textContent = crewStatus.system_health.crew_coordination.toFixed(0) + '%';
+                    document.getElementById('systemEfficiency').textContent = crewStatus.system_health.system_efficiency.toFixed(0) + '%';
+                    document.getElementById('innovationIndex').textContent = crewStatus.system_health.innovation_index.toFixed(0) + '%';
+                }
+            })
+            .catch(error => {
+                console.error('Error loading AlexAI status:', error);
+            });
+    });
 </script>
 {% endblock %} 
