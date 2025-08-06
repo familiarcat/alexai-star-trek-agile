@@ -1,0 +1,366 @@
+{% extends "base.html" %}
+
+{% block title %}{{ project.name }} - AlexAI Agile Project Manager{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+    <!-- Project Header -->
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <div class="flex justify-between items-start">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-900">{{ project.name }}</h1>
+                <p class="text-gray-600 mt-2">{{ project.description }}</p>
+                <div class="flex items-center mt-4 space-x-4">
+                    <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">
+                        {{ project.project_type.value }}
+                    </span>
+                    <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium">
+                        {{ project.status }}
+                    </span>
+                </div>
+            </div>
+            <div class="flex space-x-3">
+                <button onclick="getProjectInsights()" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg flex items-center">
+                    <i class="fas fa-lightbulb mr-2"></i>Get AI Insights
+                </button>
+                <button onclick="showCreateTaskModal()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg flex items-center">
+                    <i class="fas fa-plus mr-2"></i>Add Task
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project Metrics -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <div class="flex items-center">
+                <div class="p-3 rounded-full bg-blue-100 text-blue-600">
+                    <i class="fas fa-tasks text-xl"></i>
+                </div>
+                <div class="ml-4">
+                    <p class="text-sm font-medium text-gray-600">Total Tasks</p>
+                    <p class="text-2xl font-semibold text-gray-900">{{ metrics.total_tasks }}</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <div class="flex items-center">
+                <div class="p-3 rounded-full bg-green-100 text-green-600">
+                    <i class="fas fa-check-circle text-xl"></i>
+                </div>
+                <div class="ml-4">
+                    <p class="text-sm font-medium text-gray-600">Completed</p>
+                    <p class="text-2xl font-semibold text-gray-900">{{ metrics.completed_tasks }}</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <div class="flex items-center">
+                <div class="p-3 rounded-full bg-yellow-100 text-yellow-600">
+                    <i class="fas fa-clock text-xl"></i>
+                </div>
+                <div class="ml-4">
+                    <p class="text-sm font-medium text-gray-600">In Progress</p>
+                    <p class="text-2xl font-semibold text-gray-900">{{ metrics.in_progress_tasks }}</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <div class="flex items-center">
+                <div class="p-3 rounded-full bg-purple-100 text-purple-600">
+                    <i class="fas fa-chart-line text-xl"></i>
+                </div>
+                <div class="ml-4">
+                    <p class="text-sm font-medium text-gray-600">Velocity</p>
+                    <p class="text-2xl font-semibold text-gray-900">{{ metrics.velocity }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Kanban Board -->
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <h2 class="text-xl font-semibold mb-6 flex items-center">
+            <i class="fas fa-columns mr-2 text-blue-600"></i>
+            Kanban Board
+        </h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <!-- Todo Column -->
+            <div class="bg-gray-50 rounded-lg p-4">
+                <h3 class="font-semibold text-gray-700 mb-4 flex items-center">
+                    <i class="fas fa-list mr-2"></i>
+                    To Do ({{ kanban_board.todo|length }})
+                </h3>
+                <div class="space-y-3" id="todo-column">
+                    {% for task in kanban_board.todo %}
+                    <div class="bg-white rounded-lg p-3 shadow-sm border-l-4 border-gray-400">
+                        <h4 class="font-medium text-gray-900">{{ task.title }}</h4>
+                        <p class="text-sm text-gray-600 mt-1">{{ task.description[:100] }}...</p>
+                        <div class="flex justify-between items-center mt-2">
+                            <span class="px-2 py-1 text-xs rounded-full {{ getPriorityColor(task.priority.value) }}">
+                                {{ task.priority.value }}
+                            </span>
+                            {% if task.story_points %}
+                            <span class="text-xs text-gray-500">{{ task.story_points }} pts</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- In Progress Column -->
+            <div class="bg-gray-50 rounded-lg p-4">
+                <h3 class="font-semibold text-gray-700 mb-4 flex items-center">
+                    <i class="fas fa-play mr-2"></i>
+                    In Progress ({{ kanban_board.in_progress|length }})
+                </h3>
+                <div class="space-y-3" id="in-progress-column">
+                    {% for task in kanban_board.in_progress %}
+                    <div class="bg-white rounded-lg p-3 shadow-sm border-l-4 border-blue-400">
+                        <h4 class="font-medium text-gray-900">{{ task.title }}</h4>
+                        <p class="text-sm text-gray-600 mt-1">{{ task.description[:100] }}...</p>
+                        <div class="flex justify-between items-center mt-2">
+                            <span class="px-2 py-1 text-xs rounded-full {{ getPriorityColor(task.priority.value) }}">
+                                {{ task.priority.value }}
+                            </span>
+                            {% if task.assignee %}
+                            <span class="text-xs text-blue-600">{{ task.assignee }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Review Column -->
+            <div class="bg-gray-50 rounded-lg p-4">
+                <h3 class="font-semibold text-gray-700 mb-4 flex items-center">
+                    <i class="fas fa-eye mr-2"></i>
+                    Review ({{ kanban_board.review|length }})
+                </h3>
+                <div class="space-y-3" id="review-column">
+                    {% for task in kanban_board.review %}
+                    <div class="bg-white rounded-lg p-3 shadow-sm border-l-4 border-purple-400">
+                        <h4 class="font-medium text-gray-900">{{ task.title }}</h4>
+                        <p class="text-sm text-gray-600 mt-1">{{ task.description[:100] }}...</p>
+                        <div class="flex justify-between items-center mt-2">
+                            <span class="px-2 py-1 text-xs rounded-full {{ getPriorityColor(task.priority.value) }}">
+                                {{ task.priority.value }}
+                            </span>
+                            {% if task.assignee %}
+                            <span class="text-xs text-purple-600">{{ task.assignee }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Done Column -->
+            <div class="bg-gray-50 rounded-lg p-4">
+                <h3 class="font-semibold text-gray-700 mb-4 flex items-center">
+                    <i class="fas fa-check mr-2"></i>
+                    Done ({{ kanban_board.done|length }})
+                </h3>
+                <div class="space-y-3" id="done-column">
+                    {% for task in kanban_board.done %}
+                    <div class="bg-white rounded-lg p-3 shadow-sm border-l-4 border-green-400">
+                        <h4 class="font-medium text-gray-900">{{ task.title }}</h4>
+                        <p class="text-sm text-gray-600 mt-1">{{ task.description[:100] }}...</p>
+                        <div class="flex justify-between items-center mt-2">
+                            <span class="px-2 py-1 text-xs rounded-full bg-green-100 text-green-800">
+                                Completed
+                            </span>
+                            {% if task.assignee %}
+                            <span class="text-xs text-green-600">{{ task.assignee }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Insights Panel -->
+    <div id="projectInsights" class="hidden bg-white rounded-lg shadow-md p-6">
+        <h3 class="text-lg font-semibold mb-4 flex items-center">
+            <i class="fas fa-lightbulb mr-2 text-yellow-600"></i>
+            AI Agent Insights for {{ project.name }}
+        </h3>
+        <div id="projectInsightsContent" class="space-y-4">
+            <!-- Insights will be populated here -->
+        </div>
+    </div>
+</div>
+
+<!-- Create Task Modal -->
+<div id="createTaskModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+    <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+        <div class="mt-3">
+            <h3 class="text-lg font-semibold mb-4">Create New Task</h3>
+            <form id="createTaskForm">
+                <input type="hidden" id="taskProjectId" value="{{ project.id }}">
+                
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2">Task Title</label>
+                    <input type="text" id="taskTitle" required 
+                           class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+                
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2">Description</label>
+                    <textarea id="taskDescription" rows="3"
+                              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
+                </div>
+                
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2">Priority</label>
+                    <select id="taskPriority" required
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        <option value="low">Low</option>
+                        <option value="medium" selected>Medium</option>
+                        <option value="high">High</option>
+                        <option value="critical">Critical</option>
+                    </select>
+                </div>
+                
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2">Story Points</label>
+                    <input type="number" id="taskStoryPoints" min="1" max="13"
+                           class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+                
+                <div class="flex justify-end space-x-3">
+                    <button type="button" onclick="hideCreateTaskModal()" 
+                            class="bg-gray-500 hover:bg-gray-700 text-white px-4 py-2 rounded">
+                        Cancel
+                    </button>
+                    <button type="submit" 
+                            class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">
+                        Create Task
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Loading Spinner -->
+<div id="loadingSpinner" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+    <div class="relative top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+        <div class="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
+        <p class="text-white text-center mt-4">Processing...</p>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    function showLoadingSpinner() {
+        document.getElementById('loadingSpinner').classList.remove('hidden');
+    }
+
+    function hideLoadingSpinner() {
+        document.getElementById('loadingSpinner').classList.add('hidden');
+    }
+
+    function getProjectInsights() {
+        showLoadingSpinner();
+        
+        const context = `Project: ${document.querySelector('h1').textContent}. 
+                        Type: {{ project.project_type.value }}. 
+                        Status: {{ project.status }}. 
+                        Tasks: {{ metrics.total_tasks }} total, {{ metrics.completed_tasks }} completed.`;
+        
+        fetch('/api/agents/insights', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ context: context })
+        })
+        .then(response => response.json())
+        .then(data => {
+            hideLoadingSpinner();
+            if (data.success) {
+                displayProjectInsights(data.insights);
+            } else {
+                alert('Error getting project insights');
+            }
+        })
+        .catch(error => {
+            hideLoadingSpinner();
+            console.error('Error:', error);
+            alert('Error getting project insights');
+        });
+    }
+
+    function displayProjectInsights(insights) {
+        const insightsDiv = document.getElementById('projectInsights');
+        const contentDiv = document.getElementById('projectInsightsContent');
+        
+        contentDiv.innerHTML = Object.entries(insights).map(([agent, insight]) => `
+            <div class="border rounded-lg p-4">
+                <h4 class="font-semibold mb-2">${agent.charAt(0).toUpperCase() + agent.slice(1)}</h4>
+                <p class="text-gray-700 text-sm">${insight}</p>
+            </div>
+        `).join('');
+        
+        insightsDiv.classList.remove('hidden');
+    }
+
+    function showCreateTaskModal() {
+        document.getElementById('createTaskModal').classList.remove('hidden');
+    }
+
+    function hideCreateTaskModal() {
+        document.getElementById('createTaskModal').classList.add('hidden');
+    }
+
+    // Handle create task form submission
+    document.getElementById('createTaskForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const formData = {
+            title: document.getElementById('taskTitle').value,
+            description: document.getElementById('taskDescription').value,
+            priority: document.getElementById('taskPriority').value,
+            story_points: parseInt(document.getElementById('taskStoryPoints').value) || null,
+            project_id: document.getElementById('taskProjectId').value,
+            status: 'todo'
+        };
+
+        showLoadingSpinner();
+
+        fetch('/api/tasks', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            hideLoadingSpinner();
+            if (data.success) {
+                alert('Task created successfully!');
+                hideCreateTaskModal();
+                location.reload();
+            } else {
+                alert('Error creating task: ' + data.error);
+            }
+        })
+        .catch(error => {
+            hideLoadingSpinner();
+            console.error('Error:', error);
+            alert('Error creating task');
+        });
+    });
+</script>
+{% endblock %} 
