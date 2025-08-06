@@ -1,7 +1,9 @@
+# AlexAI Star Trek Agile System - Git Ignore
+
 # Python
 __pycache__/
 *.py[cod]
-*.class
+*$py.class
 *.so
 .Python
 build/
@@ -29,33 +31,45 @@ ENV/
 env.bak/
 venv.bak/
 
-# Database
-*.db
-*.sqlite
-*.sqlite3
-
 # IDE
 .vscode/
 .idea/
 *.swp
 *.swo
+*~
 
 # OS
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
 
 # Logs
-*.log
+storage/logs/*
+!storage/logs/.gitkeep
+
+# Database
+storage/database/*.db
+storage/database/*.sqlite
+
+# Uploads
+storage/uploads/*
+!storage/uploads/.gitkeep
+
+# Testing
+.coverage
+.pytest_cache/
+htmlcov/
+
+# Deployment
+.vercel/
+.railway/
+.heroku/
 
 # Temporary files
 *.tmp
 *.temp
-
-# Secrets and passwords
-supabase_db_password
-*_password
-*_secret
-*_key
-.vercel
-dashboard/node_modules/
-dashboard/.next/
+*.log

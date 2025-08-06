@@ -352,7 +352,7 @@ Reports are automatically generated in `deployment_reports/`:
 **Solution:**
 ```bash
 # Check import structure manually
-python -c "from src.core.app import app; print('OK')"
+python -c "from app.core.app import app; print('OK')"
 
 # Verify required files exist
 ls -la main.py src/core/app.py

@@ -1,19 +1,19 @@
 #!/usr/bin/env python3
 """
 AlexAI Star Trek Agile System - Main Entry Point
-Reorganized for junior developer accessibility
+Modern 2025 structure with consolidated deployment
 """
 
-import sys
 import os
+import sys
 from pathlib import Path
 
-# Add src directory to Python path
-src_path = Path(__file__).parent / "src"
-sys.path.insert(0, str(src_path))
+# Add app directory to Python path
+app_path = Path(__file__).parent / "app"
+sys.path.insert(0, str(app_path))
 
 # Import the main application
-from src.core.app import app
+from core.app import app
 
 if __name__ == "__main__":
     # Set environment variables for development
@@ -25,4 +25,4 @@ if __name__ == "__main__":
         host='0.0.0.0',
         port=8000,
         debug=True
-    ) 
+    )

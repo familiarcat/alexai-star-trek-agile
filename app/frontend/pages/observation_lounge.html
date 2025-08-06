@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlexAI Star Trek Agile System - Observation Lounge</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .lcars-gradient {
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 25%, #ffd23f 50%, #06ffa5 75%, #00d4ff 100%);
+        }
+        .lcars-panel {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            border: 2px solid #ff6b35;
+            border-radius: 15px;
+        }
+        .lcars-button {
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            border: none;
+            border-radius: 25px;
+            color: white;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        .lcars-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 107, 53, 0.5);
+        }
+        .crew-member {
+            background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
+            border: 2px solid #ff6b35;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+        .crew-member:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 107, 53, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white min-h-screen">
+    <!-- Navigation -->
+    <nav class="lcars-panel p-4 mb-8">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <i class="fas fa-eye text-3xl text-orange-400"></i>
+                <h1 class="text-2xl font-bold text-orange-400">Observation Lounge</h1>
+            </div>
+            <div class="flex space-x-4">
+                <a href="/" class="lcars-button px-6 py-2">Dashboard</a>
+                <a href="/projects" class="lcars-button px-6 py-2">Projects</a>
+                <a href="/observation-lounge" class="lcars-button px-6 py-2">Observation Lounge</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-4">
+        <!-- Welcome Section -->
+        <div class="lcars-panel p-8 mb-8">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold text-orange-400 mb-4">Observation Lounge</h2>
+                <p class="text-xl text-gray-300 mb-6">Strategic consultation with the AlexAI crew</p>
+                <div class="flex justify-center space-x-4">
+                    <button onclick="requestConsultation()" class="lcars-button px-8 py-3 text-lg">
+                        <i class="fas fa-robot mr-2"></i>Request Consultation
+                    </button>
+                    <button onclick="switchMode()" class="lcars-button px-8 py-3 text-lg">
+                        <i class="fas fa-cog mr-2"></i>Switch Mode
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Crew Status -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            <div class="crew-member p-6">
+                <div class="text-center">
+                    <i class="fas fa-crown text-4xl text-red-400 mb-4"></i>
+                    <h3 class="text-xl font-bold text-red-400">Captain Picard</h3>
+                    <p class="text-gray-300 text-sm mb-2">Strategic Leadership</p>
+                    <div class="text-xs text-gray-400">
+                        <div class="flex justify-between">
+                            <span>Decision Speed:</span>
+                            <span id="picard-decision">-</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Success Rate:</span>
+                            <span id="picard-success">-</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="crew-member p-6">
+                <div class="text-center">
+                    <i class="fas fa-heart text-4xl text-green-400 mb-4"></i>
+                    <h3 class="text-xl font-bold text-green-400">Counselor Troi</h3>
+                    <p class="text-gray-300 text-sm mb-2">UX & Team Morale</p>
+                    <div class="text-xs text-gray-400">
+                        <div class="flex justify-between">
+                            <span>Empathy:</span>
+                            <span id="troi-empathy">-</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Team Morale:</span>
+                            <span id="troi-morale">-</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="crew-member p-6">
+                <div class="text-center">
+                    <i class="fas fa-brain text-4xl text-yellow-400 mb-4"></i>
+                    <h3 class="text-xl font-bold text-yellow-400">Mr. Spock</h3>
+                    <p class="text-gray-300 text-sm mb-2">Logical Analysis</p>
+                    <div class="text-xs text-gray-400">
+                        <div class="flex justify-between">
+                            <span>Logic Accuracy:</span>
+                            <span id="spock-logic">-</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Efficiency:</span>
+                            <span id="spock-efficiency">-</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="crew-member p-6">
+                <div class="text-center">
+                    <i class="fas fa-microchip text-4xl text-purple-400 mb-4"></i>
+                    <h3 class="text-xl font-bold text-purple-400">Lt. Commander Data</h3>
+                    <p class="text-gray-300 text-sm mb-2">UI Systems</p>
+                    <div class="text-xs text-gray-400">
+                        <div class="flex justify-between">
+                            <span>Code Quality:</span>
+                            <span id="data-quality">-</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Implementation:</span>
+                            <span id="data-implementation">-</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="crew-member p-6">
+                <div class="text-center">
+                    <i class="fas fa-cogs text-4xl text-pink-400 mb-4"></i>
+                    <h3 class="text-xl font-bold text-pink-400">Chief Engineer Scott</h3>
+                    <p class="text-gray-300 text-sm mb-2">Infrastructure</p>
+                    <div class="text-xs text-gray-400">
+                        <div class="flex justify-between">
+                            <span>Deployment:</span>
+                            <span id="scott-deployment">-</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>System Uptime:</span>
+                            <span id="scott-uptime">-</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Consultation Results -->
+        <div class="lcars-panel p-6">
+            <h3 class="text-2xl font-bold text-orange-400 mb-4">
+                <i class="fas fa-comments mr-2"></i>Latest Consultation
+            </h3>
+            <div id="consultation-results" class="space-y-4">
+                <div class="text-center text-gray-400">
+                    <i class="fas fa-info-circle text-2xl mb-2"></i>
+                    <p>Click "Request Consultation" to get strategic insights from the AlexAI crew</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- System Health -->
+        <div class="lcars-panel p-6 mt-8">
+            <h3 class="text-2xl font-bold text-orange-400 mb-4">
+                <i class="fas fa-heartbeat mr-2"></i>System Health
+            </h3>
+            <div id="system-health" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-green-400" id="overall-status">-</div>
+                    <div class="text-sm text-gray-300">Overall Status</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-blue-400" id="crew-coordination">-</div>
+                    <div class="text-sm text-gray-300">Crew Coordination</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-purple-400" id="project-velocity">-</div>
+                    <div class="text-sm text-gray-300">Project Velocity</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-orange-400" id="system-efficiency">-</div>
+                    <div class="text-sm text-gray-300">System Efficiency</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Socket.IO
+        const socket = io();
+
+        // Load crew status
+        async function loadCrewStatus() {
+            try {
+                const response = await fetch('/api/alexai/status');
+                const data = await response.json();
+                
+                if (data.success) {
+                    const crewStatus = data.crew_status;
+                    
+                    // Update crew member stats
+                    document.getElementById('picard-decision').textContent = crewStatus.crew_members.picard.performance_metrics.decision_speed + '%';
+                    document.getElementById('picard-success').textContent = crewStatus.crew_members.picard.performance_metrics.project_success_rate + '%';
+                    
+                    document.getElementById('troi-empathy').textContent = crewStatus.crew_members.troi.performance_metrics.empathy_accuracy + '%';
+                    document.getElementById('troi-morale').textContent = crewStatus.crew_members.troi.performance_metrics.team_morale_index + '%';
+                    
+                    document.getElementById('spock-logic').textContent = crewStatus.crew_members.spock.performance_metrics.logical_accuracy + '%';
+                    document.getElementById('spock-efficiency').textContent = crewStatus.crew_members.spock.performance_metrics.efficiency_improvement + '%';
+                    
+                    document.getElementById('data-quality').textContent = crewStatus.crew_members.data.performance_metrics.code_quality + '%';
+                    document.getElementById('data-implementation').textContent = crewStatus.crew_members.data.performance_metrics.implementation_speed + '%';
+                    
+                    document.getElementById('scott-deployment').textContent = crewStatus.crew_members.scott.performance_metrics.deployment_success_rate + '%';
+                    document.getElementById('scott-uptime').textContent = crewStatus.crew_members.scott.performance_metrics.system_uptime + '%';
+                    
+                    // Update system health
+                    document.getElementById('overall-status').textContent = crewStatus.system_health.overall_status;
+                    document.getElementById('crew-coordination').textContent = crewStatus.system_health.crew_coordination + '%';
+                    document.getElementById('project-velocity').textContent = crewStatus.system_health.project_velocity + '%';
+                    document.getElementById('system-efficiency').textContent = crewStatus.system_health.system_efficiency + '%';
+                }
+            } catch (error) {
+                console.error('Error loading crew status:', error);
+            }
+        }
+
+        // Request consultation
+        async function requestConsultation() {
+            const resultsContainer = document.getElementById('consultation-results');
+            resultsContainer.innerHTML = `
+                <div class="text-center text-gray-400">
+                    <i class="fas fa-spinner fa-spin text-2xl mb-2"></i>
+                    <p>Consulting with the AlexAI crew...</p>
+                </div>
+            `;
+            
+            try {
+                const response = await fetch('/api/alexai/consultation', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        context: 'Comprehensive system analysis and strategic recommendations'
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    const analysis = data.analysis;
+                    resultsContainer.innerHTML = `
+                        <div class="space-y-4">
+                            <div class="bg-blue-50 border-l-4 border-blue-400 p-4">
+                                <h4 class="font-semibold text-blue-800">Captain Picard - Strategic Vision</h4>
+                                <p class="text-blue-700 mt-2">${analysis.strategic_vision || 'Strategic analysis in progress...'}</p>
+                            </div>
+                            <div class="bg-green-50 border-l-4 border-green-400 p-4">
+                                <h4 class="font-semibold text-green-800">Counselor Troi - Team Dynamics</h4>
+                                <p class="text-green-700 mt-2">${analysis.insights?.team_dynamics || 'Team analysis in progress...'}</p>
+                            </div>
+                            <div class="bg-purple-50 border-l-4 border-purple-400 p-4">
+                                <h4 class="font-semibold text-purple-800">Mr. Spock - System Optimization</h4>
+                                <p class="text-purple-700 mt-2">${analysis.insights?.system_optimization || 'Optimization analysis in progress...'}</p>
+                            </div>
+                            <div class="bg-orange-50 border-l-4 border-orange-400 p-4">
+                                <h4 class="font-semibold text-orange-800">Lt. Commander Data - Code Review</h4>
+                                <p class="text-orange-700 mt-2">${analysis.insights?.code_review || 'Code review in progress...'}</p>
+                            </div>
+                            <div class="bg-red-50 border-l-4 border-red-400 p-4">
+                                <h4 class="font-semibold text-red-800">Chief Engineer Scott - Risk Assessment</h4>
+                                <p class="text-red-700 mt-2">${analysis.insights?.risk_assessment || 'Risk assessment in progress...'}</p>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    resultsContainer.innerHTML = `
+                        <div class="text-center text-red-400">
+                            <i class="fas fa-exclamation-triangle text-2xl mb-2"></i>
+                            <p>Consultation failed: ${data.error}</p>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                resultsContainer.innerHTML = `
+                    <div class="text-center text-red-400">
+                        <i class="fas fa-exclamation-triangle text-2xl mb-2"></i>
+                        <p>Error requesting consultation: ${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Switch AlexAI mode
+        async function switchMode() {
+            const modes = ['orchestrator', 'strategic', 'tactical', 'analytical'];
+            const currentMode = 'orchestrator'; // This would be dynamic in a real implementation
+            const nextMode = modes[(modes.indexOf(currentMode) + 1) % modes.length];
+            
+            try {
+                const response = await fetch('/api/alexai/mode', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        mode: nextMode
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    alert(`AlexAI switched to ${data.mode} mode`);
+                    loadCrewStatus(); // Reload status to reflect mode change
+                } else {
+                    alert(`Failed to switch mode: ${data.error}`);
+                }
+            } catch (error) {
+                alert(`Error switching mode: ${error.message}`);
+            }
+        }
+
+        // Socket.IO event handlers
+        socket.on('connect', function() {
+            console.log('Connected to AlexAI Observation Lounge');
+        });
+
+        // Load data on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCrewStatus();
+        });
+    </script>
+</body>
+</html> 
