@@ -50,25 +50,181 @@ app.get('/projects', (req, res) => {
 app.get('/api/projects', async (req, res) => {
   try {
     const projects = await projectManager.getProjects();
-    res.json(projects);
+    res.json({ success: true, projects });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ success: false, error: error.message });
   }
 });
 
 app.post('/api/projects', async (req, res) => {
   try {
     const project = await projectManager.createProject(req.body);
-    res.json(project);
+    res.json({ success: true, project });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ success: false, error: error.message });
   }
 });
 
+app.get('/api/projects/:id', async (req, res) => {
+  try {
+    const project = await projectManager.getProject(req.params.id);
+    res.json({ success: true, project });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+app.get('/api/projects/:id/insights', async (req, res) => {
+  try {
+    const insights = await alexai.getMultiAgentInsights(req.params.id);
+    res.json({ success: true, insights });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+app.post('/api/projects/sample', async (req, res) => {
+  try {
+    const result = await projectManager.createMockData();
+    res.json({ success: true, message: 'Sample projects created', ...result });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+app.put('/api/projects/:id', async (req, res) => {
+  try {
+    const project = await projectManager.updateProject({ id: req.params.id, ...req.body });
+    res.json({ success: true, project });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// Tasks API
+app.get('/api/tasks', async (req, res) => {
+  try {
+    const tasks = await projectManager.getTasks();
+    res.json({ success: true, tasks });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+app.post('/api/tasks', async (req, res) => {
+  try {
+    const task = await projectManager.createTask(req.body);
+    res.json({ success: true, task });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+app.get('/api/tasks/:id', async (req, res) => {
+  try {
+    const task = await projectManager.getTask(req.params.id);
+    res.json({ success: true, task });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+app.put('/api/tasks/:id', async (req, res) => {
+  try {
+    const task = await projectManager.updateTask({ id: req.params.id, ...req.body });
+    res.json({ success: true, task });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+app.delete('/api/tasks/:id', async (req, res) => {
+  try {
+    await projectManager.deleteTask(req.params.id);
+    res.json({ success: true, message: 'Task deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+app.put('/api/tasks/:id/status', async (req, res) => {
+  try {
+    const task = await projectManager.updateTask({ 
+      id: req.params.id, 
+      status: req.body.status 
+    });
+    res.json({ success: true, task });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// Dashboard API
 app.get('/api/dashboard/stats', async (req, res) => {
   try {
     const stats = await projectManager.getDashboardStats();
     res.json({ success: true, stats });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+app.get('/api/dashboard/recent-tasks', async (req, res) => {
+  try {
+    const tasks = await projectManager.getTasks();
+    const recentTasks = tasks.slice(0, 5); // Get last 5 tasks
+    res.json({ success: true, tasks: recentTasks });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// AlexAI API
+app.get('/api/alexai/status', async (req, res) => {
+  try {
+    const crewStatus = await alexai.getCrewStatus();
+    const systemHealth = await alexai.getSystemHealth();
+    res.json({ 
+      success: true, 
+      crew_status: crewStatus,
+      system_health: systemHealth
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+app.post('/api/alexai/consultation', async (req, res) => {
+  try {
+    const result = await alexai.consultation(req.body.context);
+    res.json({ success: true, result });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+app.get('/api/alexai/mode', async (req, res) => {
+  try {
+    const mode = await alexai.getCurrentMode();
+    res.json({ success: true, mode });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+app.post('/api/alexai/mode', async (req, res) => {
+  try {
+    const result = await alexai.setMode(req.body.mode);
+    res.json({ success: true, result });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+app.get('/api/alexai/insights', async (req, res) => {
+  try {
+    const insights = await alexai.getLatestAnalysis();
+    res.json({ success: true, insights });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
   }
@@ -82,15 +238,6 @@ app.post('/api/database/mock', async (req, res) => {
       message: 'Database mock system completed successfully!',
       ...result
     });
-  } catch (error) {
-    res.status(500).json({ success: false, error: error.message });
-  }
-});
-
-app.post('/api/alexai/consultation', async (req, res) => {
-  try {
-    const result = await alexai.consultation(req.body.context);
-    res.json({ success: true, result });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
   }
