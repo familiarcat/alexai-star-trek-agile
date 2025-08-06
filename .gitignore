@@ -58,3 +58,4 @@ supabase_db_password
 *_key
 .vercel
 dashboard/node_modules/
+dashboard/.next/
