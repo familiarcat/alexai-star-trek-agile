@@ -7,6 +7,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/assets/lcars.css">
+    <script src="/assets/data-translator.js"></script>
 </head>
 <body>
     <div class="lcars-container">
@@ -75,11 +76,11 @@
                     LCARS SYSTEM 3 - MISSION LOG
                 </div>
                 <div class="lcars-nav-menu">
-                    <div class="lcars-button secondary" onclick="createMockData()">
+                    <div class="lcars-button secondary" onclick="dataTranslator.createMockData().then(() => loadPageData())">
                         <i class="fas fa-database lcars-mr-10"></i>
                         INITIALIZE DATA
                     </div>
-                    <div class="lcars-button secondary" onclick="refreshProjects()">
+                    <div class="lcars-button secondary" onclick="loadPageData()">
                         <i class="fas fa-sync-alt lcars-mr-10"></i>
                         REFRESH
                     </div>
@@ -157,254 +158,85 @@
     </div>
 
     <script>
-        // Initialize Socket.IO
-        const socket = io();
-        let currentProjects = [];
-        let selectedProjectId = null;
-
-        // Load projects data
-        async function loadProjectsData() {
+        // Load page data using unified data translator
+        async function loadPageData() {
             try {
-                // Load dashboard stats
-                const statsResponse = await fetch('/api/dashboard/stats');
-                const statsData = await statsResponse.json();
-                
-                if (statsData.success) {
-                    document.getElementById('total-projects').textContent = statsData.stats.total_projects;
-                    document.getElementById('total-tasks').textContent = statsData.stats.total_tasks;
-                    
-                    // Calculate active and completed projects
-                    const projectsResponse = await fetch('/api/projects');
-                    const projectsData = await projectsResponse.json();
-                    
-                    if (projectsData.success) {
-                        currentProjects = projectsData.projects;
-                        const activeProjects = projectsData.projects.filter(p => p.status === 'in_progress').length;
-                        const completedProjects = projectsData.projects.filter(p => p.status === 'completed').length;
-                        
-                        document.getElementById('active-projects').textContent = activeProjects;
-                        document.getElementById('completed-projects').textContent = completedProjects;
-                        
-                        // Render projects list
-                        renderProjectsList(projectsData.projects);
-                    }
-                }
-            } catch (error) {
-                console.error('Error loading projects data:', error);
-                document.getElementById('projects-list').innerHTML = 
-                    '<div class="lcars-text-center lcars-text-red">Error loading missions</div>';
-            }
-        }
-
-        function renderProjectsList(projects) {
-            const projectsContainer = document.getElementById('projects-list');
-            
-            if (projects.length === 0) {
-                projectsContainer.innerHTML = `
+                // Show loading state
+                document.getElementById('projects-list').innerHTML = `
                     <div class="lcars-text-center lcars-text-grey">
-                        <i class="fas fa-inbox lcars-mr-10"></i>
-                        No missions available. Initialize data to begin.
+                        <i class="fas fa-spinner fa-spin lcars-mr-10"></i>
+                        Loading missions...
                     </div>
                 `;
-                return;
-            }
 
-            projectsContainer.innerHTML = projects.map(project => `
-                <div class="lcars-panel lcars-mb-10" onclick="selectProject('${project.id}')">
-                    <div class="lcars-text lcars-text-large lcars-text-gold lcars-mb-10">
-                        <i class="fas fa-project-diagram lcars-mr-10"></i>
-                        ${project.name}
-                    </div>
-                    
-                    <div class="lcars-text lcars-mb-10">
-                        ${project.description || 'No description available'}
-                    </div>
-                    
-                    <div class="lcars-data-grid">
-                        <div class="lcars-l-shape">
-                            <i class="fas fa-tag lcars-mr-10"></i>
-                            TYPE: ${project.project_type.toUpperCase()}
-                        </div>
-                        
-                        <div class="lcars-l-shape">
-                            <i class="fas fa-signal lcars-mr-10"></i>
-                            STATUS: ${project.status.replace('_', ' ').toUpperCase()}
-                        </div>
-                        
-                        <div class="lcars-l-shape">
-                            <i class="fas fa-users lcars-mr-10"></i>
-                            TEAM: ${project.team_members ? project.team_members.length : 0} MEMBERS
-                        </div>
-                        
-                        <div class="lcars-l-shape">
-                            <i class="fas fa-code lcars-mr-10"></i>
-                            TECH: ${project.tech_stack ? project.tech_stack.length : 0} STACKS
-                        </div>
-                    </div>
-                    
-                    <div class="lcars-data-grid lcars-mt-10">
-                        <div class="lcars-button secondary" onclick="event.stopPropagation(); openProjectDetails('${project.id}')">
-                            <i class="fas fa-eye lcars-mr-10"></i>
-                            DETAILS
-                        </div>
-                        
-                        <div class="lcars-button secondary" onclick="event.stopPropagation(); getProjectInsights('${project.id}')">
-                            <i class="fas fa-robot lcars-mr-10"></i>
-                            AI INSIGHTS
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function selectProject(projectId) {
-            selectedProjectId = projectId;
-            // Highlight selected project
-            document.querySelectorAll('.lcars-panel').forEach(panel => {
-                panel.style.borderColor = 'var(--lcars-gold)';
-            });
-            event.currentTarget.style.borderColor = 'var(--lcars-orange)';
-        }
-
-        async function openProjectDetails(projectId) {
-            try {
-                const response = await fetch(`/api/projects/${projectId}`);
-                const data = await response.json();
+                // Load dashboard stats
+                const stats = await dataTranslator.getDashboardStats();
                 
-                if (data.success) {
-                    const project = data.project;
-                    const detailsContainer = document.getElementById('project-details');
-                    
-                    detailsContainer.innerHTML = `
-                        <div class="lcars-text lcars-text-xlarge lcars-text-gold lcars-mb-15">
-                            ${project.name}
-                        </div>
-                        
-                        <div class="lcars-text lcars-mb-15">
-                            ${project.description || 'No description available'}
-                        </div>
-                        
-                        <div class="lcars-data-grid">
-                            <div class="lcars-l-shape">
-                                <i class="fas fa-tag lcars-mr-10"></i>
-                                PROJECT TYPE: ${project.project_type.toUpperCase()}
-                            </div>
-                            
-                            <div class="lcars-l-shape">
-                                <i class="fas fa-signal lcars-mr-10"></i>
-                                STATUS: ${project.status.replace('_', ' ').toUpperCase()}
-                            </div>
-                            
-                            <div class="lcars-l-shape">
-                                <i class="fas fa-calendar lcars-mr-10"></i>
-                                CREATED: ${new Date(project.created_at).toLocaleDateString()}
-                            </div>
-                            
-                            <div class="lcars-l-shape">
-                                <i class="fas fa-clock lcars-mr-10"></i>
-                                UPDATED: ${new Date(project.updated_at).toLocaleDateString()}
-                            </div>
-                        </div>
-                        
-                        ${project.team_members && project.team_members.length > 0 ? `
-                            <div class="lcars-text lcars-text-large lcars-text-gold lcars-mt-15 lcars-mb-10">
-                                <i class="fas fa-users lcars-mr-10"></i>
-                                MISSION TEAM
-                            </div>
-                            <div class="lcars-text lcars-mb-15">
-                                ${project.team_members.join(', ')}
-                            </div>
-                        ` : ''}
-                        
-                        ${project.tech_stack && project.tech_stack.length > 0 ? `
-                            <div class="lcars-text lcars-text-large lcars-text-gold lcars-mb-10">
-                                <i class="fas fa-code lcars-mr-10"></i>
-                                TECHNOLOGY STACK
-                            </div>
-                            <div class="lcars-text lcars-mb-15">
-                                ${project.tech_stack.join(', ')}
-                            </div>
-                        ` : ''}
-                    `;
-                    
-                    document.getElementById('project-modal').style.display = 'block';
-                    selectedProjectId = projectId;
-                }
+                // Update metrics
+                document.getElementById('total-projects').textContent = stats.total_projects;
+                document.getElementById('total-tasks').textContent = stats.total_tasks;
+                document.getElementById('active-projects').textContent = stats.active_projects;
+                document.getElementById('completed-projects').textContent = stats.completed_projects;
+
+                // Load and render projects
+                const projects = await dataTranslator.getProjects();
+                dataTranslator.renderProjectsList('projects-list', projects);
+
             } catch (error) {
-                console.error('Error loading project details:', error);
+                console.error('Error loading page data:', error);
+                document.getElementById('projects-list').innerHTML = `
+                    <div class="lcars-text-center lcars-text-red">
+                        <i class="fas fa-exclamation-triangle lcars-mr-10"></i>
+                        Error loading missions: ${error.message}
+                    </div>
+                `;
             }
         }
 
+        // Modal functions
         function closeProjectModal() {
             document.getElementById('project-modal').style.display = 'none';
         }
 
-        async function getProjectInsights(projectId) {
-            try {
-                const response = await fetch(`/api/projects/${projectId}/insights`);
-                const data = await response.json();
-                
-                if (data.success) {
-                    alert('AI Insights: ' + JSON.stringify(data.insights, null, 2));
-                } else {
-                    alert('Unable to get AI insights at this time');
-                }
-            } catch (error) {
-                console.error('Error getting project insights:', error);
-                alert('Error getting AI insights');
-            }
-        }
-
         function openKanbanBoard() {
-            if (selectedProjectId) {
-                window.location.href = `/project-detail?id=${selectedProjectId}`;
+            if (dataTranslator.selectedProjectId) {
+                window.location.href = `/project-detail?id=${dataTranslator.selectedProjectId}`;
             } else {
                 alert('Please select a project first');
             }
         }
 
-        function getAIInsights() {
-            if (selectedProjectId) {
-                getProjectInsights(selectedProjectId);
-            } else {
-                alert('Please select a project first');
-            }
-        }
-
-        async function createMockData() {
-            try {
-                const response = await fetch('/api/database/mock', { method: 'POST' });
-                const result = await response.json();
-                
-                if (result.success) {
-                    alert('Mock data created successfully!');
-                    loadProjectsData();
-                } else {
-                    alert('Error creating mock data');
+        async function getAIInsights() {
+            if (dataTranslator.selectedProjectId) {
+                try {
+                    const insights = await dataTranslator.getProjectInsights(dataTranslator.selectedProjectId);
+                    if (insights.error) {
+                        alert(insights.error);
+                    } else {
+                        alert('AI Insights: ' + JSON.stringify(insights, null, 2));
+                    }
+                } catch (error) {
+                    alert('Error getting AI insights: ' + error.message);
                 }
-            } catch (error) {
-                console.error('Error creating mock data:', error);
-                alert('Error creating mock data');
+            } else {
+                alert('Please select a project first');
             }
         }
 
-        function refreshProjects() {
-            loadProjectsData();
-        }
-
-        // Socket.IO event handlers
-        socket.on('connect', function() {
-            console.log('Connected to LCARS System');
+        // Subscribe to real-time updates
+        dataTranslator.subscribe('projects', (data) => {
+            console.log('Projects updated:', data);
+            loadPageData();
         });
 
-        socket.on('project_updated', function(data) {
-            console.log('Project updated:', data);
-            loadProjectsData();
+        dataTranslator.subscribe('dashboard', (data) => {
+            console.log('Dashboard updated:', data);
+            loadPageData();
         });
 
         // Load data on page load
         document.addEventListener('DOMContentLoaded', function() {
-            loadProjectsData();
+            loadPageData();
         });
     </script>
 </body>

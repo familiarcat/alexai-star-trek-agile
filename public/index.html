@@ -7,6 +7,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/assets/lcars.css">
+    <script src="/assets/data-translator.js"></script>
 </head>
 <body>
     <div class="lcars-container">
@@ -201,7 +202,7 @@
                             OBSERVATION LOUNGE
                         </div>
                         
-                        <div class="lcars-button lcars-text-large" onclick="createMockData()">
+                        <div class="lcars-button lcars-text-large" onclick="dataTranslator.createMockData().then(() => loadDashboardData())">
                             <i class="fas fa-database lcars-mr-10"></i>
                             INITIALIZE MOCK DATA
                         </div>
@@ -217,71 +218,58 @@
     </div>
 
     <script>
-        // Initialize Socket.IO
-        const socket = io();
-
-        // Load dashboard data
+        // Load dashboard data using unified data translator
         async function loadDashboardData() {
             try {
                 // Load dashboard stats
-                const statsResponse = await fetch('/api/dashboard/stats');
-                const statsData = await statsResponse.json();
+                const stats = await dataTranslator.getDashboardStats();
                 
-                if (statsData.success) {
-                    document.getElementById('total-projects').textContent = statsData.stats.total_projects;
-                    document.getElementById('active-tasks').textContent = statsData.stats.active_tasks;
-                    document.getElementById('completed-tasks').textContent = statsData.stats.completed_today;
-                    document.getElementById('total-tasks').textContent = statsData.stats.total_tasks;
-                }
+                // Update metrics
+                document.getElementById('total-projects').textContent = stats.total_projects;
+                document.getElementById('active-tasks').textContent = stats.active_tasks;
+                document.getElementById('completed-tasks').textContent = stats.completed_today;
+                document.getElementById('total-tasks').textContent = stats.total_tasks;
 
                 // Load recent tasks
-                const tasksResponse = await fetch('/api/tasks');
-                const tasksData = await tasksResponse.json();
+                const tasks = await dataTranslator.getTasks();
+                const recentTasksContainer = document.getElementById('recent-tasks');
                 
-                if (tasksData.success) {
-                    const recentTasksContainer = document.getElementById('recent-tasks');
-                    if (tasksData.tasks.length > 0) {
-                        recentTasksContainer.innerHTML = tasksData.tasks.slice(0, 5).map(task => `
-                            <div class="lcars-status ${getStatusClass(task.status)}">
-                                <div class="lcars-status-indicator"></div>
-                                <div>
-                                    <div class="lcars-text-gold">${task.title}</div>
-                                    <div class="lcars-text-grey">${task.project_name} • ${task.status.replace('_', ' ')}</div>
-                                </div>
+                if (tasks.length > 0) {
+                    recentTasksContainer.innerHTML = tasks.slice(0, 5).map(task => `
+                        <div class="lcars-status ${getStatusClass(task.status)}">
+                            <div class="lcars-status-indicator"></div>
+                            <div>
+                                <div class="lcars-text-gold">${dataTranslator.escapeHtml(task.title)}</div>
+                                <div class="lcars-text-grey">${task.assignee} • ${task.status.replace('_', ' ')}</div>
                             </div>
-                        `).join('');
-                    } else {
-                        recentTasksContainer.innerHTML = '<div class="lcars-text-center lcars-text-grey">No recent tasks</div>';
-                    }
+                        </div>
+                    `).join('');
+                } else {
+                    recentTasksContainer.innerHTML = '<div class="lcars-text-center lcars-text-grey">No recent tasks</div>';
                 }
 
                 // Load AlexAI status
-                const alexaiResponse = await fetch('/api/alexai/status');
-                const alexaiData = await alexaiResponse.json();
+                const alexaiData = await dataTranslator.getAlexAIStatus();
+                const alexaiContainer = document.getElementById('alexai-status');
                 
-                if (alexaiData.success) {
-                    const alexaiContainer = document.getElementById('alexai-status');
-                    const crewStatus = alexaiData.crew_status;
-                    
-                    alexaiContainer.innerHTML = `
-                        <div class="lcars-status">
-                            <div class="lcars-status-indicator"></div>
-                            <span>SYSTEM HEALTH: ${crewStatus.system_health.overall_status}</span>
-                        </div>
-                        <div class="lcars-status">
-                            <div class="lcars-status-indicator"></div>
-                            <span>CREW COORDINATION: ${crewStatus.system_health.crew_coordination}%</span>
-                        </div>
-                        <div class="lcars-status">
-                            <div class="lcars-status-indicator"></div>
-                            <span>PROJECT VELOCITY: ${crewStatus.system_health.project_velocity}%</span>
-                        </div>
-                        <div class="lcars-status">
-                            <div class="lcars-status-indicator"></div>
-                            <span>CURRENT MODE: ${crewStatus.current_mode}</span>
-                        </div>
-                    `;
-                }
+                alexaiContainer.innerHTML = `
+                    <div class="lcars-status">
+                        <div class="lcars-status-indicator"></div>
+                        <span>SYSTEM HEALTH: ${alexaiData.system_health.overall_status || 'OPTIMAL'}</span>
+                    </div>
+                    <div class="lcars-status">
+                        <div class="lcars-status-indicator"></div>
+                        <span>CREW COORDINATION: ${alexaiData.system_health.crew_coordination || 95}%</span>
+                    </div>
+                    <div class="lcars-status">
+                        <div class="lcars-status-indicator"></div>
+                        <span>PROJECT VELOCITY: ${alexaiData.system_health.project_velocity || 87}%</span>
+                    </div>
+                    <div class="lcars-status">
+                        <div class="lcars-status-indicator"></div>
+                        <span>CURRENT MODE: ${alexaiData.current_mode}</span>
+                    </div>
+                `;
 
                 // Update system metrics
                 updateSystemMetrics();
@@ -309,35 +297,14 @@
             document.getElementById('network-latency').textContent = Math.floor(Math.random() * 50) + 5;
         }
 
-        async function createMockData() {
-            try {
-                const response = await fetch('/api/database/mock', { method: 'POST' });
-                const result = await response.json();
-                
-                if (result.success) {
-                    alert('Mock data created successfully!');
-                    loadDashboardData();
-                } else {
-                    alert('Error creating mock data');
-                }
-            } catch (error) {
-                console.error('Error creating mock data:', error);
-                alert('Error creating mock data');
-            }
-        }
-
-        // Socket.IO event handlers
-        socket.on('connect', function() {
-            console.log('Connected to LCARS System');
-        });
-
-        socket.on('task_updated', function(data) {
-            console.log('Task updated:', data);
+        // Subscribe to real-time updates
+        dataTranslator.subscribe('dashboard', (data) => {
+            console.log('Dashboard updated:', data);
             loadDashboardData();
         });
 
-        socket.on('project_updated', function(data) {
-            console.log('Project updated:', data);
+        dataTranslator.subscribe('tasks', (data) => {
+            console.log('Tasks updated:', data);
             loadDashboardData();
         });
 
