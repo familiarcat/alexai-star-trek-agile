@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ project.name }} - Kanban Board</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <style>
+        /* Star Trek LCARS Theme */
+        :root {
+            --lcars-orange: #FF9C00;
+            --lcars-blue: #0099CC;
+            --lcars-gray: #CCCCCC;
+            --lcars-dark: #2C2C2C;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--lcars-dark) 0%, #1a1a1a 100%);
+            color: var(--lcars-gray);
+            font-family: 'Arial', sans-serif;
+        }
+        
+        .lcars-header {
+            background: linear-gradient(90deg, var(--lcars-orange) 0%, var(--lcars-blue) 100%);
+            color: white;
+            padding: 1rem;
+            border-radius: 0 0 20px 20px;
+        }
+        
+        .kanban-column {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid var(--lcars-orange);
+            border-radius: 15px;
+            min-height: 500px;
+        }
+        
+        .task-card {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--lcars-blue);
+            border-radius: 10px;
+            cursor: grab;
+            transition: all 0.3s ease;
+        }
+        
+        .task-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 156, 0, 0.3);
+        }
+        
+        .task-card.dragging {
+            opacity: 0.5;
+            transform: rotate(5deg);
+        }
+        
+        .project-summary {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid var(--lcars-orange);
+            border-radius: 15px;
+        }
+        
+        .status-todo { border-color: #FF6B6B; }
+        .status-in_progress { border-color: var(--lcars-orange); }
+        .status-done { border-color: #00FF00; }
+        
+        .priority-high { color: #FF6B6B; }
+        .priority-medium { color: var(--lcars-orange); }
+        .priority-low { color: #00FF00; }
+    </style>
+</head>
+<body>
+    <!-- LCARS Header -->
+    <div class="lcars-header">
+        <div class="container mx-auto">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h1 class="text-3xl font-bold">🎯 {{ project.name }}</h1>
+                    <p class="text-sm opacity-90">Kanban Board - AlexAI Star Trek Agile System</p>
+                </div>
+                <div class="flex space-x-4">
+                    <button onclick="window.location.href='/projects'" class="bg-white bg-opacity-20 px-4 py-2 rounded-lg hover:bg-opacity-30 transition-all">
+                        📋 Mission Log
+                    </button>
+                    <button onclick="window.location.href='/'" class="bg-white bg-opacity-20 px-4 py-2 rounded-lg hover:bg-opacity-30 transition-all">
+                        🏠 Bridge
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mx-auto px-4 py-8">
+        <!-- Project Summary -->
+        <div class="project-summary p-6 mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div>
+                    <h3 class="text-xl font-bold text-white mb-2">Mission Overview</h3>
+                    <p class="text-gray-300">{{ project.description }}</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-white mb-2">Mission Status</h3>
+                    <div class="flex items-center space-x-2">
+                        <span class="priority-{{ project.priority }} font-semibold">{{ project.priority.upper() }}</span>
+                        <span class="text-gray-400">|</span>
+                        <span class="text-white">{{ project.status.title() }}</span>
+                    </div>
+                    <div class="mt-2">
+                        <span class="text-gray-400">Team Size:</span>
+                        <span class="text-white">{{ project.team_size }}</span>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-white mb-2">Progress</h3>
+                    <div class="flex justify-between text-sm mb-2">
+                        <span>Completion</span>
+                        <span>{{ project.progress }}%</span>
+                    </div>
+                    <div class="w-full bg-gray-700 rounded-full h-2">
+                        <div class="bg-gradient-to-r from-orange-500 to-blue-500 h-2 rounded-full" style="width: {{ project.progress }}%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Kanban Board -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- To Do Column -->
+            <div class="kanban-column p-4" data-status="todo">
+                <h3 class="text-xl font-bold text-white mb-4 text-center">📋 To Do</h3>
+                <div class="space-y-4" id="todo-column">
+                    {% for task in tasks if task.status == 'todo' %}
+                    <div class="task-card p-4" data-task-id="{{ task.id }}" draggable="true">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="font-semibold text-white">{{ task.title }}</h4>
+                            <span class="priority-{{ task.priority }} text-xs">{{ task.priority.upper() }}</span>
+                        </div>
+                        <p class="text-sm text-gray-300 mb-3">{{ task.description }}</p>
+                        <div class="flex justify-between items-center text-xs text-gray-400 mb-3">
+                            <span>👤 {{ task.assignee }}</span>
+                            <span>📊 {{ task.story_points }} pts</span>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button onclick="editTask('{{ task.id }}')" class="bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded text-xs">
+                                ✏️ Edit
+                            </button>
+                            <button onclick="deleteTask('{{ task.id }}')" class="bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded text-xs">
+                                🗑️ Delete
+                            </button>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <button onclick="showCreateTaskModal()" class="w-full mt-4 bg-green-500 hover:bg-green-600 text-white py-2 rounded-lg transition-all">
+                    ➕ Add Task
+                </button>
+            </div>
+
+            <!-- In Progress Column -->
+            <div class="kanban-column p-4" data-status="in_progress">
+                <h3 class="text-xl font-bold text-white mb-4 text-center">⚡ In Progress</h3>
+                <div class="space-y-4" id="in-progress-column">
+                    {% for task in tasks if task.status == 'in_progress' %}
+                    <div class="task-card p-4" data-task-id="{{ task.id }}" draggable="true">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="font-semibold text-white">{{ task.title }}</h4>
+                            <span class="priority-{{ task.priority }} text-xs">{{ task.priority.upper() }}</span>
+                        </div>
+                        <p class="text-sm text-gray-300 mb-3">{{ task.description }}</p>
+                        <div class="flex justify-between items-center text-xs text-gray-400 mb-3">
+                            <span>👤 {{ task.assignee }}</span>
+                            <span>📊 {{ task.story_points }} pts</span>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button onclick="editTask('{{ task.id }}')" class="bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded text-xs">
+                                ✏️ Edit
+                            </button>
+                            <button onclick="deleteTask('{{ task.id }}')" class="bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded text-xs">
+                                🗑️ Delete
+                            </button>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Done Column -->
+            <div class="kanban-column p-4" data-status="done">
+                <h3 class="text-xl font-bold text-white mb-4 text-center">✅ Done</h3>
+                <div class="space-y-4" id="done-column">
+                    {% for task in tasks if task.status == 'done' %}
+                    <div class="task-card p-4" data-task-id="{{ task.id }}" draggable="true">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="font-semibold text-white">{{ task.title }}</h4>
+                            <span class="priority-{{ task.priority }} text-xs">{{ task.priority.upper() }}</span>
+                        </div>
+                        <p class="text-sm text-gray-300 mb-3">{{ task.description }}</p>
+                        <div class="flex justify-between items-center text-xs text-gray-400 mb-3">
+                            <span>👤 {{ task.assignee }}</span>
+                            <span>📊 {{ task.story_points }} pts</span>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button onclick="editTask('{{ task.id }}')" class="bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded text-xs">
+                                ✏️ Edit
+                            </button>
+                            <button onclick="deleteTask('{{ task.id }}')" class="bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded text-xs">
+                                🗑️ Delete
+                            </button>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Task Modal -->
+    <div id="taskModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-gray-800 rounded-lg max-w-md w-full">
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-bold text-white" id="modalTitle">Create Task</h3>
+                        <button onclick="closeTaskModal()" class="text-gray-400 hover:text-white">✕</button>
+                    </div>
+                    <form id="taskForm">
+                        <input type="hidden" id="taskId">
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-300 mb-1">Title</label>
+                                <input type="text" id="taskTitle" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white" required>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-300 mb-1">Description</label>
+                                <textarea id="taskDescription" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white" rows="3" required></textarea>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-300 mb-1">Priority</label>
+                                    <select id="taskPriority" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white">
+                                        <option value="low">Low</option>
+                                        <option value="medium">Medium</option>
+                                        <option value="high">High</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-300 mb-1">Assignee</label>
+                                    <input type="text" id="taskAssignee" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white" required>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-300 mb-1">Story Points</label>
+                                    <input type="number" id="taskStoryPoints" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white" min="1" max="21" required>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-300 mb-1">Due Date</label>
+                                    <input type="date" id="taskDueDate" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex space-x-3 mt-6">
+                            <button type="submit" class="flex-1 bg-orange-500 hover:bg-orange-600 text-white py-2 rounded-lg transition-all">
+                                Save Task
+                            </button>
+                            <button type="button" onclick="closeTaskModal()" class="flex-1 bg-gray-600 hover:bg-gray-700 text-white py-2 rounded-lg transition-all">
+                                Cancel
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Socket.IO for real-time updates
+        const socket = io();
+        
+        socket.on('task_created', function(data) {
+            location.reload();
+        });
+        
+        socket.on('task_updated', function(data) {
+            location.reload();
+        });
+        
+        socket.on('task_deleted', function(data) {
+            location.reload();
+        });
+        
+        // Drag and Drop functionality
+        function initializeDragAndDrop() {
+            const taskCards = document.querySelectorAll('.task-card');
+            const columns = document.querySelectorAll('.kanban-column');
+            
+            taskCards.forEach(card => {
+                card.addEventListener('dragstart', handleDragStart);
+                card.addEventListener('dragend', handleDragEnd);
+            });
+            
+            columns.forEach(column => {
+                column.addEventListener('dragover', handleDragOver);
+                column.addEventListener('dragenter', handleDragEnter);
+                column.addEventListener('dragleave', handleDragLeave);
+                column.addEventListener('drop', handleDrop);
+            });
+        }
+        
+        function handleDragStart(e) {
+            e.target.classList.add('dragging');
+            e.dataTransfer.setData('text/plain', e.target.dataset.taskId);
+        }
+        
+        function handleDragEnd(e) {
+            e.target.classList.remove('dragging');
+        }
+        
+        function handleDragOver(e) {
+            e.preventDefault();
+        }
+        
+        function handleDragEnter(e) {
+            e.preventDefault();
+            e.currentTarget.style.backgroundColor = 'rgba(255, 156, 0, 0.1)';
+        }
+        
+        function handleDragLeave(e) {
+            e.currentTarget.style.backgroundColor = '';
+        }
+        
+        function handleDrop(e) {
+            e.preventDefault();
+            e.currentTarget.style.backgroundColor = '';
+            
+            const taskId = e.dataTransfer.getData('text/plain');
+            const newStatus = e.currentTarget.dataset.status;
+            
+            updateTaskStatus(taskId, newStatus);
+        }
+        
+        function updateTaskStatus(taskId, newStatus) {
+            fetch(`/api/tasks/${taskId}/status`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ status: newStatus })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    socket.emit('task_status_updated', { task_id: taskId, status: newStatus });
+                }
+            })
+            .catch(error => {
+                console.error('Error updating task status:', error);
+            });
+        }
+        
+        // Task Modal functions
+        function showCreateTaskModal() {
+            document.getElementById('modalTitle').textContent = 'Create Task';
+            document.getElementById('taskForm').reset();
+            document.getElementById('taskId').value = '';
+            document.getElementById('taskModal').classList.remove('hidden');
+        }
+        
+        function editTask(taskId) {
+            fetch(`/api/tasks/${taskId}`)
+                .then(response => response.json())
+                .then(task => {
+                    document.getElementById('modalTitle').textContent = 'Edit Task';
+                    document.getElementById('taskId').value = task.id;
+                    document.getElementById('taskTitle').value = task.title;
+                    document.getElementById('taskDescription').value = task.description;
+                    document.getElementById('taskPriority').value = task.priority;
+                    document.getElementById('taskAssignee').value = task.assignee;
+                    document.getElementById('taskStoryPoints').value = task.story_points;
+                    document.getElementById('taskDueDate').value = task.due_date.split('T')[0];
+                    document.getElementById('taskModal').classList.remove('hidden');
+                })
+                .catch(error => {
+                    console.error('Error fetching task:', error);
+                });
+        }
+        
+        function closeTaskModal() {
+            document.getElementById('taskModal').classList.add('hidden');
+        }
+        
+        function deleteTask(taskId) {
+            if (confirm('Are you sure you want to delete this task?')) {
+                fetch(`/api/tasks/${taskId}`, {
+                    method: 'DELETE'
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        socket.emit('task_deleted', { task_id: taskId });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error deleting task:', error);
+                });
+            }
+        }
+        
+        // Form submission
+        document.getElementById('taskForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const taskId = document.getElementById('taskId').value;
+            const taskData = {
+                project_id: '{{ project.id }}',
+                title: document.getElementById('taskTitle').value,
+                description: document.getElementById('taskDescription').value,
+                priority: document.getElementById('taskPriority').value,
+                assignee: document.getElementById('taskAssignee').value,
+                story_points: parseInt(document.getElementById('taskStoryPoints').value),
+                due_date: document.getElementById('taskDueDate').value,
+                status: 'todo'
+            };
+            
+            const url = taskId ? `/api/tasks/${taskId}` : '/api/tasks';
+            const method = taskId ? 'PUT' : 'POST';
+            
+            fetch(url, {
+                method: method,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(taskData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    closeTaskModal();
+                    if (taskId) {
+                        socket.emit('task_updated', { task_id: taskId });
+                    } else {
+                        socket.emit('task_created', { task_id: data.task_id });
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Error saving task:', error);
+            });
+        });
+        
+        // Initialize drag and drop
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeDragAndDrop();
+        });
+    </script>
+</body>
+</html> 

@@ -1,31 +1,16 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "main.py",
-      "use": "@vercel/python",
-      "config": {
-        "maxLambdaSize": "50mb"
-      }
-    }
-  ],
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "main.py"
+      "dest": "/api/index.js"
     },
     {
       "src": "/(.*)",
-      "dest": "main.py"
+      "dest": "/api/index.js"
     }
   ],
   "env": {
-    "FLASK_ENV": "production",
-    "PYTHONPATH": "."
-  },
-  "functions": {
-    "main.py": {
-      "maxDuration": 30
-    }
+    "NODE_ENV": "production"
   }
 } 
