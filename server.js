@@ -132,13 +132,16 @@ io.on('connection', (socket) => {
   });
 });
 
-// Start server
-const PORT = process.env.PORT || 8000;
-server.listen(PORT, () => {
-  console.log(`🚀 AlexAI Star Trek Agile System running on port ${PORT}`);
-  console.log(`📊 Dashboard: http://localhost:${PORT}`);
-  console.log(`🔮 Observation Lounge: http://localhost:${PORT}/observation-lounge`);
-  console.log(`📋 Projects: http://localhost:${PORT}/projects`);
-});
+// Start server only if not in Vercel environment
+if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
+  const PORT = process.env.PORT || 8000;
+  server.listen(PORT, () => {
+    console.log(`🚀 AlexAI Star Trek Agile System running on port ${PORT}`);
+    console.log(`📊 Dashboard: http://localhost:${PORT}`);
+    console.log(`🔮 Observation Lounge: http://localhost:${PORT}/observation-lounge`);
+    console.log(`📋 Projects: http://localhost:${PORT}/projects`);
+  });
+}
 
-module.exports = { app, server, io }; 
+// Export for Vercel
+module.exports = app; 
