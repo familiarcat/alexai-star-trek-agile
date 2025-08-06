@@ -57,3 +57,4 @@ supabase_db_password
 *_secret
 *_key
 .vercel
+dashboard/node_modules/
