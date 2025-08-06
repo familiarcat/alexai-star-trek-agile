@@ -32,11 +32,11 @@ const nextConfig = {
         source: '/api/n8n/:path*',
         destination: 'https://n8n.pbradygeorgen.com/api/:path*',
       },
-      // Proxy Supabase calls
-      {
-        source: '/api/supabase/:path*',
-        destination: `${process.env.SUPABASE_URL}/rest/v1/:path*`,
-      },
+      // Proxy Supabase calls (commented out until environment is configured)
+      // {
+      //   source: '/api/supabase/:path*',
+      //   destination: `${process.env.SUPABASE_URL}/rest/v1/:path*`,
+      // },
     ]
   },
   

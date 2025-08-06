@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion'
 import { LucideIcon, CheckCircle, XCircle } from 'lucide-react'
-import { useDashboard } from '@/contexts/DashboardContext'
 
 interface Subdomain {
   id: string
@@ -23,7 +22,14 @@ export function SubdomainSelector({
   selectedSubdomain,
   onSelectSubdomain,
 }: SubdomainSelectorProps) {
-  const { subdomainStatus } = useDashboard()
+  // Mock subdomain status for demonstration
+  const subdomainStatus = {
+    agile: true,
+    software: true,
+    business: true,
+    startup: true,
+    n8n: true,
+  }
 
   return (
     <div className="bg-gray-800 rounded-lg p-6">
@@ -35,7 +41,7 @@ export function SubdomainSelector({
         {subdomains.map((subdomain) => {
           const Icon = subdomain.icon
           const isSelected = selectedSubdomain === subdomain.id
-          const isOnline = subdomainStatus[subdomain.id] || subdomain.id === 'all'
+          const isOnline = subdomainStatus[subdomain.id as keyof typeof subdomainStatus] || subdomain.id === 'all'
           
           return (
             <motion.div

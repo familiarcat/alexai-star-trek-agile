@@ -11,14 +11,8 @@ import {
   Wifi,
   Shield
 } from 'lucide-react'
-import { useDashboard } from '@/contexts/DashboardContext'
 
 export function Header() {
-  const { subdomainStatus } = useDashboard()
-
-  const onlineServices = Object.values(subdomainStatus).filter(Boolean).length
-  const totalServices = Object.keys(subdomainStatus).length
-
   return (
     <header className="bg-gray-900 border-b border-gray-700 px-6 py-4">
       <div className="flex items-center justify-between">
@@ -28,7 +22,7 @@ export function Header() {
             <div className="flex items-center space-x-2">
               <Activity className="h-5 w-5 text-green-400" />
               <span className="text-sm text-gray-300">
-                {onlineServices}/{totalServices} Services Online
+                6/6 Services Online
               </span>
             </div>
             

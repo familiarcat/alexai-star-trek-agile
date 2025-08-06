@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import { DashboardProvider } from '@/contexts/DashboardContext'
 import { Sidebar } from '@/components/Sidebar'
 import { Header } from '@/components/Header'
 
@@ -20,23 +19,21 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <DashboardProvider>
-          <div className="flex h-screen bg-gray-900">
-            {/* LCARS Sidebar */}
-            <Sidebar />
+        <div className="flex h-screen bg-gray-900">
+          {/* LCARS Sidebar */}
+          <Sidebar />
+          
+          {/* Main Content Area */}
+          <div className="flex-1 flex flex-col">
+            {/* LCARS Header */}
+            <Header />
             
-            {/* Main Content Area */}
-            <div className="flex-1 flex flex-col">
-              {/* LCARS Header */}
-              <Header />
-              
-              {/* Main Content */}
-              <main className="flex-1 overflow-auto bg-gray-800">
-                {children}
-              </main>
-            </div>
+            {/* Main Content */}
+            <main className="flex-1 overflow-auto bg-gray-800">
+              {children}
+            </main>
           </div>
-        </DashboardProvider>
+        </div>
       </body>
     </html>
   )

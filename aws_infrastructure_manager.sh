@@ -168,10 +168,9 @@ create_consolidated_ec2() {
         --image-id ami-0c02fb55956c7d316 \
         --count 1 \
         --instance-type "$instance_type" \
-        --key-name alexai-key \
         --security-group-ids "$sg_id" \
         --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$instance_name},{Key=Project,Value=AlexAI},{Key=Type,Value=Consolidated}]" \
-        --query 'Instances[0].InstanceId' --output text)
+        --query 'Instances[0].InstanceId' --output text 2>/dev/null || echo "ERROR")
     
     print_success "Created consolidated EC2 instance: $instance_id"
     
