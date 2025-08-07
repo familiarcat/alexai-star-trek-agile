@@ -49,11 +49,8 @@ export default function Dashboard() {
     try {
       setLoading(true);
       
-      // Use environment variable for API URL, fallback to localhost:8000 for development
-      const apiBase = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
-      
-      // Fetch dashboard stats
-      const statsResponse = await fetch(`${apiBase}/api/dashboard/stats`);
+      // Use Next.js API routes (same domain)
+      const statsResponse = await fetch('/api/dashboard/stats');
       const statsData = await statsResponse.json();
       
       if (statsData.success) {
@@ -61,7 +58,7 @@ export default function Dashboard() {
       }
 
       // Fetch recent projects
-      const projectsResponse = await fetch(`${apiBase}/api/projects`);
+      const projectsResponse = await fetch('/api/projects');
       const projectsData = await projectsResponse.json();
       
       if (projectsData.success) {
@@ -75,7 +72,8 @@ export default function Dashboard() {
     }
   };
 
-  const getStatusColor = (status: string) => {
+  const getStatusColor = (status: string | undefined) => {
+    if (!status) return 'text-gray-600 bg-gray-100';
     switch (status.toLowerCase()) {
       case 'active': return 'text-green-600 bg-green-100';
       case 'completed': return 'text-blue-600 bg-blue-100';
@@ -85,7 +83,8 @@ export default function Dashboard() {
     }
   };
 
-  const getPriorityColor = (priority: string) => {
+  const getPriorityColor = (priority: string | undefined) => {
+    if (!priority) return 'text-gray-600';
     switch (priority.toLowerCase()) {
       case 'high': return 'text-red-600';
       case 'medium': return 'text-yellow-600';
@@ -273,8 +272,7 @@ export default function Dashboard() {
               <button 
                 onClick={async () => {
                   try {
-                    const apiBase = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
-                    const response = await fetch(`${apiBase}/api/projects/sample`, { method: 'POST' });
+                    const response = await fetch('/api/projects', { method: 'POST' });
                     if (response.ok) {
                       fetchDashboardData(); // Refresh data
                     }
@@ -358,8 +356,7 @@ export default function Dashboard() {
                   <button 
                     onClick={async () => {
                       try {
-                        const apiBase = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
-                        const response = await fetch(`${apiBase}/api/projects/sample`, { method: 'POST' });
+                        const response = await fetch('/api/projects', { method: 'POST' });
                         if (response.ok) {
                           fetchDashboardData(); // Refresh data
                         }
