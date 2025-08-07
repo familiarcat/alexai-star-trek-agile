@@ -1,0 +1,411 @@
+/* LCARS (Library Computer Access/Retrieval System) Design System */
+/* Based on authentic Star Trek: The Next Generation LCARS interface */
+
+/* ===== LCARS COLOR PALETTE ===== */
+:root {
+    /* Primary LCARS Colors */
+    --lcars-gold: #FF9C00;
+    --lcars-orange: #FF6B35;
+    --lcars-purple: #CC99CC;
+    --lcars-lavender: #E6CCE6;
+    --lcars-blue: #6699CC;
+    --lcars-light-blue: #99CCFF;
+    --lcars-dark-blue: #336699;
+    --lcars-black: #000000;
+    --lcars-dark-grey: #1A1A1A;
+    --lcars-grey: #666666;
+    --lcars-light-grey: #CCCCCC;
+    --lcars-white: #FFFFFF;
+    
+    /* Status Colors */
+    --lcars-red: #CC6666;
+    --lcars-green: #66CC66;
+    --lcars-yellow: #CCCC66;
+    
+    /* Typography */
+    --lcars-font: 'Arial', 'Helvetica', sans-serif;
+    --lcars-font-size-base: 14px;
+    --lcars-font-size-large: 18px;
+    --lcars-font-size-xlarge: 24px;
+    --lcars-font-size-xxlarge: 32px;
+}
+
+/* ===== BASE STYLES ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--lcars-font);
+    background-color: var(--lcars-black);
+    color: var(--lcars-white);
+    font-size: var(--lcars-font-size-base);
+    line-height: 1.4;
+    overflow-x: hidden;
+}
+
+/* ===== LCARS TYPOGRAPHY ===== */
+.lcars-text {
+    font-family: var(--lcars-font);
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+.lcars-text-large {
+    font-size: var(--lcars-font-size-large);
+}
+
+.lcars-text-xlarge {
+    font-size: var(--lcars-font-size-xlarge);
+}
+
+.lcars-text-xxlarge {
+    font-size: var(--lcars-font-size-xxlarge);
+}
+
+/* ===== LCARS LAYOUT SYSTEM ===== */
+.lcars-container {
+    display: flex;
+    min-height: 100vh;
+    background-color: var(--lcars-black);
+}
+
+/* Left Sidebar - LCARS Menu */
+.lcars-sidebar {
+    width: 280px;
+    background-color: var(--lcars-black);
+    border-right: 4px solid var(--lcars-gold);
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    height: 100vh;
+    z-index: 1000;
+}
+
+.lcars-menu-header {
+    background-color: var(--lcars-gold);
+    color: var(--lcars-black);
+    padding: 20px;
+    text-align: center;
+    font-size: var(--lcars-font-size-large);
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.lcars-menu-item {
+    background-color: var(--lcars-blue);
+    color: var(--lcars-white);
+    padding: 15px 20px;
+    margin: 2px 0;
+    border-radius: 0 25px 25px 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-left: 8px solid var(--lcars-gold);
+}
+
+.lcars-menu-item:hover {
+    background-color: var(--lcars-purple);
+    transform: translateX(5px);
+}
+
+.lcars-menu-item.active {
+    background-color: var(--lcars-purple);
+    border-left-color: var(--lcars-orange);
+}
+
+/* Main Content Area */
+.lcars-main {
+    flex: 1;
+    margin-left: 280px;
+    padding: 20px;
+    background-color: var(--lcars-black);
+}
+
+/* ===== LCARS PANELS AND BLOCKS ===== */
+.lcars-panel {
+    background-color: var(--lcars-dark-grey);
+    border: 2px solid var(--lcars-gold);
+    border-radius: 15px;
+    padding: 20px;
+    margin: 10px 0;
+    position: relative;
+}
+
+.lcars-panel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background-color: var(--lcars-gold);
+    border-radius: 15px 15px 0 0;
+}
+
+/* L-Shaped Elements (Characteristic LCARS) */
+.lcars-l-shape {
+    position: relative;
+    background-color: var(--lcars-gold);
+    border-radius: 0 25px 25px 0;
+    padding: 15px 25px;
+    margin: 5px 0;
+    color: var(--lcars-black);
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.lcars-l-shape::before {
+    content: '';
+    position: absolute;
+    left: -20px;
+    top: 0;
+    width: 20px;
+    height: 100%;
+    background-color: var(--lcars-gold);
+    border-radius: 25px 0 0 25px;
+}
+
+/* ===== LCARS BUTTONS ===== */
+.lcars-button {
+    background-color: var(--lcars-orange);
+    color: var(--lcars-white);
+    border: none;
+    border-radius: 25px;
+    padding: 12px 25px;
+    font-family: var(--lcars-font);
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.lcars-button:hover {
+    background-color: var(--lcars-purple);
+    transform: scale(1.05);
+}
+
+.lcars-button:active {
+    transform: scale(0.95);
+}
+
+.lcars-button.secondary {
+    background-color: var(--lcars-blue);
+}
+
+.lcars-button.secondary:hover {
+    background-color: var(--lcars-light-blue);
+    color: var(--lcars-black);
+}
+
+/* ===== LCARS DATA DISPLAYS ===== */
+.lcars-data-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.lcars-data-item {
+    background-color: var(--lcars-purple);
+    color: var(--lcars-white);
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    position: relative;
+}
+
+.lcars-data-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background-color: var(--lcars-gold);
+    border-radius: 10px 10px 0 0;
+}
+
+.lcars-data-value {
+    font-size: var(--lcars-font-size-xlarge);
+    font-weight: bold;
+    color: var(--lcars-gold);
+    margin-bottom: 5px;
+}
+
+.lcars-data-label {
+    font-size: var(--lcars-font-size-base);
+    text-transform: uppercase;
+    color: var(--lcars-white);
+}
+
+/* ===== LCARS STATUS INDICATORS ===== */
+.lcars-status {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    padding: 10px;
+    background-color: var(--lcars-dark-grey);
+    border-radius: 8px;
+    border-left: 4px solid var(--lcars-green);
+}
+
+.lcars-status.warning {
+    border-left-color: var(--lcars-yellow);
+}
+
+.lcars-status.error {
+    border-left-color: var(--lcars-red);
+}
+
+.lcars-status-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: var(--lcars-green);
+    margin-right: 10px;
+    animation: pulse 2s infinite;
+}
+
+.lcars-status.warning .lcars-status-indicator {
+    background-color: var(--lcars-yellow);
+}
+
+.lcars-status.error .lcars-status-indicator {
+    background-color: var(--lcars-red);
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+/* ===== LCARS PROGRESS BARS ===== */
+.lcars-progress {
+    background-color: var(--lcars-dark-grey);
+    border-radius: 10px;
+    height: 20px;
+    overflow: hidden;
+    margin: 10px 0;
+    position: relative;
+}
+
+.lcars-progress-bar {
+    height: 100%;
+    background-color: var(--lcars-gold);
+    transition: width 0.3s ease;
+    position: relative;
+}
+
+.lcars-progress-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* ===== LCARS NAVIGATION ===== */
+.lcars-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: var(--lcars-dark-grey);
+    border-bottom: 4px solid var(--lcars-gold);
+}
+
+.lcars-nav-brand {
+    font-size: var(--lcars-font-size-large);
+    font-weight: bold;
+    color: var(--lcars-gold);
+    text-transform: uppercase;
+}
+
+.lcars-nav-menu {
+    display: flex;
+    gap: 15px;
+}
+
+/* ===== LCARS RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+    .lcars-sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        border-right: none;
+        border-bottom: 4px solid var(--lcars-gold);
+    }
+    
+    .lcars-main {
+        margin-left: 0;
+    }
+    
+    .lcars-container {
+        flex-direction: column;
+    }
+    
+    .lcars-data-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ===== LCARS ANIMATIONS ===== */
+.lcars-fade-in {
+    animation: lcarsFadeIn 0.5s ease-in;
+}
+
+@keyframes lcarsFadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.lcars-slide-in {
+    animation: lcarsSlideIn 0.3s ease-out;
+}
+
+@keyframes lcarsSlideIn {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(0); }
+}
+
+/* ===== LCARS UTILITY CLASSES ===== */
+.lcars-text-center { text-align: center; }
+.lcars-text-left { text-align: left; }
+.lcars-text-right { text-align: right; }
+
+.lcars-mt-10 { margin-top: 10px; }
+.lcars-mb-10 { margin-bottom: 10px; }
+.lcars-ml-10 { margin-left: 10px; }
+.lcars-mr-10 { margin-right: 10px; }
+
+.lcars-p-10 { padding: 10px; }
+.lcars-p-20 { padding: 20px; }
+.lcars-p-30 { padding: 30px; }
+
+.lcars-bg-gold { background-color: var(--lcars-gold); }
+.lcars-bg-orange { background-color: var(--lcars-orange); }
+.lcars-bg-purple { background-color: var(--lcars-purple); }
+.lcars-bg-blue { background-color: var(--lcars-blue); }
+.lcars-bg-dark { background-color: var(--lcars-dark-grey); }
+
+.lcars-text-gold { color: var(--lcars-gold); }
+.lcars-text-orange { color: var(--lcars-orange); }
+.lcars-text-purple { color: var(--lcars-purple); }
+.lcars-text-blue { color: var(--lcars-blue); }
+.lcars-text-white { color: var(--lcars-white); } 
