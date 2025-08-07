@@ -16,7 +16,7 @@ NC='\033[0m' # No Color
 
 # Configuration
 PROJECT_NAME="alexai_katra_transfer_package_remote_v7"
-GITHUB_REPO="your-username/alexai_katra_transfer_package_remote_v7"
+GITHUB_REPO="familiarcat/alexai-star-trek-agile"
 LOCAL_PORT=8000
 
 # Logging function
@@ -65,6 +65,38 @@ check_git_status() {
     fi
 }
 
+# Function to auto-commit changes
+auto_commit_changes() {
+    local commit_message=${1:-"Auto-commit: $(date +'%Y-%m-%d %H:%M:%S')"}
+    
+    if [ -n "$(git status --porcelain)" ]; then
+        log "Auto-committing changes..."
+        
+        # Add all changes
+        git add .
+        
+        # Commit with provided message or default
+        git commit -m "$commit_message"
+        
+        success "Changes auto-committed: $commit_message"
+    else
+        info "No changes to commit"
+    fi
+}
+
+# Function to auto-commit and push
+auto_commit_and_push() {
+    local commit_message=${1:-"Auto-commit: $(date +'%Y-%m-%d %H:%M:%S')"}
+    
+    auto_commit_changes "$commit_message"
+    
+    # Push to remote
+    log "Pushing to remote repository..."
+    git push origin $(git branch --show-current)
+    
+    success "Changes pushed to remote repository"
+}
+
 # Function to trigger GitHub Actions workflow
 trigger_github_workflow() {
     local deployment_target=$1
@@ -72,6 +104,9 @@ trigger_github_workflow() {
     if ! command_exists gh; then
         error "GitHub CLI (gh) not found. Please install it first: https://cli.github.com/"
     fi
+    
+    # Auto-commit and push changes before triggering workflow
+    auto_commit_and_push "Auto-commit before CI/CD deployment: $deployment_target"
     
     log "Triggering GitHub Actions workflow for deployment target: $deployment_target"
     
