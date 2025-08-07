@@ -49,8 +49,11 @@ export default function Dashboard() {
     try {
       setLoading(true);
       
+      // Use environment variable for API URL, fallback to localhost:8000 for development
+      const apiBase = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+      
       // Fetch dashboard stats
-      const statsResponse = await fetch('/api/dashboard/stats');
+      const statsResponse = await fetch(`${apiBase}/api/dashboard/stats`);
       const statsData = await statsResponse.json();
       
       if (statsData.success) {
@@ -58,7 +61,7 @@ export default function Dashboard() {
       }
 
       // Fetch recent projects
-      const projectsResponse = await fetch('/api/projects');
+      const projectsResponse = await fetch(`${apiBase}/api/projects`);
       const projectsData = await projectsResponse.json();
       
       if (projectsData.success) {
@@ -110,7 +113,7 @@ export default function Dashboard() {
           <p className="mt-4 text-red-600">{error}</p>
           <button 
             onClick={fetchDashboardData}
-            className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
           >
             Retry
           </button>
@@ -122,215 +125,253 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b">
+      <header className="bg-white shadow-sm border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-6">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900">
-                LCARS System 3 - AlexAI Agile Manager
-              </h1>
-              <p className="text-gray-600 mt-1">
-                Star Trek-themed Project Management System
-              </p>
+            <div className="flex items-center">
+              <div className="flex-shrink-0">
+                <h1 className="text-2xl font-bold text-gray-900">LCARS System</h1>
+                <p className="text-sm text-gray-500">AlexAI Star Trek Agile Management</p>
+              </div>
             </div>
-            <div className="flex space-x-4">
-              <Link 
-                href="/projects"
-                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
-              >
-                <FolderIcon className="h-4 w-4 mr-2" />
-                View All Projects
-              </Link>
+            <div className="flex items-center space-x-4">
+              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                Online
+              </span>
             </div>
           </div>
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      {/* Main Content */}
+      <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <div className="bg-white overflow-hidden shadow rounded-lg">
-            <div className="p-5">
-              <div className="flex items-center">
-                <div className="flex-shrink-0">
-                  <FolderIcon className="h-6 w-6 text-blue-600" />
-                </div>
-                <div className="ml-5 w-0 flex-1">
-                  <dl>
-                    <dt className="text-sm font-medium text-gray-500 truncate">
-                      Total Projects
-                    </dt>
-                    <dd className="text-lg font-medium text-gray-900">
-                      {stats?.total_projects || 0}
-                    </dd>
-                  </dl>
+        {stats && (
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 mb-8">
+            <div className="bg-white overflow-hidden shadow rounded-lg">
+              <div className="p-5">
+                <div className="flex items-center">
+                  <div className="flex-shrink-0">
+                    <FolderIcon className="h-6 w-6 text-gray-400" />
+                  </div>
+                  <div className="ml-5 w-0 flex-1">
+                    <dl>
+                      <dt className="text-sm font-medium text-gray-500 truncate">Total Projects</dt>
+                      <dd className="text-lg font-medium text-gray-900">{stats.total_projects}</dd>
+                    </dl>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          <div className="bg-white overflow-hidden shadow rounded-lg">
-            <div className="p-5">
-              <div className="flex items-center">
-                <div className="flex-shrink-0">
-                  <CheckCircleIcon className="h-6 w-6 text-green-600" />
-                </div>
-                <div className="ml-5 w-0 flex-1">
-                  <dl>
-                    <dt className="text-sm font-medium text-gray-500 truncate">
-                      Active Projects
-                    </dt>
-                    <dd className="text-lg font-medium text-gray-900">
-                      {stats?.active_projects || 0}
-                    </dd>
-                  </dl>
+            <div className="bg-white overflow-hidden shadow rounded-lg">
+              <div className="p-5">
+                <div className="flex items-center">
+                  <div className="flex-shrink-0">
+                    <CheckCircleIcon className="h-6 w-6 text-green-400" />
+                  </div>
+                  <div className="ml-5 w-0 flex-1">
+                    <dl>
+                      <dt className="text-sm font-medium text-gray-500 truncate">Active Projects</dt>
+                      <dd className="text-lg font-medium text-gray-900">{stats.active_projects}</dd>
+                    </dl>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          <div className="bg-white overflow-hidden shadow rounded-lg">
-            <div className="p-5">
-              <div className="flex items-center">
-                <div className="flex-shrink-0">
-                  <UserGroupIcon className="h-6 w-6 text-purple-600" />
-                </div>
-                <div className="ml-5 w-0 flex-1">
-                  <dl>
-                    <dt className="text-sm font-medium text-gray-500 truncate">
-                      Team Members
-                    </dt>
-                    <dd className="text-lg font-medium text-gray-900">
-                      {stats?.team_members || 0}
-                    </dd>
-                  </dl>
+            <div className="bg-white overflow-hidden shadow rounded-lg">
+              <div className="p-5">
+                <div className="flex items-center">
+                  <div className="flex-shrink-0">
+                    <UserGroupIcon className="h-6 w-6 text-blue-400" />
+                  </div>
+                  <div className="ml-5 w-0 flex-1">
+                    <dl>
+                      <dt className="text-sm font-medium text-gray-500 truncate">Team Members</dt>
+                      <dd className="text-lg font-medium text-gray-900">{stats.team_members}</dd>
+                    </dl>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          <div className="bg-white overflow-hidden shadow rounded-lg">
-            <div className="p-5">
-              <div className="flex items-center">
-                <div className="flex-shrink-0">
-                  <CogIcon className="h-6 w-6 text-orange-600" />
-                </div>
-                <div className="ml-5 w-0 flex-1">
-                  <dl>
-                    <dt className="text-sm font-medium text-gray-500 truncate">
-                      AI Consultations
-                    </dt>
-                    <dd className="text-lg font-medium text-gray-900">
-                      {stats?.ai_consultations || 0}
-                    </dd>
-                  </dl>
+            <div className="bg-white overflow-hidden shadow rounded-lg">
+              <div className="p-5">
+                <div className="flex items-center">
+                  <div className="flex-shrink-0">
+                    <CogIcon className="h-6 w-6 text-purple-400" />
+                  </div>
+                  <div className="ml-5 w-0 flex-1">
+                    <dl>
+                      <dt className="text-sm font-medium text-gray-500 truncate">AI Consultations</dt>
+                      <dd className="text-lg font-medium text-gray-900">{stats.ai_consultations}</dd>
+                    </dl>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        )}
 
         {/* Quick Actions */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <Link 
-            href="/projects"
-            className="bg-white overflow-hidden shadow rounded-lg hover:shadow-md transition-shadow"
-          >
-            <div className="p-6">
-              <div className="flex items-center">
-                <FolderIcon className="h-8 w-8 text-blue-600" />
-                <div className="ml-4">
-                  <h3 className="text-lg font-medium text-gray-900">Projects</h3>
-                  <p className="text-gray-600">Manage your mission logs</p>
+        <div className="bg-white shadow rounded-lg mb-8">
+          <div className="px-4 py-5 sm:p-6">
+            <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4">Quick Actions</h3>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              <Link href="/projects" className="relative group bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-500 rounded-lg border border-gray-200 hover:border-gray-300">
+                <div>
+                  <span className="rounded-lg inline-flex p-3 bg-blue-50 text-blue-700 ring-4 ring-white">
+                    <FolderIcon className="h-6 w-6" />
+                  </span>
                 </div>
-              </div>
-            </div>
-          </Link>
+                <div className="mt-8">
+                  <h3 className="text-lg font-medium">
+                    <span className="absolute inset-0" aria-hidden="true" />
+                    View Projects
+                  </h3>
+                  <p className="mt-2 text-sm text-gray-500">
+                    Manage and track all your projects
+                  </p>
+                </div>
+              </Link>
 
-          <Link 
-            href="/observation-lounge"
-            className="bg-white overflow-hidden shadow rounded-lg hover:shadow-md transition-shadow"
-          >
-            <div className="p-6">
-              <div className="flex items-center">
-                <EyeIcon className="h-8 w-8 text-purple-600" />
-                <div className="ml-4">
-                  <h3 className="text-lg font-medium text-gray-900">Observation Lounge</h3>
-                  <p className="text-gray-600">AI consultation interface</p>
+              <Link href="/observation-lounge" className="relative group bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-500 rounded-lg border border-gray-200 hover:border-gray-300">
+                <div>
+                  <span className="rounded-lg inline-flex p-3 bg-purple-50 text-purple-700 ring-4 ring-white">
+                    <EyeIcon className="h-6 w-6" />
+                  </span>
                 </div>
-              </div>
-            </div>
-          </Link>
+                <div className="mt-8">
+                  <h3 className="text-lg font-medium">
+                    <span className="absolute inset-0" aria-hidden="true" />
+                    AI Consultation
+                  </h3>
+                  <p className="mt-2 text-sm text-gray-500">
+                    Get insights from Star Trek AI agents
+                  </p>
+                </div>
+              </Link>
 
-          <Link 
-            href="/alexai"
-            className="bg-white overflow-hidden shadow rounded-lg hover:shadow-md transition-shadow"
-          >
-            <div className="p-6">
-              <div className="flex items-center">
-                <CogIcon className="h-8 w-8 text-orange-600" />
-                <div className="ml-4">
-                  <h3 className="text-lg font-medium text-gray-900">AlexAI Core</h3>
-                  <p className="text-gray-600">Advanced AI management</p>
+              <Link href="/alexai" className="relative group bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-500 rounded-lg border border-gray-200 hover:border-gray-300">
+                <div>
+                  <span className="rounded-lg inline-flex p-3 bg-green-50 text-green-700 ring-4 ring-white">
+                    <CogIcon className="h-6 w-6" />
+                  </span>
                 </div>
-              </div>
+                <div className="mt-8">
+                  <h3 className="text-lg font-medium">
+                    <span className="absolute inset-0" aria-hidden="true" />
+                    AI System
+                  </h3>
+                  <p className="mt-2 text-sm text-gray-500">
+                    Monitor AI system performance
+                  </p>
+                </div>
+              </Link>
+
+              <button 
+                onClick={async () => {
+                  try {
+                    const apiBase = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+                    const response = await fetch(`${apiBase}/api/projects/sample`, { method: 'POST' });
+                    if (response.ok) {
+                      fetchDashboardData(); // Refresh data
+                    }
+                  } catch (err) {
+                    console.error('Failed to create sample data:', err);
+                  }
+                }}
+                className="relative group bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-500 rounded-lg border border-gray-200 hover:border-gray-300"
+              >
+                <div>
+                  <span className="rounded-lg inline-flex p-3 bg-yellow-50 text-yellow-700 ring-4 ring-white">
+                    <ChartBarIcon className="h-6 w-6" />
+                  </span>
+                </div>
+                <div className="mt-8">
+                  <h3 className="text-lg font-medium">
+                    Create Sample Data
+                  </h3>
+                  <p className="mt-2 text-sm text-gray-500">
+                    Generate mock projects for testing
+                  </p>
+                </div>
+              </button>
             </div>
-          </Link>
+          </div>
         </div>
 
         {/* Recent Projects */}
         <div className="bg-white shadow rounded-lg">
-          <div className="px-6 py-4 border-b border-gray-200">
-            <h3 className="text-lg font-medium text-gray-900">Recent Projects</h3>
-          </div>
-          <div className="divide-y divide-gray-200">
+          <div className="px-4 py-5 sm:p-6">
+            <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4">Recent Projects</h3>
             {recentProjects.length > 0 ? (
-              recentProjects.map((project) => (
-                <div key={project.id} className="p-6 hover:bg-gray-50">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center">
-                      <div className="flex-shrink-0">
-                        <FolderIcon className="h-6 w-6 text-blue-600" />
-                      </div>
-                      <div className="ml-4">
-                        <h4 className="text-sm font-medium text-gray-900">
-                          {project.name}
-                        </h4>
-                        <div className="flex items-center mt-1 space-x-4">
-                          <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(project.status)}`}>
-                            {project.status}
-                          </span>
-                          <span className={`text-xs font-medium ${getPriorityColor(project.priority)}`}>
-                            {project.priority} Priority
-                          </span>
-                          <span className="text-xs text-gray-500">
-                            {project.team_size} members
-                          </span>
+              <div className="overflow-hidden">
+                <ul className="divide-y divide-gray-200">
+                  {recentProjects.map((project) => (
+                    <li key={project.id} className="py-4">
+                      <div className="flex items-center space-x-4">
+                        <div className="flex-shrink-0">
+                          <FolderIcon className="h-8 w-8 text-gray-400" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm font-medium text-gray-900 truncate">
+                            {project.name}
+                          </p>
+                          <div className="flex items-center space-x-2 mt-1">
+                            <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(project.status)}`}>
+                              {project.status}
+                            </span>
+                            <span className={`text-xs font-medium ${getPriorityColor(project.priority)}`}>
+                              {project.priority} Priority
+                            </span>
+                          </div>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <div className="flex items-center">
+                            <UserGroupIcon className="h-4 w-4 text-gray-400 mr-1" />
+                            <span className="text-sm text-gray-500">{project.team_size}</span>
+                          </div>
+                          <div className="flex items-center">
+                            <ClockIcon className="h-4 w-4 text-gray-400 mr-1" />
+                            <span className="text-sm text-gray-500">{project.deadline}</span>
+                          </div>
+                          <Link 
+                            href={`/project-detail?id=${project.id}`}
+                            className="text-blue-600 hover:text-blue-800 text-sm font-medium"
+                          >
+                            View Details →
+                          </Link>
                         </div>
                       </div>
-                    </div>
-                    <div className="flex items-center space-x-4">
-                      <div className="text-right">
-                        <div className="text-sm font-medium text-gray-900">
-                          {project.progress}% Complete
-                        </div>
-                        <div className="text-xs text-gray-500">
-                          Due {new Date(project.deadline).toLocaleDateString()}
-                        </div>
-                      </div>
-                      <Link 
-                        href={`/project-detail?id=${project.id}`}
-                        className="text-blue-600 hover:text-blue-800 text-sm font-medium"
-                      >
-                        View Details →
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              ))
+                    </li>
+                  ))}
+                </ul>
+              </div>
             ) : (
-              <div className="p-6 text-center text-gray-500">
-                No projects found. Create your first project to get started.
+              <div className="text-center py-12">
+                <FolderIcon className="mx-auto h-12 w-12 text-gray-400" />
+                <h3 className="mt-2 text-sm font-medium text-gray-900">No projects</h3>
+                <p className="mt-1 text-sm text-gray-500">Get started by creating a new project.</p>
+                <div className="mt-6">
+                  <button 
+                    onClick={async () => {
+                      try {
+                        const apiBase = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+                        const response = await fetch(`${apiBase}/api/projects/sample`, { method: 'POST' });
+                        if (response.ok) {
+                          fetchDashboardData(); // Refresh data
+                        }
+                      } catch (err) {
+                        console.error('Failed to create sample data:', err);
+                      }
+                    }}
+                    className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
+                  >
+                    Create Sample Data
+                  </button>
+                </div>
               </div>
             )}
           </div>
@@ -338,4 +379,4 @@ export default function Dashboard() {
       </main>
     </div>
   );
-}
+} 

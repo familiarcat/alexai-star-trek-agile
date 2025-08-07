@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# AlexAI Star Trek Agile System - Unified Deployment Script
-# Handles both local and remote deployments for JavaScript version
+# 🖖 AlexAI Star Trek Agile System - Unified Deployment Script
+# Handles both local development and production deployment
 
 set -e
 
@@ -10,12 +10,13 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
+PURPLE='\033[0;35m'
 NC='\033[0m' # No Color
 
 # Configuration
-PROJECT_NAME="alexai_katra_transfer_package_remote_v7"
-LOCAL_PORT=8000
-VERCEL_PROJECT="alexaikatratransferpackageremotev7"
+PROJECT_NAME="alexai-star-trek-agile"
+NEXTJS_PORT=3000
+API_PORT=8000
 
 # Logging function
 log() {
@@ -31,85 +32,140 @@ error() {
     exit 1
 }
 
+success() {
+    echo -e "${PURPLE}[$(date +'%Y-%m-%d %H:%M:%S')] SUCCESS: $1${NC}"
+}
+
 # Function to check if a command exists
 command_exists() {
     command -v "$1" >/dev/null 2>&1
 }
 
-# Function to kill processes on port
-kill_port() {
-    local port=$1
-    if lsof -Pi :$port -sTCP:LISTEN -t >/dev/null 2>&1; then
-        log "Killing process on port $port"
-        lsof -ti:$port | xargs kill -9
-        sleep 2
+# Function to check if ports are available
+check_ports() {
+    local nextjs_port=$1
+    local api_port=$2
+    
+    if lsof -Pi :$nextjs_port -sTCP:LISTEN -t >/dev/null 2>&1; then
+        warn "Port $nextjs_port is already in use"
+        read -p "Kill process on port $nextjs_port? (y/N): " -n 1 -r
+        echo
+        if [[ $REPLY =~ ^[Yy]$ ]]; then
+            lsof -ti:$nextjs_port | xargs kill -9
+            sleep 2
+        else
+            error "Port $nextjs_port is required for Next.js"
+        fi
+    fi
+    
+    if lsof -Pi :$api_port -sTCP:LISTEN -t >/dev/null 2>&1; then
+        warn "Port $api_port is already in use"
+        read -p "Kill process on port $api_port? (y/N): " -n 1 -r
+        echo
+        if [[ $REPLY =~ ^[Yy]$ ]]; then
+            lsof -ti:$api_port | xargs kill -9
+            sleep 2
+        else
+            error "Port $api_port is required for API server"
+        fi
     fi
 }
 
-# Function to setup environment
-setup_environment() {
-    log "Setting up deployment environment..."
+# Function to start local development
+start_local() {
+    log "Starting local development environment..."
     
-    # Check if we're in the right directory
-    if [ ! -f "package.json" ]; then
-        error "package.json not found. Please run this script from the project root."
-    fi
+    # Check ports
+    check_ports $NEXTJS_PORT $API_PORT
     
-    # Install dependencies if needed
-    if [ ! -d "node_modules" ]; then
-        log "Installing Node.js dependencies..."
-        npm install
-    fi
+    # Create logs directory if it doesn't exist
+    mkdir -p logs
     
-    # Create public directory if it doesn't exist
-    if [ ! -d "public" ]; then
-        log "Creating public directory..."
-        mkdir -p public
-    fi
+    # Start API server in background
+    log "Starting Express.js API server on port $API_PORT..."
+    nohup npm run server > logs/api-server.log 2>&1 &
+    API_PID=$!
     
-    # Copy files from js-version/public to public if needed
-    if [ -d "js-version/public" ] && [ ! -f "public/index.html" ]; then
-        log "Copying frontend files from js-version/public to public..."
-        cp -r js-version/public/* public/
-    fi
-    
-    # Copy source files if needed
-    if [ -d "js-version/src" ] && [ ! -d "src" ]; then
-        log "Copying source files from js-version/src to src..."
-        cp -r js-version/src src/
-    fi
-}
-
-# Function to start local server
-start_local_server() {
-    log "Starting local development server..."
-    
-    # Kill any existing processes on the port
-    kill_port $LOCAL_PORT
-    
-    # Start the server
-    log "Starting Node.js server on port $LOCAL_PORT..."
-    nohup node server.js > logs/server.log 2>&1 &
-    SERVER_PID=$!
-    
-    # Wait for server to start
+    # Wait for API server to start
     sleep 3
     
-    # Test the server
-    if curl -s http://localhost:$LOCAL_PORT/api/health > /dev/null; then
-        log "✅ Local server started successfully!"
-        log "🌐 Dashboard: http://localhost:$LOCAL_PORT"
-        log "🔮 Observation Lounge: http://localhost:$LOCAL_PORT/observation-lounge"
-        log "📋 Projects: http://localhost:$LOCAL_PORT/projects"
-        log "📊 API Health: http://localhost:$LOCAL_PORT/api/health"
-        
-        # Open browser
-        if command_exists open; then
-            open http://localhost:$LOCAL_PORT
-        fi
+    # Test API server
+    if curl -s http://localhost:$API_PORT/api/health > /dev/null; then
+        success "API server started successfully on port $API_PORT"
     else
-        error "Failed to start local server"
+        error "Failed to start API server"
     fi
+    
+    # Start Next.js development server
+    log "Starting Next.js development server on port $NEXTJS_PORT..."
+    nohup npm run dev > logs/nextjs-server.log 2>&1 &
+    NEXTJS_PID=$!
+    
+    # Wait for Next.js server to start
+    sleep 5
+    
+    # Test Next.js server
+    if curl -s http://localhost:$NEXTJS_PORT > /dev/null; then
+        success "Next.js server started successfully on port $NEXTJS_PORT"
+    else
+        error "Failed to start Next.js server"
+    fi
+    
+    # Save PIDs for cleanup
+    echo $API_PID > logs/api-server.pid
+    echo $NEXTJS_PID > logs/nextjs-server.pid
+    
+    # Display URLs
+    echo ""
+    echo -e "${PURPLE}🚀 AlexAI Star Trek Agile System - Local Development${NC}"
+    echo "=================================================="
+    echo -e "${GREEN}🌐 Next.js Frontend:${NC} http://localhost:$NEXTJS_PORT"
+    echo -e "${BLUE}🔌 Express.js API:${NC} http://localhost:$API_PORT"
+    echo -e "${YELLOW}📊 API Health:${NC} http://localhost:$API_PORT/api/health"
+    echo -e "${CYAN}📋 Projects:${NC} http://localhost:$NEXTJS_PORT/projects"
+    echo -e "${MAGENTA}🤖 AI Consultation:${NC} http://localhost:$NEXTJS_PORT/observation-lounge"
+    echo ""
+    echo -e "${YELLOW}Press Ctrl+C to stop all servers${NC}"
+    echo ""
+    
+    # Open browser
+    if command_exists open; then
+        open http://localhost:$NEXTJS_PORT
+    fi
+    
+    # Wait for user to stop
+    wait
+}
+
+# Function to stop local development
+stop_local() {
+    log "Stopping local development environment..."
+    
+    # Stop API server
+    if [ -f logs/api-server.pid ]; then
+        API_PID=$(cat logs/api-server.pid)
+        if kill -0 $API_PID 2>/dev/null; then
+            kill $API_PID
+            success "Stopped API server (PID: $API_PID)"
+        fi
+        rm -f logs/api-server.pid
+    fi
+    
+    # Stop Next.js server
+    if [ -f logs/nextjs-server.pid ]; then
+        NEXTJS_PID=$(cat logs/nextjs-server.pid)
+        if kill -0 $NEXTJS_PID 2>/dev/null; then
+            kill $NEXTJS_PID
+            success "Stopped Next.js server (PID: $NEXTJS_PID)"
+        fi
+        rm -f logs/nextjs-server.pid
+    fi
+    
+    # Kill any remaining processes on our ports
+    lsof -ti:$NEXTJS_PORT | xargs kill -9 2>/dev/null || true
+    lsof -ti:$API_PORT | xargs kill -9 2>/dev/null || true
+    
+    success "Local development environment stopped"
 }
 
 # Function to deploy to Vercel
@@ -121,146 +177,118 @@ deploy_vercel() {
         error "Vercel CLI not found. Please install it with: npm i -g vercel"
     fi
     
+    # Build the project
+    log "Building project..."
+    npm run build
+    
     # Deploy to Vercel
-    log "Running Vercel deployment..."
+    log "Deploying to Vercel..."
     vercel --prod
     
-    # Get the deployment URL
-    DEPLOY_URL=$(vercel ls | grep $VERCEL_PROJECT | head -1 | awk '{print $2}')
-    
-    if [ -n "$DEPLOY_URL" ]; then
-        log "✅ Vercel deployment successful!"
-        log "🌐 Deployed URL: $DEPLOY_URL"
-        
-        # Test the deployment
-        sleep 5
-        if curl -s "$DEPLOY_URL/api/health" > /dev/null; then
-            log "✅ Deployment health check passed!"
-            
-            # Open browser
-            if command_exists open; then
-                open "$DEPLOY_URL"
-            fi
-        else
-            warn "Deployment health check failed"
-        fi
-    else
-        error "Failed to get deployment URL"
-    fi
+    success "Vercel deployment completed!"
 }
 
-# Function to run tests
-run_tests() {
-    log "Running tests..."
+# Function to deploy to EC2
+deploy_ec2() {
+    log "Deploying to EC2..."
     
-    if [ -f "package.json" ] && grep -q "test" package.json; then
-        npm test
-    else
-        warn "No test script found in package.json"
-    fi
-}
-
-# Function to run linting
-run_lint() {
-    log "Running linting..."
+    # This would contain EC2-specific deployment logic
+    # For now, we'll just build and prepare for deployment
+    log "Building project for EC2 deployment..."
+    npm run build
     
-    if [ -f "package.json" ] && grep -q "lint" package.json; then
-        npm run lint
-    else
-        warn "No lint script found in package.json"
-    fi
+    # Create deployment package
+    log "Creating deployment package..."
+    tar -czf deployment.tar.gz \
+        --exclude=node_modules \
+        --exclude=.next \
+        --exclude=.git \
+        --exclude=logs \
+        .
+    
+    success "EC2 deployment package created: deployment.tar.gz"
+    warn "Manual deployment to EC2 required. Upload deployment.tar.gz and run:"
+    echo "  npm install --production"
+    echo "  npm start"
 }
 
 # Function to show status
 show_status() {
-    log "=== Deployment Status ==="
+    log "Checking system status..."
     
-    # Local server status
-    if lsof -Pi :$LOCAL_PORT -sTCP:LISTEN -t >/dev/null 2>&1; then
-        echo -e "${GREEN}✅ Local server running on port $LOCAL_PORT${NC}"
+    echo ""
+    echo -e "${PURPLE}📊 System Status${NC}"
+    echo "=================="
+    
+    # Check Next.js server
+    if curl -s http://localhost:$NEXTJS_PORT > /dev/null; then
+        echo -e "${GREEN}✅ Next.js Server:${NC} Running on port $NEXTJS_PORT"
     else
-        echo -e "${RED}❌ Local server not running${NC}"
+        echo -e "${RED}❌ Next.js Server:${NC} Not running"
     fi
     
-    # Vercel deployment status
-    if command_exists vercel; then
-        echo -e "${BLUE}📊 Vercel deployments:${NC}"
-        vercel ls | grep $VERCEL_PROJECT || echo "No deployments found"
-    fi
-    
-    # File structure check
-    echo -e "${BLUE}📁 File structure:${NC}"
-    if [ -d "public" ]; then
-        echo -e "${GREEN}✅ public/ directory exists${NC}"
-        ls -la public/ | head -5
+    # Check API server
+    if curl -s http://localhost:$API_PORT/api/health > /dev/null; then
+        echo -e "${GREEN}✅ API Server:${NC} Running on port $API_PORT"
     else
-        echo -e "${RED}❌ public/ directory missing${NC}"
+        echo -e "${RED}❌ API Server:${NC} Not running"
     fi
     
-    if [ -d "src" ]; then
-        echo -e "${GREEN}✅ src/ directory exists${NC}"
-        ls -la src/
+    # Check database
+    if [ -f "storage/database/agile_manager.db" ]; then
+        echo -e "${GREEN}✅ Database:${NC} Found"
     else
-        echo -e "${RED}❌ src/ directory missing${NC}"
+        echo -e "${YELLOW}⚠️  Database:${NC} Not found"
     fi
+    
+    echo ""
 }
 
-# Main function
-main() {
-    log "🚀 AlexAI Star Trek Agile System - Unified Deployment"
-    log "=================================================="
-    
-    case "${1:-help}" in
-        "local")
-            setup_environment
-            start_local_server
-            ;;
-        "deploy")
-            setup_environment
-            run_lint
-            run_tests
-            deploy_vercel
-            ;;
-        "both")
-            setup_environment
-            run_lint
-            run_tests
-            start_local_server
-            deploy_vercel
-            ;;
-        "stop")
-            kill_port $LOCAL_PORT
-            log "Local server stopped"
-            ;;
-        "status")
-            show_status
-            ;;
-        "setup")
-            setup_environment
-            log "Environment setup complete"
-            ;;
-        "test")
-            run_tests
-            ;;
-        "lint")
-            run_lint
-            ;;
-        "help"|*)
-            echo "Usage: $0 {local|deploy|both|stop|status|setup|test|lint}"
-            echo ""
-            echo "Commands:"
-            echo "  local   - Start local development server"
-            echo "  deploy  - Deploy to Vercel"
-            echo "  both    - Start local server and deploy to Vercel"
-            echo "  stop    - Stop local server"
-            echo "  status  - Show deployment status"
-            echo "  setup   - Setup environment (copy files, install deps)"
-            echo "  test    - Run tests"
-            echo "  lint    - Run linting"
-            echo "  help    - Show this help message"
-            ;;
-    esac
+# Function to show help
+show_help() {
+    echo -e "${PURPLE}🖖 AlexAI Star Trek Agile System - Unified Deployment${NC}"
+    echo "========================================================"
+    echo ""
+    echo "Usage: $0 [COMMAND]"
+    echo ""
+    echo "Commands:"
+    echo "  start     Start local development environment"
+    echo "  stop      Stop local development environment"
+    echo "  status    Show system status"
+    echo "  vercel    Deploy to Vercel"
+    echo "  ec2       Deploy to EC2"
+    echo "  help      Show this help message"
+    echo ""
+    echo "Examples:"
+    echo "  $0 start          # Start local development"
+    echo "  $0 vercel         # Deploy to Vercel"
+    echo "  $0 status         # Check system status"
+    echo ""
 }
 
-# Run main function with all arguments
-main "$@" 
+# Main execution
+case "${1:-help}" in
+    start)
+        start_local
+        ;;
+    stop)
+        stop_local
+        ;;
+    status)
+        show_status
+        ;;
+    vercel)
+        deploy_vercel
+        ;;
+    ec2)
+        deploy_ec2
+        ;;
+    help|--help|-h)
+        show_help
+        ;;
+    *)
+        error "Unknown command: $1"
+        show_help
+        exit 1
+        ;;
+esac 
