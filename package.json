@@ -1,14 +1,11 @@
 {
   "name": "alexai-star-trek-agile-system",
   "version": "2.0.0",
-  "description": "AlexAI Star Trek Agile Project Management System - Consolidated Modern Version",
-  "main": "server.js",
+  "description": "AlexAI Star Trek Agile Project Management System - Pure Next.js 15",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "server": "node server.js",
-    "test": "jest",
     "lint": "eslint .",
     "deploy": "vercel --prod"
   },
@@ -24,20 +21,11 @@
   "license": "MIT",
   "dependencies": {
     "@heroicons/react": "^2.1.1",
-    "bcryptjs": "^2.4.3",
     "clsx": "^2.1.1",
-    "cors": "^2.8.5",
-    "dotenv": "^16.3.1",
-    "express": "^4.18.2",
-    "jsonwebtoken": "^9.0.2",
     "next": "15.4.5",
-    "openai": "^4.20.1",
     "react": "19.1.0",
     "react-dom": "19.1.0",
-    "socket.io": "^4.7.2",
-    "sqlite3": "^5.1.6",
-    "tailwind-merge": "^3.3.1",
-    "uuid": "^9.0.1"
+    "tailwind-merge": "^3.3.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
@@ -45,9 +33,6 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^8.52.0",
-    "jest": "^29.7.0",
-    "nodemon": "^3.0.1",
-    "supertest": "^7.1.4",
     "tailwindcss": "^4",
     "typescript": "^5"
   },
