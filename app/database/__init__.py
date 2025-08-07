@@ -1,1 +1,0 @@
-# Database module for AlexAI Star Trek Agile System 

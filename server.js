@@ -46,6 +46,14 @@ app.get('/projects', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'projects.html'));
 });
 
+app.get('/project-detail', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'project-detail.html'));
+});
+
+app.get('/alexai', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
 // API Routes
 app.get('/api/projects', async (req, res) => {
   try {
