@@ -1,14 +1,32 @@
 # AlexAI Star Trek Agile System - Git Ignore
 
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Next.js
+.next/
+out/
+build/
+dist/
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
 # Python
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
 .Python
-build/
 develop-eggs/
-dist/
 downloads/
 eggs/
 .eggs/
@@ -23,7 +41,6 @@ wheels/
 *.egg
 
 # Virtual Environment
-.env
 .venv
 env/
 venv/
@@ -73,4 +90,10 @@ htmlcov/
 *.tmp
 *.temp
 *.log
-node_modules/
+
+# Vercel
+.vercel
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
