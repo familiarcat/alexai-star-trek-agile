@@ -1,0 +1,427 @@
+name: Full CI/CD Pipeline - AlexAI Star Trek System
+
+on:
+  push:
+    branches: [ main, develop, feature/* ]
+  pull_request:
+    branches: [ main, develop ]
+  workflow_dispatch:
+    inputs:
+      deployment_target:
+        description: 'Deployment target'
+        required: true
+        default: 'all'
+        type: choice
+        options:
+        - all
+        - legacy
+        - modern
+        - docker
+        - vercel
+
+env:
+  NODE_VERSION: '20'
+  PYTHON_VERSION: '3.9'
+  NEXT_TELEMETRY_DISABLED: 1
+  DOCKER_BUILDKIT: 1
+
+jobs:
+  # ===== PREPARATION & SETUP =====
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      should-deploy: ${{ steps.deployment-check.outputs.should-deploy }}
+      deployment-target: ${{ steps.deployment-check.outputs.target }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Determine deployment target
+        id: deployment-check
+        run: |
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            echo "should-deploy=true" >> $GITHUB_OUTPUT
+            echo "target=${{ github.event.inputs.deployment_target }}" >> $GITHUB_OUTPUT
+          elif [ "${{ github.ref }}" == "refs/heads/main" ]; then
+            echo "should-deploy=true" >> $GITHUB_OUTPUT
+            echo "target=all" >> $GITHUB_OUTPUT
+          elif [ "${{ github.ref }}" == "refs/heads/develop" ]; then
+            echo "should-deploy=true" >> $GITHUB_OUTPUT
+            echo "target=modern" >> $GITHUB_OUTPUT
+          else
+            echo "should-deploy=false" >> $GITHUB_OUTPUT
+            echo "target=none" >> $GITHUB_OUTPUT
+          fi
+
+  # ===== LEGACY JAVASCRIPT VERSION =====
+  legacy-lint-and-test:
+    runs-on: ubuntu-latest
+    needs: setup
+    if: needs.setup.outputs.deployment-target == 'all' || needs.setup.outputs.deployment-target == 'legacy'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESLint
+        run: npm run lint
+
+      - name: Run tests
+        run: npm test
+
+      - name: Security audit
+        run: npm audit --audit-level moderate
+
+  legacy-build:
+    runs-on: ubuntu-latest
+    needs: [setup, legacy-lint-and-test]
+    if: needs.setup.outputs.deployment-target == 'all' || needs.setup.outputs.deployment-target == 'legacy'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build application
+        run: npm run build
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: legacy-build
+          path: |
+            public/
+            src/
+            server.js
+            package.json
+            package-lock.json
+
+  # ===== MODERN NEXT.JS VERSION =====
+  modern-lint-and-test:
+    runs-on: ubuntu-latest
+    needs: setup
+    if: needs.setup.outputs.deployment-target == 'all' || needs.setup.outputs.deployment-target == 'modern'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: |
+          cd alexai-nextjs-modern
+          npm ci
+
+      - name: Run ESLint
+        run: |
+          cd alexai-nextjs-modern
+          npm run lint
+
+      - name: Type check
+        run: |
+          cd alexai-nextjs-modern
+          npx tsc --noEmit
+
+      - name: Security audit
+        run: |
+          cd alexai-nextjs-modern
+          npm audit --audit-level moderate
+
+  modern-build:
+    runs-on: ubuntu-latest
+    needs: [setup, modern-lint-and-test]
+    if: needs.setup.outputs.deployment-target == 'all' || needs.setup.outputs.deployment-target == 'modern'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: |
+          cd alexai-nextjs-modern
+          npm ci
+
+      - name: Build Next.js application
+        run: |
+          cd alexai-nextjs-modern
+          npm run build
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: modern-build
+          path: alexai-nextjs-modern/.next/
+
+  # ===== DOCKER BUILD =====
+  docker-build:
+    runs-on: ubuntu-latest
+    needs: [setup, legacy-lint-and-test]
+    if: needs.setup.outputs.deployment-target == 'all' || needs.setup.outputs.deployment-target == 'docker'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: false
+          tags: alexai-star-trek:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Upload Docker image
+        uses: actions/upload-artifact@v4
+        with:
+          name: docker-image
+          path: /tmp/docker-image.tar
+
+  # ===== DEPLOYMENT JOBS =====
+  
+  # Deploy Legacy to Vercel
+  deploy-legacy-vercel:
+    runs-on: ubuntu-latest
+    needs: [setup, legacy-build]
+    if: needs.setup.outputs.should-deploy == 'true' && (needs.setup.outputs.deployment-target == 'all' || needs.setup.outputs.deployment-target == 'legacy')
+    environment: production
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: legacy-build
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+
+      - name: Deploy to Vercel (Legacy)
+        run: |
+          vercel --prod --token ${{ secrets.VERCEL_TOKEN }}
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+  # Deploy Modern to Vercel
+  deploy-modern-vercel:
+    runs-on: ubuntu-latest
+    needs: [setup, modern-build]
+    if: needs.setup.outputs.should-deploy == 'true' && (needs.setup.outputs.deployment-target == 'all' || needs.setup.outputs.deployment-target == 'modern')
+    environment: production
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: modern-build
+          path: alexai-nextjs-modern/.next/
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: |
+          cd alexai-nextjs-modern
+          npm ci
+
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+
+      - name: Deploy to Vercel (Modern)
+        run: |
+          cd alexai-nextjs-modern
+          vercel --prod --token ${{ secrets.VERCEL_TOKEN }}
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_MODERN }}
+
+  # Deploy to Docker Hub
+  deploy-docker:
+    runs-on: ubuntu-latest
+    needs: [setup, docker-build]
+    if: needs.setup.outputs.should-deploy == 'true' && (needs.setup.outputs.deployment-target == 'all' || needs.setup.outputs.deployment-target == 'docker')
+    environment: production
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/alexai-star-trek:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/alexai-star-trek:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  # ===== TESTING & QUALITY ASSURANCE =====
+  
+  # Integration Tests
+  integration-tests:
+    runs-on: ubuntu-latest
+    needs: [setup, legacy-build, modern-build]
+    if: needs.setup.outputs.should-deploy == 'true'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: legacy-build
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Start server for testing
+        run: |
+          npm start &
+          sleep 10
+
+      - name: Run integration tests
+        run: |
+          npm test -- --testPathPattern=integration
+
+  # Performance Tests
+  performance-tests:
+    runs-on: ubuntu-latest
+    needs: [setup, modern-build]
+    if: needs.setup.outputs.should-deploy == 'true' && (needs.setup.outputs.deployment-target == 'all' || needs.setup.outputs.deployment-target == 'modern')
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: |
+          cd alexai-nextjs-modern
+          npm ci
+
+      - name: Build application
+        run: |
+          cd alexai-nextjs-modern
+          npm run build
+
+      - name: Start Next.js server
+        run: |
+          cd alexai-nextjs-modern
+          npm start &
+          sleep 10
+
+      - name: Run Lighthouse CI
+        run: |
+          npm install -g @lhci/cli@0.12.x
+          lhci autorun
+        working-directory: alexai-nextjs-modern
+
+  # ===== NOTIFICATIONS =====
+  
+  # Success Notification
+  notify-success:
+    runs-on: ubuntu-latest
+    needs: [deploy-legacy-vercel, deploy-modern-vercel, deploy-docker, integration-tests, performance-tests]
+    if: success() && needs.setup.outputs.should-deploy == 'true'
+    steps:
+      - name: Notify deployment success
+        run: |
+          echo "🚀 AlexAI Star Trek System - Full CI/CD Pipeline Successful!"
+          echo "=========================================================="
+          echo "✅ Legacy JavaScript Version: Deployed"
+          echo "✅ Modern Next.js Version: Deployed"
+          echo "✅ Docker Image: Built and Pushed"
+          echo "✅ Integration Tests: Passed"
+          echo "✅ Performance Tests: Passed"
+          echo ""
+          echo "🌐 Legacy Dashboard: https://alexai-star-trek.vercel.app"
+          echo "🌐 Modern Dashboard: https://alexai-nextjs-modern.vercel.app"
+          echo "🐳 Docker Image: ${{ secrets.DOCKERHUB_USERNAME }}/alexai-star-trek:latest"
+          echo ""
+          echo "📊 Deployment Summary:"
+          echo "- Branch: ${{ github.ref }}"
+          echo "- Commit: ${{ github.sha }}"
+          echo "- Triggered by: ${{ github.actor }}"
+
+  # Failure Notification
+  notify-failure:
+    runs-on: ubuntu-latest
+    if: failure()
+    steps:
+      - name: Notify deployment failure
+        run: |
+          echo "❌ AlexAI Star Trek System - CI/CD Pipeline Failed!"
+          echo "=================================================="
+          echo "Branch: ${{ github.ref }}"
+          echo "Commit: ${{ github.sha }}"
+          echo "Triggered by: ${{ github.actor }}"
+          echo ""
+          echo "Please check the workflow logs for details."
+          echo "Common issues:"
+          echo "- Missing environment secrets"
+          echo "- Build failures"
+          echo "- Test failures"
+          echo "- Deployment configuration issues" 
