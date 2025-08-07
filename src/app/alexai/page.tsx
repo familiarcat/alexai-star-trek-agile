@@ -4,13 +4,13 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { 
   CogIcon, 
-  BrainIcon,
+  CpuChipIcon,
   ChartBarIcon,
   ExclamationTriangleIcon,
   CheckCircleIcon,
   ClockIcon,
   UserIcon,
-  SparklesIcon
+  StarIcon
 } from '@heroicons/react/24/outline';
 
 interface AISystem {
@@ -248,7 +248,7 @@ export default function AlexAICorePage() {
                 href="/observation-lounge"
                 className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
               >
-                <SparklesIcon className="h-4 w-4 mr-2" />
+                <StarIcon className="h-4 w-4 mr-2" />
                 Start Consultation
               </Link>
             </div>
@@ -409,7 +409,7 @@ export default function AlexAICorePage() {
                 href="/observation-lounge"
                 className="flex items-center justify-center px-4 py-3 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
               >
-                <SparklesIcon className="h-4 w-4 mr-2" />
+                <StarIcon className="h-4 w-4 mr-2" />
                 Start AI Consultation
               </Link>
               <button className="flex items-center justify-center px-4 py-3 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">

@@ -195,17 +195,6 @@ Keep your response concise and actionable.
     }
   }
 
-
-    
-    if (highPriorityKeywords.some(keyword => lowerInsight.includes(keyword))) {
-      return 'high';
-    } else if (mediumPriorityKeywords.some(keyword => lowerInsight.includes(keyword))) {
-      return 'medium';
-    } else {
-      return 'low';
-    }
-  }
-
   setMode(mode) {
     const validModes = ['collaborative', 'strategic', 'tactical', 'analytical'];
     if (validModes.includes(mode)) {

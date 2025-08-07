@@ -1,8 +1,6 @@
 {
   "extends": [
-    "next/core-web-vitals",
-    "eslint:recommended",
-    "@typescript-eslint/recommended"
+    "next/core-web-vitals"
   ],
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint"],
@@ -11,7 +9,8 @@
     "sourceType": "module",
     "ecmaFeatures": {
       "jsx": true
-    }
+    },
+    "project": "./tsconfig.json"
   },
   "env": {
     "browser": true,
@@ -23,6 +22,16 @@
     "@typescript-eslint/no-explicit-any": "warn",
     "no-console": "warn"
   },
+  "overrides": [
+    {
+      "files": ["*.js"],
+      "parser": "espree",
+      "parserOptions": {
+        "ecmaVersion": 2020,
+        "sourceType": "module"
+      }
+    }
+  ],
   "ignorePatterns": [
     "node_modules/",
     ".next/",
