@@ -1,29 +1,27 @@
 'use client';
-
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { LCARSLayout } from '@/components/lcars/lcars-layout';
 import { 
-  ChartBarIcon, 
   FolderIcon, 
   EyeIcon, 
   CogIcon, 
   UserGroupIcon,
   ClockIcon,
   CheckCircleIcon,
-  ExclamationTriangleIcon
+  ExclamationTriangleIcon,
+  HeartIcon,
+  CpuChipIcon,
+  ServerIcon,
+  SignalIcon,
+  RocketLaunchIcon,
+  ChartBarIcon,
+  CalendarIcon,
+  FlagIcon,
+  StarIcon,
+  ShieldCheckIcon,
+  BeakerIcon
 } from '@heroicons/react/24/outline';
-
-interface DashboardStats {
-  total_projects: number;
-  active_projects: number;
-  completed_projects: number;
-  total_tasks: number;
-  completed_tasks: number;
-  pending_tasks: number;
-  team_members: number;
-  ai_consultations: number;
-}
 
 interface Project {
   id: string;
@@ -36,85 +34,92 @@ interface Project {
   priority: string;
 }
 
-export default function Dashboard() {
+interface DashboardStats {
+  total_projects: number;
+  active_projects: number;
+  completed_projects: number;
+  total_tasks: number;
+  completed_tasks: number;
+  pending_tasks: number;
+  team_members: number;
+  ai_consultations: number;
+}
+
+export default function DashboardPage() {
+  const [projects, setProjects] = useState<Project[]>([]);
   const [stats, setStats] = useState<DashboardStats | null>(null);
-  const [recentProjects, setRecentProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetchDashboardData();
+    const fetchData = async () => {
+      try {
+        const [projectsRes, statsRes] = await Promise.all([
+          fetch('/api/projects'),
+          fetch('/api/dashboard/stats')
+        ]);
+        
+        const projectsData = await projectsRes.json();
+        const statsData = await statsRes.json();
+        
+        setProjects(projectsData.projects || []);
+        setStats(statsData.stats);
+      } catch (error) {
+        console.error('Error fetching dashboard data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
   }, []);
 
-  const fetchDashboardData = async () => {
-    try {
-      setLoading(true);
-      
-      // Use Next.js API routes (same domain)
-      const statsResponse = await fetch('/api/dashboard/stats');
-      const statsData = await statsResponse.json();
-      
-      if (statsData.success) {
-        setStats(statsData.stats);
-      }
-
-      // Fetch recent projects
-      const projectsResponse = await fetch('/api/projects');
-      const projectsData = await projectsResponse.json();
-      
-      if (projectsData.success) {
-        setRecentProjects(projectsData.projects.slice(0, 5)); // Show only 5 recent projects
-      }
-    } catch (err) {
-      setError('Failed to load dashboard data');
-      console.error('Dashboard data fetch error:', err);
-    } finally {
-      setLoading(false);
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'active': return 'lcars-status-success';
+      case 'completed': return 'lcars-status-success';
+      case 'pending': return 'lcars-status-warning';
+      default: return 'lcars-status-info';
     }
   };
 
-  const getStatusColor = (status: string | undefined) => {
-    if (!status) return 'text-gray-600 bg-gray-100';
-    switch (status.toLowerCase()) {
-      case 'active': return 'text-green-600 bg-green-100';
-      case 'completed': return 'text-blue-600 bg-blue-100';
-      case 'pending': return 'text-yellow-600 bg-yellow-100';
-      case 'overdue': return 'text-red-600 bg-red-100';
-      default: return 'text-gray-600 bg-gray-100';
+  const getPriorityColor = (priority: string) => {
+    switch (priority) {
+      case 'high': return 'lcars-text-red';
+      case 'medium': return 'lcars-text-yellow';
+      case 'low': return 'lcars-text-green';
+      default: return 'lcars-text-grey';
     }
   };
 
-  const getPriorityColor = (priority: string | undefined) => {
-    if (!priority) return 'text-gray-600';
-    switch (priority.toLowerCase()) {
-      case 'high': return 'text-red-600';
-      case 'medium': return 'text-yellow-600';
-      case 'low': return 'text-green-600';
-      default: return 'text-gray-600';
-    }
+  const getProjectIcon = (name: string) => {
+    if (name.includes('Database')) return ServerIcon;
+    if (name.includes('LCARS')) return CpuChipIcon;
+    if (name.includes('AI')) return BeakerIcon;
+    if (name.includes('Security')) return ShieldCheckIcon;
+    if (name.includes('Performance')) return ChartBarIcon;
+    return FolderIcon;
   };
+
+  const systemStatus = [
+    { name: 'SUBSPACE LINK', status: 'ESTABLISHED', icon: SignalIcon },
+    { name: 'STARFLEET DATABASE', status: 'CONNECTED', icon: ServerIcon },
+    { name: 'QUANTUM MEMORY FIELD', status: 'STABLE', icon: CpuChipIcon },
+    { name: 'OPTICAL DATA NETWORK', status: 'ONLINE', icon: SignalIcon }
+  ];
+
+  const missionMetrics = [
+    { name: 'ACTIVE MISSIONS', value: stats?.active_projects || 0, icon: RocketLaunchIcon, color: 'lcars-text-gold' },
+    { name: 'COMPLETED MISSIONS', value: stats?.completed_projects || 0, icon: CheckCircleIcon, color: 'lcars-text-green' },
+    { name: 'TOTAL TASKS', value: stats?.total_tasks || 0, icon: FlagIcon, color: 'lcars-text-blue' },
+    { name: 'TEAM MEMBERS', value: stats?.team_members || 0, icon: UserGroupIcon, color: 'lcars-text-purple' }
+  ];
 
   if (loading) {
     return (
       <LCARSLayout>
-        <div className="lcars-panel lcars-p-30 lcars-text-center">
-          <div className="lcars-text-xlarge lcars-text-gold">Loading Dashboard...</div>
-          <div className="lcars-mt-10">
-            <div className="lcars-progress">
-              <div className="lcars-progress-bar" style={{ width: '100%' }}></div>
-            </div>
-          </div>
-        </div>
-      </LCARSLayout>
-    );
-  }
-
-  if (error) {
-    return (
-      <LCARSLayout>
-        <div className="lcars-panel lcars-p-30 lcars-text-center">
-          <div className="lcars-text-xlarge lcars-text-orange">Error</div>
-          <div className="lcars-text-large lcars-mt-10">{error}</div>
+        <div className="lcars-panel lcars-p-30">
+          <div className="lcars-text-xxlarge lcars-text-gold">INITIALIZING LCARS SYSTEM...</div>
+          <div className="lcars-text-large lcars-text-white">LOADING MISSION DATA</div>
         </div>
       </LCARSLayout>
     );
@@ -123,75 +128,101 @@ export default function Dashboard() {
   return (
     <LCARSLayout>
       <div className="lcars-panel lcars-p-30">
-        {/* Header */}
-        <div className="lcars-nav">
-          <div className="lcars-nav-brand">
-            <div className="lcars-text-xxlarge lcars-text-gold">AlexAI Dashboard</div>
-            <div className="lcars-text-large lcars-text-white">Star Trek Agile Management System</div>
-          </div>
+        {/* LCARS Banner */}
+        <div className="lcars-banner">
+          <div className="lcars-text-xxlarge lcars-text-white">STARFLEET MISSION CONTROL</div>
+          <div className="lcars-text-large lcars-text-white">ALEXAI AGILE MANAGEMENT SYSTEM • LCARS INTERFACE</div>
+          <div className="lcars-text-base lcars-text-white">ALL SYSTEMS OPERATIONAL. READY FOR MISSION BRIEFING.</div>
         </div>
 
-        {/* Stats Grid */}
+        {/* Mission Metrics */}
         {stats && (
-          <div className="lcars-data-grid lcars-mt-20">
-            <div className="lcars-data-item">
-              <div className="lcars-data-value lcars-text-gold">{stats.total_projects}</div>
-              <div className="lcars-data-label">Total Projects</div>
+          <div className="lcars-mission-metrics">
+            <div className="lcars-section-header">
+              <StarIcon className="lcars-icon" />
+              <span>MISSION METRICS</span>
             </div>
-            <div className="lcars-data-item">
-              <div className="lcars-data-value lcars-text-green">{stats.active_projects}</div>
-              <div className="lcars-data-label">Active Projects</div>
-            </div>
-            <div className="lcars-data-item">
-              <div className="lcars-data-value lcars-text-blue">{stats.completed_projects}</div>
-              <div className="lcars-data-label">Completed</div>
-            </div>
-            <div className="lcars-data-item">
-              <div className="lcars-data-value lcars-text-purple">{stats.total_tasks}</div>
-              <div className="lcars-data-label">Total Tasks</div>
-            </div>
-            <div className="lcars-data-item">
-              <div className="lcars-data-value lcars-text-green">{stats.completed_tasks}</div>
-              <div className="lcars-data-label">Completed Tasks</div>
-            </div>
-            <div className="lcars-data-item">
-              <div className="lcars-data-value lcars-text-orange">{stats.pending_tasks}</div>
-              <div className="lcars-data-label">Pending Tasks</div>
-            </div>
-            <div className="lcars-data-item">
-              <div className="lcars-data-value lcars-text-blue">{stats.team_members}</div>
-              <div className="lcars-data-label">Team Members</div>
-            </div>
-            <div className="lcars-data-item">
-              <div className="lcars-data-value lcars-text-purple">{stats.ai_consultations}</div>
-              <div className="lcars-data-label">AI Consultations</div>
+            <div className="lcars-metrics-grid">
+              {missionMetrics.map((metric, index) => (
+                <div key={index} className="lcars-metric-item">
+                  <div className="lcars-metric-icon">
+                    <metric.icon className="lcars-icon" />
+                  </div>
+                  <div className="lcars-metric-content">
+                    <div className={`lcars-metric-value ${metric.color}`}>{metric.value}</div>
+                    <div className="lcars-metric-name">{metric.name}</div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         )}
 
-        {/* Recent Projects */}
-        <div className="lcars-mt-30">
-          <div className="lcars-text-xlarge lcars-text-gold lcars-mb-10">Recent Projects</div>
-          <div className="lcars-data-grid">
-            {recentProjects.map((project) => (
-              <div key={project.id} className="lcars-data-item">
-                <div className="lcars-text-large lcars-text-white">{project.name}</div>
-                <div className="lcars-mt-10">
-                  <div className="lcars-progress">
-                    <div 
-                      className="lcars-progress-bar" 
-                      style={{ width: `${project.progress}%` }}
-                    ></div>
+        {/* Active Missions Grid */}
+        <div className="lcars-missions-section">
+          <div className="lcars-section-header">
+            <RocketLaunchIcon className="lcars-icon" />
+            <span>ACTIVE MISSIONS</span>
+          </div>
+          <div className="lcars-missions-grid">
+            {projects.filter(p => p.status === 'active').map((project) => {
+              const ProjectIcon = getProjectIcon(project.name);
+              return (
+                <Link key={project.id} href={`/project-detail/${project.id}`} className="lcars-mission-card">
+                  <div className="lcars-mission-header">
+                    <ProjectIcon className="lcars-mission-icon" />
+                    <div className="lcars-mission-status">
+                      <div className={`lcars-status-indicator ${getStatusColor(project.status)}`}></div>
+                      <span className="lcars-status-text">{project.status.toUpperCase()}</span>
+                    </div>
                   </div>
-                  <div className="lcars-text-small lcars-mt-5">{project.progress}% Complete</div>
-                </div>
-                <div className="lcars-mt-10">
-                  <span className={`lcars-status ${getStatusColor(project.status).includes('green') ? 'success' : getStatusColor(project.status).includes('red') ? 'error' : 'warning'}`}>
-                    {project.status}
-                  </span>
-                  <span className={`lcars-text-small lcars-ml-10 ${getPriorityColor(project.priority)}`}>
-                    {project.priority} Priority
-                  </span>
+                  <div className="lcars-mission-content">
+                    <div className="lcars-mission-title">{project.name}</div>
+                    <div className="lcars-mission-progress">
+                      <div className="lcars-progress-bar">
+                        <div 
+                          className="lcars-progress-fill" 
+                          style={{ width: `${project.progress}%` }}
+                        ></div>
+                      </div>
+                      <span className="lcars-progress-text">{project.progress}% COMPLETE</span>
+                    </div>
+                    <div className="lcars-mission-meta">
+                      <div className="lcars-mission-team">
+                        <UserGroupIcon className="lcars-meta-icon" />
+                        <span>{project.team_size} CREW MEMBERS</span>
+                      </div>
+                      <div className={`lcars-mission-priority ${getPriorityColor(project.priority)}`}>
+                        <FlagIcon className="lcars-meta-icon" />
+                        <span>{project.priority.toUpperCase()} PRIORITY</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="lcars-mission-actions">
+                    <div className="lcars-action-button">
+                      <EyeIcon className="lcars-action-icon" />
+                      <span>VIEW MISSION</span>
+                    </div>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* System Status */}
+        <div className="lcars-system-status-section">
+          <div className="lcars-section-header">
+            <CogIcon className="lcars-icon" />
+            <span>SYSTEM STATUS</span>
+          </div>
+          <div className="lcars-system-grid">
+            {systemStatus.map((system, index) => (
+              <div key={index} className="lcars-system-item">
+                <system.icon className="lcars-system-icon" />
+                <div className="lcars-system-info">
+                  <div className="lcars-system-name">{system.name}</div>
+                  <div className="lcars-system-value">{system.status}</div>
                 </div>
               </div>
             ))}
@@ -199,20 +230,27 @@ export default function Dashboard() {
         </div>
 
         {/* Quick Actions */}
-        <div className="lcars-mt-30">
-          <div className="lcars-text-xlarge lcars-text-gold lcars-mb-10">Quick Actions</div>
-          <div className="lcars-data-grid">
-            <Link href="/projects" className="lcars-button">
-              <FolderIcon className="h-6 w-6" />
-              <span>View All Projects</span>
+        <div className="lcars-quick-actions">
+          <div className="lcars-section-header">
+            <RocketLaunchIcon className="lcars-icon" />
+            <span>QUICK ACTIONS</span>
+          </div>
+          <div className="lcars-actions-grid">
+            <Link href="/projects" className="lcars-action-button">
+              <FolderIcon className="lcars-action-icon" />
+              <span>ALL MISSIONS</span>
             </Link>
-            <Link href="/observation-lounge" className="lcars-button secondary">
-              <EyeIcon className="h-6 w-6" />
-              <span>AI Consultation</span>
+            <Link href="/tasks" className="lcars-action-button">
+              <FlagIcon className="lcars-action-icon" />
+              <span>MISSION TASKS</span>
             </Link>
-            <Link href="/alexai" className="lcars-button secondary">
-              <CogIcon className="h-6 w-6" />
-              <span>System Status</span>
+            <Link href="/analytics" className="lcars-action-button">
+              <ChartBarIcon className="lcars-action-icon" />
+              <span>MISSION ANALYTICS</span>
+            </Link>
+            <Link href="/observation-lounge" className="lcars-action-button">
+              <BeakerIcon className="lcars-action-icon" />
+              <span>AI CONSULTATION</span>
             </Link>
           </div>
         </div>

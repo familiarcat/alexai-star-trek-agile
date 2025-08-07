@@ -14,33 +14,28 @@ export function LCARSSidebar({ className = '' }: LCARSSidebarProps) {
   const menuItems = [
     {
       path: '/',
-      label: 'Dashboard',
-      icon: 'fas fa-tachometer-alt',
-      description: 'System Overview'
+      label: 'DASHBOARD',
+      description: 'SYSTEM OVERVIEW'
     },
     {
       path: '/projects',
-      label: 'Projects',
-      icon: 'fas fa-project-diagram',
-      description: 'Mission Log'
+      label: 'PROJECTS',
+      description: 'MISSION LOG'
     },
     {
       path: '/tasks',
-      label: 'Tasks',
-      icon: 'fas fa-tasks',
-      description: 'Task Management'
+      label: 'TASKS',
+      description: 'TASK MANAGEMENT'
     },
     {
       path: '/analytics',
-      label: 'Analytics',
-      icon: 'fas fa-chart-bar',
-      description: 'Performance Metrics'
+      label: 'ANALYTICS',
+      description: 'PERFORMANCE METRICS'
     },
     {
       path: '/observation-lounge',
-      label: 'Observation Lounge',
-      icon: 'fas fa-eye',
-      description: 'AI Consultation'
+      label: 'OBSERVATION LOUNGE',
+      description: 'AI CONSULTATION'
     }
   ];
 
@@ -53,11 +48,21 @@ export function LCARSSidebar({ className = '' }: LCARSSidebarProps) {
 
   return (
     <div className={cn('lcars-sidebar', className)}>
-      <div className="lcars-menu-header">
-        <i className="fas fa-star-trek lcars-mr-10"></i>
-        LCARS SYSTEM
+      {/* Top Bar */}
+      <div className="lcars-top-bar">
+        <div className="lcars-top-left">LCARS MENU</div>
+        <div className="lcars-top-center">LCARS SYSTEM 3 - ALEXAI AGILE MANAGER</div>
+        <div className="lcars-top-right">
+          <div className="lcars-top-button">
+            <span>SYSTEM HEALTH</span>
+          </div>
+          <div className="lcars-top-button">
+            <span>STATISTICS</span>
+          </div>
+        </div>
       </div>
       
+      {/* Menu Items */}
       <nav className="lcars-menu">
         {menuItems.map((item) => (
           <div
@@ -68,14 +73,36 @@ export function LCARSSidebar({ className = '' }: LCARSSidebarProps) {
             )}
             onClick={() => router.push(item.path)}
           >
-            <i className={cn(item.icon, 'lcars-mr-10')}></i>
-            <div>
+            <div className="lcars-menu-content">
               <div className="lcars-menu-label">{item.label}</div>
               <div className="lcars-menu-description">{item.description}</div>
             </div>
           </div>
         ))}
       </nav>
+      
+      {/* System Status */}
+      <div className="lcars-system-status">
+        <div className="lcars-status-title">SYSTEM STATUS</div>
+        <div className="lcars-status-items">
+          <div className="lcars-status-item">
+            <div className="lcars-status-indicator lcars-status-success"></div>
+            <span>SUBSPACE LINK: ESTABLISHED</span>
+          </div>
+          <div className="lcars-status-item">
+            <div className="lcars-status-indicator lcars-status-success"></div>
+            <span>STARFLEET DATABASE: CONNECTED</span>
+          </div>
+          <div className="lcars-status-item">
+            <div className="lcars-status-indicator lcars-status-success"></div>
+            <span>QUANTUM MEMORY FIELD: STABLE</span>
+          </div>
+          <div className="lcars-status-item">
+            <div className="lcars-status-indicator lcars-status-success"></div>
+            <span>OPTICAL DATA NETWORK: ONLINE</span>
+          </div>
+        </div>
+      </div>
       
       <div className="lcars-sidebar-footer">
         <div className="lcars-status-indicator lcars-status-success"></div>
