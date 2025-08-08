@@ -1,6 +1,5 @@
 import { Suspense } from 'react';
 import Link from 'next/link';
-import { LCARSLayout } from '@/components/lcars/lcars-layout';
 import { RealtimeStatus } from '@/components/lcars/realtime-collaboration';
 import { 
   FolderIcon, 
@@ -334,10 +333,8 @@ function DashboardLoading() {
 // Main page component
 export default function DashboardPage() {
   return (
-    <LCARSLayout>
-      <Suspense fallback={<DashboardLoading />}>
-        <DashboardContent />
-      </Suspense>
-    </LCARSLayout>
+    <Suspense fallback={<DashboardLoading />}>
+      <DashboardContent />
+    </Suspense>
   );
 } 
