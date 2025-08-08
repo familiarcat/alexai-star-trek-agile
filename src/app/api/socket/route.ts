@@ -16,8 +16,8 @@ export async function GET(req: NextRequest) {
   return NextResponse.json({ message: 'Socket.IO endpoint' });
 }
 
-// Socket.IO server setup (this would be in a separate file in production)
-export function setupSocketIO(server: NetServer) {
+// Socket.IO server setup function (not exported to avoid Next.js route conflicts)
+function setupSocketIO(server: NetServer) {
   const io = new SocketIOServer(server, {
     path: '/api/socket',
     addTrailingSlash: false,
