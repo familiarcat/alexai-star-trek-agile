@@ -9,12 +9,19 @@ echo "Source: n8n.pbradygeorgen.com"
 echo "Date: $(date)"
 echo ""
 
+# Auto-setup environment from ~/.zshrc if needed
+if [ ! -f .env ] && [ -f scripts/setup/setup-environment.sh ]; then
+    echo "🔐 Auto-setting up environment from ~/.zshrc..."
+    ./scripts/setup/setup-environment.sh
+fi
+
 # Check if .env file exists
 if [ -f .env ]; then
     echo "📋 Loading environment variables from .env..."
     source .env
 else
     echo "⚠️  No .env file found, using system environment variables"
+    echo "💡 Run './scripts/setup/setup-environment.sh' to auto-setup from ~/.zshrc"
 fi
 
 # Check required environment variables
