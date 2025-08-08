@@ -1,25 +1,20 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
-  experimental: {
-    turbo: {
-      rules: {
-        "*.svg": {
-          loaders: ["@svgr/webpack"],
-          as: "*.js",
-        },
-      },
-    },
-  },
-  webpack: (config) => {
-    config.module.rules.push({
-      test: /\.svg$/,
-      use: ["@svgr/webpack"],
-    });
+  serverExternalPackages: ['socket.io'],
+  webpack: (config, { isServer }) => {
+    if (isServer) {
+      config.externals.push('socket.io');
+    }
     return config;
+  },
+  async rewrites() {
+    return [
+      {
+        source: '/api/socket/:path*',
+        destination: '/api/socket/:path*',
+      },
+    ];
   },
 };
 
