@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import WorkflowDiagram from './WorkflowDiagram';
 
 interface WorkflowNode {
   id: string;
@@ -270,16 +271,40 @@ export default function N8nWorkflowEditor({ className }: N8nWorkflowEditorProps)
         </CardContent>
       </Card>
 
-      {/* Workflow Editor */}
+      {/* Visual Workflow Editor */}
       {selectedWorkflow && (
         <Card className="mt-6 bg-gray-900 border-orange-400">
           <CardHeader>
-            <CardTitle className="text-orange-400">
-              Workflow Editor: {selectedWorkflow.name}
+            <CardTitle className="text-orange-400 flex items-center justify-between">
+              <span>Workflow Editor: {selectedWorkflow.name}</span>
+              <div className="flex space-x-2">
+                <button
+                  onClick={() => {
+                    // Save workflow logic would go here
+                    alert('Workflow saved locally. Use sync to push to n8n.');
+                  }}
+                  className="lcars-button px-3 py-1 bg-green-600 hover:bg-green-700 text-sm"
+                >
+                  💾 Save
+                </button>
+                <button
+                  onClick={() => setSelectedWorkflow(null)}
+                  className="lcars-button px-3 py-1 bg-gray-600 hover:bg-gray-700 text-sm"
+                >
+                  ❌ Close
+                </button>
+              </div>
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="space-y-4">
+            <WorkflowDiagram 
+              workflow={selectedWorkflow}
+              onWorkflowChange={setSelectedWorkflow}
+              className="mb-4"
+            />
+            
+            {/* Additional Controls */}
+            <div className="space-y-4 pt-4 border-t border-gray-700">
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">
                   Workflow Name
@@ -295,42 +320,26 @@ export default function N8nWorkflowEditor({ className }: N8nWorkflowEditorProps)
                 />
               </div>
               
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Workflow Configuration (JSON)
-                </label>
-                <textarea
-                  value={JSON.stringify(selectedWorkflow, null, 2)}
-                  onChange={(e) => {
-                    try {
-                      const updated = JSON.parse(e.target.value);
-                      setSelectedWorkflow(updated);
-                    } catch (error) {
-                      // Invalid JSON, ignore for now
-                    }
-                  }}
-                  rows={20}
-                  className="w-full px-3 py-2 bg-gray-800 border border-gray-600 rounded text-white font-mono text-sm"
-                />
-              </div>
-              
-              <div className="flex space-x-4">
-                <button
-                  onClick={() => {
-                    // Save workflow logic would go here
-                    alert('Workflow saved locally. Use sync to push to n8n.');
-                  }}
-                  className="lcars-button px-4 py-2 bg-green-600 hover:bg-green-700"
-                >
-                  Save Locally
-                </button>
-                <button
-                  onClick={() => setSelectedWorkflow(null)}
-                  className="lcars-button px-4 py-2 bg-gray-600 hover:bg-gray-700"
-                >
-                  Close
-                </button>
-              </div>
+              <details className="group">
+                <summary className="cursor-pointer text-gray-300 hover:text-white">
+                  🔧 Advanced: Raw JSON Configuration
+                </summary>
+                <div className="mt-2">
+                  <textarea
+                    value={JSON.stringify(selectedWorkflow, null, 2)}
+                    onChange={(e) => {
+                      try {
+                        const updated = JSON.parse(e.target.value);
+                        setSelectedWorkflow(updated);
+                      } catch (error) {
+                        // Invalid JSON, ignore for now
+                      }
+                    }}
+                    rows={15}
+                    className="w-full px-3 py-2 bg-gray-800 border border-gray-600 rounded text-white font-mono text-xs"
+                  />
+                </div>
+              </details>
             </div>
           </CardContent>
         </Card>
