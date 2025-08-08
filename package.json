@@ -1,7 +1,7 @@
 {
   "name": "alexai-star-trek-agile-system",
-  "version": "2.0.0",
-  "description": "AI-powered agile project management with authentic Star Trek LCARS interface",
+  "version": "2.3.0",
+  "description": "AI-powered agile project management with authentic Star Trek LCARS interface - NCC-1701-A.3.0 Ship Refit",
   "private": true,
   "scripts": {
     "dev": "next dev",
