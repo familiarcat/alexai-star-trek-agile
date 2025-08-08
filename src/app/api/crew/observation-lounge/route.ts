@@ -92,7 +92,14 @@ export async function POST(request: Request) {
       meetingId: `meeting-${Date.now()}`
     };
     
-    return NextResponse.json(response);
+    return NextResponse.json({
+      response: {
+        greeting: "The crew is assembled for project review.",
+        meetingType: meetingType,
+        crewReports: response.crewReports,
+        collectiveDecision: response.collectiveDecision
+      }
+    });
     
   } catch (error) {
     console.error('Observation lounge error:', error);
