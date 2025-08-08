@@ -17,10 +17,13 @@ import {
 // LCARS Workflow Main Page
 // Counselor Troi - UX Empathy Officer
 
+// Note: Metadata should be exported from layout.tsx for client components
+
 export default function WorkflowPage() {
   const [currentBoard, setCurrentBoard] = useState<WorkflowBoard | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isClient, setIsClient] = useState(false);
   
   const socketClient = useSocketClient();
   const { 
@@ -39,6 +42,8 @@ export default function WorkflowPage() {
   const currentUserName = 'Captain Picard';
 
   useEffect(() => {
+    // Ensure we're on the client side
+    setIsClient(true);
     initializeWorkflow();
   }, []);
 
@@ -64,19 +69,25 @@ export default function WorkflowPage() {
         setCurrentBoard(defaultBoard);
         
         // Join board for real-time collaboration
-        socketClient.joinBoard(defaultBoard.id, currentUserId, currentUserName);
+        if (typeof window !== 'undefined') {
+          socketClient.joinBoard(defaultBoard.id, currentUserId, currentUserName);
+        }
       } else {
         setCurrentBoard(boards[0]);
-        socketClient.joinBoard(boards[0].id, currentUserId, currentUserName);
+        if (typeof window !== 'undefined') {
+          socketClient.joinBoard(boards[0].id, currentUserId, currentUserName);
+        }
       }
 
       // Update user presence
-      socketClient.updatePresence(
-        currentBoard?.id || 'board-1',
-        currentUserId,
-        currentUserName,
-        'online'
-      );
+      if (typeof window !== 'undefined') {
+        socketClient.updatePresence(
+          currentBoard?.id || 'board-1',
+          currentUserId,
+          currentUserName,
+          'online'
+        );
+      }
 
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Failed to initialize workflow';
@@ -208,7 +219,9 @@ export default function WorkflowPage() {
     moveTask(taskId, sourceStageId, destinationStageId);
     
     // Emit to socket for real-time updates
-    socketClient.moveTask(taskId, sourceStageId, destinationStageId, currentBoard.id);
+    if (typeof window !== 'undefined') {
+      socketClient.moveTask(taskId, sourceStageId, destinationStageId, currentBoard.id);
+    }
   };
 
   const handleTaskUpdate = (taskId: string, updates: Partial<WorkflowTask>) => {
@@ -218,7 +231,9 @@ export default function WorkflowPage() {
     updateTask(taskId, updates);
     
     // Emit to socket for real-time updates
-    socketClient.updateTask(taskId, updates, currentBoard.id);
+    if (typeof window !== 'undefined') {
+      socketClient.updateTask(taskId, updates, currentBoard.id);
+    }
   };
 
   const handleTaskCreate = (stageId: string, task: Omit<WorkflowTask, 'id' | 'createdAt' | 'updatedAt' | 'lastModifiedAt'>) => {
@@ -237,16 +252,28 @@ export default function WorkflowPage() {
     addTask(newTask);
     
     // Emit to socket for real-time updates
-    socketClient.createTask(task, currentBoard.id);
+    if (typeof window !== 'undefined') {
+      socketClient.createTask(task, currentBoard.id);
+    }
   };
 
   const boardMetrics = currentBoard ? getBoardMetrics(currentBoard.id) : null;
+
+  // Don't render until client-side
+  if (!isClient) {
+    return (
+      <div className="lcars-loading">
+        <div className="lcars-loading-spinner" />
+        <span className="ml-3">Initializing LCARS Workflow System...</span>
+      </div>
+    );
+  }
 
   if (isLoading) {
     return (
       <div className="lcars-loading">
         <div className="lcars-loading-spinner" />
-        <span className="ml-3">Initializing LCARS Workflow System...</span>
+        <span className="ml-3">Loading LCARS Workflow System...</span>
       </div>
     );
   }
