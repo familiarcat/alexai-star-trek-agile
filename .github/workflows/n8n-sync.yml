@@ -1,0 +1,106 @@
+name: N8N Workflow Sync
+
+on:
+  push:
+    paths:
+      - 'src/app/api/crew/**'
+      - 'src/app/api/alexai-llm/**'
+      - 'src/app/api/n8n-integration/**'
+      - 'workflows/**'
+      - 'sync-system/**'
+  schedule:
+    - cron: '*/15 * * * *'  # Every 15 minutes
+  workflow_dispatch:  # Allow manual triggering
+
+jobs:
+  sync-workflows:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Configure sync environment
+      env:
+        N8N_BASE_URL: ${{ secrets.N8N_BASE_URL }}
+        N8N_API_KEY: ${{ secrets.N8N_API_KEY }}
+      run: |
+        echo "N8N_BASE_URL=$N8N_BASE_URL" >> .env
+        echo "N8N_API_KEY=$N8N_API_KEY" >> .env
+        
+    - name: Test n8n connection
+      run: |
+        echo "🔍 Testing n8n connection..."
+        if curl -s "${{ secrets.N8N_BASE_URL }}" >/dev/null; then
+          echo "✅ n8n instance is accessible"
+        else
+          echo "⚠️  n8n instance is not accessible"
+        fi
+        
+    - name: Run bidirectional sync
+      run: |
+        echo "🔄 Starting bidirectional workflow sync..."
+        ./scripts/sync/sync-workflows.sh
+      
+    - name: Commit workflow updates
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action - N8N Sync"
+        
+        if [ -n "$(git status --porcelain)" ]; then
+          echo "📝 Committing workflow updates..."
+          git add .
+          git commit -m "🔄 Auto-sync: Workflow updates from GitHub Action ($(date '+%Y-%m-%d %H:%M:%S'))"
+          git push
+          echo "✅ Workflow updates committed and pushed"
+        else
+          echo "ℹ️  No changes to commit"
+        fi
+        
+    - name: Generate sync report
+      run: |
+        echo "📊 SYNC REPORT" >> $GITHUB_STEP_SUMMARY
+        echo "==============" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "**Sync Date:** $(date)" >> $GITHUB_STEP_SUMMARY
+        echo "**N8N Instance:** ${{ secrets.N8N_BASE_URL }}" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        
+        if [ -d "workflows" ]; then
+          workflow_count=$(find workflows -name "*.json" | wc -l)
+          echo "**Workflows Synchronized:** $workflow_count" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Workflow Files:**" >> $GITHUB_STEP_SUMMARY
+          find workflows -name "*.json" -exec basename {} \; | sort | sed 's/^/- /' >> $GITHUB_STEP_SUMMARY
+        else
+          echo "**Workflows:** None found" >> $GITHUB_STEP_SUMMARY
+        fi
+        
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "**Recent Commits:**" >> $GITHUB_STEP_SUMMARY
+        git log --oneline --grep="Auto-sync" -n 3 | sed 's/^/- /' >> $GITHUB_STEP_SUMMARY || echo "- No recent sync commits" >> $GITHUB_STEP_SUMMARY
+        
+    - name: Notify on failure
+      if: failure()
+      run: |
+        echo "❌ N8N Workflow Sync Failed" >> $GITHUB_STEP_SUMMARY
+        echo "=========================" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "The automated workflow synchronization failed." >> $GITHUB_STEP_SUMMARY
+        echo "Please check the logs above for details." >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "**Troubleshooting:**" >> $GITHUB_STEP_SUMMARY
+        echo "- Verify N8N_BASE_URL and N8N_API_KEY secrets are set correctly" >> $GITHUB_STEP_SUMMARY
+        echo "- Check if n8n.pbradygeorgen.com is accessible" >> $GITHUB_STEP_SUMMARY
+        echo "- Review workflow files for syntax errors" >> $GITHUB_STEP_SUMMARY
