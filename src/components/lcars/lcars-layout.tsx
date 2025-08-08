@@ -12,10 +12,17 @@ interface LCARSLayoutProps {
 export function LCARSLayout({ children, className = '' }: LCARSLayoutProps) {
   return (
     <div className={cn('lcars-container', className)}>
-      <LCARSSidebar />
-      <main className="lcars-main">
-        {children}
-      </main>
+      <div id="column-1" className="lcars-sidebar">
+        <LCARSSidebar />
+      </div>
+      <div id="column-2">
+        {/* Middle section - can be used for additional navigation or status */}
+      </div>
+      <div id="column-3" className="lcars-main">
+        <div className="wrap wrap-standard">
+          {children}
+        </div>
+      </div>
     </div>
   );
 } 
