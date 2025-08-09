@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd';
 
 interface Task {
   id: string;
@@ -168,7 +168,7 @@ const AgileKanbanBoard: React.FC = () => {
   }, []);
 
   // Handle drag and drop
-  const onDragEnd = async (result: any) => {
+  const onDragEnd = async (result: DropResult) => {
     const { destination, source, draggableId } = result;
 
     if (!destination) return;
@@ -318,7 +318,7 @@ const AgileKanbanBoard: React.FC = () => {
                     </div>
                   </div>
 
-                  <Droppable droppableId={column.id}>
+                  <Droppable droppableId={column.id} isDropDisabled={false}>
                     {(provided, snapshot) => (
                       <div
                         {...provided.droppableProps}
