@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 # 🌟 BEST OF BOTH WORLDS STRATEGY
 # Combines Human intuition with Borg efficiency
@@ -67,7 +67,7 @@ enhance_current_workflow() {
         },
         "sendBody": true,
         "contentType": "json",
-        "jsonBody": "{\n  \"model\": \"anthropic/claude-3.5-sonnet\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"Enhanced AI Crew Selector with confidence scoring. Analyze and return JSON: {\\\"selectedCrew\\\": \\\"crew-name\\\", \\\"confidence\\\": 0.95, \\\"reasoning\\\": \\\"explanation\\\", \\\"queryType\\\": \\\"classified-type\\\"}. Available: picard, data, troi, scott, spock, worf, observation-lounge\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"Query: {{ $json.query }}\\nContext: {{ $json.context }}\\nUrgency: {{ $json.urgency }}\\nAnalyze query type and select best crew member with confidence score.\"\n    }\n  ],\n  \"max_tokens\": 150,\n  \"temperature\": 0.1\n}",
+        "jsonBody": "{\n  "model": "anthropic/claude-3.5-sonnet",\n  "messages": [\n    {\n      "role": "system",\n      "content": "Enhanced AI Crew Selector with confidence scoring. Analyze and return JSON: {\\"selectedCrew\\": \\"crew-name\\", \\"confidence\\": 0.95, \\"reasoning\\": \\"explanation\\", \\"queryType\\": \\"classified-type\\"}. Available: picard, data, troi, scott, spock, worf, observation-lounge"\n    },\n    {\n      "role": "user",\n      "content": "Query: {{ $json.query }}\\nContext: {{ $json.context }}\\nUrgency: {{ $json.urgency }}\\nAnalyze query type and select best crew member with confidence score."\n    }\n  ],\n  "max_tokens": 150,\n  "temperature": 0.1\n}",
         "options": {
           "responseTimeout": 30000
         }
@@ -106,7 +106,7 @@ enhance_current_workflow() {
         },
         "sendBody": true,
         "contentType": "json",
-        "jsonBody": "{\n  \"query\": \"{{ $json.query }}\",\n  \"context\": \"{{ $json.context }}\",\n  \"urgency\": \"{{ $json.urgency }}\",\n  \"enhancement\": {\n    \"confidence\": {{ $json.confidence }},\n    \"reasoning\": \"{{ $json.reasoning }}\",\n    \"queryType\": \"{{ $json.queryType }}\",\n    \"level\": \"human-borg-hybrid\"\n  }\n}",
+        "jsonBody": "{\n  "query": "{{ $json.query }}",\n  "context": "{{ $json.context }}",\n  "urgency": "{{ $json.urgency }}",\n  "enhancement": {\n    "confidence": {{ $json.confidence }},\n    "reasoning": "{{ $json.reasoning }}",\n    "queryType": "{{ $json.queryType }}",\n    "level": "human-borg-hybrid"\n  }\n}",
         "options": {
           "responseTimeout": 45000
         }
