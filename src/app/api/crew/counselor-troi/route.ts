@@ -11,7 +11,7 @@ export async function POST(request: Request) {
       role: "Counselor & Emotional Intelligence Specialist",
       greeting: "I sense your feelings about this matter. Let me help you process this.",
       guidance: generateEmpathicGuidance(query, context, userRole, urgency),
-      emotionalAssessment: analyzeEmotionalContext(query, context),
+      emotionalAssessment: analyzeEmotionalContext(query, context, urgency),
       recommendations: provideSupportRecommendations(query, context, userRole),
       nextSteps: suggestEmotionalApproach(query, context, urgency),
       starfleetProtocol: "Emotional support and interpersonal guidance per Starfleet counseling protocols"
@@ -62,7 +62,7 @@ function generateEmpathicGuidance(query: string, context: string, userRole: stri
   return baseGuidance;
 }
 
-function analyzeEmotionalContext(query: string, context: string) {
+function analyzeEmotionalContext(query: string, context: string, urgency: string = 'normal') {
   const emotionalIndicators = {
     stress: query.toLowerCase().includes('overwhelmed') || query.toLowerCase().includes('stressed') || query.toLowerCase().includes('pressure'),
     frustration: query.toLowerCase().includes('frustrated') || query.toLowerCase().includes('annoying') || query.toLowerCase().includes('difficult'),

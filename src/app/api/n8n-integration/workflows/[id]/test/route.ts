@@ -2,9 +2,10 @@ import { NextResponse } from 'next/server';
 
 export async function POST(
   request: Request,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
+    const params = await context.params;
     const workflowId = params.id;
     const testPayload = await request.json();
     const N8N_BASE_URL = process.env.N8N_BASE_URL;
@@ -59,7 +60,7 @@ export async function POST(
       return NextResponse.json({
         success: false,
         error: 'Network error testing workflow',
-        details: networkError.message
+        details: networkError instanceof Error ? networkError.message : 'Unknown error'
       }, { status: 500 });
     }
   } catch (error) {
@@ -67,7 +68,7 @@ export async function POST(
     return NextResponse.json({
       success: false,
       error: 'Failed to test workflow',
-      details: error.message
+      details: error instanceof Error ? error.message : 'Unknown error'
     }, { status: 500 });
   }
 }

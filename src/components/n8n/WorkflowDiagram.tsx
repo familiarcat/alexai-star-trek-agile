@@ -114,7 +114,7 @@ export default function WorkflowDiagram({ workflow, onWorkflowChange, className 
   };
 
   const renderConnections = () => {
-    const connections = [];
+    const connections: JSX.Element[] = [];
     
     Object.entries(workflow.connections).forEach(([nodeId, nodeConnections]) => {
       const fromNode = workflow.nodes.find(n => n.name === nodeId);

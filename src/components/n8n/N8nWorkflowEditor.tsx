@@ -141,7 +141,7 @@ export default function N8nWorkflowEditor({ className }: N8nWorkflowEditorProps)
       alert(`Test ${result.success ? 'successful' : 'failed'}: ${JSON.stringify(result.response || result.error)}`);
     } catch (error) {
       console.error('Failed to test workflow:', error);
-      alert('Test failed: ' + error.message);
+      alert('Test failed: ' + (error instanceof Error ? error.message : 'Unknown error'));
     }
   };
 

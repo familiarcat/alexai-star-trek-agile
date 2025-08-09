@@ -11,7 +11,7 @@ export async function POST(request: Request) {
       role: "Security Chief & Tactical Operations",
       greeting: "Security protocols must be maintained. I will ensure the integrity of our systems.",
       guidance: generateSecurityGuidance(query, context, userRole, urgency),
-      securityAssessment: analyzeSecurityContext(query, context),
+      securityAssessment: analyzeSecurityContext(query, context, urgency),
       recommendations: provideSecurityRecommendations(query, context, userRole),
       nextSteps: suggestSecurityApproach(query, context, urgency),
       starfleetProtocol: "Security vigilance and tactical readiness per Starfleet Security protocols"
@@ -65,7 +65,7 @@ function generateSecurityGuidance(query: string, context: string, userRole: stri
   return baseGuidance;
 }
 
-function analyzeSecurityContext(query: string, context: string) {
+function analyzeSecurityContext(query: string, context: string, urgency: string = 'normal') {
   const securityPatterns = {
     authentication: /auth|login|password|token|session|credential/i,
     authorization: /permission|access|role|privilege|acl|rbac/i,

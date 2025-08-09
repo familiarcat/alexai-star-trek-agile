@@ -67,7 +67,7 @@ export async function POST(request: Request) {
     return NextResponse.json({
       success: false,
       error: 'Sync operation failed',
-      details: error.message
+      details: error instanceof Error ? error.message : 'Unknown error'
     }, { status: 500 });
   }
 }
@@ -132,14 +132,14 @@ async function pullWorkflowsFromN8n(workflowIds?: string[], force = false): Prom
           result.workflows.push(workflowWithMeta);
         }
       } catch (error) {
-        result.operations.errors.push(`Failed to pull ${workflow.name}: ${error.message}`);
+        result.operations.errors.push(`Failed to pull ${workflow.name}: ${error instanceof Error ? error.message : 'Unknown error'}`);
       }
     }
     
     result.success = result.operations.errors.length === 0;
   } catch (error) {
     result.success = false;
-    result.operations.errors.push(`Failed to fetch from n8n: ${error.message}`);
+    result.operations.errors.push(`Failed to fetch from n8n: ${error instanceof Error ? error.message : 'Unknown error'}`);
   }
   
   return result;
@@ -190,14 +190,14 @@ async function pushWorkflowsToN8n(workflowIds?: string[], force = false): Promis
         result.operations.pushed++;
         result.workflows.push(localWorkflow);
       } catch (error) {
-        result.operations.errors.push(`Failed to push ${localWorkflow.name}: ${error.message}`);
+        result.operations.errors.push(`Failed to push ${localWorkflow.name}: ${error instanceof Error ? error.message : 'Unknown error'}`);
       }
     }
     
     result.success = result.operations.errors.length === 0;
   } catch (error) {
     result.success = false;
-    result.operations.errors.push(`Failed to push to n8n: ${error.message}`);
+    result.operations.errors.push(`Failed to push to n8n: ${error instanceof Error ? error.message : 'Unknown error'}`);
   }
   
   return result;

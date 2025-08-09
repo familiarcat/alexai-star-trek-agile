@@ -53,8 +53,8 @@ export async function GET() {
         success: false,
         error: 'Failed to load workflows from both n8n and local storage',
         details: {
-          n8n: error.message,
-          local: localError.message
+          n8n: error instanceof Error ? error.message : 'Unknown error',
+          local: localError instanceof Error ? localError.message : 'Unknown error'
         }
       }, { status: 500 });
     }
@@ -161,7 +161,7 @@ export async function POST(request: Request) {
     return NextResponse.json({
       success: false,
       error: 'Failed to save workflow',
-      details: error.message
+      details: error instanceof Error ? error.message : 'Unknown error'
     }, { status: 500 });
   }
 }

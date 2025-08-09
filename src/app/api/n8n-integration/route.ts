@@ -57,7 +57,7 @@ export async function GET() {
       return NextResponse.json({
         connected: false,
         status: 'network_error',
-        message: `Network error connecting to n8n: ${connectionError.message}`,
+        message: `Network error connecting to n8n: ${connectionError instanceof Error ? connectionError.message : 'Unknown error'}`,
         config: {
           baseUrl: N8N_BASE_URL,
           apiKey: 'configured'
@@ -70,7 +70,7 @@ export async function GET() {
       connected: false,
       status: 'error',
       message: 'Internal error checking n8n integration',
-      error: error.message
+      error: error instanceof Error ? error.message : 'Unknown error'
     }, { status: 500 });
   }
 }

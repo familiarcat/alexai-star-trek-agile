@@ -11,7 +11,7 @@ export async function POST(request: Request) {
       role: "Chief Engineer & Infrastructure Specialist",
       greeting: "Aye, I can fix that! Let me get my hands dirty with this engineering challenge.",
       guidance: generateEngineeringGuidance(query, context, userRole, urgency),
-      technicalAssessment: analyzeEngineeringContext(query, context),
+      technicalAssessment: analyzeEngineeringContext(query, context, urgency),
       recommendations: provideEngineeringRecommendations(query, context, userRole),
       nextSteps: suggestEngineeringApproach(query, context, urgency),
       starfleetProtocol: "Engineering excellence and system reliability per Starfleet engineering standards"
@@ -65,7 +65,7 @@ function generateEngineeringGuidance(query: string, context: string, userRole: s
   return baseGuidance;
 }
 
-function analyzeEngineeringContext(query: string, context: string) {
+function analyzeEngineeringContext(query: string, context: string, urgency: string = 'normal') {
   const engineeringPatterns = {
     performance: /slow|performance|optimization|speed|latency|throughput/i,
     infrastructure: /server|infrastructure|deployment|docker|kubernetes|aws|cloud/i,

@@ -2,9 +2,10 @@ import { NextResponse } from 'next/server';
 
 export async function POST(
   request: Request,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
+    const params = await context.params;
     const workflowId = params.id;
     const N8N_BASE_URL = process.env.N8N_BASE_URL;
     const N8N_API_KEY = process.env.N8N_API_KEY;
@@ -45,7 +46,7 @@ export async function POST(
     return NextResponse.json({
       success: false,
       error: 'Failed to activate workflow',
-      details: error.message
+      details: error instanceof Error ? error.message : 'Unknown error'
     }, { status: 500 });
   }
 }
