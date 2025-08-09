@@ -1,0 +1,18 @@
+{
+  "tracking": {
+    "enabled": true,
+    "startDate": "2025-08-09T04:29:21.773Z",
+    "metrics": {
+      "totalEvolutions": 0,
+      "workflowMutations": 0,
+      "aiLearningEvents": 0,
+      "performanceImprovements": 0
+    }
+  },
+  "workflows": {},
+  "patterns": {
+    "commonMutations": [],
+    "learningTriggers": [],
+    "improvementAreas": []
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "sync": {
+    "enabled": true,
+    "interval": 300,
+    "bidirectional": true,
+    "autoMerge": false,
+    "conflictResolution": "manual"
+  },
+  "n8n": {
+    "baseUrl": "https://n8n.pbradygeorgen.com",
+    "apiKey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmZTVmMmJmOC1lM2Y3LTQ3ZWQtOTcxNS05NWY5MTQyYWNmZjMiLCJpc3MiOiJuOG4iLCJhdWQiOiJwdWJsaWMtYXBpIiwiaWF0IjoxNzU0MDc1ODg1fQ.pXKH1LeqgifzEP5cSUaZhYFDwJLfeLVSVS0XjiS8NOE",
+    "webhookBase": "https://n8n.pbradygeorgen.com/webhook"
+  },
+  "cursor": {
+    "workflowPath": "sync-system/workflows",
+    "snapshotPath": "bilateral-sync/snapshots/cursor",
+    "logPath": "bilateral-sync/logs"
+  },
+  "workflows": {
+    "include": [
+      "AlexAI*",
+      "Crew*",
+      "Coordination*"
+    ],
+    "exclude": [
+      "test*",
+      "temp*"
+    ]
+  },
+  "lastSync": {
+    "timestamp": "2025-08-09T04:35:15.473Z",
+    "status": "completed",
+    "error": null
+  }
+}

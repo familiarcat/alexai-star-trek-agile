@@ -1,0 +1,15 @@
+[Unit]
+Description=AlexAI Bilateral CursorAI-N8N Sync Service
+After=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/home/ubuntu/alexai_katra_transfer_package_remote_v7
+ExecStart=/home/ubuntu/alexai_katra_transfer_package_remote_v7/bilateral-sync/scripts/sync-scheduler.sh
+Restart=always
+RestartSec=10
+Environment=NODE_ENV=production
+
+[Install]
+WantedBy=multi-user.target
