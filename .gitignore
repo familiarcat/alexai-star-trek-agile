@@ -127,3 +127,15 @@ aws-*
 # Development artifacts
 .vscode/settings.json
 # macOS specific
+
+# === EMERGENCY SECURITY PATTERNS ===
+# Added after OpenAI key compromise incident
+*.key
+*.keys
+api-keys.*
+openai-*
+*openai*
+sk-*
+*.emergency.*
+emergency-*
+
