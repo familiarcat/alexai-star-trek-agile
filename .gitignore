@@ -20,6 +20,22 @@ dist/
 .env.test.local
 .env.production.local
 
+# Security and sensitive files
+.secure-backups/
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.csr
+*.pem
+*.pkey
+*.priv
+*.secret
+*.token
+*.password
+*.credential
+
 # Python
 __pycache__/
 *.py[cod]
@@ -98,44 +114,4 @@ htmlcov/
 *.tsbuildinfo
 next-env.d.ts
 .env.backup*
-.secure-backups/
-# === WORF'S SECURITY PROTOCOLS ===
-# Environment files
-.env*
-!.env.example
-# Backup files (prevent accidental commits)
-*.backup
-*.backup.*
-*.bak
-*.bak.*
-*backup*
-temp_*
-tmp_*
-# Secret files
-*secret*
-*Secret*
-*SECRET*
-*key*
-*Key*
-*KEY*
-*token*
-*Token*
-*TOKEN*
-# AWS credentials
-.aws/
-aws-*
-# Development artifacts
-.vscode/settings.json
-# macOS specific
-
-# === EMERGENCY SECURITY PATTERNS ===
-# Added after OpenAI key compromise incident
-*.key
-*.keys
-api-keys.*
-openai-*
-*openai*
-sk-*
-*.emergency.*
-emergency-*
 
