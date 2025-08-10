@@ -235,8 +235,8 @@ validate_environment_security() {
         ((issues++))
     fi
     
-    # Check for secrets in recent commits
-    local recent_secrets=$(git log --oneline -10 --name-only | grep -E "\.(env|secret|key|token|backup)" | grep -v ".env.example" || true)
+    # Check for secrets in recent commits (only file names, not commit messages)
+    local recent_secrets=$(git log --oneline -10 --name-only | grep -v "^[a-f0-9]" | grep -E "\.(env|secret|key|token|backup)" | grep -v ".env.example" || true)
     if [[ -n "$recent_secrets" ]]; then
         echo "⚠️ Secret files in recent git history:"
         echo "$recent_secrets"
