@@ -14,7 +14,19 @@
     "deploy": "vercel --prod",
     "deploy:preview": "vercel",
     "local:test": "npm run build && npm run start",
-    "production:test": "npm run build && npm run start -- -p 3001"
+    "production:test": "npm run build && npm run start -- -p 3001",
+    "env:setup": "./scripts/setup/enhanced-environment-setup.sh",
+    "env:source": "./scripts/setup/source-env-from-zshrc.sh",
+    "env:validate": "./scripts/security/secure-environment-manager.sh --validate-only",
+    "env:clean": "./scripts/security/secure-environment-manager.sh --clean-history",
+    "sync:push": "./scripts/sync/push-workflows.sh",
+    "sync:pull": "./scripts/sync/pull-workflows.sh",
+    "sync:both": "./scripts/sync/sync-workflows.sh",
+    "deploy:workflow": "./deploy-complete-crew-workflow-direct.sh",
+    "deploy:all": "./deploy-all-platforms.sh",
+    "test:env": "./test-sync-system.sh",
+    "test:n8n": "./comprehensive-system-wide-test.sh",
+    "test:ui": "./test-ui-local-deployment.sh"
   },
   "dependencies": {
     "@heroicons/react": "^2.0.18",

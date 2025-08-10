@@ -115,3 +115,31 @@ htmlcov/
 next-env.d.ts
 .env.backup*
 
+# === WORF'S SECURITY PROTOCOLS ===
+# Environment files
+.env*
+!.env.example
+# Backup files (prevent accidental commits)
+*.backup
+*.backup.*
+*.bak
+*.bak.*
+*backup*
+temp_*
+tmp_*
+# Secret files
+*secret*
+*Secret*
+*SECRET*
+*key*
+*Key*
+*KEY*
+*token*
+*Token*
+*TOKEN*
+# AWS credentials
+.aws/
+aws-*
+# Development artifacts
+.vscode/settings.json
+# macOS specific
