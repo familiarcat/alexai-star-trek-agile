@@ -1,13 +1,16 @@
 {
   "sync": {
     "enabled": true,
-    "interval": 60,
+    "interval": 300,
     "bidirectional": true,
     "autoMerge": true,
     "conflictResolution": "smart",
     "autoCredentials": true,
     "realTimeSync": true,
-    "changeDetection": "fileWatcher"
+    "changeDetection": "fileWatcher",
+    "minSyncInterval": 120,
+    "maxSyncInterval": 1800,
+    "adaptiveSync": true
   },
   "n8n": {
     "baseUrl": "https://n8n.pbradygeorgen.com",
@@ -57,11 +60,13 @@
   },
   "monitoring": {
     "enableLogging": true,
-    "logLevel": "info",
+    "logLevel": "warn",
     "enableMetrics": true,
     "alertOnFailure": true,
     "syncHistory": true,
-    "performanceTracking": true
+    "performanceTracking": true,
+    "logRetention": 7,
+    "maxLogEntries": 1000
   },
   "conflictResolution": {
     "strategy": "smart",
@@ -71,10 +76,12 @@
     "mergeStrategy": "timestamp"
   },
   "lastSync": {
-    "timestamp": "2025-08-10T22:31:56.935Z",
+    "timestamp": "2025-08-10T23:06:57.021Z",
     "status": "completed",
     "type": "full",
     "error": null,
-    "direction": "bidirectional"
+    "direction": "bidirectional",
+    "lastChangeDetected": null,
+    "syncCount": 0
   }
 }

@@ -1063,28 +1063,44 @@ npm run env:clean
 3. **Start Bilateral Sync**: `npm run sync:start` (real-time sync)
 4. **Start Development**: `npm run dev`
 5. **Edit Workflows**: Visit `/workflow-management`
-6. **Auto-Sync**: Changes automatically sync to n8n
-7. **Monitor Sync**: `npm run sync:monitor`
-8. **Test Integration**: `npm run test:n8n`
-9. **Deploy**: `npm run deploy:all`
 
-## 🔄 Bilateral Sync Architecture
+## 🔄 Optimized Bilateral Sync System
 
-### Real-Time Synchronization
+The system now includes an **Enhanced Bilateral Sync Manager** with the following optimizations:
+
+### Key Features:
+- **Adaptive Sync Intervals**: Automatically adjusts sync frequency based on activity
+- **Smart Change Detection**: Only syncs when actual changes are detected
+- **Reduced Logging**: Configurable log levels to minimize output
+- **Efficient Startup**: Skips initial sync if no recent changes detected
+
+### Monitoring Commands:
+```bash
+# Check sync status without running full sync
+node bilateral-sync/scripts/enhanced-sync-manager.js status
+
+# View current configuration
+node bilateral-sync/scripts/enhanced-sync-manager.js config
+
+# See recent activity
+node bilateral-sync/scripts/enhanced-sync-manager.js logs
+
+# Perform single sync manually
+node bilateral-sync/scripts/enhanced-sync-manager.js sync
 ```
-CursorAI Development ←→ Enhanced Sync Manager ←→ n8n Server
-       ↑                        ↑                    ↑
-   File Changes           Smart Conflict        API Integration
-   Git Commits            Resolution           Webhook Support
-   Workflow Updates       Performance          Health Monitoring
-                         Monitoring
-```
 
-### Conflict Resolution Strategy
-- **Smart Resolution**: Automatic conflict resolution based on timestamps and priorities
-- **Backup Protection**: Automatic backup before any conflict resolution
-- **Manual Override**: Option to manually resolve complex conflicts
-- **Audit Trail**: Complete logging of all sync operations
+### Configuration Options:
+- **Base Interval**: 300s (5 minutes) - reduced from 60s
+- **Min Interval**: 120s (2 minutes) - prevents excessive syncing
+- **Max Interval**: 1800s (30 minutes) - maximum delay when idle
+- **Log Level**: `warn` by default - reduces console output
+- **Log Retention**: 7 days - automatic cleanup of old snapshots
+
+### Performance Benefits:
+- **Reduced API Calls**: Only syncs when necessary
+- **Lower Resource Usage**: Adaptive intervals based on activity
+- **Faster Startup**: Skips unnecessary initial syncs
+- **Cleaner Logs**: Configurable verbosity levels
 
 ## 🛡️ Best Practices
 
