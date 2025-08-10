@@ -71,7 +71,7 @@
     "mergeStrategy": "timestamp"
   },
   "lastSync": {
-    "timestamp": "2025-08-10T22:30:56.929Z",
+    "timestamp": "2025-08-10T22:31:56.935Z",
     "status": "completed",
     "type": "full",
     "error": null,
