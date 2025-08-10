@@ -1,0 +1,181 @@
+{
+  "name": "AlexAI Optimized Crew Coordination",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "crew-request",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedMethods": ["POST"],
+          "responseHeaders": {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "POST, OPTIONS",
+            "Access-Control-Allow-Headers": "Content-Type, Authorization"
+          }
+        }
+      },
+      "id": "crew-request-webhook",
+      "name": "Crew Request Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [240, 300],
+      "notes": "Enhanced entry point with CORS support and method validation"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Request Preprocessor - Enhanced request validation and enrichment\nconst preprocessRequest = () => {\n  const input = $input.all()[0].json;\n  \n  // Extract and validate required fields\n  const query = input.query || '';\n  const context = input.context || 'general';\n  const urgency = input.urgency || 'normal';\n  const userRole = input.userRole || 'user';\n  const sessionId = input.sessionId || `session_${Date.now()}`;\n  \n  // Classify query type for intelligent routing\n  const queryClassification = classifyQuery(query);\n  \n  // Enrich with metadata\n  const enrichedRequest = {\n    query,\n    context,\n    urgency,\n    userRole,\n    sessionId,\n    queryType: queryClassification.type,\n    complexity: queryClassification.complexity,\n    estimatedTokens: Math.ceil(query.length / 4),\n    timestamp: new Date().toISOString(),\n    requestId: `req_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,\n    suggestedCrewMembers: queryClassification.suggestedCrew,\n    requiresMultipleAgents: queryClassification.complexity === 'high',\n    processingStartTime: Date.now()\n  };\n  \n  return [{ json: enrichedRequest }];\n};\n\n// Query classification logic\nfunction classifyQuery(query) {\n  const lowerQuery = query.toLowerCase();\n  \n  if (lowerQuery.includes('technical') || lowerQuery.includes('code') || lowerQuery.includes('debug')) {\n    return { type: 'technical', complexity: 'high', suggestedCrew: ['data', 'scott'] };\n  }\n  \n  if (lowerQuery.includes('strategy') || lowerQuery.includes('decision') || lowerQuery.includes('leadership')) {\n    return { type: 'strategic', complexity: 'high', suggestedCrew: ['picard', 'spock'] };\n  }\n  \n  if (lowerQuery.includes('feel') || lowerQuery.includes('team') || lowerQuery.includes('conflict')) {\n    return { type: 'interpersonal', complexity: 'medium', suggestedCrew: ['troi', 'picard'] };\n  }\n  \n  if (lowerQuery.includes('security') || lowerQuery.includes('risk') || lowerQuery.includes('protect')) {\n    return { type: 'security', complexity: 'medium', suggestedCrew: ['worf', 'spock'] };\n  }\n  \n  return { type: 'general', complexity: 'low', suggestedCrew: ['picard', 'data'] };\n}\n\nreturn preprocessRequest();"
+      },
+      "id": "request-preprocessor",
+      "name": "Request Preprocessor",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [440, 300],
+      "notes": "Enriches requests with classification and routing hints"
+    },
+    {
+      "parameters": {
+        "url": "https://openrouter.ai/api/v1/chat/completions",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{ $vars.OPENROUTER_API_KEY }}"
+            },
+            {
+              "name": "HTTP-Referer",
+              "value": "https://alexai.pbradygeorgen.com"
+            },
+            {
+              "name": "X-Title",
+              "value": "AlexAI Crew Coordination"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "jsonBody": "{\n  \"model\": \"anthropic/claude-3.5-sonnet\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"You are an AI Crew Intelligence Hub. Analyze the request and return a JSON response with crew selection and reasoning. Available crew: picard (leadership), data (technical), troi (emotional), scott (engineering), spock (logic), worf (security), observation-lounge (team). Respond with JSON: {\\\"selectedCrew\\\": \\\"crew-name\\\", \\\"confidence\\\": 0.95, \\\"reasoning\\\": \\\"explanation\\\", \\\"alternativeCrew\\\": [\\\"backup1\\\"], \\\"requiresTeam\\\": false}\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"Query: {{ $json.query }}\\nContext: {{ $json.context }}\\nType: {{ $json.queryType }}\\nComplexity: {{ $json.complexity }}\\nUrgency: {{ $json.urgency }}\"\n    }\n  ],\n  \"max_tokens\": 200,\n  \"temperature\": 0.1\n}",
+        "options": {
+          "responseTimeout": 30000
+        }
+      },
+      "id": "ai-crew-intelligence-hub",
+      "name": "AI Crew Intelligence Hub",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [640, 300],
+      "notes": "Advanced crew selection with confidence scoring"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Dynamic Crew Router - Enhanced routing with fallback\nconst routeToCrewMember = () => {\n  const requestData = $input.all()[0].json;\n  const aiResponse = requestData.choices[0].message.content;\n  \n  let crewSelection;\n  try {\n    crewSelection = JSON.parse(aiResponse);\n  } catch (error) {\n    crewSelection = {\n      selectedCrew: extractCrewFromText(aiResponse),\n      confidence: 0.5,\n      reasoning: 'Fallback parsing used',\n      alternativeCrew: ['picard'],\n      requiresTeam: false\n    };\n  }\n  \n  const validCrewMembers = ['picard', 'data', 'troi', 'scott', 'spock', 'worf', 'observation-lounge'];\n  if (!validCrewMembers.includes(crewSelection.selectedCrew)) {\n    crewSelection.selectedCrew = 'picard';\n    crewSelection.confidence = 0.3;\n  }\n  \n  const routingData = {\n    ...requestData,\n    selectedCrew: crewSelection.selectedCrew,\n    confidence: crewSelection.confidence,\n    reasoning: crewSelection.reasoning,\n    alternativeCrew: crewSelection.alternativeCrew || ['picard'],\n    requiresTeam: crewSelection.requiresTeam || false,\n    routingDecisionTime: Date.now() - requestData.processingStartTime,\n    fallbackUsed: crewSelection.confidence < 0.7,\n    crewMemberEndpoint: getCrewMemberEndpoint(crewSelection.selectedCrew)\n  };\n  \n  return [{ json: routingData }];\n};\n\nfunction extractCrewFromText(text) {\n  const crewMembers = ['picard', 'data', 'troi', 'scott', 'spock', 'worf', 'observation-lounge'];\n  const lowerText = text.toLowerCase();\n  \n  for (const crew of crewMembers) {\n    if (lowerText.includes(crew)) {\n      return crew;\n    }\n  }\n  return 'picard';\n}\n\nfunction getCrewMemberEndpoint(crewMember) {\n  const endpoints = {\n    'picard': 'https://alexai-star-trek-agile.vercel.app/api/crew/captain-picard',\n    'data': 'https://alexai-star-trek-agile.vercel.app/api/crew/lieutenant-data',\n    'troi': 'https://alexai-star-trek-agile.vercel.app/api/crew/counselor-troi',\n    'scott': 'https://alexai-star-trek-agile.vercel.app/api/crew/chief-engineer-scott',\n    'spock': 'https://alexai-star-trek-agile.vercel.app/api/crew/commander-spock',\n    'worf': 'https://alexai-star-trek-agile.vercel.app/api/crew/lieutenant-worf',\n    'observation-lounge': 'https://alexai-star-trek-agile.vercel.app/api/crew/observation-lounge'\n  };\n  return endpoints[crewMember] || endpoints['picard'];\n}\n\nreturn routeToCrewMember();"
+      },
+      "id": "dynamic-crew-router",
+      "name": "Dynamic Crew Router",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [840, 300],
+      "notes": "Enhanced routing with fallback strategies"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.crewMemberEndpoint }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "X-Request-ID",
+              "value": "={{ $json.requestId }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "jsonBody": "{\n  \"query\": \"{{ $json.query }}\",\n  \"context\": \"{{ $json.context }}\",\n  \"urgency\": \"{{ $json.urgency }}\",\n  \"sessionId\": \"{{ $json.sessionId }}\",\n  \"metadata\": {\n    \"queryType\": \"{{ $json.queryType }}\",\n    \"confidence\": {{ $json.confidence }},\n    \"reasoning\": \"{{ $json.reasoning }}\"\n  }\n}",
+        "options": {
+          "responseTimeout": 45000
+        }
+      },
+      "id": "enhanced-crew-member-response",
+      "name": "Enhanced Crew Member Response",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1040, 300],
+      "notes": "Calls crew member with enhanced metadata"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Response Synthesizer - Enhanced response processing\nconst synthesizeResponse = () => {\n  const requestData = $input.all()[0].json;\n  \n  let crewResponse;\n  try {\n    if (typeof requestData === 'string') {\n      crewResponse = { message: requestData };\n    } else if (requestData.response) {\n      crewResponse = requestData.response;\n    } else {\n      crewResponse = requestData;\n    }\n  } catch (error) {\n    crewResponse = {\n      message: 'I apologize, but I encountered an issue processing your request.',\n      error: true\n    };\n  }\n  \n  const totalProcessingTime = Date.now() - requestData.processingStartTime;\n  \n  const synthesizedResponse = {\n    response: crewResponse,\n    metadata: {\n      requestId: requestData.requestId,\n      selectedCrew: requestData.selectedCrew,\n      confidence: requestData.confidence,\n      processingTime: totalProcessingTime,\n      qualityScore: calculateQualityScore(crewResponse, requestData),\n      completedAt: new Date().toISOString()\n    }\n  };\n  \n  return [{ json: synthesizedResponse }];\n};\n\nfunction calculateQualityScore(response, requestData) {\n  let score = 0.5;\n  const responseText = JSON.stringify(response);\n  if (responseText.length > 100) score += 0.2;\n  if (requestData.confidence > 0.8) score += 0.2;\n  if (!response.error) score += 0.3;\n  return Math.min(1.0, score);\n}\n\nreturn synthesizeResponse();"
+      },
+      "id": "response-synthesizer",
+      "name": "Response Synthesizer",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1240, 300],
+      "notes": "Synthesizes responses with quality scoring"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json.response, null, 2) }}",
+        "responseHeaders": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "X-Request-ID",
+              "value": "={{ $json.metadata.requestId }}"
+            },
+            {
+              "name": "X-Processing-Time",
+              "value": "={{ $json.metadata.processingTime }}"
+            },
+            {
+              "name": "X-Quality-Score",
+              "value": "={{ $json.metadata.qualityScore }}"
+            }
+          ]
+        }
+      },
+      "id": "response-delivery",
+      "name": "Response Delivery",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1440, 300],
+      "notes": "Delivers optimized response with metadata"
+    }
+  ],
+  "connections": {
+    "crew-request-webhook": {
+      "main": [[{"node": "request-preprocessor", "type": "main", "index": 0}]]
+    },
+    "request-preprocessor": {
+      "main": [[{"node": "ai-crew-intelligence-hub", "type": "main", "index": 0}]]
+    },
+    "ai-crew-intelligence-hub": {
+      "main": [[{"node": "dynamic-crew-router", "type": "main", "index": 0}]]
+    },
+    "dynamic-crew-router": {
+      "main": [[{"node": "enhanced-crew-member-response", "type": "main", "index": 0}]]
+    },
+    "enhanced-crew-member-response": {
+      "main": [[{"node": "response-synthesizer", "type": "main", "index": 0}]]
+    },
+    "response-synthesizer": {
+      "main": [[{"node": "response-delivery", "type": "main", "index": 0}]]
+    }
+  },
+  "settings": {
+    "timezone": "America/Chicago"
+  },
+  "tags": ["AlexAI", "Optimized", "Production"],
+  "triggerCount": 0
+}

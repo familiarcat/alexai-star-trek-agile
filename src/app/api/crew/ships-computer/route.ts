@@ -3,57 +3,77 @@ import { NextResponse } from 'next/server';
 // Ships Computer - LCARS Computer Core (Majel Barrett voice simulation)
 export async function POST(request: Request) {
   try {
-    const { query, projectContext, requestedInterface, agentMemories } = await request.json();
+    const requestData = await request.json();
     
-    // Ships Computer analysis and coordination
-    const computerResponse = {
-      voice: "majel-barrett-computer-core",
-      greeting: "Computer ready. Accessing all ship's systems and crew knowledge.",
-      
-      // Core computer analysis
-      systemAnalysis: analyzeShipSystems(query, projectContext),
-      
-      // Dynamic LCARS interface generation
-      lcarsInterface: generateDynamicLCARSLayout(projectContext, agentMemories),
-      
-      // Crew coordination recommendations
-      crewCoordination: coordinateCrewForProject(query, projectContext),
-      
-      // Data visualization recommendations
-      dataVisualization: createContextualDataViews(query, projectContext),
-      
-      // Project-specific recommendations
-      projectGuidance: generateProjectSpecificGuidance(query, projectContext),
-      
-      // System status and recommendations
-      systemStatus: getShipSystemStatus(),
-      
-      // Meta-analysis of crew intelligence
-      crewIntelligenceAnalysis: analyzeCrewCapabilities(agentMemories),
-      
-      computerNote: "All ship's systems and crew knowledge integrated for optimal project execution."
+    // Prepare the request for the n8n webhook
+    const n8nRequest = {
+      query: requestData.query || 'General ship computer analysis',
+      context: requestData.context || requestData.projectContext || 'ship-computer-analysis',
+      userRole: requestData.userRole || 'user',
+      urgency: requestData.urgency || 'normal',
+      complexity: requestData.complexity || 'medium',
+      mission: requestData.mission || 'ship-computer-operations',
+      interfacePrefs: requestData.interfacePrefs || 'standard'
     };
+
+    // Call the n8n webhook endpoint (using the working test webhook for now)
+    const n8nResponse = await fetch(`${process.env.N8N_BASE_URL}/webhook/test-endpoint`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(n8nRequest)
+    });
+
+    if (!n8nResponse.ok) {
+      throw new Error(`n8n webhook failed: ${n8nResponse.status} ${n8nResponse.statusText}`);
+    }
+
+    const n8nData = await n8nResponse.json();
     
+    // Return the n8n response
     return NextResponse.json({
       agent: "ships-computer",
-      response: computerResponse,
-      dynamicUI: true,
-      projectAdapted: true,
-      lcarsLayout: computerResponse.lcarsInterface,
-      crewRecommendations: computerResponse.crewCoordination,
+      success: true,
+      source: 'n8n-webhook',
+      data: n8nData,
       timestamp: new Date().toISOString()
     });
     
   } catch (error) {
     console.error('Ships Computer error:', error);
-    return NextResponse.json(
-      { 
-        error: 'Computer systems experiencing difficulties',
-        fallback: 'Manual crew coordination recommended',
-        timestamp: new Date().toISOString()
+    
+    // Fallback to mock data if n8n is unavailable
+    const fallbackResponse = {
+      voice: "majel-barrett-computer-core-fallback",
+      greeting: "Computer fallback mode activated. Accessing ship's systems.",
+      systemAnalysis: {
+        primarySystems: "Fallback systems operational",
+        relevantSystems: ["Fallback crew coordination", "Fallback technical analysis"],
+        recommendations: ["Complete n8n workflow integration", "Validate crew coordination systems"]
       },
-      { status: 500 }
-    );
+      lcarsInterface: {
+        layoutType: "fallback-lcars",
+        colorScheme: "fallback-orange",
+        panels: ["fallback-crew-panel", "fallback-system-panel"]
+      },
+      crewCoordination: {
+        recommendedCrew: ["Captain Picard", "Lieutenant Data"],
+        coordinationStrategy: "Fallback crew coordination active"
+      },
+      systemStatus: {
+        status: "FALLBACK_MODE",
+        message: "n8n webhook unavailable, using fallback systems"
+      }
+    };
+    
+    return NextResponse.json({
+      agent: "ships-computer",
+      response: fallbackResponse,
+      fallback: true,
+      error: 'n8n webhook unavailable, using fallback data',
+      timestamp: new Date().toISOString()
+    }, { status: 503 });
   }
 }
 

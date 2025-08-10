@@ -6,6 +6,9 @@ const nextConfig: NextConfig = {
     // Disable ESLint during build to avoid TypeScript parsing issues
     ignoreDuringBuilds: true,
   },
+  env: {
+    N8N_BASE_URL: process.env.N8N_BASE_URL,
+  },
   webpack: (config, { isServer }) => {
     if (isServer) {
       config.externals.push('socket.io');

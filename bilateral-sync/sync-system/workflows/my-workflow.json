@@ -1,0 +1,37 @@
+{
+  "createdAt": "2025-07-25T00:01:29.530Z",
+  "updatedAt": "2025-07-25T00:14:28.972Z",
+  "id": "AqQgoBbtbztArsac",
+  "name": "My workflow",
+  "active": false,
+  "isArchived": true,
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "7dc20c18-5940-4545-be59-704e013d7f88",
+      "name": "When chat message received",
+      "webhookId": "4ffb9a42-8650-400b-a53e-71f4e75cf6c3"
+    }
+  ],
+  "connections": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "meta": null,
+  "pinData": {},
+  "versionId": "ceae2762-74d9-478e-8176-9bf602d18bc7",
+  "triggerCount": 0,
+  "tags": [],
+  "syncedAt": "2025-08-09T02:32:42.028Z",
+  "syncDirection": "pulled-from-n8n",
+  "originalId": "AqQgoBbtbztArsac"
+}

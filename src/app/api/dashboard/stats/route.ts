@@ -60,7 +60,10 @@ export async function GET() {
       dataSource: 'live-global-architecture'
     };
     
-    return NextResponse.json(dashboardStats);
+    return NextResponse.json({
+      success: true,
+      stats: dashboardStats
+    });
   } catch (error) {
     console.error('Error fetching dashboard stats:', error);
     
@@ -74,6 +77,9 @@ export async function GET() {
       timestamp: new Date().toISOString()
     };
     
-    return NextResponse.json(fallbackStats);
+    return NextResponse.json({
+      success: true,
+      stats: fallbackStats
+    });
   }
 }

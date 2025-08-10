@@ -28,8 +28,8 @@
     ]
   },
   "lastSync": {
-    "timestamp": "2025-08-09T04:35:15.473Z",
-    "status": "completed",
-    "error": null
+    "timestamp": "2025-08-10T01:08:30.350Z",
+    "status": "failed",
+    "error": "ENOENT: no such file or directory, open '/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/bilateral-sync/scripts/snapshots/n8n/snapshot-2025-08-10T01:08:30.349Z.json'"
   }
 }

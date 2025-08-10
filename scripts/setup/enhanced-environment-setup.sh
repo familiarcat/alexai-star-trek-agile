@@ -40,6 +40,7 @@ setup_development_workflow() {
         "scripts/sync/push-workflows.sh"
         "scripts/sync/pull-workflows.sh" 
         "scripts/sync/sync-workflows.sh"
+        "scripts/setup/source-env-from-zshrc.sh"
         "deploy-alexai-workflow.sh"
         "deploy-complete-crew-workflow-direct.sh"
         "test-sync-system.sh"
@@ -61,6 +62,7 @@ setup_development_workflow() {
     echo "======================="
     echo "You can now use these npm shortcuts:"
     echo "  npm run env:setup     - Run this setup script"
+    echo "  npm run env:source    - Source environment from ~/.zshrc"
     echo "  npm run env:validate  - Validate environment security"
     echo "  npm run env:clean     - Clean git history (advanced)"
     echo "  npm run sync:push     - Push workflows to n8n"
@@ -94,6 +96,7 @@ update_package_scripts() {
     
     // Environment management
     pkg.scripts['env:setup'] = './scripts/setup/enhanced-environment-setup.sh';
+    pkg.scripts['env:source'] = './scripts/setup/source-env-from-zshrc.sh';
     pkg.scripts['env:validate'] = './scripts/security/secure-environment-manager.sh --validate-only';
     pkg.scripts['env:clean'] = './scripts/security/secure-environment-manager.sh --clean-history';
     
@@ -138,6 +141,9 @@ create_development_guide() {
 ```bash
 # One-time setup with security protocols
 npm run env:setup
+
+# Source environment variables from ~/.zshrc
+npm run env:source
 
 # Validate security anytime
 npm run env:validate
@@ -251,11 +257,12 @@ npm run env:clean
 ## 🎯 Development Workflow
 
 1. **Initial Setup**: `npm run env:setup`
-2. **Start Development**: `npm run dev`
-3. **Edit Workflows**: Visit `/workflow-management`
-4. **Sync Changes**: `npm run sync:push`
-5. **Test Integration**: `npm run test:n8n`
-6. **Deploy**: `npm run deploy:all`
+2. **Source Environment**: `npm run env:source` (sources from ~/.zshrc)
+3. **Start Development**: `npm run dev`
+4. **Edit Workflows**: Visit `/workflow-management`
+5. **Sync Changes**: `npm run sync:push`
+6. **Test Integration**: `npm run test:n8n`
+7. **Deploy**: `npm run deploy:all`
 
 ## 🛡️ Best Practices
 

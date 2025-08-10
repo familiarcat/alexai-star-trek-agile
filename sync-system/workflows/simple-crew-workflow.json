@@ -1,0 +1,218 @@
+{
+  "name": "Simple Crew Workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "crew-request",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-trigger",
+      "name": "Crew Request Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [100, 300],
+      "webhookId": "crew-request-webhook"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "rules": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "captain-picard",
+                    "leftValue": "={{ $json.query.toLowerCase() }}",
+                    "rightValue": "strategy",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "output": 0
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "lieutenant-data",
+                    "leftValue": "={{ $json.query.toLowerCase() }}",
+                    "rightValue": "technical",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "output": 1
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "counselor-troi",
+                    "leftValue": "={{ $json.query.toLowerCase() }}",
+                    "rightValue": "emotional",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "output": 2
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "observation-lounge",
+                    "leftValue": "={{ $json.query.toLowerCase() }}",
+                    "rightValue": "meeting",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "output": 3
+            }
+          ],
+          "fallbackOutput": 0,
+          "options": {}
+        }
+      },
+      "id": "crew-router",
+      "name": "Crew Router",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [400, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"success\": true,\n  \"crewMember\": \"captain-picard\",\n  \"response\": {\n    \"name\": \"Captain Jean-Luc Picard\",\n    \"role\": \"Commanding Officer\",\n    \"message\": \"Make it so! Based on your query about '{{ $json.query }}', I recommend a strategic approach. Let us engage with wisdom and determination.\",\n    \"strategy\": \"Strategic planning and leadership guidance\",\n    \"priority\": \"{{ $json.urgency || 'normal' }}\"\n  },\n  \"timestamp\": \"{{ new Date().toISOString() }}\",\n  \"requestId\": \"{{ $json.requestId || Math.random().toString(36).substr(2, 9) }}\"\n}",
+        "options": {}
+      },
+      "id": "captain-picard-response",
+      "name": "Captain Picard Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [700, 100]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"success\": true,\n  \"crewMember\": \"lieutenant-data\",\n  \"response\": {\n    \"name\": \"Lieutenant Commander Data\",\n    \"role\": \"Operations Officer\",\n    \"message\": \"Fascinating! Your technical query '{{ $json.query }}' requires logical analysis. I shall provide precise technical guidance.\",\n    \"analysis\": \"Technical problem-solving and optimization\",\n    \"complexity\": \"{{ $json.complexity || 'medium' }}\"\n  },\n  \"timestamp\": \"{{ new Date().toISOString() }}\",\n  \"requestId\": \"{{ $json.requestId || Math.random().toString(36).substr(2, 9) }}\"\n}",
+        "options": {}
+      },
+      "id": "lieutenant-data-response",
+      "name": "Lieutenant Data Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [700, 200]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"success\": true,\n  \"crewMember\": \"counselor-troi\",\n  \"response\": {\n    \"name\": \"Counselor Deanna Troi\",\n    \"role\": \"Ship's Counselor\",\n    \"message\": \"I sense your emotional state regarding '{{ $json.query }}'. Let me help you find balance and clarity in this situation.\",\n    \"guidance\": \"Emotional support and team dynamics\",\n    \"context\": \"{{ $json.context || 'general' }}\"\n  },\n  \"timestamp\": \"{{ new Date().toISOString() }}\",\n  \"requestId\": \"{{ $json.requestId || Math.random().toString(36).substr(2, 9) }}\"\n}",
+        "options": {}
+      },
+      "id": "counselor-troi-response",
+      "name": "Counselor Troi Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [700, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"success\": true,\n  \"crewMember\": \"observation-lounge\",\n  \"response\": {\n    \"name\": \"Observation Lounge Meeting\",\n  \"role\": \"Crew Coordination\",\n  \"message\": \"Welcome to the observation lounge. Let us discuss '{{ $json.query }}' as a team and coordinate our efforts.\",\n  \"meetingType\": \"crew-coordination\",\n  \"participants\": [\"Captain Picard\", \"Lieutenant Data\", \"Counselor Troi\"],\n  \"agenda\": \"{{ $json.query }}\"\n  },\n  \"timestamp\": \"{{ new Date().toISOString() }}\",\n  \"requestId\": \"{{ $json.requestId || Math.random().toString(36).substr(2, 9) }}\"\n}",
+        "options": {}
+      },
+      "id": "observation-lounge-response",
+      "name": "Observation Lounge Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [700, 400]
+    }
+  ],
+  "connections": {
+    "Crew Request Webhook": {
+      "main": [
+        [
+          {
+            "node": "Crew Router",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Crew Router": {
+      "main": [
+        [
+          {
+            "node": "Captain Picard Response",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Lieutenant Data Response",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Counselor Troi Response",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Observation Lounge Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

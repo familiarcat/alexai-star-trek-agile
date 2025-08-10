@@ -1,10 +1,5 @@
 {
-  "createdAt": "2025-08-08T22:47:52.836Z",
-  "updatedAt": "2025-08-08T22:47:52.836Z",
-  "id": "X5IcqWwNIOGxh1ob",
   "name": "AlexAI Simplified Crew Coordination",
-  "active": false,
-  "isArchived": false,
   "nodes": [
     {
       "parameters": {
@@ -17,10 +12,7 @@
       "name": "Crew Request Webhook",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 1,
-      "position": [
-        240,
-        300
-      ],
+      "position": [240, 300],
       "webhookId": "crew-request"
     },
     {
@@ -34,24 +26,21 @@
               "value": "Bearer {{ $env.OPENROUTER_API_KEY }}"
             },
             {
-              "name": "Content-Type",
+              "name": "Content-Type", 
               "value": "application/json"
             }
           ]
         },
         "sendBody": true,
         "bodyContentType": "json",
-        "jsonBody": "={\n  \"model\": \"anthropic/claude-3.5-sonnet\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"You are a crew coordinator. Analyze the request and return ONLY one crew member name: picard, data, troi, scott, worf, or observation-lounge\"\n    },\n    {\n      \"role\": \"user\", \n      \"content\": \"Query: {{ $json.query }}\\nContext: {{ $json.context }}\\nRole: {{ $json.userRole }}\"\n    }\n  ],\n  \"max_tokens\": 1000\n}",
+        "jsonBody": "={\n  \"model\": \"anthropic/claude-3.5-sonnet\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"You are a crew coordinator. Analyze the request and return ONLY one crew member name: picard, data, troi, scott, spock, worf, or observation-lounge\"\n    },\n    {\n      \"role\": \"user\", \n      \"content\": \"Query: {{ $json.query }}\\nContext: {{ $json.context }}\\nRole: {{ $json.userRole }}\"\n    }\n  ],\n  \"max_tokens\": 1000\n}",
         "options": {}
       },
       "id": "crew-selector",
       "name": "AI Crew Selector",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [
-        480,
-        300
-      ]
+      "position": [480, 300]
     },
     {
       "parameters": {
@@ -61,10 +50,7 @@
       "name": "Crew Router",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [
-        720,
-        300
-      ]
+      "position": [720, 300]
     },
     {
       "parameters": {
@@ -87,10 +73,7 @@
       "name": "Crew Member Response",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [
-        960,
-        300
-      ]
+      "position": [960, 300]
     },
     {
       "parameters": {
@@ -102,10 +85,7 @@
       "name": "Response Formatter",
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1,
-      "position": [
-        1200,
-        300
-      ]
+      "position": [1200, 300]
     }
   ],
   "connections": {
@@ -157,13 +137,5 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "staticData": null,
-  "meta": null,
-  "pinData": null,
-  "versionId": "297fc945-5cf0-4abd-b436-d5254fe57ae7",
-  "triggerCount": 0,
-  "tags": [],
-  "syncedAt": "2025-08-09T02:32:42.028Z",
-  "syncDirection": "pulled-from-n8n",
-  "originalId": "X5IcqWwNIOGxh1ob"
+  "staticData": null
 }

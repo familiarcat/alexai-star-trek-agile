@@ -1,0 +1,131 @@
+{
+  "name": "AlexAI Enhanced Ship Agency - Multi-LLM Crew Orchestration",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "ship-agency-request",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "ship-interface",
+      "name": "Ship's Computer Interface",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [100, 300],
+      "webhookId": "ship-agency-request"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Ship's Computer - Mission Analysis & UI Orchestration\nconst userRequest = $input.first().json;\nconst { query, context, userRole, urgency, complexity, mission, interfacePrefs } = userRequest;\n\n// Mission Priority Assessment\nconst priorityLevels = {\n  'low': 1, 'medium': 2, 'high': 3, 'critical': 4\n};\nconst urgencyLevel = urgency || 'normal';\nconst complexityLevel = complexity || 'medium';\n\n// Determine mission priority\nlet missionPriority = 'medium';\nif (urgencyLevel === 'critical' || complexityLevel === 'high') missionPriority = 'high';\nif (urgencyLevel === 'low' && complexityLevel === 'low') missionPriority = 'low';\n\n// UI Layout Configuration based on mission\nconst uiLayouts = {\n  'critical': 'emergency-lcars',\n  'high': 'tactical-lcars',\n  'medium': 'standard-lcars',\n  'low': 'minimal-lcars'\n};\n\n// Crew Selection Logic based on mission requirements\nconst crewCapabilities = {\n  'strategic': ['captain-picard', 'commander-spock'],\n  'technical': ['lieutenant-data', 'chief-engineer-scott'],\n  'emotional': ['counselor-troi'],\n  'tactical': ['lieutenant-worf'],\n  'analytical': ['observation-lounge', 'lieutenant-data']\n};\n\n// Determine required crew based on context\nlet requiredCrew = [];\nif (context.includes('strategy') || context.includes('leadership')) {\n  requiredCrew.push(...crewCapabilities.strategic);\n}\nif (context.includes('technical') || context.includes('engineering')) {\n  requiredCrew.push(...crewCapabilities.technical);\n}\nif (context.includes('emotional') || context.includes('counseling')) {\n  requiredCrew.push(...crewCapabilities.emotional);\n}\nif (context.includes('tactical') || context.includes('security')) {\n  requiredCrew.push(...crewCapabilities.tactical);\n}\nif (context.includes('analysis') || context.includes('research')) {\n  requiredCrew.push(...crewCapabilities.analytical);\n}\n\n// Default crew if none specified\nif (requiredCrew.length === 0) {\n  requiredCrew = ['captain-picard', 'lieutenant-data'];\n}\n\n// Mission orchestration plan\nconst missionPlan = {\n  priority: missionPriority,\n  uiLayout: uiLayouts[missionPriority],\n  requiredCrew: requiredCrew,\n  interfaceElements: {\n    missionStatus: true,\n    crewHighlights: true,\n    priorityIndicator: true,\n    dynamicPanels: complexityLevel !== 'low'\n  },\n  llmStrategy: {\n    primary: 'claude', // Claude for mission analysis\n    secondary: 'gpt4', // GPT-4 for technical details\n    emergency: 'chatgpt5' // ChatGPT 5 for critical situations\n  }\n};\n\nreturn {\n  ...userRequest,\n  missionPlan,\n  timestamp: new Date().toISOString(),\n  shipComputer: {\n    status: 'ONLINE',\n    mission: mission || 'General Operations',\n    crew: requiredCrew.length,\n    priority: missionPriority\n  }\n};"
+      },
+      "id": "ships-computer",
+      "name": "Ship's Computer Agent",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [350, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// LLM Provider Selection with Role Optimization\nconst missionData = $input.first().json;\nconst { missionPlan, query, context } = missionData;\n\n// Role-based LLM optimization\nconst roleLLMConfigs = {\n  'captain-picard': {\n    provider: 'anthropic',\n    model: 'anthropic/claude-3.5-sonnet',\n    baseUrl: 'https://openrouter.ai/api/v1',\n    apiKey: '{{ $env.OPENROUTER_API_KEY }}',\n    maxTokens: 4000,\n    temperature: 0.2 // Strategic thinking\n  },\n  'lieutenant-data': {\n    provider: 'openai',\n    model: 'gpt-4',\n    baseUrl: 'https://api.openai.com/v1',\n    apiKey: '{{ $env.OPENAI_API_KEY }}',\n    maxTokens: 8000,\n    temperature: 0.1 // Precise analysis\n  },\n  'chief-engineer-scott': {\n    provider: 'anthropic',\n    model: 'anthropic/claude-3.5-sonnet',\n    baseUrl: 'https://openrouter.ai/api/v1',\n    apiKey: '{{ $env.OPENROUTER_API_KEY }}',\n    maxTokens: 6000,\n    temperature: 0.3 // Creative solutions\n  },\n  'commander-spock': {\n    provider: 'openai',\n    model: 'gpt-4',\n    baseUrl: 'https://api.openai.com/v1',\n    apiKey: '{{ $env.OPENAI_API_KEY }}',\n    maxTokens: 6000,\n    temperature: 0.1 // Logical reasoning\n  },\n  'lieutenant-worf': {\n    provider: 'anthropic',\n    model: 'anthropic/claude-3.5-sonnet',\n    baseUrl: 'https://openrouter.ai/api/v1',\n    apiKey: '{{ $env.OPENROUTER_API_KEY }}',\n    maxTokens: 4000,\n    temperature: 0.2 // Tactical precision\n  },\n  'counselor-troi': {\n    provider: 'anthropic',\n    model: 'anthropic/claude-3.5-sonnet',\n    baseUrl: 'https://openrouter.ai/api/v1',\n    apiKey: '{{ $env.OPENROUTER_API_KEY }}',\n    maxTokens: 4000,\n    temperature: 0.4 // Emotional intelligence\n  },\n  'observation-lounge': {\n    provider: 'openai',\n    model: 'gpt-4',\n    baseUrl: 'https://api.openai.com/v1',\n    apiKey: '{{ $env.OPENAI_API_KEY }}',\n    maxTokens: 8000,\n    temperature: 0.2 // Comprehensive analysis\n  }\n};\n\n// Emergency override for critical missions\nif (missionPlan.priority === 'critical') {\n  // Use ChatGPT 5 for critical situations\n  Object.keys(roleLLMConfigs).forEach(role => {\n    roleLLMConfigs[role] = {\n      provider: 'openai',\n      model: 'gpt-5',\n      baseUrl: 'https://api.openai.com/v1',\n      apiKey: '{{ $env.OPENAI_API_KEY }}',\n      maxTokens: 32000, // 32k tokens for critical missions\n      temperature: 0.1\n    };\n  });\n}\n\n// Prepare crew-specific configurations\nconst crewConfigs = {};\nmissionPlan.requiredCrew.forEach(crewMember => {\n  crewConfigs[crewMember] = roleLLMConfigs[crewMember] || roleLLMConfigs['captain-picard'];\n});\n\nreturn {\n  ...missionData,\n  crewConfigs,\n  llmStrategy: missionPlan.llmStrategy,\n  emergencyMode: missionPlan.priority === 'critical'\n};"
+      },
+      "id": "llm-orchestrator",
+      "name": "LLM Orchestrator",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [600, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Multi-Crew AI Analysis with Role-Specific LLMs\nconst orchestrationData = $input.first().json;\nconst { crewConfigs, query, context, userRole } = orchestrationData;\n\n// Process each crew member with their optimized LLM\nconst crewResponses = {};\nconst crewPromises = [];\n\nfor (const [crewMember, llmConfig] of Object.entries(crewConfigs)) {\n  const crewPrompt = generateCrewPrompt(crewMember, query, context, userRole);\n  \n  // Simulate parallel LLM calls (in n8n, this would be actual HTTP requests)\n  const crewResponse = {\n    crewMember,\n    llmConfig,\n    prompt: crewPrompt,\n    response: await simulateLLMCall(llmConfig, crewPrompt)\n  };\n  \n  crewResponses[crewMember] = crewResponse;\n}\n\nfunction generateCrewPrompt(crewMember, query, context, userRole) {\n  const crewPrompts = {\n    'captain-picard': `As Captain Jean-Luc Picard, provide strategic leadership and mission guidance for: ${query}\\nContext: ${context}\\nUser Role: ${userRole}\\nFocus on: Strategic vision, mission objectives, and crew coordination.`,\n    'lieutenant-data': `As Lieutenant Commander Data, provide technical analysis and logical reasoning for: ${query}\\nContext: ${context}\\nUser Role: ${userRole}\\nFocus on: Technical details, data analysis, and logical conclusions.`,\n    'chief-engineer-scott': `As Chief Engineer Montgomery Scott, provide engineering solutions for: ${query}\\nContext: ${context}\\nUser Role: ${userRole}\\nFocus on: Technical implementation, resource optimization, and practical solutions.`,\n    'commander-spock': `As Commander Spock, provide logical analysis and scientific reasoning for: ${query}\\nContext: ${context}\\nUser Role: ${userRole}\\nFocus on: Scientific method, logical deduction, and analytical insights.`,\n    'lieutenant-worf': `As Lieutenant Worf, provide tactical and security analysis for: ${query}\\nContext: ${context}\\nUser Role: ${userRole}\\nFocus on: Security considerations, tactical planning, and risk assessment.`,\n    'counselor-troi': `As Counselor Deanna Troi, provide emotional intelligence and human perspective for: ${query}\\nContext: ${context}\\nUser Role: ${userRole}\\nFocus on: Human factors, emotional context, and interpersonal dynamics.`,\n    'observation-lounge': `As the Observation Lounge AI, provide comprehensive analysis and synthesis for: ${query}\\nContext: ${context}\\nUser Role: ${userRole}\\nFocus on: Holistic understanding, cross-domain insights, and strategic synthesis.`\n  };\n  \n  return crewPrompts[crewMember] || crewPrompts['captain-picard'];\n}\n\nasync function simulateLLMCall(llmConfig, prompt) {\n  // This simulates the LLM call - in actual n8n, you'd make HTTP requests\n  return `Simulated response from ${llmConfig.model} for ${prompt.substring(0, 50)}...`;\n}\n\nreturn {\n  ...orchestrationData,\n  crewResponses,\n  analysisComplete: true,\n  timestamp: new Date().toISOString()\n};"
+      },
+      "id": "crew-ai-analysis",
+      "name": "Multi-Crew AI Analysis",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [850, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// UI Configuration Generator based on Crew Analysis\nconst crewAnalysis = $input.first().json;\nconst { crewResponses, missionPlan, shipComputer } = crewAnalysis;\n\n// Generate dynamic UI configuration\nconst uiConfiguration = {\n  layout: missionPlan.uiLayout,\n  priority: missionPlan.priority,\n  mission: shipComputer.mission,\n  crew: {\n    active: Object.keys(crewResponses),\n    highlights: Object.keys(crewResponses).map(crew => ({\n      name: crew,\n      status: 'active',\n      contribution: crewResponses[crew].response.substring(0, 100) + '...'\n    }))\n  },\n  interface: {\n    panels: missionPlan.interfaceElements.dynamicPanels ? 'adaptive' : 'standard',\n    missionStatus: missionPlan.interfaceElements.missionStatus,\n    priorityIndicator: missionPlan.interfaceElements.priorityIndicator,\n    crewHighlights: missionPlan.interfaceElements.crewHighlights\n  },\n  lcars: {\n    theme: missionPlan.priority === 'critical' ? 'emergency-red' : 'standard-orange',\n    animation: missionPlan.priority === 'high' ? 'pulse' : 'standard',\n    layout: missionPlan.uiLayout\n  }\n};\n\n// Generate crew coordination summary\nconst crewSummary = Object.entries(crewResponses).map(([crew, data]) => ({\n  crew: crew,\n  llm: data.llmConfig.model,\n  provider: data.llmConfig.provider,\n  contribution: data.response.substring(0, 150) + '...',\n  timestamp: new Date().toISOString()\n}));\n\nreturn {\n  ...crewAnalysis,\n  uiConfiguration,\n  crewSummary,\n  missionStatus: {\n    status: 'COMPLETE',\n    crewEngaged: crewSummary.length,\n    llmProviders: [...new Set(crewSummary.map(c => c.provider))],\n    priority: missionPlan.priority\n  }\n};"
+      },
+      "id": "ui-orchestrator",
+      "name": "UI Orchestrator",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1100, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"success\": true,\n  \"timestamp\": {{ JSON.stringify(new Date().toISOString()) }},\n  \"shipComputer\": {{ JSON.stringify($json.shipComputer) }},\n  \"missionPlan\": {{ JSON.stringify($json.missionPlan) }},\n  \"crewAnalysis\": {{ JSON.stringify($json.crewSummary) }},\n  \"uiConfiguration\": {{ JSON.stringify($json.uiConfiguration) }},\n  \"llmStrategy\": {{ JSON.stringify($json.llmStrategy) }},\n  \"emergencyMode\": {{ JSON.stringify($json.emergencyMode) }},\n  \"systemStatus\": {\n    \"lcars_system\": \"ONLINE\",\n    \"ship_computer\": \"OPERATIONAL\",\n    \"crew_coordination\": \"ACTIVE\",\n    \"ui_orchestration\": \"DYNAMIC\",\n    \"llm_orchestration\": \"OPTIMIZED\",\n    \"mission_priority\": {{ JSON.stringify($json.missionPlan.priority) }},\n    \"active_crew\": {{ JSON.stringify($json.missionPlan.requiredCrew.length) }}\n  }\n}",
+        "options": {}
+      },
+      "id": "response-formatter",
+      "name": "Enhanced Response Formatter",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1350, 300]
+    }
+  ],
+  "connections": {
+    "Ship's Computer Interface": {
+      "main": [
+        [
+          {
+            "node": "Ship's Computer Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ship's Computer Agent": {
+      "main": [
+        [
+          {
+            "node": "LLM Orchestrator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LLM Orchestrator": {
+      "main": [
+        [
+          {
+            "node": "Multi-Crew AI Analysis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Multi-Crew AI Analysis": {
+      "main": [
+        [
+          {
+            "node": "UI Orchestrator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "UI Orchestrator": {
+      "main": [
+        [
+          {
+            "node": "Enhanced Response Formatter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

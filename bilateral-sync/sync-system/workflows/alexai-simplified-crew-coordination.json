@@ -41,7 +41,7 @@
         },
         "sendBody": true,
         "bodyContentType": "json",
-        "jsonBody": "={\n  \"model\": \"anthropic/claude-3.5-sonnet\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"You are a crew coordinator. Analyze the request and return ONLY one crew member name: picard, data, troi, scott, worf, or observation-lounge\"\n    },\n    {\n      \"role\": \"user\", \n      \"content\": \"Query: {{ $json.query }}\\nContext: {{ $json.context }}\\nRole: {{ $json.userRole }}\"\n    }\n  ],\n  \"max_tokens\": 1000\n}",
+        "jsonBody": "={\n  \"model\": \"anthropic/claude-3.5-sonnet\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"You are a crew coordinator. Analyze the request and return ONLY one crew member name: picard, data, troi, scott, spock, worf, or observation-lounge\"\n    },\n    {\n      \"role\": \"user\", \n      \"content\": \"Query: {{ $json.query }}\\nContext: {{ $json.context }}\\nRole: {{ $json.userRole }}\"\n    }\n  ],\n  \"max_tokens\": 10\n}",
         "options": {}
       },
       "id": "crew-selector",

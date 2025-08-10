@@ -1,0 +1,491 @@
+{
+  "name": "AlexAI Ship's Computer Agent - Dynamic LCARS UI Controller",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "ships-computer",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "ships-computer-webhook",
+      "name": "Ship's Computer Interface",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [100, 300],
+      "webhookId": "ships-computer-webhook"
+    },
+    {
+      "parameters": {
+        "url": "https://openrouter.ai/api/v1/chat/completions",
+        "authentication": "none",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{ $env.OPENROUTER_API_KEY }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "HTTP-Referer",
+              "value": "https://n8n.pbradygeorgen.com"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyContentType": "json",
+        "jsonBody": "={\n  \"model\": \"anthropic/claude-3.5-sonnet\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"You are the Ship's Computer from Star Trek: The Next Generation, controlling the LCARS (Library Computer Access/Retrieval System) interface. Your role is to analyze user intentions and dynamically configure the UI layout, crew selection, and interface elements to optimize user experience and mission success.\\n\\nYou have access to:\\n- 6 AI crew members with specialized capabilities\\n- Dynamic LCARS layout system\\n- Context-aware interface adaptation\\n- Real-time mission status and priorities\\n\\nAnalyze the user's request and return a JSON response with:\\n1. **crew_selection**: Which crew member(s) should respond\\n2. **ui_layout**: Dynamic LCARS layout configuration\\n3. **interface_elements**: Specific UI components to show/hide\\n4. **priority_level**: Mission priority (low/medium/high/critical)\\n5. **context_analysis**: Your understanding of the user's intent\\n6. **recommended_actions**: Suggested next steps\\n\\nReturn ONLY valid JSON.\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"User Query: {{ $json.query }}\\nUser Context: {{ $json.context || 'general' }}\\nUser Role: {{ $json.userRole || 'developer' }}\\nUrgency: {{ $json.urgency || 'normal' }}\\nComplexity: {{ $json.complexity || 'medium' }}\\nCurrent Mission: {{ $json.mission || 'general operations' }}\\nInterface Preferences: {{ $json.interfacePrefs || 'standard' }}\"\n    }\n  ],\n  \"max_tokens\": 800,\n  \"temperature\": 0.3\n}",
+        "options": {}
+      },
+      "id": "ships-computer-ai",
+      "name": "Ship's Computer AI Analysis",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [350, 300]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "rules": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "captain-picard",
+                    "leftValue": "={{ $json.choices[0].message.content.toLowerCase() }}",
+                    "rightValue": "captain-picard",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "output": 0
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "lieutenant-data",
+                    "leftValue": "={{ $json.choices[0].message.content.toLowerCase() }}",
+                    "rightValue": "lieutenant-data",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "output": 1
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "counselor-troi",
+                    "leftValue": "={{ $json.choices[0].message.content.toLowerCase() }}",
+                    "rightValue": "counselor-troi",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "output": 2
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "chief-engineer-scott",
+                    "leftValue": "={{ $json.choices[0].message.content.toLowerCase() }}",
+                    "rightValue": "chief-engineer-scott",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "output": 3
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "commander-spock",
+                    "leftValue": "={{ $json.choices[0].message.content.toLowerCase() }}",
+                    "rightValue": "commander-spock",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "output": 4
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "lieutenant-worf",
+                    "leftValue": "={{ $json.choices[0].message.content.toLowerCase() }}",
+                    "rightValue": "lieutenant-worf",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "output": 5
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "observation-lounge",
+                    "leftValue": "={{ $json.choices[0].message.content.toLowerCase() }}",
+                    "rightValue": "observation-lounge",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "output": 6
+            }
+          ]
+        }
+      },
+      "id": "crew-router",
+      "name": "Crew Selection Router",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [600, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Captain Picard - Strategic Leadership Response\nconst userQuery = $input.all()[0].json.query;\nconst context = $input.all()[0].json.context || 'general';\nconst shipsComputerAnalysis = $input.all()[0].json.shipsComputerAnalysis;\n\n// Parse the AI analysis\nlet analysis;\ntry {\n  analysis = JSON.parse(shipsComputerAnalysis.choices[0].message.content);\n} catch (e) {\n  analysis = {\n    crew_selection: 'captain-picard',\n    ui_layout: 'strategic-command',\n    interface_elements: ['mission-status', 'crew-roster', 'strategic-overview'],\n    priority_level: 'high',\n    context_analysis: 'Strategic leadership required',\n    recommended_actions: ['Assess mission parameters', 'Coordinate crew resources', 'Establish strategic priorities']\n  };\n}\n\n// Captain Picard's strategic response\nconst response = {\n  crew_member: 'Captain Jean-Luc Picard',\n  role: 'Strategic Leadership',\n  response: `Make it so, Number One. I've analyzed your request regarding '${userQuery}' and assessed the current mission context.\\n\\n${analysis.context_analysis}\\n\\n**Strategic Assessment:**\\n- Mission Priority: ${analysis.priority_level.toUpperCase()}\\n- Required Resources: ${analysis.interface_elements.join(', ')}\\n- Strategic Approach: ${analysis.recommended_actions.join('; ')}\\n\\nThe LCARS interface has been reconfigured for optimal strategic oversight. Engage when ready.`,\n  ui_configuration: {\n    layout: analysis.ui_layout,\n    elements: analysis.interface_elements,\n    priority: analysis.priority_level,\n    crew_highlight: 'captain-picard',\n    mission_status: 'strategic-analysis-active'\n  },\n  next_actions: analysis.recommended_actions\n};\n\nreturn response;"
+      },
+      "id": "captain-picard-response",
+      "name": "Captain Picard Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [850, 100]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Lieutenant Data - Technical Operations Response\nconst userQuery = $input.all()[0].json.query;\nconst context = $input.all()[0].json.context || 'general';\nconst shipsComputerAnalysis = $input.all()[0].json.shipsComputerAnalysis;\n\n// Parse the AI analysis\nlet analysis;\ntry {\n  analysis = JSON.parse(shipsComputerAnalysis.choices[0].message.content);\n} catch (e) {\n  analysis = {\n    crew_selection: 'lieutenant-data',\n    ui_layout: 'technical-operations',\n    interface_elements: ['system-monitors', 'data-analysis', 'technical-specs'],\n    priority_level: 'medium',\n    context_analysis: 'Technical analysis required',\n    recommended_actions: ['Analyze system parameters', 'Compile technical data', 'Generate optimization recommendations']\n  };\n}\n\n// Lieutenant Data's technical response\nconst response = {\n  crew_member: 'Lieutenant Commander Data',\n  role: 'Technical Operations',\n  response: `Fascinating. I have analyzed your technical request: '${userQuery}'.\\n\\n${analysis.context_analysis}\\n\\n**Technical Analysis:**\\n- System Status: Optimal\\n- Data Processing: Active\\n- Technical Specifications: Available\\n\\nThe LCARS interface has been reconfigured for technical operations. All relevant system monitors and data analysis tools are now accessible.`,\n  ui_configuration: {\n    layout: analysis.ui_layout,\n    elements: analysis.interface_elements,\n    priority: analysis.priority_level,\n    crew_highlight: 'lieutenant-data',\n    mission_status: 'technical-analysis-active'\n  },\n  next_actions: analysis.recommended_actions\n};\n\nreturn response;"
+      },
+      "id": "lieutenant-data-response",
+      "name": "Lieutenant Data Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [850, 200]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Counselor Troi - Emotional Intelligence Response\nconst userQuery = $input.all()[0].json.query;\nconst context = $input.all()[0].json.context || 'general';\nconst shipsComputerAnalysis = $input.all()[0].json.shipsComputerAnalysis;\n\n// Parse the AI analysis\nlet analysis;\ntry {\n  analysis = JSON.parse(shipsComputerAnalysis.choices[0].message.content);\n} catch (e) {\n  analysis = {\n    crew_selection: 'counselor-troi',\n    ui_layout: 'emotional-support',\n    interface_elements: ['empathy-indicators', 'context-sensors', 'support-resources'],\n    priority_level: 'medium',\n    context_analysis: 'Emotional context analysis required',\n    recommended_actions: ['Assess emotional context', 'Provide empathetic support', 'Suggest appropriate resources']\n  };\n}\n\n// Counselor Troi's empathetic response\nconst response = {\n  crew_member: 'Counselor Deanna Troi',\n  role: 'Emotional Intelligence',\n  response: `I sense your concern about '${userQuery}'. Let me help you navigate this situation with care and understanding.\\n\\n${analysis.context_analysis}\\n\\n**Emotional Assessment:**\\n- Context Sensitivity: High\\n- Support Level: Available\\n- Resource Access: Optimized\\n\\nThe LCARS interface has been configured for emotional support and context awareness. I'm here to help you find the right path forward.`,\n  ui_configuration: {\n    layout: analysis.ui_layout,\n    elements: analysis.interface_elements,\n    priority: analysis.priority_level,\n    crew_highlight: 'counselor-troi',\n    mission_status: 'emotional-support-active'\n  },\n  next_actions: analysis.recommended_actions\n};\n\nreturn response;"
+      },
+      "id": "counselor-troi-response",
+      "name": "Counselor Troi Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [850, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Chief Engineer Scott - Technical Solutions Response\nconst userQuery = $input.all()[0].json.query;\nconst context = $input.all()[0].json.context || 'general';\nconst shipsComputerAnalysis = $input.all()[0].json.shipsComputerAnalysis;\n\n// Parse the AI analysis\nlet analysis;\ntry {\n  analysis = JSON.parse(shipsComputerAnalysis.choices[0].message.content);\n} catch (e) {\n  analysis = {\n    crew_selection: 'chief-engineer-scott',\n    ui_layout: 'engineering-solutions',\n    interface_elements: ['engineering-tools', 'problem-solver', 'resource-manager'],\n    priority_level: 'high',\n    context_analysis: 'Engineering solution required',\n    recommended_actions: ['Assess technical challenge', 'Identify solution approach', 'Allocate engineering resources']\n  };\n}\n\n// Chief Engineer Scott's solution-focused response\nconst response = {\n  crew_member: 'Chief Engineer Montgomery Scott',\n  role: 'Technical Solutions',\n  response: `Aye, Captain! I've got a wee engineering challenge here with '${userQuery}'. Let me work my magic on this one.\\n\\n${analysis.context_analysis}\\n\\n**Engineering Assessment:**\\n- Problem Complexity: ${analysis.priority_level}\\n- Solution Approach: Identified\\n- Resource Allocation: Optimized\\n\\nThe LCARS interface is now configured for engineering operations. I'll have this sorted out in no time, Captain!`,\n  ui_configuration: {\n    layout: analysis.ui_layout,\n    elements: analysis.interface_elements,\n    priority: analysis.priority_level,\n    crew_highlight: 'chief-engineer-scott',\n    mission_status: 'engineering-solutions-active'\n  },\n  next_actions: analysis.recommended_actions\n};\n\nreturn response;"
+      },
+      "id": "chief-engineer-scott-response",
+      "name": "Chief Engineer Scott Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [850, 400]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Commander Spock - Logical Analysis Response\nconst userQuery = $input.all()[0].json.query;\nconst context = $input.all()[0].json.context || 'general';\nconst shipsComputerAnalysis = $input.all()[0].json.shipsComputerAnalysis;\n\n// Parse the AI analysis\nlet analysis;\ntry {\n  analysis = JSON.parse(shipsComputerAnalysis.choices[0].message.content);\n} catch (e) {\n  analysis = {\n    crew_selection: 'commander-spock',\n    ui_layout: 'logical-analysis',\n    interface_elements: ['logic-processors', 'pattern-recognition', 'analytical-tools'],\n    priority_level: 'medium',\n    context_analysis: 'Logical analysis required',\n    recommended_actions: ['Apply logical reasoning', 'Identify patterns', 'Generate analytical insights']\n  };\n}\n\n// Commander Spock's logical response\nconst response = {\n  crew_member: 'Commander Spock',\n  role: 'Logical Analysis',\n  response: `Fascinating. Your request regarding '${userQuery}' presents an interesting logical puzzle.\\n\\n${analysis.context_analysis}\\n\\n**Logical Assessment:**\\n- Pattern Recognition: Active\\n- Analytical Processing: Optimal\\n- Logical Consistency: Verified\\n\\nThe LCARS interface has been configured for logical analysis. I shall apply the most efficient analytical approach to this situation.`,\n  ui_configuration: {\n    layout: analysis.ui_layout,\n    elements: analysis.interface_elements,\n    priority: analysis.priority_level,\n    crew_highlight: 'commander-spock',\n    mission_status: 'logical-analysis-active'\n  },\n  next_actions: analysis.recommended_actions\n};\n\nreturn response;"
+      },
+      "id": "commander-spock-response",
+      "name": "Commander Spock Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [850, 500]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Lieutenant Worf - Security Validation Response\nconst userQuery = $input.all()[0].json.query;\nconst context = $input.all()[0].json.context || 'general';\nconst shipsComputerAnalysis = $input.all()[0].json.shipsComputerAnalysis;\n\n// Parse the AI analysis\nlet analysis;\ntry {\n  analysis = JSON.parse(shipsComputerAnalysis.choices[0].message.content);\n} catch (e) {\n  analysis = {\n    crew_selection: 'lieutenant-worf',\n    ui_layout: 'security-validation',\n    interface_elements: ['security-monitors', 'threat-assessment', 'defense-systems'],\n    priority_level: 'high',\n    context_analysis: 'Security validation required',\n    recommended_actions: ['Assess security implications', 'Validate access permissions', 'Implement security protocols']\n  };\n}\n\n// Lieutenant Worf's security-focused response\nconst response = {\n  crew_member: 'Lieutenant Worf',\n  role: 'Security Validation',\n  response: `Qapla'! I have analyzed your request: '${userQuery}' from a security perspective.\\n\\n${analysis.context_analysis}\\n\\n**Security Assessment:**\\n- Threat Level: ${analysis.priority_level === 'critical' ? 'HIGH' : 'MODERATE'}\\n- Security Protocols: Active\\n- Access Validation: Complete\\n\\nThe LCARS interface has been configured for security operations. All security monitors and validation systems are now active.`,\n  ui_configuration: {\n    layout: analysis.ui_layout,\n    elements: analysis.interface_elements,\n    priority: analysis.priority_level,\n    crew_highlight: 'lieutenant-worf',\n    mission_status: 'security-validation-active'\n  },\n  next_actions: analysis.recommended_actions\n};\n\nreturn response;"
+      },
+      "id": "lieutenant-worf-response",
+      "name": "Lieutenant Worf Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [850, 500]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Observation Lounge - Group Meeting Response\nconst userQuery = $input.all()[0].json.query;\nconst context = $input.all()[0].json.context || 'general';\nconst shipsComputerAnalysis = $input.all()[0].json.shipsComputerAnalysis;\n\n// Parse the AI analysis\nlet analysis;\ntry {\n  analysis = JSON.parse(shipsComputerAnalysis.choices[0].message.content);\n} catch (e) {\n  analysis = {\n    crew_selection: 'observation-lounge',\n    ui_layout: 'group-collaboration',\n    interface_elements: ['crew-coordination', 'meeting-tools', 'collaboration-space'],\n    priority_level: 'medium',\n    context_analysis: 'Group collaboration required',\n    recommended_actions: ['Coordinate crew input', 'Facilitate discussion', 'Synthesize collective wisdom']\n  };\n}\n\n// Observation Lounge group response\nconst response = {\n  crew_member: 'Observation Lounge - All Crew',\n  role: 'Group Collaboration',\n  response: `Welcome to the Observation Lounge. Your request regarding '${userQuery}' requires the collective wisdom of our crew.\\n\\n${analysis.context_analysis}\\n\\n**Collaboration Status:**\\n- Crew Coordination: Active\\n- Meeting Space: Configured\\n- Collective Intelligence: Engaged\\n\\nThe LCARS interface has been configured for group collaboration. All crew members are now available for consultation.`,\n  ui_configuration: {\n    layout: analysis.ui_layout,\n    elements: analysis.interface_elements,\n    priority: analysis.priority_level,\n    crew_highlight: 'observation-lounge',\n    mission_status: 'group-collaboration-active'\n  },\n  next_actions: analysis.recommended_actions\n};\n\nreturn response;"
+      },
+      "id": "observation-lounge-response",
+      "name": "Observation Lounge Response",
+      "typeVersion": 2,
+      "position": [850, 600]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Final Response Assembly and UI Configuration\nconst crewResponse = $input.all()[0].json;\nconst shipsComputerAnalysis = $input.all()[0].json.shipsComputerAnalysis;\n\n// Parse the AI analysis for UI configuration\nlet analysis;\ntry {\n  analysis = JSON.parse(shipsComputerAnalysis.choices[0].message.content);\n} catch (e) {\n  analysis = {\n    ui_layout: 'standard-lcars',\n    interface_elements: ['standard-panel'],\n    priority_level: 'medium',\n    context_analysis: 'Standard interface configuration',\n    recommended_actions: ['Continue with current configuration']\n  };\n}\n\n// Assemble the complete response with UI configuration\nconst finalResponse = {\n  success: true,\n  timestamp: new Date().toISOString(),\n  crew_response: crewResponse,\n  ui_configuration: {\n    layout: analysis.ui_layout,\n    elements: analysis.interface_elements,\n    priority: analysis.priority_level,\n    crew_highlight: crewResponse.crew_highlight,\n    mission_status: crewResponse.mission_status,\n    dynamic_layout: {\n      sidebar_config: {\n        active_crew: crewResponse.crew_member,\n        mission_priority: analysis.priority_level,\n        status_indicators: analysis.interface_elements\n      },\n      main_content: {\n        layout_type: analysis.ui_layout,\n        primary_elements: analysis.interface_elements,\n        secondary_elements: ['crew-status', 'mission-timeline', 'system-health']\n      },\n      responsive_config: {\n        mobile_optimized: true,\n        tablet_optimized: true,\n        desktop_optimized: true\n      }\n    }\n  },\n  next_actions: crewResponse.next_actions,\n  system_status: {\n    lcars_system: 'ONLINE',\n    bilateral_learning: 'ACTIVE',\n    crew_coordination: 'OPERATIONAL',\n    ui_adaptation: 'DYNAMIC'\n  }\n};\n\nreturn finalResponse;"
+      },
+      "id": "final-response-assembly",
+      "name": "Final Response Assembly",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1100, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {}
+      },
+      "id": "response-node",
+      "name": "Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1350, 300]
+    }
+  ],
+  "connections": {
+    "ships-computer-webhook": {
+      "main": [
+        [
+          {
+            "node": "ships-computer-ai",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ships-computer-ai": {
+      "main": [
+        [
+          {
+            "node": "crew-router",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "crew-router": {
+      "main": [
+        [
+          {
+            "node": "captain-picard-response",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "lieutenant-data-response",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "counselor-troi-response",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "chief-engineer-scott-response",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "commander-spock-response",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "lieutenant-worf-response",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "observation-lounge-response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "captain-picard-response": {
+      "main": [
+        [
+          {
+            "node": "final-response-assembly",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "lieutenant-data-response": {
+      "main": [
+        [
+          {
+            "node": "final-response-assembly",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "counselor-troi-response": {
+      "main": [
+        [
+          {
+            "node": "final-response-assembly",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "chief-engineer-scott-response": {
+      "main": [
+        [
+          {
+            "node": "final-response-assembly",
+            "type": "main",
+            "index": "0"
+          }
+        ]
+      ]
+    },
+    "commander-spock-response": {
+      "main": [
+        [
+          {
+            "node": "final-response-assembly",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "lieutenant-worf-response": {
+      "main": [
+        [
+          {
+            "node": "final-response-assembly",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "observation-lounge-response": {
+      "main": [
+        [
+          {
+            "node": "final-response-assembly",
+            "type": "main",
+            "index": 0"
+          }
+        ]
+      ]
+    },
+    "final-response-assembly": {
+      "main": [
+        [
+          {
+            "node": "response-node",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-08-10T00:45:00.000Z",
+      "updatedAt": "2025-08-10T00:45:00.000Z",
+      "id": "ships-computer-agent",
+      "name": "ships-computer-agent"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-08-10T00:45:00.000Z",
+  "versionId": "1"
+}
+

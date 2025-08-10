@@ -192,11 +192,11 @@ class BilateralSyncManager {
         const timestamp = new Date().toISOString();
         
         // Create n8n snapshot
-        const n8nSnapshotPath = path.join(process.cwd(), 'bilateral-sync/snapshots/n8n', `snapshot-${timestamp}.json`);
+        const n8nSnapshotPath = path.join(process.cwd(), 'snapshots/n8n', `snapshot-${timestamp}.json`);
         await fs.writeFile(n8nSnapshotPath, JSON.stringify(n8nWorkflows, null, 2));
         
         // Create local snapshot
-        const localSnapshotPath = path.join(process.cwd(), 'bilateral-sync/snapshots/cursor', `snapshot-${timestamp}.json`);
+        const localSnapshotPath = path.join(process.cwd(), 'snapshots/cursor', `snapshot-${timestamp}.json`);
         await fs.writeFile(localSnapshotPath, JSON.stringify(localWorkflows, null, 2));
         
         console.log('✅ Snapshots created');
