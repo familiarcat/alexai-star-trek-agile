@@ -26,12 +26,18 @@
     "deploy:all": "./deploy-all-platforms.sh",
     "test:env": "./test-sync-system.sh",
     "test:n8n": "./comprehensive-system-wide-test.sh",
-    "test:ui": "./test-ui-local-deployment.sh"
+    "test:ui": "./test-ui-local-deployment.sh",
+    "sync:start": "node bilateral-sync/scripts/enhanced-sync-manager.js start",
+    "sync:validate": "node bilateral-sync/scripts/validate-sync.js",
+    "sync:monitor": "node bilateral-sync/scripts/sync-monitor.js",
+    "sync:full": "node bilateral-sync/scripts/enhanced-sync-manager.js sync",
+    "sync:status": "node bilateral-sync/scripts/enhanced-sync-manager.js status"
   },
   "dependencies": {
     "@heroicons/react": "^2.0.18",
     "@supabase/supabase-js": "^2.38.4",
     "@types/react-beautiful-dnd": "^13.1.8",
+    "chokidar": "^4.0.3",
     "clsx": "^2.1.1",
     "next": "15.4.5",
     "react": "^18.2.0",

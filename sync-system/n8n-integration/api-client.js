@@ -21,7 +21,17 @@ class N8NAPIClient {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
       
-      return await response.json();
+      const result = await response.json();
+      
+      // Handle n8n API response structure (data property contains workflows array)
+      if (result && result.data && Array.isArray(result.data)) {
+        return result.data;
+      } else if (Array.isArray(result)) {
+        return result;
+      } else {
+        console.warn('⚠️ Unexpected workflows response structure:', result);
+        return [];
+      }
     } catch (error) {
       console.error('❌ Error fetching workflows:', error);
       throw error;
@@ -47,14 +57,38 @@ class N8NAPIClient {
 
   async createWorkflow(workflowData) {
     try {
+      // Filter out n8n-internal properties for creation
+      const cleanWorkflowData = {
+        name: workflowData.name,
+        nodes: workflowData.nodes,
+        connections: workflowData.connections,
+        settings: workflowData.settings,
+        staticData: workflowData.staticData,
+        pinData: workflowData.pinData,
+        tags: workflowData.tags
+      };
+      
+      // Remove any undefined, null, or empty object values
+      Object.keys(cleanWorkflowData).forEach(key => {
+        if (cleanWorkflowData[key] === undefined || 
+            cleanWorkflowData[key] === null || 
+            (typeof cleanWorkflowData[key] === 'object' && 
+             !Array.isArray(cleanWorkflowData[key]) && 
+             Object.keys(cleanWorkflowData[key]).length === 0)) {
+          delete cleanWorkflowData[key];
+        }
+      });
+      
       const response = await fetch(`${this.baseUrl}/api/v1/workflows`, {
         method: 'POST',
         headers: this.headers,
-        body: JSON.stringify(workflowData)
+        body: JSON.stringify(cleanWorkflowData)
       });
       
       if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        const errorText = await response.text();
+        console.error('❌ Workflow creation failed. Response:', errorText);
+        throw new Error(`HTTP ${response.status}: ${response.statusText} - ${errorText}`);
       }
       
       return await response.json();
@@ -66,14 +100,38 @@ class N8NAPIClient {
 
   async updateWorkflow(workflowId, workflowData) {
     try {
+      // Filter out n8n-internal properties for updates
+      const cleanWorkflowData = {
+        name: workflowData.name,
+        nodes: workflowData.nodes,
+        connections: workflowData.connections,
+        settings: workflowData.settings,
+        staticData: workflowData.staticData,
+        pinData: workflowData.pinData,
+        tags: workflowData.tags
+      };
+      
+      // Remove any undefined, null, or empty object values
+      Object.keys(cleanWorkflowData).forEach(key => {
+        if (cleanWorkflowData[key] === undefined || 
+            cleanWorkflowData[key] === null || 
+            (typeof cleanWorkflowData[key] === 'object' && 
+             !Array.isArray(cleanWorkflowData[key]) && 
+             Object.keys(cleanWorkflowData[key]).length === 0)) {
+          delete cleanWorkflowData[key];
+        }
+      });
+      
       const response = await fetch(`${this.baseUrl}/api/v1/workflows/${workflowId}`, {
         method: 'PUT',
         headers: this.headers,
-        body: JSON.stringify(workflowData)
+        body: JSON.stringify(cleanWorkflowData)
       });
       
       if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        const errorText = await response.text();
+        console.error('❌ Workflow update failed. Response:', errorText);
+        throw new Error(`HTTP ${response.status}: ${response.statusText} - ${errorText}`);
       }
       
       return await response.json();
@@ -91,7 +149,9 @@ class N8NAPIClient {
       });
       
       if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        const errorText = await response.text();
+        console.error('❌ Workflow activation failed. Response:', errorText);
+        throw new Error(`HTTP ${response.status}: ${response.statusText} - ${errorText}`);
       }
       
       return await response.json();

@@ -12,7 +12,10 @@
       "name": "Multimodal Request Webhook",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 1,
-      "position": [100, 300],
+      "position": [
+        100,
+        300
+      ],
       "webhookId": "multimodal-request-webhook"
     },
     {
@@ -45,7 +48,10 @@
       "name": "Crew Selector (OpenRouter)",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [350, 300]
+      "position": [
+        350,
+        300
+      ]
     },
     {
       "parameters": {
@@ -214,7 +220,10 @@
       "name": "Crew Router",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3,
-      "position": [600, 300]
+      "position": [
+        600,
+        300
+      ]
     },
     {
       "parameters": {
@@ -246,7 +255,10 @@
       "name": "Captain Picard (OpenRouter)",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [850, 100]
+      "position": [
+        850,
+        100
+      ]
     },
     {
       "parameters": {
@@ -278,7 +290,10 @@
       "name": "Lieutenant Data (OpenRouter)",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [850, 200]
+      "position": [
+        850,
+        200
+      ]
     },
     {
       "parameters": {
@@ -310,7 +325,10 @@
       "name": "Counselor Troi (OpenRouter)",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [850, 300]
+      "position": [
+        850,
+        300
+      ]
     },
     {
       "parameters": {
@@ -342,7 +360,10 @@
       "name": "Chief Engineer Scott (OpenRouter)",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [850, 400]
+      "position": [
+        850,
+        400
+      ]
     },
     {
       "parameters": {
@@ -374,7 +395,10 @@
       "name": "Commander Spock (OpenRouter)",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [850, 500]
+      "position": [
+        850,
+        500
+      ]
     },
     {
       "parameters": {
@@ -406,7 +430,10 @@
       "name": "Lieutenant Worf (OpenRouter)",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [850, 600]
+      "position": [
+        850,
+        600
+      ]
     },
     {
       "parameters": {
@@ -438,7 +465,10 @@
       "name": "Observation Lounge (OpenRouter)",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [850, 700]
+      "position": [
+        850,
+        700
+      ]
     },
     {
       "parameters": {
@@ -448,7 +478,10 @@
       "name": "Response Formatter",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1100, 300]
+      "position": [
+        1100,
+        300
+      ]
     }
   ],
   "connections": {
@@ -613,5 +646,6 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "multimodal-agency-v1"
+  "versionId": "multimodal-agency-v1",
+  "id": "UrYHv14Jb4Xmumm7"
 }

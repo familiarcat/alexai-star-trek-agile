@@ -1,113 +1,273 @@
 {
-  "llm_providers": {
-    "claude": {
-      "name": "Claude 3.5 Sonnet",
-      "provider": "anthropic",
-      "model": "anthropic/claude-3.5-sonnet",
-      "base_url": "https://openrouter.ai/api/v1",
-      "api_key_env": "OPENROUTER_API_KEY",
-      "max_tokens": 2000,
-      "temperature": 0.3,
-      "cost_per_1k_tokens": 0.003,
-      "capabilities": [
-        "excellent reasoning",
-        "strong coding",
-        "good context understanding",
-        "reliable responses"
-      ],
-      "status": "active",
-      "default": true
-    },
+  "version": "2.0",
+  "description": "Enhanced LLM Configuration for AlexAI Bilateral Sync System",
+  "lastUpdated": "2025-01-10T00:00:00.000Z",
+  "default": "chatgpt5",
+  
+  "providers": {
     "chatgpt5": {
       "name": "ChatGPT 5",
       "provider": "openai",
       "model": "gpt-5",
-      "base_url": "https://api.openai.com/v1",
-      "api_key_env": "OPENAI_API_KEY",
-      "max_tokens": 4000,
+      "baseUrl": "https://api.openai.com/v1",
+      "apiKey": "ENV_OPENAI_API_KEY",
+      "maxTokens": 4000,
       "temperature": 0.3,
-      "cost_per_1k_tokens": 0.005,
-      "capabilities": [
-        "advanced reasoning",
-        "excellent coding",
-        "superior context understanding",
-        "latest knowledge",
-        "multimodal capabilities"
-      ],
+      "priority": 1,
       "status": "premium",
-      "requires_subscription": true,
-      "subscription_type": "ChatGPT Plus"
+      "capabilities": {
+        "functionCalling": true,
+        "vision": true,
+        "codeInterpreter": true,
+        "retrieval": true,
+        "advancedReasoning": true,
+        "contextAwareness": true
+      },
+      "costPer1K": 0.005,
+      "recommendedUse": [
+        "complex_analysis",
+        "strategic_planning",
+        "code_generation",
+        "problem_solving",
+        "crew_coordination"
+      ]
     },
+    
+    "claude": {
+      "name": "Claude 3.5 Sonnet",
+      "provider": "anthropic",
+      "model": "anthropic/claude-3.5-sonnet",
+      "baseUrl": "https://openrouter.ai/api/v1",
+      "apiKey": "ENV_OPENROUTER_API_KEY",
+      "maxTokens": 2000,
+      "temperature": 0.3,
+      "priority": 2,
+      "status": "standard",
+      "capabilities": {
+        "functionCalling": true,
+        "vision": false,
+        "codeInterpreter": false,
+        "retrieval": false,
+        "advancedReasoning": true,
+        "contextAwareness": true
+      },
+      "costPer1K": 0.003,
+      "recommendedUse": [
+        "general_conversation",
+        "content_generation",
+        "analysis",
+        "documentation"
+      ]
+    },
+    
     "gpt4": {
       "name": "GPT-4",
       "provider": "openai",
       "model": "gpt-4",
-      "base_url": "https://api.openai.com/v1",
-      "api_key_env": "OPENAI_API_KEY",
-      "max_tokens": 4000,
+      "baseUrl": "https://api.openai.com/v1",
+      "apiKey": "ENV_OPENAI_API_KEY",
+      "maxTokens": 4000,
       "temperature": 0.3,
-      "cost_per_1k_tokens": 0.03,
-      "capabilities": [
-        "strong reasoning",
-        "excellent coding",
-        "good context understanding",
-        "reliable performance"
-      ],
+      "priority": 3,
       "status": "standard",
-      "requires_subscription": false
+      "capabilities": {
+        "functionCalling": true,
+        "vision": true,
+        "codeInterpreter": false,
+        "retrieval": false,
+        "advancedReasoning": true,
+        "contextAwareness": true
+      },
+      "costPer1K": 0.03,
+      "recommendedUse": [
+        "complex_tasks",
+        "creative_writing",
+        "analysis",
+        "problem_solving"
+      ]
     },
-    "claude_opus": {
+    
+    "claude-opus": {
       "name": "Claude 3.5 Opus",
       "provider": "anthropic",
       "model": "anthropic/claude-3.5-opus",
-      "base_url": "https://openrouter.ai/api/v1",
-      "api_key_env": "OPENROUTER_API_KEY",
-      "max_tokens": 4000,
+      "baseUrl": "https://openrouter.ai/api/v1",
+      "apiKey": "ENV_OPENROUTER_API_KEY",
+      "maxTokens": 4000,
       "temperature": 0.3,
-      "cost_per_1k_tokens": 0.015,
-      "capabilities": [
-        "superior reasoning",
-        "excellent coding",
-        "best context understanding",
-        "multimodal capabilities"
-      ],
+      "priority": 4,
       "status": "premium",
-      "requires_subscription": false
+      "capabilities": {
+        "functionCalling": true,
+        "vision": false,
+        "codeInterpreter": false,
+        "retrieval": false,
+        "advancedReasoning": true,
+        "contextAwareness": true
+      },
+      "costPer1K": 0.015,
+      "recommendedUse": [
+        "expert_analysis",
+        "research",
+        "complex_problem_solving",
+        "strategic_planning"
+      ]
     }
   },
-  "default_config": {
-    "primary_llm": "claude",
-    "fallback_llm": "gpt4",
-    "max_conversation_length": 8000,
-    "auto_switch_threshold": 6000,
-    "context_window_size": 10000
+  
+  "crewMapping": {
+    "picard": {
+      "name": "Captain Jean-Luc Picard",
+      "llm": "chatgpt5",
+      "specialty": "strategic_planning",
+      "ui_layout": "strategic-command",
+      "priority": "high",
+      "description": "Strategic leadership and diplomatic decisions"
+    },
+    
+    "data": {
+      "name": "Lieutenant Commander Data",
+      "llm": "chatgpt5",
+      "specialty": "technical_analysis",
+      "ui_layout": "technical-analysis",
+      "priority": "high",
+      "description": "Technical problems and logical analysis"
+    },
+    
+    "troi": {
+      "name": "Counselor Deanna Troi",
+      "llm": "claude",
+      "specialty": "emotional_intelligence",
+      "ui_layout": "standard-lcars",
+      "priority": "normal",
+      "description": "Human factors and emotional context"
+    },
+    
+    "scott": {
+      "name": "Chief Engineer Montgomery Scott",
+      "llm": "chatgpt5",
+      "specialty": "engineering_solutions",
+      "ui_layout": "technical-analysis",
+      "priority": "high",
+      "description": "Engineering and technical solutions"
+    },
+    
+    "spock": {
+      "name": "Commander Spock",
+      "llm": "claude-opus",
+      "specialty": "logical_analysis",
+      "ui_layout": "strategic-command",
+      "priority": "normal",
+      "description": "Logical analysis and scientific reasoning"
+    },
+    
+    "worf": {
+      "name": "Lieutenant Worf",
+      "llm": "gpt4",
+      "specialty": "security_tactical",
+      "ui_layout": "security-tactical",
+      "priority": "normal",
+      "description": "Security and tactical operations"
+    },
+    
+    "observation-lounge": {
+      "name": "Observation Lounge",
+      "llm": "chatgpt5",
+      "specialty": "collaborative_analysis",
+      "ui_layout": "strategic-command",
+      "priority": "high",
+      "description": "Multi-perspective analysis and collaboration"
+    }
   },
-  "conversation_management": {
-    "enable_auto_summarization": true,
-    "summary_threshold": 5000,
-    "enable_context_compression": true,
-    "compression_threshold": 7000,
-    "enable_memory_management": true,
-    "memory_retention_days": 30
+  
+  "uiLayouts": {
+    "strategic-command": {
+      "name": "Strategic Command Bridge",
+      "description": "Command bridge layout for strategic planning",
+      "colorScheme": "blue_dominant",
+      "components": ["strategic_display", "crew_status", "mission_control"],
+      "recommendedFor": ["strategic_planning", "mission_analysis", "crew_coordination"]
+    },
+    
+    "technical-analysis": {
+      "name": "Technical Analysis Console",
+      "description": "Engineering console for technical problems",
+      "colorScheme": "orange_dominant",
+      "components": ["technical_display", "system_status", "diagnostic_tools"],
+      "recommendedFor": ["technical_analysis", "engineering", "system_diagnostics"]
+    },
+    
+    "security-tactical": {
+      "name": "Security Tactical Display",
+      "description": "Tactical display for security operations",
+      "colorScheme": "red_dominant",
+      "components": ["tactical_display", "security_status", "alert_systems"],
+      "recommendedFor": ["security_operations", "tactical_analysis", "emergency_response"]
+    },
+    
+    "standard-lcars": {
+      "name": "Standard LCARS Interface",
+      "description": "Standard interface for general operations",
+      "colorScheme": "standard_lcars",
+      "components": ["general_display", "status_panel", "control_panel"],
+      "recommendedFor": ["general_operations", "routine_tasks", "information_display"]
+    }
   },
-  "performance_optimization": {
-    "enable_streaming": true,
-    "enable_caching": true,
-    "cache_ttl_seconds": 3600,
-    "enable_batch_processing": false,
-    "max_batch_size": 5
+  
+  "promptTemplates": {
+    "crew_selection": {
+      "template": "Analyze the following request and determine the most appropriate Star Trek crew member to handle it:\n\nRequest: {query}\nContext: {context}\nUser Role: {userRole}\nUrgency: {urgency}\nComplexity: {complexity}\n\nProvide a detailed analysis including:\n1. Recommended crew member\n2. Reasoning for the selection\n3. Priority level\n4. Recommended UI layout\n5. Expected approach to solving the problem",
+      "variables": ["query", "context", "userRole", "urgency", "complexity"]
+    },
+    
+    "workflow_enhancement": {
+      "template": "Analyze the following n8n workflow and provide enhancement recommendations:\n\nWorkflow: {workflowName}\nCurrent Status: {status}\nIssues: {issues}\nGoals: {goals}\n\nFocus on:\n1. Performance optimization\n2. Error handling improvements\n3. Integration enhancements\n4. Monitoring and alerting\n5. Best practices implementation",
+      "variables": ["workflowName", "status", "issues", "goals"]
+    },
+    
+    "system_analysis": {
+      "template": "Perform a comprehensive analysis of the AlexAI system:\n\nCurrent State: {currentState}\nRecent Changes: {recentChanges}\nUser Feedback: {userFeedback}\nPerformance Metrics: {performanceMetrics}\n\nProvide:\n1. System health assessment\n2. Identified issues and bottlenecks\n3. Optimization opportunities\n4. Recommended actions\n5. Priority ranking for improvements",
+      "variables": ["currentState", "recentChanges", "userFeedback", "performanceMetrics"]
+    }
   },
+  
+  "integration": {
+    "bilateralSync": {
+      "enabled": true,
+      "autoSync": true,
+      "syncInterval": 60,
+      "conflictResolution": "smart"
+    },
+    
+    "n8n": {
+      "baseUrl": "https://n8n.pbradygeorgen.com",
+      "apiKey": "ENV_N8N_API_KEY",
+      "webhookBase": "https://n8n.pbradygeorgen.com/webhook",
+      "autoActivate": true
+    },
+    
+    "cursor": {
+      "workflowPath": "sync-system/workflows",
+      "snapshotPath": "bilateral-sync/snapshots",
+      "logPath": "bilateral-sync/logs"
+    }
+  },
+  
   "monitoring": {
-    "enable_usage_tracking": true,
-    "enable_performance_monitoring": true,
-    "enable_error_tracking": true,
-    "enable_cost_monitoring": true
+    "enableLogging": true,
+    "logLevel": "info",
+    "enableMetrics": true,
+    "performanceTracking": true,
+    "costTracking": true,
+    "usageAnalytics": true
   },
+  
   "security": {
-    "enable_api_key_rotation": false,
-    "enable_request_logging": true,
-    "enable_response_filtering": true,
-    "max_request_size_bytes": 1048576
+    "apiKeyValidation": true,
+    "rateLimiting": true,
+    "requestValidation": true,
+    "secureStorage": true,
+    "auditLogging": true
   }
 }
 

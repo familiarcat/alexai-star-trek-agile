@@ -1,35 +1,80 @@
 {
   "sync": {
     "enabled": true,
-    "interval": 300,
+    "interval": 60,
     "bidirectional": true,
-    "autoMerge": false,
-    "conflictResolution": "manual"
+    "autoMerge": true,
+    "conflictResolution": "smart",
+    "autoCredentials": true,
+    "realTimeSync": true,
+    "changeDetection": "fileWatcher"
   },
   "n8n": {
     "baseUrl": "https://n8n.pbradygeorgen.com",
     "apiKey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmZTVmMmJmOC1lM2Y3LTQ3ZWQtOTcxNS05NWY5MTQyYWNmZjMiLCJpc3MiOiJuOG4iLCJhdWQiOiJwdWJsaWMtYXBpIiwiaWF0IjoxNzU0MDc1ODg1fQ.pXKH1LeqgifzEP5cSUaZhYFDwJLfeLVSVS0XjiS8NOE",
-    "webhookBase": "https://n8n.pbradygeorgen.com/webhook"
+    "webhookBase": "https://n8n.pbradygeorgen.com/webhook",
+    "autoActivate": true,
+    "healthCheck": true,
+    "retryAttempts": 3,
+    "timeout": 30000
   },
   "cursor": {
-    "workflowPath": "sync-system/workflows",
-    "snapshotPath": "bilateral-sync/snapshots/cursor",
-    "logPath": "bilateral-sync/logs"
+    "workflowPath": "workflows",
+    "snapshotPath": "bilateral-sync/snapshots",
+    "logPath": "bilateral-sync/logs",
+    "autoBackup": true,
+    "fileWatcher": true,
+    "gitIntegration": true
   },
   "workflows": {
     "include": [
       "AlexAI*",
       "Crew*",
-      "Coordination*"
+      "Coordination*",
+      "Bilateral*",
+      "Evolution*"
     ],
     "exclude": [
       "test*",
-      "temp*"
-    ]
+      "temp*",
+      "backup*",
+      "*.tmp"
+    ],
+    "priority": [
+      "alexai-complete-crew-workflow.json",
+      "alexai-bilateral-learning-workflow.json",
+      "alexai-crew-coordination.json"
+    ],
+    "autoDeploy": true
+  },
+  "security": {
+    "autoUpdateCredentials": true,
+    "sourceFromZshrc": true,
+    "validateBeforeSync": true,
+    "encryptSensitiveData": false,
+    "validateApiKey": true,
+    "secureWebhooks": true
+  },
+  "monitoring": {
+    "enableLogging": true,
+    "logLevel": "info",
+    "enableMetrics": true,
+    "alertOnFailure": true,
+    "syncHistory": true,
+    "performanceTracking": true
+  },
+  "conflictResolution": {
+    "strategy": "smart",
+    "autoResolve": true,
+    "manualReview": false,
+    "backupBeforeResolve": true,
+    "mergeStrategy": "timestamp"
   },
   "lastSync": {
-    "timestamp": "2025-08-10T01:08:30.350Z",
-    "status": "failed",
-    "error": "ENOENT: no such file or directory, open '/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/bilateral-sync/scripts/snapshots/n8n/snapshot-2025-08-10T01:08:30.349Z.json'"
+    "timestamp": "2025-08-10T22:30:56.929Z",
+    "status": "completed",
+    "type": "full",
+    "error": null,
+    "direction": "bidirectional"
   }
 }

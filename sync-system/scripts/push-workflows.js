@@ -116,7 +116,18 @@ class WorkflowPusher {
       if (existingWorkflow) {
         // Update existing workflow
         console.log(`   📝 Updating existing workflow: ${workflowData.name}`);
-        result = await this.client.updateWorkflow(existingWorkflow.id, workflowData);
+        // Remove read-only fields and only send allowed properties for updates
+        const updateData = {
+          name: workflowData.name,
+          nodes: workflowData.nodes,
+          connections: workflowData.connections,
+          settings: workflowData.settings,
+          staticData: workflowData.staticData,
+          pinData: workflowData.pinData,
+          versionId: workflowData.versionId,
+          meta: workflowData.meta
+        };
+        result = await this.client.updateWorkflow(existingWorkflow.id, updateData);
         
         // Update local file with ID if not present
         if (!workflowData.id) {
@@ -126,7 +137,18 @@ class WorkflowPusher {
       } else {
         // Create new workflow
         console.log(`   ➕ Creating new workflow: ${workflowData.name}`);
-        result = await this.client.createWorkflow(workflowData);
+        // Remove read-only fields and only send allowed properties for creation
+        const createData = {
+          name: workflowData.name,
+          nodes: workflowData.nodes,
+          connections: workflowData.connections,
+          settings: workflowData.settings,
+          staticData: workflowData.staticData,
+          pinData: workflowData.pinData,
+          versionId: workflowData.versionId,
+          meta: workflowData.meta
+        };
+        result = await this.client.createWorkflow(createData);
         
         // Update local file with new ID
         workflowData.id = result.id;
