@@ -1,0 +1,148 @@
+{
+  "id": "GdUeCvIS0SNDebBr",
+  "name": "AlexAI ChatGPT 5 Ready - Multi-LLM Crew Coordination",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "crew-request-chatgpt5",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-trigger",
+      "name": "Crew Request Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ],
+      "webhookId": "crew-request-chatgpt5"
+    },
+    {
+      "parameters": {
+        "jsCode": "// LLM Provider Selection Logic\nconst userRequest = $input.first().json;\nconst preferredLLM = userRequest.preferredLLM || 'claude';\nconst useChatGPT5 = userRequest.useChatGPT5 || false;\n\n// Determine which LLM endpoint to use\nlet llmConfig;\n\nif (useChatGPT5 && preferredLLM === 'chatgpt') {\n  // ChatGPT 5 Configuration\n  llmConfig = {\n    provider: 'openai',\n    model: 'gpt-5',\n    baseUrl: 'https://api.openai.com/v1',\n    apiKey: '{{ $env.OPENAI_API_KEY }}',\n    maxTokens: 4000,\n    temperature: 0.3\n  };\n} else if (preferredLLM === 'claude') {\n  // Claude 3.5 Sonnet Configuration\n  llmConfig = {\n    provider: 'anthropic',\n    model: 'anthropic/claude-3.5-sonnet',\n    baseUrl: 'https://openrouter.ai/api/v1',\n    apiKey: '{{ $env.OPENROUTER_API_KEY }}',\n    maxTokens: 2000,\n    temperature: 0.3\n  };\n} else if (preferredLLM === 'gpt4') {\n  // GPT-4 Configuration\n  llmConfig = {\n    provider: 'openai',\n    model: 'gpt-4',\n    baseUrl: 'https://api.openai.com/v1',\n    apiKey: '{{ $env.OPENAI_API_KEY }}',\n    maxTokens: 4000,\n    temperature: 0.3\n  };\n} else {\n  // Default to Claude\n  llmConfig = {\n    provider: 'anthropic',\n    model: 'anthropic/claude-3.5-sonnet',\n    baseUrl: 'https://openrouter.ai/api/v1',\n    apiKey: '{{ $env.OPENROUTER_API_KEY }}',\n    maxTokens: 2000,\n    temperature: 0.3\n  };\n}\n\n// Prepare the request with LLM configuration\nconst enhancedRequest = {\n  ...userRequest,\n  llmConfig,\n  timestamp: new Date().toISOString(),\n  modelInfo: {\n    provider: llmConfig.provider,\n    model: llmConfig.model,\n    maxTokens: llmConfig.maxTokens\n  }\n};\n\nreturn enhancedRequest;"
+      },
+      "id": "llm-selector",
+      "name": "LLM Provider Selector",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        480,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.llmConfig.baseUrl }}/chat/completions",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{ $json.llmConfig.apiKey }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyContentType": "json",
+        "jsonBody": "={\n  \"model\": \"{{ $json.llmConfig.model }}\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"You are the Ship's Computer from Star Trek: The Next Generation. Analyze the user's request and return ONLY one crew member name: picard, data, troi, scott, spock, worf, or observation-lounge\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"Query: {{ $json.query }}\\nContext: {{ $json.context || 'general' }}\\nRole: {{ $json.userRole || 'developer' }}\"\n    }\n  ],\n  \"max_tokens\": {{ $json.llmConfig.maxTokens }},\n  \"temperature\": {{ $json.llmConfig.temperature }}\n}",
+        "options": {}
+      },
+      "id": "ai-analysis",
+      "name": "AI Analysis with Dynamic LLM",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        720,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Crew Response Generator with LLM Context\nconst aiResponse = $input.first().json.choices[0].message.content.toLowerCase();\nconst originalRequest = $('LLM Provider Selector').first().json;\n\n// Determine crew member endpoint\nlet crewMember = 'captain-picard'; // default\nif (aiResponse.includes('data')) crewMember = 'lieutenant-data';\nelse if (aiResponse.includes('troi')) crewMember = 'counselor-troi';\nelse if (aiResponse.includes('scott')) crewMember = 'chief-engineer-scott';\nelse if (aiResponse.includes('spock')) crewMember = 'commander-spock';\nelse if (aiResponse.includes('worf')) crewMember = 'lieutenant-worf';\nelse if (aiResponse.includes('observation')) crewMember = 'observation-lounge';\n\n// Prepare request for crew member\nconst crewRequest = {\n  query: originalRequest.query,\n  context: originalRequest.context || 'general',\n  userRole: originalRequest.userRole || 'developer',\n  urgency: originalRequest.urgency || 'normal',\n  selectedCrew: crewMember,\n  aiSelection: aiResponse,\n  llmInfo: originalRequest.modelInfo\n};\n\nreturn crewRequest;"
+      },
+      "id": "crew-response-generator",
+      "name": "Crew Response Generator",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        960,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"success\": true,\n  \"selectedCrew\": {{ JSON.stringify($('Crew Response Generator').first().json.selectedCrew) }},\n  \"aiSelection\": {{ JSON.stringify($('Crew Response Generator').first().json.aiSelection) }},\n  \"llmInfo\": {{ JSON.stringify($('Crew Response Generator').first().json.llmInfo) }},\n  \"timestamp\": {{ JSON.stringify(new Date().toISOString()) }}\n}",
+        "options": {}
+      },
+      "id": "response-formatter",
+      "name": "Enhanced Response Formatter",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        1200,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Crew Request Webhook": {
+      "main": [
+        [
+          {
+            "node": "LLM Provider Selector",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LLM Provider Selector": {
+      "main": [
+        [
+          {
+            "node": "AI Analysis with Dynamic LLM",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Analysis with Dynamic LLM": {
+      "main": [
+        [
+          {
+            "node": "Crew Response Generator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Crew Response Generator": {
+      "main": [
+        [
+          {
+            "node": "Enhanced Response Formatter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "pinData": null,
+  "versionId": "52fc4142-a579-4a46-b86c-947dab562fd3",
+  "createdAt": "2025-08-10T01:21:52.225Z",
+  "updatedAt": "2025-08-10T21:23:03.411Z"
+}
