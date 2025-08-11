@@ -24,6 +24,9 @@ import {
   UserIcon
 } from '@heroicons/react/24/outline';
 import { ShipsComputerControlPanel } from '@/components/lcars/ships-computer-controller';
+import { YouTubeAnalysisWorkflow } from '@/components/lcars/youtube-analysis-workflow';
+import { ProfitabilityResultsFlow } from '@/components/lcars/profitability-results-flow';
+import { KnowledgeBaseExpander } from '@/components/lcars/knowledge-base-expander';
 
 interface Project {
   id: string;
@@ -367,6 +370,33 @@ async function DashboardContent() {
             ANALYTICS
           </Link>
         </div>
+      </div>
+
+      {/* YouTube Analysis Workflow */}
+      <div className="lcars-panel">
+        <h2>🎬 YOUTUBE CONTENT ANALYSIS & PROJECT GENERATION</h2>
+        <p style={{ color: '#000', fontSize: '1rem', marginBottom: '20px' }}>
+          Analyze YouTube content to generate profitable automation projects using our crew's expertise
+        </p>
+        <YouTubeAnalysisWorkflow videoUrl="https://www.youtube.com/watch?v=S8a7gkFhoBA&t=398s" />
+      </div>
+
+      {/* Profitability Results Flow */}
+      <div className="lcars-panel">
+        <h2>💰 IMMEDIATE PROFITABILITY ROADMAP</h2>
+        <p style={{ color: '#000', fontSize: '1rem', marginBottom: '20px' }}>
+          Results-based UX flow for immediate profitability with actionable next steps
+        </p>
+        <ProfitabilityResultsFlow />
+      </div>
+
+      {/* Knowledge Base Expansion System */}
+      <div className="lcars-panel">
+        <h2>🧠 KNOWLEDGE BASE EXPANSION & AGENT LEARNING</h2>
+        <p style={{ color: '#000', fontSize: '1rem', marginBottom: '20px' }}>
+          Expand knowledge base with additional YouTube content and create self-referential logic for all agents
+        </p>
+        <KnowledgeBaseExpander />
       </div>
 
       {/* Ship's Computer Control Panel */}

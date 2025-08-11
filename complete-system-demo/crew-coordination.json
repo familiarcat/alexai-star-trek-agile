@@ -1,0 +1,14 @@
+{
+  "timestamp": "2025-08-11T06:47:40.999Z",
+  "crewMember": "unknown",
+  "action": "coordination",
+  "message": "Crew coordination initiated",
+  "target": "all",
+  "status": "coordinated",
+  "response": "Crew coordination acknowledged: undefined",
+  "metadata": {
+    "priority": "medium",
+    "department": "General",
+    "coordinationId": "coord-1754894860999"
+  }
+}

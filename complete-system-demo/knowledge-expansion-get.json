@@ -1,0 +1,18 @@
+{
+  "success": true,
+  "message": "Knowledge Expansion API is operational",
+  "endpoints": {
+    "POST": "/api/knowledge-expansion - Expand knowledge base with multiple videos",
+    "GET": "/api/knowledge-expansion - API status and information"
+  },
+  "features": [
+    "Multi-video content analysis",
+    "Business opportunity identification",
+    "Crew expertise matching",
+    "Knowledge connection creation",
+    "Agent knowledge updates",
+    "Self-referential learning",
+    "Profitability scoring",
+    "Comprehensive metrics"
+  ]
+}

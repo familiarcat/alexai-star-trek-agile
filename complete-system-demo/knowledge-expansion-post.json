@@ -1,0 +1,690 @@
+{
+  "success": true,
+  "message": "Successfully analyzed 6 videos and expanded knowledge base",
+  "data": {
+    "videoAnalyses": [
+      {
+        "videoId": "1754894857311",
+        "url": "https://www.youtube.com/watch?v=S8a7gkFhoBA&t=398s",
+        "title": "Enhanced Analysis: Technical Architecture Content",
+        "category": "Technical Architecture",
+        "businessOpportunities": [
+          {
+            "title": "Multi-LLM Orchestration Framework",
+            "description": "Advanced framework for orchestrating multiple language models",
+            "estimatedROI": 520,
+            "complexity": "high",
+            "timeline": "5-7 months",
+            "requiredResources": [
+              "AI Architects",
+              "Backend Engineers",
+              "DevOps"
+            ],
+            "crewMembers": [
+              "Commander Data",
+              "Chief Engineer Scott"
+            ]
+          },
+          {
+            "title": "AI Performance Optimization Platform",
+            "description": "Platform for optimizing AI model performance and costs",
+            "estimatedROI": 410,
+            "complexity": "medium",
+            "timeline": "4-6 months",
+            "requiredResources": [
+              "Performance Engineers",
+              "AI Specialists"
+            ],
+            "crewMembers": [
+              "Commander Data",
+              "Chief Engineer Scott"
+            ]
+          }
+        ],
+        "crewInsights": [
+          {
+            "crewMember": "Commander Data",
+            "expertise": "AI Architecture",
+            "insight": "Intelligent routing algorithms needed for optimal multi-LLM performance",
+            "priority": "critical",
+            "actionableSteps": [
+              "Research routing algorithms",
+              "Implement A/B testing framework"
+            ]
+          },
+          {
+            "crewMember": "Chief Engineer Scott",
+            "expertise": "Infrastructure",
+            "insight": "Security and compliance frameworks essential for enterprise adoption",
+            "priority": "high",
+            "actionableSteps": [
+              "Design security framework",
+              "Implement compliance checks"
+            ]
+          }
+        ],
+        "knowledgeAreas": [
+          "Multi-LLM Orchestration",
+          "Performance Optimization",
+          "Security Framework",
+          "Scalability"
+        ],
+        "connections": [
+          "Cloud Infrastructure",
+          "API Management",
+          "Performance Monitoring",
+          "Security Protocols"
+        ],
+        "profitabilityScore": 84
+      },
+      {
+        "videoId": "1754894857312",
+        "url": "https://www.youtube.com/watch?v=ai-automation-business",
+        "title": "Enhanced Analysis: AI & Automation Content",
+        "category": "AI & Automation",
+        "businessOpportunities": [
+          {
+            "title": "AI Process Automation Platform",
+            "description": "Enterprise-grade automation platform with AI integration",
+            "estimatedROI": 450,
+            "complexity": "high",
+            "timeline": "6-8 months",
+            "requiredResources": [
+              "AI Engineers",
+              "Cloud Infrastructure",
+              "Enterprise Sales Team"
+            ],
+            "crewMembers": [
+              "Commander Data",
+              "Chief Engineer Scott"
+            ]
+          },
+          {
+            "title": "Intelligent Workflow Engine",
+            "description": "AI-powered workflow optimization and automation",
+            "estimatedROI": 380,
+            "complexity": "medium",
+            "timeline": "4-6 months",
+            "requiredResources": [
+              "Workflow Engineers",
+              "AI Integration Specialists"
+            ],
+            "crewMembers": [
+              "Commander Data",
+              "Chief Engineer Scott"
+            ]
+          }
+        ],
+        "crewInsights": [
+          {
+            "crewMember": "Commander Data",
+            "expertise": "AI Architecture",
+            "insight": "Multi-LLM orchestration essential for enterprise automation",
+            "priority": "critical",
+            "actionableSteps": [
+              "Design intelligent routing algorithms",
+              "Implement performance monitoring"
+            ]
+          },
+          {
+            "crewMember": "Chief Engineer Scott",
+            "expertise": "Infrastructure",
+            "insight": "Scalable cloud-native architecture required for enterprise deployment",
+            "priority": "high",
+            "actionableSteps": [
+              "Design cloud architecture",
+              "Implement security framework"
+            ]
+          }
+        ],
+        "knowledgeAreas": [
+          "Process Automation",
+          "Workflow Optimization",
+          "AI Integration",
+          "Enterprise Deployment"
+        ],
+        "connections": [
+          "n8n Integration",
+          "Claude API",
+          "OpenAI API",
+          "Enterprise Workflows"
+        ],
+        "profitabilityScore": 97
+      },
+      {
+        "videoId": "1754894857312",
+        "url": "https://www.youtube.com/watch?v=multi-llm-orchestration",
+        "title": "Enhanced Analysis: Technical Architecture Content",
+        "category": "Technical Architecture",
+        "businessOpportunities": [
+          {
+            "title": "Multi-LLM Orchestration Framework",
+            "description": "Advanced framework for orchestrating multiple language models",
+            "estimatedROI": 520,
+            "complexity": "high",
+            "timeline": "5-7 months",
+            "requiredResources": [
+              "AI Architects",
+              "Backend Engineers",
+              "DevOps"
+            ],
+            "crewMembers": [
+              "Commander Data",
+              "Chief Engineer Scott"
+            ]
+          },
+          {
+            "title": "AI Performance Optimization Platform",
+            "description": "Platform for optimizing AI model performance and costs",
+            "estimatedROI": 410,
+            "complexity": "medium",
+            "timeline": "4-6 months",
+            "requiredResources": [
+              "Performance Engineers",
+              "AI Specialists"
+            ],
+            "crewMembers": [
+              "Commander Data",
+              "Chief Engineer Scott"
+            ]
+          }
+        ],
+        "crewInsights": [
+          {
+            "crewMember": "Commander Data",
+            "expertise": "AI Architecture",
+            "insight": "Intelligent routing algorithms needed for optimal multi-LLM performance",
+            "priority": "critical",
+            "actionableSteps": [
+              "Research routing algorithms",
+              "Implement A/B testing framework"
+            ]
+          },
+          {
+            "crewMember": "Chief Engineer Scott",
+            "expertise": "Infrastructure",
+            "insight": "Security and compliance frameworks essential for enterprise adoption",
+            "priority": "high",
+            "actionableSteps": [
+              "Design security framework",
+              "Implement compliance checks"
+            ]
+          }
+        ],
+        "knowledgeAreas": [
+          "Multi-LLM Orchestration",
+          "Performance Optimization",
+          "Security Framework",
+          "Scalability"
+        ],
+        "connections": [
+          "Cloud Infrastructure",
+          "API Management",
+          "Performance Monitoring",
+          "Security Protocols"
+        ],
+        "profitabilityScore": 96
+      },
+      {
+        "videoId": "1754894857312",
+        "url": "https://www.youtube.com/watch?v=enterprise-ai-implementation",
+        "title": "Enhanced Analysis: AI & Automation Content",
+        "category": "AI & Automation",
+        "businessOpportunities": [
+          {
+            "title": "AI Process Automation Platform",
+            "description": "Enterprise-grade automation platform with AI integration",
+            "estimatedROI": 450,
+            "complexity": "high",
+            "timeline": "6-8 months",
+            "requiredResources": [
+              "AI Engineers",
+              "Cloud Infrastructure",
+              "Enterprise Sales Team"
+            ],
+            "crewMembers": [
+              "Commander Data",
+              "Chief Engineer Scott"
+            ]
+          },
+          {
+            "title": "Intelligent Workflow Engine",
+            "description": "AI-powered workflow optimization and automation",
+            "estimatedROI": 380,
+            "complexity": "medium",
+            "timeline": "4-6 months",
+            "requiredResources": [
+              "Workflow Engineers",
+              "AI Integration Specialists"
+            ],
+            "crewMembers": [
+              "Commander Data",
+              "Chief Engineer Scott"
+            ]
+          }
+        ],
+        "crewInsights": [
+          {
+            "crewMember": "Commander Data",
+            "expertise": "AI Architecture",
+            "insight": "Multi-LLM orchestration essential for enterprise automation",
+            "priority": "critical",
+            "actionableSteps": [
+              "Design intelligent routing algorithms",
+              "Implement performance monitoring"
+            ]
+          },
+          {
+            "crewMember": "Chief Engineer Scott",
+            "expertise": "Infrastructure",
+            "insight": "Scalable cloud-native architecture required for enterprise deployment",
+            "priority": "high",
+            "actionableSteps": [
+              "Design cloud architecture",
+              "Implement security framework"
+            ]
+          }
+        ],
+        "knowledgeAreas": [
+          "Process Automation",
+          "Workflow Optimization",
+          "AI Integration",
+          "Enterprise Deployment"
+        ],
+        "connections": [
+          "n8n Integration",
+          "Claude API",
+          "OpenAI API",
+          "Enterprise Workflows"
+        ],
+        "profitabilityScore": 92
+      },
+      {
+        "videoId": "1754894857312",
+        "url": "https://www.youtube.com/watch?v=ai-workflow-automation",
+        "title": "Enhanced Analysis: AI & Automation Content",
+        "category": "AI & Automation",
+        "businessOpportunities": [
+          {
+            "title": "AI Process Automation Platform",
+            "description": "Enterprise-grade automation platform with AI integration",
+            "estimatedROI": 450,
+            "complexity": "high",
+            "timeline": "6-8 months",
+            "requiredResources": [
+              "AI Engineers",
+              "Cloud Infrastructure",
+              "Enterprise Sales Team"
+            ],
+            "crewMembers": [
+              "Commander Data",
+              "Chief Engineer Scott"
+            ]
+          },
+          {
+            "title": "Intelligent Workflow Engine",
+            "description": "AI-powered workflow optimization and automation",
+            "estimatedROI": 380,
+            "complexity": "medium",
+            "timeline": "4-6 months",
+            "requiredResources": [
+              "Workflow Engineers",
+              "AI Integration Specialists"
+            ],
+            "crewMembers": [
+              "Commander Data",
+              "Chief Engineer Scott"
+            ]
+          }
+        ],
+        "crewInsights": [
+          {
+            "crewMember": "Commander Data",
+            "expertise": "AI Architecture",
+            "insight": "Multi-LLM orchestration essential for enterprise automation",
+            "priority": "critical",
+            "actionableSteps": [
+              "Design intelligent routing algorithms",
+              "Implement performance monitoring"
+            ]
+          },
+          {
+            "crewMember": "Chief Engineer Scott",
+            "expertise": "Infrastructure",
+            "insight": "Scalable cloud-native architecture required for enterprise deployment",
+            "priority": "high",
+            "actionableSteps": [
+              "Design cloud architecture",
+              "Implement security framework"
+            ]
+          }
+        ],
+        "knowledgeAreas": [
+          "Process Automation",
+          "Workflow Optimization",
+          "AI Integration",
+          "Enterprise Deployment"
+        ],
+        "connections": [
+          "n8n Integration",
+          "Claude API",
+          "OpenAI API",
+          "Enterprise Workflows"
+        ],
+        "profitabilityScore": 74
+      },
+      {
+        "videoId": "1754894857312",
+        "url": "https://www.youtube.com/watch?v=ai-consulting-business-models",
+        "title": "Enhanced Analysis: AI & Automation Content",
+        "category": "AI & Automation",
+        "businessOpportunities": [
+          {
+            "title": "AI Process Automation Platform",
+            "description": "Enterprise-grade automation platform with AI integration",
+            "estimatedROI": 450,
+            "complexity": "high",
+            "timeline": "6-8 months",
+            "requiredResources": [
+              "AI Engineers",
+              "Cloud Infrastructure",
+              "Enterprise Sales Team"
+            ],
+            "crewMembers": [
+              "Commander Data",
+              "Chief Engineer Scott"
+            ]
+          },
+          {
+            "title": "Intelligent Workflow Engine",
+            "description": "AI-powered workflow optimization and automation",
+            "estimatedROI": 380,
+            "complexity": "medium",
+            "timeline": "4-6 months",
+            "requiredResources": [
+              "Workflow Engineers",
+              "AI Integration Specialists"
+            ],
+            "crewMembers": [
+              "Commander Data",
+              "Chief Engineer Scott"
+            ]
+          }
+        ],
+        "crewInsights": [
+          {
+            "crewMember": "Commander Data",
+            "expertise": "AI Architecture",
+            "insight": "Multi-LLM orchestration essential for enterprise automation",
+            "priority": "critical",
+            "actionableSteps": [
+              "Design intelligent routing algorithms",
+              "Implement performance monitoring"
+            ]
+          },
+          {
+            "crewMember": "Chief Engineer Scott",
+            "expertise": "Infrastructure",
+            "insight": "Scalable cloud-native architecture required for enterprise deployment",
+            "priority": "high",
+            "actionableSteps": [
+              "Design cloud architecture",
+              "Implement security framework"
+            ]
+          }
+        ],
+        "knowledgeAreas": [
+          "Process Automation",
+          "Workflow Optimization",
+          "AI Integration",
+          "Enterprise Deployment"
+        ],
+        "connections": [
+          "n8n Integration",
+          "Claude API",
+          "OpenAI API",
+          "Enterprise Workflows"
+        ],
+        "profitabilityScore": 69
+      }
+    ],
+    "knowledgeConnections": [
+      {
+        "sourceVideo": "1754894857311",
+        "targetVideo": "1754894857312",
+        "connectionType": "complementary",
+        "strength": 0.9,
+        "description": "Strong connection between Technical Architecture and Technical Architecture content",
+        "crewRecommendations": [
+          "Combine insights from Technical Architecture and Technical Architecture content",
+          "Create integrated solution combining both approaches",
+          "Develop cross-category expertise for competitive advantage",
+          "Leverage complementary knowledge areas for comprehensive solutions"
+        ],
+        "businessImplications": [
+          "Cross-selling opportunities between related services",
+          "Integrated solution development for enterprise clients",
+          "Competitive advantage through comprehensive expertise",
+          "Market expansion into adjacent AI domains"
+        ]
+      },
+      {
+        "sourceVideo": "1754894857312",
+        "targetVideo": "1754894857312",
+        "connectionType": "complementary",
+        "strength": 0.9,
+        "description": "Strong connection between AI & Automation and AI & Automation content",
+        "crewRecommendations": [
+          "Combine insights from AI & Automation and AI & Automation content",
+          "Create integrated solution combining both approaches",
+          "Develop cross-category expertise for competitive advantage",
+          "Leverage complementary knowledge areas for comprehensive solutions"
+        ],
+        "businessImplications": [
+          "Cross-selling opportunities between related services",
+          "Integrated solution development for enterprise clients",
+          "Competitive advantage through comprehensive expertise",
+          "Market expansion into adjacent AI domains"
+        ]
+      },
+      {
+        "sourceVideo": "1754894857312",
+        "targetVideo": "1754894857312",
+        "connectionType": "complementary",
+        "strength": 0.9,
+        "description": "Strong connection between AI & Automation and AI & Automation content",
+        "crewRecommendations": [
+          "Combine insights from AI & Automation and AI & Automation content",
+          "Create integrated solution combining both approaches",
+          "Develop cross-category expertise for competitive advantage",
+          "Leverage complementary knowledge areas for comprehensive solutions"
+        ],
+        "businessImplications": [
+          "Cross-selling opportunities between related services",
+          "Integrated solution development for enterprise clients",
+          "Competitive advantage through comprehensive expertise",
+          "Market expansion into adjacent AI domains"
+        ]
+      },
+      {
+        "sourceVideo": "1754894857312",
+        "targetVideo": "1754894857312",
+        "connectionType": "complementary",
+        "strength": 0.9,
+        "description": "Strong connection between AI & Automation and AI & Automation content",
+        "crewRecommendations": [
+          "Combine insights from AI & Automation and AI & Automation content",
+          "Create integrated solution combining both approaches",
+          "Develop cross-category expertise for competitive advantage",
+          "Leverage complementary knowledge areas for comprehensive solutions"
+        ],
+        "businessImplications": [
+          "Cross-selling opportunities between related services",
+          "Integrated solution development for enterprise clients",
+          "Competitive advantage through comprehensive expertise",
+          "Market expansion into adjacent AI domains"
+        ]
+      },
+      {
+        "sourceVideo": "1754894857312",
+        "targetVideo": "1754894857312",
+        "connectionType": "complementary",
+        "strength": 0.9,
+        "description": "Strong connection between AI & Automation and AI & Automation content",
+        "crewRecommendations": [
+          "Combine insights from AI & Automation and AI & Automation content",
+          "Create integrated solution combining both approaches",
+          "Develop cross-category expertise for competitive advantage",
+          "Leverage complementary knowledge areas for comprehensive solutions"
+        ],
+        "businessImplications": [
+          "Cross-selling opportunities between related services",
+          "Integrated solution development for enterprise clients",
+          "Competitive advantage through comprehensive expertise",
+          "Market expansion into adjacent AI domains"
+        ]
+      },
+      {
+        "sourceVideo": "1754894857312",
+        "targetVideo": "1754894857312",
+        "connectionType": "complementary",
+        "strength": 0.9,
+        "description": "Strong connection between AI & Automation and AI & Automation content",
+        "crewRecommendations": [
+          "Combine insights from AI & Automation and AI & Automation content",
+          "Create integrated solution combining both approaches",
+          "Develop cross-category expertise for competitive advantage",
+          "Leverage complementary knowledge areas for comprehensive solutions"
+        ],
+        "businessImplications": [
+          "Cross-selling opportunities between related services",
+          "Integrated solution development for enterprise clients",
+          "Competitive advantage through comprehensive expertise",
+          "Market expansion into adjacent AI domains"
+        ]
+      },
+      {
+        "sourceVideo": "1754894857312",
+        "targetVideo": "1754894857312",
+        "connectionType": "complementary",
+        "strength": 0.9,
+        "description": "Strong connection between AI & Automation and AI & Automation content",
+        "crewRecommendations": [
+          "Combine insights from AI & Automation and AI & Automation content",
+          "Create integrated solution combining both approaches",
+          "Develop cross-category expertise for competitive advantage",
+          "Leverage complementary knowledge areas for comprehensive solutions"
+        ],
+        "businessImplications": [
+          "Cross-selling opportunities between related services",
+          "Integrated solution development for enterprise clients",
+          "Competitive advantage through comprehensive expertise",
+          "Market expansion into adjacent AI domains"
+        ]
+      }
+    ],
+    "agentUpdates": [
+      {
+        "agentId": "captain-picard",
+        "agentName": "Captain Picard",
+        "newInsights": [],
+        "updatedExpertise": [
+          "Strategic Leadership",
+          "Enterprise Consulting",
+          "Business Development"
+        ],
+        "newConnections": [],
+        "recommendations": [
+          "Focus on strategic AI consulting opportunities",
+          "Develop enterprise AI implementation methodologies",
+          "Build strategic partnerships in AI automation space"
+        ],
+        "knowledgeGaps": [
+          "Multi-LLM Orchestration",
+          "Performance Optimization",
+          "Security Framework"
+        ]
+      },
+      {
+        "agentId": "commander-data",
+        "agentName": "Commander Data",
+        "newInsights": [
+          "Intelligent routing algorithms needed for optimal multi-LLM performance",
+          "Multi-LLM orchestration essential for enterprise automation"
+        ],
+        "updatedExpertise": [
+          "AI Architecture",
+          "Technical Analysis",
+          "System Design",
+          "Cloud Infrastructure",
+          "API Management",
+          "Performance Monitoring",
+          "Security Protocols",
+          "n8n Integration",
+          "Claude API",
+          "OpenAI API",
+          "Enterprise Workflows"
+        ],
+        "newConnections": [
+          "Cloud Infrastructure",
+          "API Management",
+          "Performance Monitoring"
+        ],
+        "recommendations": [
+          "Build advanced multi-LLM orchestration capabilities",
+          "Develop AI performance optimization frameworks",
+          "Create intelligent routing algorithms for optimal performance"
+        ],
+        "knowledgeGaps": [
+          "Multi-LLM Orchestration",
+          "Performance Optimization",
+          "Security Framework"
+        ]
+      },
+      {
+        "agentId": "chief-engineer-scott",
+        "agentName": "Chief Engineer Scott",
+        "newInsights": [
+          "Security and compliance frameworks essential for enterprise adoption",
+          "Scalable cloud-native architecture required for enterprise deployment"
+        ],
+        "updatedExpertise": [
+          "Infrastructure",
+          "Scalability",
+          "System Engineering",
+          "Cloud Infrastructure",
+          "API Management",
+          "Performance Monitoring",
+          "Security Protocols",
+          "n8n Integration",
+          "Claude API",
+          "OpenAI API",
+          "Enterprise Workflows"
+        ],
+        "newConnections": [
+          "Cloud Infrastructure",
+          "API Management",
+          "Performance Monitoring"
+        ],
+        "recommendations": [
+          "Design scalable cloud-native AI infrastructure",
+          "Implement enterprise-grade security frameworks",
+          "Build performance monitoring and optimization systems"
+        ],
+        "knowledgeGaps": [
+          "Multi-LLM Orchestration",
+          "Performance Optimization",
+          "Security Framework"
+        ]
+      }
+    ],
+    "totalOpportunities": 12,
+    "averageProfitabilityScore": 85.33,
+    "knowledgeExpansionMetrics": {
+      "newKnowledgeAreas": 8,
+      "newConnections": 7,
+      "agentInsights": 4,
+      "businessOpportunities": 12
+    }
+  }
+}
