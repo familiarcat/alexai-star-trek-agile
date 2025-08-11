@@ -403,13 +403,16 @@ export const ShipComputerUI: React.FC = () => {
                 <div className="lcars-preview">
                   <h4>LCARS Layout Preview</h4>
                   <DynamicLCARSLayout
-                    layout={shipResponse.uiConfiguration.layout}
-                    priority={shipResponse.uiConfiguration.priority}
-                    mission={shipResponse.uiConfiguration.mission}
-                    crew={shipResponse.uiConfiguration.crew.active}
-                    theme={shipResponse.uiConfiguration.lcars.theme}
-                    animation={shipResponse.uiConfiguration.lcars.animation}
-                  />
+                    uiConfiguration={{
+                      layout: shipResponse.uiConfiguration.layout,
+                      priority: shipResponse.uiConfiguration.priority,
+                      crew_highlight: shipResponse.uiConfiguration.crew.active.join(', '),
+                      mission_status: shipResponse.uiConfiguration.mission,
+                      elements: ['preview-panel']
+                    }}
+                  >
+                    <div>LCARS Layout Preview Content</div>
+                  </DynamicLCARSLayout>
                 </div>
               </div>
             )}

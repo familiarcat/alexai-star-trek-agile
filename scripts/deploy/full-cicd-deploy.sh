@@ -118,47 +118,37 @@ trigger_github_workflow() {
     info "You can monitor the progress at: https://github.com/$GITHUB_REPO/actions"
 }
 
-# Function to deploy locally
-deploy_local() {
+# Function to start local development server
+local_deployment() {
     log "Starting local deployment..."
     
-    # Check if we're in the right directory
-    if [ ! -f "package.json" ]; then
-        error "package.json not found. Please run this script from the project root."
-    fi
-    
-    # Install dependencies if needed
-    if [ ! -d "node_modules" ]; then
-        log "Installing Node.js dependencies..."
-        npm install
-    fi
-    
-    # Kill any existing processes on the port
+    # Check if port is already in use
     if lsof -Pi :$LOCAL_PORT -sTCP:LISTEN -t >/dev/null 2>&1; then
-        log "Killing existing process on port $LOCAL_PORT"
-        lsof -ti:$LOCAL_PORT | xargs kill -9
+        warn "Port $LOCAL_PORT is already in use. Stopping existing process..."
+        lsof -ti:$LOCAL_PORT | xargs kill -9 2>/dev/null || true
         sleep 2
     fi
     
     # Start the server
     log "Starting local development server..."
-    nohup npm start > logs/server.log 2>&1 &
+    nohup npm run dev > logs/server.log 2>&1 &
     SERVER_PID=$!
     
-    # Wait for server to start
-    sleep 5
+    # Wait for server to start (Next.js takes longer)
+    log "Waiting for server to start..."
+    sleep 10
     
-    # Test the server
-    if curl -s http://localhost:$LOCAL_PORT/api/health > /dev/null; then
+    # Test the server (Next.js runs on port 3000 by default)
+    if curl -s http://localhost:3000/api/health > /dev/null 2>&1 || curl -s http://localhost:3001/api/health > /dev/null 2>&1; then
         success "Local server started successfully!"
-        info "🌐 Dashboard: http://localhost:$LOCAL_PORT"
-        info "🔮 Observation Lounge: http://localhost:$LOCAL_PORT/observation-lounge"
-        info "📋 Projects: http://localhost:$LOCAL_PORT/projects"
-        info "📊 API Health: http://localhost:$LOCAL_PORT/api/health"
+        info "🌐 Dashboard: http://localhost:3000 (or 3001 if 3000 is busy)"
+        info "🔮 Observation Lounge: http://localhost:3000/observation-lounge"
+        info "📋 Projects: http://localhost:3000/projects"
+        info "📊 API Health: http://localhost:3000/api/health"
         
         # Open browser
         if command_exists open; then
-            open http://localhost:$LOCAL_PORT
+            open http://localhost:3000
         fi
     else
         error "Failed to start local server"
@@ -331,7 +321,7 @@ main() {
     
     case "${1:-help}" in
         "local")
-            deploy_local
+            local_deployment
             ;;
         "vercel")
             deploy_vercel

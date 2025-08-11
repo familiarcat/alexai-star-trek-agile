@@ -1,0 +1,14 @@
+{
+  "test_summary": {
+    "timestamp": "2025-08-11T05:09:43Z",
+    "total_tests": 37,
+    "passed": 37,
+    "failed": 0,
+    "success_rate": 100
+  },
+  "test_details": {
+    "server_status": "running",
+    "base_url": "http://localhost:3000",
+    "test_duration": "2025-08-11T05:09:43Z"
+  }
+}

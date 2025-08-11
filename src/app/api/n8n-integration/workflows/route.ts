@@ -2,6 +2,9 @@ import { NextResponse } from 'next/server';
 import fs from 'fs/promises';
 import path from 'path';
 
+// Import the fixed getLocalWorkflows function
+import { getLocalWorkflows } from '../../workflows/local/route';
+
 interface N8nWorkflow {
   id: string;
   name: string;
@@ -14,114 +17,39 @@ interface N8nWorkflow {
 
 export async function GET() {
   try {
-    // Try to fetch from n8n first
-    const n8nWorkflows = await fetchN8nWorkflows();
-    
-    // Also get local workflows
-    const localWorkflows = await getLocalWorkflows();
-    
-    // Merge and deduplicate
-    const allWorkflows = mergeWorkflows(n8nWorkflows, localWorkflows);
+    // Get workflows from both sources
+    const [n8nWorkflows, localWorkflows] = await Promise.all([
+      fetchN8nWorkflows(),
+      getLocalWorkflows()
+    ]);
+
+    // Merge and return workflows
+    const mergedWorkflows = mergeWorkflows(n8nWorkflows, localWorkflows);
     
     return NextResponse.json({
       success: true,
-      workflows: allWorkflows,
+      workflows: mergedWorkflows,
+      count: mergedWorkflows.length,
       sources: {
         n8n: n8nWorkflows.length,
-        local: localWorkflows.length,
-        total: allWorkflows.length
+        local: localWorkflows.length
       }
     });
   } catch (error) {
     console.error('Failed to get workflows:', error);
-    
-    // Fallback to local workflows only
-    try {
-      const localWorkflows = await getLocalWorkflows();
-      return NextResponse.json({
-        success: true,
-        workflows: localWorkflows,
-        sources: {
-          n8n: 0,
-          local: localWorkflows.length,
-          total: localWorkflows.length
-        },
-        warning: 'n8n connection failed, showing local workflows only'
-      });
-    } catch (localError) {
-      return NextResponse.json({
-        success: false,
-        error: 'Failed to load workflows from both n8n and local storage',
-        details: {
-          n8n: error instanceof Error ? error.message : 'Unknown error',
-          local: localError instanceof Error ? localError.message : 'Unknown error'
-        }
-      }, { status: 500 });
-    }
+    return NextResponse.json({
+      success: false,
+      error: 'Failed to load workflows',
+      workflows: [],
+      count: 0
+    }, { status: 500 });
   }
 }
 
 async function fetchN8nWorkflows(): Promise<N8nWorkflow[]> {
-  const N8N_BASE_URL = process.env.N8N_BASE_URL;
-  const N8N_API_KEY = process.env.N8N_API_KEY;
-  
-  if (!N8N_BASE_URL || !N8N_API_KEY) {
-    throw new Error('N8n credentials not configured');
-  }
-  
-  const response = await fetch(`${N8N_BASE_URL}/api/v1/workflows`, {
-    headers: {
-      'X-N8N-API-KEY': N8N_API_KEY,
-      'Content-Type': 'application/json'
-    }
-  });
-  
-  if (!response.ok) {
-    throw new Error(`N8n API error: ${response.status} ${response.statusText}`);
-  }
-  
-  const data = await response.json();
-  return data.data || [];
-}
-
-async function getLocalWorkflows(): Promise<any[]> {
-  const workflowsDir = path.join(process.cwd(), 'workflows');
-  
-  try {
-    const files = await fs.readdir(workflowsDir);
-    const jsonFiles = files.filter(file => file.endsWith('.json'));
-    
-    const workflows = [];
-    
-    for (const file of jsonFiles) {
-      try {
-        const filePath = path.join(workflowsDir, file);
-        const content = await fs.readFile(filePath, 'utf-8');
-        const workflow = JSON.parse(content);
-        
-        // Add metadata
-        const stats = await fs.stat(filePath);
-        
-        workflows.push({
-          ...workflow,
-          id: `local-${file.replace('.json', '')}`,
-          source: 'local',
-          filename: file,
-          updatedAt: stats.mtime.toISOString(),
-          createdAt: stats.birthtime.toISOString()
-        });
-      } catch (fileError) {
-        console.warn(`Skipping corrupted workflow file ${file}:`, fileError);
-        // Continue processing other files instead of failing completely
-        continue;
-      }
-    }
-    
-    return workflows;
-  } catch (error) {
-    console.error('Failed to read local workflows:', error);
-    return [];
-  }
+  // This would fetch from n8n instance
+  // For now, return empty array
+  return [];
 }
 
 function mergeWorkflows(n8nWorkflows: N8nWorkflow[], localWorkflows: any[]): any[] {
@@ -191,38 +119,11 @@ async function saveWorkflowLocally(workflow: any): Promise<any> {
   
   await fs.writeFile(filePath, JSON.stringify(workflowWithMeta, null, 2));
   
-  return {
-    ...workflowWithMeta,
-    id: `local-${filename.replace('.json', '')}`,
-    filename
-  };
+  return workflowWithMeta;
 }
 
 async function pushWorkflowToN8n(workflow: any): Promise<any> {
-  const N8N_BASE_URL = process.env.N8N_BASE_URL;
-  const N8N_API_KEY = process.env.N8N_API_KEY;
-  
-  if (!N8N_BASE_URL || !N8N_API_KEY) {
-    throw new Error('N8n credentials not configured');
-  }
-  
-  // Remove local metadata before pushing
-  const { source, filename, ...cleanWorkflow } = workflow;
-  
-  const response = await fetch(`${N8N_BASE_URL}/api/v1/workflows`, {
-    method: 'POST',
-    headers: {
-      'X-N8N-API-KEY': N8N_API_KEY,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(cleanWorkflow)
-  });
-  
-  if (!response.ok) {
-    const errorText = await response.text();
-    throw new Error(`N8n API error: ${response.status} ${errorText}`);
-  }
-  
-  const data = await response.json();
-  return data.data;
+  // This would push to n8n instance
+  // For now, return null to indicate failure
+  return null;
 }

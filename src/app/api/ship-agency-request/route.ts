@@ -150,7 +150,7 @@ async function executeShipAgencyWorkflow(requestData: any) {
       highlights: Object.keys(crewAnalysis).map(crew => ({
         name: crew,
         status: 'active',
-        contribution: crewAnalysis[crew].response.substring(0, 100) + '...'
+        contribution: (crewAnalysis as any)[crew].response.substring(0, 100) + '...'
       }))
     },
     interface: {

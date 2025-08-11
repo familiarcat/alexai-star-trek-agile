@@ -482,13 +482,13 @@ function analyzeCompetitiveLandscape(startupIdea: string, targetMarket: string) 
 }
 
 function assessProjectRisks(startupIdea: string, businessPlan: string, targetMarket: string) {
-  const risks = {
-    technical: [],
-    market: [],
-    financial: [],
-    operational: [],
-    regulatory: [],
-    mitigation: {}
+  const risks: any = {
+    technical: [] as string[],
+    market: [] as string[],
+    financial: [] as string[],
+    operational: [] as string[],
+    regulatory: [] as string[],
+    mitigation: {} as any
   };
   
   const ideaLower = startupIdea.toLowerCase();
@@ -546,12 +546,12 @@ function assessProjectRisks(startupIdea: string, businessPlan: string, targetMar
 }
 
 function generateStrategicRecommendations(analysis: any) {
-  const recommendations = {
+  const recommendations: any = {
     approachStrategy: 'lean-startup',
-    priorityAreas: [],
-    timeline: {},
-    resourceAllocation: {},
-    successMetrics: []
+    priorityAreas: [] as string[],
+    timeline: {} as any,
+    resourceAllocation: {} as any,
+    successMetrics: [] as string[]
   };
   
   // Determine approach based on viability and complexity

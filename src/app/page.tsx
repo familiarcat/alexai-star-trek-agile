@@ -19,8 +19,11 @@ import {
   FlagIcon,
   StarIcon,
   ShieldCheckIcon,
-  BeakerIcon
+  BeakerIcon,
+  CircleStackIcon,
+  UserIcon
 } from '@heroicons/react/24/outline';
+import { ShipsComputerControlPanel } from '@/components/lcars/ships-computer-controller';
 
 interface Project {
   id: string;
@@ -42,6 +45,8 @@ interface DashboardStats {
   pending_tasks: number;
   team_members: number;
   ai_consultations: number;
+  total_crew: number;
+  total_workflows: number;
 }
 
 // Server-side data fetching
@@ -141,7 +146,9 @@ async function getDashboardStats(): Promise<DashboardStats> {
       completed_tasks: stats.tasks?.completed || 0,
       pending_tasks: (stats.tasks?.pending || 0) + (stats.tasks?.inProgress || 0),
       team_members: stats.crew?.total || 0,
-      ai_consultations: 127 // Default Star Trek value
+      ai_consultations: 127, // Default Star Trek value
+      total_crew: stats.crew?.total || 0,
+      total_workflows: 127 // Default Star Trek value
     };
   } catch (error) {
     console.error('Error fetching dashboard stats:', error);
@@ -154,7 +161,9 @@ async function getDashboardStats(): Promise<DashboardStats> {
       completed_tasks: 18,
       pending_tasks: 7,
       team_members: 12,
-      ai_consultations: 127
+      ai_consultations: 127,
+      total_crew: 12,
+      total_workflows: 127
     };
   }
 }
@@ -201,158 +210,174 @@ async function DashboardContent() {
   ];
 
   return (
-    <div className="lcars-main-content">
+    <>
       {/* Mission Status */}
-      <div className="lcars-mission-status-section">
-        <div className="lcars-section-header">
-          <RocketLaunchIcon className="lcars-icon" />
-          <span>MISSION STATUS</span>
-        </div>
+      <div className="lcars-panel">
+        <h2>MISSION STATUS</h2>
         <div className="lcars-metrics-grid">
-          <div className="lcars-metric-card">
-            <div className="lcars-metric-icon">
-              <FolderIcon className="lcars-icon" />
-            </div>
-            <div className="lcars-metric-content">
-              <div className="lcars-metric-value">{stats.total_projects}</div>
-              <div className="lcars-metric-label">TOTAL MISSIONS</div>
-            </div>
-          </div>
-          
-          <div className="lcars-metric-card">
-            <div className="lcars-metric-icon">
-              <CheckCircleIcon className="lcars-icon" />
-            </div>
-            <div className="lcars-metric-content">
-              <div className="lcars-metric-value">{stats.active_projects}</div>
-              <div className="lcars-metric-label">ACTIVE MISSIONS</div>
+          <div className="lcars-card">
+            <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+              <FolderIcon style={{ width: '40px', height: '40px', color: 'var(--lcars-orange)' }} />
+              <div>
+                <div style={{ fontSize: '2rem', fontWeight: 'bold', color: '#000' }}>{stats.total_projects}</div>
+                <div style={{ fontSize: '0.9rem', color: '#000' }}>TOTAL MISSIONS</div>
+              </div>
             </div>
           </div>
           
-          <div className="lcars-metric-card">
-            <div className="lcars-metric-icon">
-              <UserGroupIcon className="lcars-icon" />
-            </div>
-            <div className="lcars-metric-content">
-              <div className="lcars-metric-value">{stats.team_members}</div>
-              <div className="lcars-metric-label">CREW MEMBERS</div>
+          <div className="lcars-card">
+            <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+              <ClockIcon style={{ width: '40px', height: '40px', color: 'var(--lcars-yellow)' }} />
+              <div>
+                <div style={{ fontSize: '2rem', fontWeight: 'bold', color: '#000' }}>{stats.active_projects}</div>
+                <div style={{ fontSize: '0.9rem', color: '#000' }}>ACTIVE MISSIONS</div>
+              </div>
             </div>
           </div>
           
-          <div className="lcars-metric-card">
-            <div className="lcars-metric-icon">
-              <BeakerIcon className="lcars-icon" />
-            </div>
-            <div className="lcars-metric-content">
-              <div className="lcars-metric-value">{stats.ai_consultations}</div>
-              <div className="lcars-metric-label">AI CONSULTATIONS</div>
+          <div className="lcars-card">
+            <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+              <UserGroupIcon style={{ width: '40px', height: '40px', color: 'var(--lcars-green)' }} />
+              <div>
+                <div style={{ fontSize: '2rem', fontWeight: 'bold', color: '#000' }}>{stats.total_crew}</div>
+                <div style={{ fontSize: '0.9rem', color: '#000' }}>CREW MEMBERS</div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-
-      {/* Active Missions Grid */}
-      <div className="lcars-missions-section">
-        <div className="lcars-section-header">
-          <RocketLaunchIcon className="lcars-icon" />
-          <span>ACTIVE MISSIONS</span>
-        </div>
-        <div className="lcars-missions-grid">
-          {projects.filter(p => p.status === 'active').map((project) => {
-            const ProjectIcon = getProjectIcon(project.name);
-            return (
-              <Link key={project.id} href={`/project-detail/${project.id}`} className="lcars-mission-card">
-                <div className="lcars-mission-header">
-                  <ProjectIcon className="lcars-mission-icon" />
-                  <div className="lcars-mission-status">
-                    <div className={`lcars-status-indicator ${getStatusColor(project.status)}`}></div>
-                    <span className="lcars-status-text">{project.status.toUpperCase()}</span>
-                  </div>
-                </div>
-                <div className="lcars-mission-content">
-                  <div className="lcars-mission-title">{project.name}</div>
-                  <div className="lcars-mission-progress">
-                    <div className="lcars-progress-bar">
-                      <div 
-                        className="lcars-progress-fill" 
-                        style={{ width: `${project.progress}%` }}
-                      ></div>
-                    </div>
-                    <span className="lcars-progress-text">{project.progress}% COMPLETE</span>
-                  </div>
-                  <div className="lcars-mission-meta">
-                    <div className="lcars-mission-team">
-                      <UserGroupIcon className="lcars-meta-icon" />
-                      <span>{project.team_size} CREW MEMBERS</span>
-                    </div>
-                    <div className={`lcars-mission-priority ${getPriorityColor(project.priority || 'medium')}`}>
-                      <FlagIcon className="lcars-meta-icon" />
-                      <span>{(project.priority || 'medium').toUpperCase()} PRIORITY</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="lcars-mission-actions">
-                  <div className="lcars-action-button">
-                    <EyeIcon className="lcars-action-icon" />
-                    <span>VIEW MISSION</span>
-                  </div>
-                </div>
-              </Link>
-            );
-          })}
+          
+          <div className="lcars-card">
+            <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+              <CpuChipIcon style={{ width: '40px', height: '40px', color: 'var(--lcars-violet)' }} />
+              <div>
+                <div style={{ fontSize: '2rem', fontWeight: 'bold', color: '#000' }}>{stats.total_workflows}</div>
+                <div style={{ fontSize: '0.9rem', color: '#000' }}>AI CONSULTATIONS</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
       {/* System Status */}
-      <div className="lcars-system-status-section">
-        <div className="lcars-section-header">
-          <CogIcon className="lcars-icon" />
-          <span>SYSTEM STATUS</span>
+      <div className="lcars-panel">
+        <h2>SYSTEM STATUS</h2>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '15px', padding: '15px', background: 'rgba(0,0,0,0.3)', borderRadius: 'var(--lcars-inner-radius)' }}>
+            <SignalIcon style={{ width: '30px', height: '30px', color: 'var(--lcars-orange)' }} />
+            <div>
+              <div style={{ color: 'var(--lcars-orange)', fontWeight: 'bold' }}>SUBSPACE LINK</div>
+              <div style={{ color: 'var(--lcars-green)', fontSize: '0.9rem' }}>ESTABLISHED</div>
+            </div>
+          </div>
+          
+          <div style={{ display: 'flex', alignItems: 'center', gap: '15px', padding: '15px', background: 'rgba(0,0,0,0.3)', borderRadius: 'var(--lcars-inner-radius)' }}>
+            <CircleStackIcon style={{ width: '30px', height: '30px', color: 'var(--lcars-orange)' }} />
+            <div>
+              <div style={{ color: 'var(--lcars-orange)', fontWeight: 'bold' }}>STARFLEET DATABASE</div>
+              <div style={{ color: 'var(--lcars-green)', fontSize: '0.9rem' }}>CONNECTED</div>
+            </div>
+          </div>
+          
+          <div style={{ display: 'flex', alignItems: 'center', gap: '15px', padding: '15px', background: 'rgba(0,0,0,0.3)', borderRadius: 'var(--lcars-inner-radius)' }}>
+            <CpuChipIcon style={{ width: '30px', height: '30px', color: 'var(--lcars-orange)' }} />
+            <div>
+              <div style={{ color: 'var(--lcars-orange)', fontWeight: 'bold' }}>QUANTUM MEMORY FIELD</div>
+              <div style={{ color: 'var(--lcars-green)', fontSize: '0.9rem' }}>STABLE</div>
+            </div>
+          </div>
+          
+          <div style={{ display: 'flex', alignItems: 'center', gap: '15px', padding: '15px', background: 'rgba(0,0,0,0.3)', borderRadius: 'var(--lcars-inner-radius)' }}>
+            <ChartBarIcon style={{ width: '30px', height: '30px', color: 'var(--lcars-orange)' }} />
+            <div>
+              <div style={{ color: 'var(--lcars-orange)', fontWeight: 'bold' }}>OPTICAL DATA NETWORK</div>
+              <div style={{ color: 'var(--lcars-green)', fontSize: '0.9rem' }}>OPERATIONAL</div>
+            </div>
+          </div>
         </div>
-        <div className="lcars-system-grid">
-          {systemStatus.map((system, index) => (
-            <div key={index} className="lcars-system-item">
-              <system.icon className="lcars-system-icon" />
-              <div className="lcars-system-info">
-                <div className="lcars-system-name">{system.name}</div>
-                <div className="lcars-system-value">{system.status}</div>
+      </div>
+
+      {/* Active Missions */}
+      <div className="lcars-panel">
+        <h2>ACTIVE MISSIONS</h2>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '20px' }}>
+          {projects.slice(0, 3).map((project) => (
+            <div key={project.id} className="lcars-card">
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '15px' }}>
+                <h3 style={{ color: '#fff', margin: 0, fontSize: '1.1rem' }}>{project.name}</h3>
+                <div className={`lcars-status ${project.status === 'active' ? 'active' : 'pending'}`}>
+                  {project.status?.toUpperCase() || 'PENDING'}
+                </div>
+              </div>
+              
+              <div style={{ marginBottom: '15px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+                  <span style={{ color: 'var(--lcars-text-purple)', fontSize: '0.9rem' }}>Progress</span>
+                  <span style={{ color: '#fff', fontWeight: 'bold' }}>{project.progress || 0}%</span>
+                </div>
+                <div className="lcars-progress">
+                  <div 
+                    className="lcars-progress-bar" 
+                    style={{ width: `${project.progress || 0}%` }}
+                  ></div>
+                </div>
+              </div>
+              
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <UserGroupIcon style={{ width: '16px', height: '16px', color: 'var(--lcars-sky)' }} />
+                  <span style={{ color: 'var(--lcars-text-purple)', fontSize: '0.8rem' }}>
+                    {project.team_size || 1} Crew
+                  </span>
+                </div>
+                
+                <div className={`lcars-priority-${project.priority || 'medium'}`} style={{ 
+                  fontSize: '0.8rem', 
+                  padding: '4px 8px', 
+                  borderRadius: '4px', 
+                  fontWeight: 'bold' 
+                }}>
+                  {project.priority?.toUpperCase() || 'MEDIUM'}
+                </div>
               </div>
             </div>
           ))}
         </div>
-        
-        {/* Real-time Status */}
-        <div className="mt-4">
-          <RealtimeStatus />
-        </div>
       </div>
 
       {/* Quick Actions */}
-      <div className="lcars-quick-actions">
-        <div className="lcars-section-header">
-          <RocketLaunchIcon className="lcars-icon" />
-          <span>QUICK ACTIONS</span>
-        </div>
-        <div className="lcars-actions-grid">
-          <Link href="/projects" className="lcars-action-button">
-            <FolderIcon className="lcars-action-icon" />
-            <span>ALL MISSIONS</span>
+      <div className="lcars-panel">
+        <h2>QUICK ACTIONS</h2>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '15px' }}>
+          <Link href="/projects/new" className="lcars-button primary">
+            <RocketLaunchIcon style={{ width: '20px', height: '20px', marginRight: '8px' }} />
+            NEW MISSION
           </Link>
-          <Link href="/tasks" className="lcars-action-button">
-            <FlagIcon className="lcars-action-icon" />
-            <span>MISSION TASKS</span>
+          
+          <Link href="/projects" className="lcars-button secondary">
+            <FolderIcon style={{ width: '20px', height: '20px', marginRight: '8px' }} />
+            VIEW MISSIONS
           </Link>
-          <Link href="/analytics" className="lcars-action-button">
-            <ChartBarIcon className="lcars-action-icon" />
-            <span>MISSION ANALYTICS</span>
+          
+          <Link href="/observation-lounge" className="lcars-button success">
+            <UserIcon style={{ width: '20px', height: '20px', marginRight: '8px' }} />
+            AI CONSULTATION
           </Link>
-          <Link href="/observation-lounge" className="lcars-action-button">
-            <BeakerIcon className="lcars-action-icon" />
-            <span>AI CONSULTATION</span>
+          
+          <Link href="/analytics" className="lcars-button">
+            <ChartBarIcon style={{ width: '20px', height: '20px', marginRight: '8px' }} />
+            ANALYTICS
           </Link>
         </div>
       </div>
-    </div>
+
+      {/* Ship's Computer Control Panel */}
+      <div className="lcars-panel">
+        <h2>SHIP'S COMPUTER AGENT CONTROL</h2>
+        <p style={{ color: '#000', fontSize: '1rem', marginBottom: '20px' }}>
+          Control the entire LCARS layout system through the ship's computer agent
+        </p>
+        <ShipsComputerControlPanel />
+      </div>
+    </>
   );
 }
 

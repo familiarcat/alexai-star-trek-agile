@@ -1,0 +1,68 @@
+AlexAI System Health Report
+Generated: Sun Aug 10 21:28:51 CDT 2025
+==================================
+
+Server Status:
+[0;32m[2025-08-10 21:28:51] Checking if server is running...[0m
+[0;34m[2025-08-10 21:28:51] SUCCESS: Server is running on http://localhost:3000[0m
+✅ Server is running
+
+API Endpoints:
+[0;32m[2025-08-10 21:28:51] Testing API endpoints...[0m
+[0;34m[2025-08-10 21:28:51] SUCCESS: ✅ /api/health - OK[0m
+[0;34m[2025-08-10 21:28:51] SUCCESS: ✅ /api/projects - OK[0m
+[0;34m[2025-08-10 21:28:51] SUCCESS: ✅ /api/dashboard/stats - OK[0m
+[0;34m[2025-08-10 21:28:51] SUCCESS: ✅ /api/crew - OK[0m
+[0;34m[2025-08-10 21:28:51] SUCCESS: ✅ /api/workflows - OK[0m
+[0;34m[2025-08-10 21:28:51] SUCCESS: ✅ /api/n8n-integration/workflows - OK[0m
+[0;34m[2025-08-10 21:28:51] SUCCESS: All API endpoints are working![0m
+
+Workflow Files:
+[0;32m[2025-08-10 21:28:51] Testing workflow JSON files...[0m
+[0;34m[2025-08-10 21:28:51] SUCCESS: ✅ alexai-bilateral-learning-workflow.json - Valid JSON[0m
+[0;34m[2025-08-10 21:28:51] SUCCESS: ✅ alexai-chatgpt-5-ready-multi-llm-crew-coordination.json - Valid JSON[0m
+[0;34m[2025-08-10 21:28:51] SUCCESS: ✅ alexai-chatgpt5-enhanced-bilateral-sync.json - Valid JSON[0m
+[0;34m[2025-08-10 21:28:51] SUCCESS: ✅ alexai-complete-crew-coordination-workflow.json - Valid JSON[0m
+[0;34m[2025-08-10 21:28:51] SUCCESS: ✅ alexai-complete-crew-workflow.json - Valid JSON[0m
+[0;34m[2025-08-10 21:28:51] SUCCESS: ✅ alexai-comprehensive-agent-validation.json - Valid JSON[0m
+[0;34m[2025-08-10 21:28:51] SUCCESS: ✅ alexai-crew-coordination-workflow.json - Valid JSON[0m
+[0;34m[2025-08-10 21:28:51] SUCCESS: ✅ alexai-crew-coordination.json - Valid JSON[0m
+[0;34m[2025-08-10 21:28:51] SUCCESS: ✅ alexai-crew-request-webhook-clean.json - Valid JSON[0m
+[0;34m[2025-08-10 21:28:51] SUCCESS: ✅ alexai-crew-request-webhook.json - Valid JSON[0m
+[0;34m[2025-08-10 21:28:51] SUCCESS: ✅ alexai-enhanced-ai-insights-workflow.json - Valid JSON[0m
+[0;34m[2025-08-10 21:28:51] SUCCESS: ✅ alexai-enhanced-current-workflow.json - Valid JSON[0m
+[0;34m[2025-08-10 21:28:51] SUCCESS: ✅ alexai-enhanced-ship-agency-multi-llm-crew-orchestration.json - Valid JSON[0m
+[0;34m[2025-08-10 21:28:51] SUCCESS: ✅ alexai-multimodal-agency-openrouter.json - Valid JSON[0m
+[0;34m[2025-08-10 21:28:51] SUCCESS: ✅ alexai-optimized-crew-coordination-fixed.json - Valid JSON[0m
+[0;34m[2025-08-10 21:28:51] SUCCESS: ✅ alexai-optimized-crew-coordination.json - Valid JSON[0m
+[0;34m[2025-08-10 21:28:51] SUCCESS: ✅ alexai-simplified-crew-coordination.json - Valid JSON[0m
+[0;34m[2025-08-10 21:28:51] SUCCESS: ✅ alexai-simplified-crew-workflow.json - Valid JSON[0m
+[0;34m[2025-08-10 21:28:51] SUCCESS: ✅ alexai-test-endpoint-webhook.json - Valid JSON[0m
+[0;34m[2025-08-10 21:28:51] SUCCESS: ✅ build-your-first-ai-agent.json - Valid JSON[0m
+[0;34m[2025-08-10 21:28:51] SUCCESS: ✅ demo--my-first-ai-agent-in-n8n.json - Valid JSON[0m
+[0;34m[2025-08-10 21:28:51] SUCCESS: ✅ demo-my-first-ai-agent-in-n8n.json - Valid JSON[0m
+[0;34m[2025-08-10 21:28:51] SUCCESS: ✅ my-workflow-2.json - Valid JSON[0m
+[0;34m[2025-08-10 21:28:51] SUCCESS: ✅ my-workflow.json - Valid JSON[0m
+[0;34m[2025-08-10 21:28:51] SUCCESS: ✅ screenplay.json - Valid JSON[0m
+[0;34m[2025-08-10 21:28:51] SUCCESS: ✅ simple-crew-workflow.json - Valid JSON[0m
+[0;34m[2025-08-10 21:28:51] SUCCESS: ✅ simple-test-workflow.json - Valid JSON[0m
+[0;34m[2025-08-10 21:28:51] SUCCESS: All workflow files have valid JSON![0m
+
+Page Routes:
+[0;32m[2025-08-10 21:28:51] Testing page routes...[0m
+[0;34m[2025-08-10 21:28:51] SUCCESS: ✅ / - OK[0m
+[0;34m[2025-08-10 21:28:51] SUCCESS: ✅ /projects - OK[0m
+[0;34m[2025-08-10 21:28:51] SUCCESS: ✅ /tasks - OK[0m
+[0;34m[2025-08-10 21:28:51] SUCCESS: ✅ /workflow-management - OK[0m
+[0;34m[2025-08-10 21:28:51] SUCCESS: ✅ /analytics - OK[0m
+[0;34m[2025-08-10 21:28:51] SUCCESS: ✅ /agile-project - OK[0m
+[0;34m[2025-08-10 21:28:51] SUCCESS: All page routes are working![0m
+
+System Resources:
+[0;32m[2025-08-10 21:28:51] Checking system resources...[0m
+[1;33m[2025-08-10 21:28:51] WARNING: ⚠️ Disk usage: 96% (high)[0m
+[1;33m[2025-08-10 21:28:51] WARNING: ⚠️ Memory usage: % (high)[0m
+[1;33m[2025-08-10 21:28:51] WARNING: ⚠️ No Node.js processes running[0m
+
+==================================
+Report saved to: logs/system-health-report-20250810-212851.txt

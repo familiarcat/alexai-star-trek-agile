@@ -10,7 +10,9 @@ import {
   ClockIcon,
   UserGroupIcon,
   CheckCircleIcon,
-  ExclamationTriangleIcon
+  ExclamationTriangleIcon,
+  BeakerIcon,
+  CalendarIcon
 } from '@heroicons/react/24/outline';
 
 interface Project {
@@ -58,16 +60,65 @@ export default function ProjectsPage() {
   };
 
   const createMockData = async () => {
+    setLoading(true);
     try {
-      const response = await fetch('/api/projects/sample', { method: 'POST' });
-      const data = await response.json();
-      
-      if (data.success) {
-        fetchProjects(); // Refresh the list
+      // Create sample projects
+      const sampleProjects = [
+        {
+          name: 'LCARS Interface Development',
+          description: 'Develop and refine the LCARS interface for the AlexAI system, ensuring authentic Star Trek aesthetics and optimal user experience.',
+          status: 'active',
+          priority: 'high',
+          category: 'Development',
+          team_size: 8,
+          progress: 75,
+          deadline: '2024-12-31'
+        },
+        {
+          name: 'AI Core Optimization',
+          description: 'Optimize the core AI algorithms for enhanced performance and efficiency in data processing and decision-making.',
+          status: 'pending',
+          priority: 'high',
+          category: 'AI/ML',
+          team_size: 5,
+          progress: 30,
+          deadline: '2024-09-30'
+        },
+        {
+          name: 'N8N Backend Integration',
+          description: 'Integrate the n8n workflow automation backend for seamless data flow and task automation within the AlexAI system.',
+          status: 'active',
+          priority: 'medium',
+          category: 'Integration',
+          team_size: 3,
+          progress: 90,
+          deadline: '2024-08-15'
+        }
+      ];
+
+      for (const project of sampleProjects) {
+        await fetch('/api/projects', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(project),
+        });
       }
-    } catch (err) {
-      console.error('Failed to create mock data:', err);
+
+      // Refresh projects
+      await fetchProjects();
+    } catch (error) {
+      console.error('Failed to create sample data:', error);
+    } finally {
+      setLoading(false);
     }
+  };
+
+  const handleEditProject = (projectId: string) => {
+    // TODO: Implement edit functionality
+    console.log('Edit project:', projectId);
+    // Could navigate to edit page or open modal
   };
 
   const getStatusColor = (status: string) => {
@@ -134,187 +185,178 @@ export default function ProjectsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <>
       {/* Header */}
-      <header className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-6">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900">Mission Logs</h1>
-              <p className="text-gray-600 mt-1">
-                Manage your Star Trek projects and missions
-              </p>
-            </div>
-            <div className="flex space-x-4">
-              <button
-                onClick={createMockData}
-                className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
-              >
-                <PlusIcon className="h-4 w-4 mr-2" />
-                Create Sample Data
-              </button>
-              <Link
-                href="/projects/new"
-                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
-              >
-                <PlusIcon className="h-4 w-4 mr-2" />
-                New Project
-              </Link>
-            </div>
-          </div>
+      <div className="lcars-panel">
+        <h2>MISSION LOGS</h2>
+        <p style={{ color: '#000', fontSize: '1rem', marginBottom: '20px' }}>
+          Manage your Star Trek projects and missions
+        </p>
+        
+        <div style={{ display: 'flex', gap: '15px', flexWrap: 'wrap' }}>
+          <Link href="/projects/new" className="lcars-button primary">
+            <PlusIcon style={{ width: '20px', height: '20px', marginRight: '8px' }} />
+            NEW MISSION
+          </Link>
+          
+          <button 
+            onClick={createMockData} 
+            className="lcars-button secondary"
+            disabled={loading}
+          >
+            <BeakerIcon style={{ width: '20px', height: '20px', marginRight: '8px' }} />
+            CREATE SAMPLE DATA
+          </button>
         </div>
-      </header>
+      </div>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Filters */}
-        <div className="bg-white shadow rounded-lg p-6 mb-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            {/* Search */}
-            <div className="relative">
-              <MagnifyingGlassIcon className="h-5 w-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-              <input
-                type="text"
-                placeholder="Search projects..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 pr-4 py-2 w-full border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-              />
-            </div>
-
-            {/* Status Filter */}
-            <div>
-              <select
-                value={statusFilter}
-                onChange={(e) => setStatusFilter(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-              >
-                <option value="all">All Status</option>
-                <option value="active">Active</option>
-                <option value="pending">Pending</option>
-                <option value="completed">Completed</option>
-                <option value="overdue">Overdue</option>
-              </select>
-            </div>
-
-            {/* Priority Filter */}
-            <div>
-              <select
-                value={priorityFilter}
-                onChange={(e) => setPriorityFilter(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-              >
-                <option value="all">All Priorities</option>
-                <option value="high">High</option>
-                <option value="medium">Medium</option>
-                <option value="low">Low</option>
-              </select>
-            </div>
-
-            {/* Results Count */}
-            <div className="flex items-center justify-end">
-              <span className="text-sm text-gray-500">
-                {filteredProjects.length} of {projects.length} projects
-              </span>
-            </div>
-          </div>
+      {/* Search and Filters */}
+      <div className="lcars-panel">
+        <h3 style={{ color: '#000', marginBottom: '15px' }}>SEARCH & FILTERS</h3>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '15px' }}>
+          <input
+            type="text"
+            placeholder="Search missions..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="lcars-input"
+          />
+          
+          <select
+            value={statusFilter}
+            onChange={(e) => setStatusFilter(e.target.value)}
+            className="lcars-select"
+          >
+            <option value="">All Statuses</option>
+            <option value="active">Active</option>
+            <option value="pending">Pending</option>
+            <option value="completed">Completed</option>
+          </select>
+          
+          <select
+            value={priorityFilter}
+            onChange={(e) => setPriorityFilter(e.target.value)}
+            className="lcars-select"
+          >
+            <option value="">All Priorities</option>
+            <option value="high">High</option>
+            <option value="medium">Medium</option>
+            <option value="low">Low</option>
+          </select>
         </div>
+      </div>
 
-        {/* Projects Grid */}
-        {filteredProjects.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {/* Projects Grid */}
+      <div className="lcars-panel">
+        <h3 style={{ color: '#000', marginBottom: '20px' }}>ACTIVE MISSIONS</h3>
+        
+        {loading ? (
+          <div style={{ textAlign: 'center', padding: '40px', color: '#000' }}>
+            <div className="lcars-animate-pulse">Loading missions...</div>
+          </div>
+        ) : filteredProjects.length === 0 ? (
+          <div style={{ textAlign: 'center', padding: '40px', color: '#000' }}>
+            <div style={{ fontSize: '1.2rem', marginBottom: '10px' }}>No missions found</div>
+            <div style={{ fontSize: '1rem', opacity: 0.8 }}>Create your first mission or adjust your filters</div>
+          </div>
+        ) : (
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '20px' }}>
             {filteredProjects.map((project) => (
-              <div key={project.id} className="bg-white shadow rounded-lg overflow-hidden hover:shadow-md transition-shadow">
-                <div className="p-6">
-                  {/* Project Header */}
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="flex items-center">
-                      <FolderIcon className="h-8 w-8 text-blue-600 mr-3" />
-                      <div>
-                        <h3 className="text-lg font-medium text-gray-900 truncate">
-                          {project.name}
-                        </h3>
-                        <p className="text-sm text-gray-500">{project.category}</p>
-                      </div>
-                    </div>
-                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(project.status)}`}>
-                      {project.status}
-                    </span>
+              <div key={project.id} className="lcars-card">
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '15px' }}>
+                  <h3 style={{ color: '#fff', margin: 0, fontSize: '1.2rem' }}>{project.name}</h3>
+                  <div className={`lcars-status ${project.status === 'active' ? 'active' : project.status === 'completed' ? 'completed' : 'pending'}`}>
+                    {project.status?.toUpperCase() || 'PENDING'}
                   </div>
-
-                  {/* Project Description */}
-                  <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+                </div>
+                
+                {project.description && (
+                  <p style={{ color: 'var(--lcars-text-purple)', marginBottom: '15px', lineHeight: '1.4' }}>
                     {project.description}
                   </p>
-
-                  {/* Progress Bar */}
-                  <div className="mb-4">
-                    <div className="flex justify-between text-sm text-gray-600 mb-1">
-                      <span>Progress</span>
-                      <span>{project.progress}%</span>
-                    </div>
-                    <div className="w-full bg-gray-200 rounded-full h-2">
-                      <div 
-                        className={`h-2 rounded-full ${getProgressColor(project.progress)}`}
-                        style={{ width: `${project.progress}%` }}
-                      ></div>
+                )}
+                
+                <div style={{ marginBottom: '15px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+                    <span style={{ color: 'var(--lcars-text-purple)', fontSize: '0.9rem' }}>Mission Progress</span>
+                    <span style={{ color: '#fff', fontWeight: 'bold' }}>{project.progress || 0}%</span>
+                  </div>
+                  <div className="lcars-progress">
+                    <div 
+                      className="lcars-progress-bar" 
+                      style={{ width: `${project.progress || 0}%` }}
+                    ></div>
+                  </div>
+                </div>
+                
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '15px', marginBottom: '20px' }}>
+                  <div>
+                    <div style={{ color: 'var(--lcars-text-purple)', fontSize: '0.8rem', marginBottom: '4px' }}>Priority</div>
+                    <div className={`lcars-priority-${project.priority || 'medium'}`} style={{ 
+                      fontSize: '0.8rem', 
+                      padding: '4px 8px', 
+                      borderRadius: '4px', 
+                      fontWeight: 'bold',
+                      textAlign: 'center'
+                    }}>
+                      {project.priority?.toUpperCase() || 'MEDIUM'}
                     </div>
                   </div>
-
-                  {/* Project Details */}
-                  <div className="space-y-2 mb-4">
-                    <div className="flex items-center text-sm text-gray-500">
-                      <UserGroupIcon className="h-4 w-4 mr-2" />
-                      {project.team_size} team members
+                  
+                  <div>
+                    <div style={{ color: 'var(--lcars-text-purple)', fontSize: '0.8rem', marginBottom: '4px' }}>Category</div>
+                    <div className={`lcars-category-${project.category?.toLowerCase() || 'general'}`} style={{ 
+                      fontSize: '0.8rem', 
+                      padding: '4px 8px', 
+                      borderRadius: '4px', 
+                      fontWeight: 'bold',
+                      textAlign: 'center'
+                    }}>
+                      {project.category?.toUpperCase() || 'GENERAL'}
                     </div>
-                    <div className="flex items-center text-sm text-gray-500">
-                      <ClockIcon className="h-4 w-4 mr-2" />
-                      Due {new Date(project.deadline).toLocaleDateString()}
-                    </div>
-                    <div className="flex items-center text-sm">
-                      <span className={`font-medium ${getPriorityColor(project.priority)}`}>
-                        {project.priority} Priority
+                  </div>
+                </div>
+                
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '15px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <UserGroupIcon style={{ width: '16px', height: '16px', color: 'var(--lcars-sky)' }} />
+                    <span style={{ color: 'var(--lcars-text-purple)', fontSize: '0.8rem' }}>
+                      {project.team_size || 1} Crew Members
+                    </span>
+                  </div>
+                  
+                  {project.deadline && (
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <CalendarIcon style={{ width: '16px', height: '16px', color: 'var(--lcars-yellow)' }} />
+                      <span style={{ color: 'var(--lcars-text-purple)', fontSize: '0.8rem' }}>
+                        {new Date(project.deadline).toLocaleDateString()}
                       </span>
                     </div>
-                  </div>
-
-                  {/* Action Buttons */}
-                  <div className="flex space-x-2">
-                    <Link
-                      href={`/project-detail?id=${project.id}`}
-                      className="flex-1 text-center px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-md hover:bg-blue-700 transition-colors"
-                    >
-                      View Details
-                    </Link>
-                    <button className="px-4 py-2 border border-gray-300 text-gray-700 text-sm font-medium rounded-md hover:bg-gray-50 transition-colors">
-                      Edit
-                    </button>
-                  </div>
+                  )}
+                </div>
+                
+                <div style={{ display: 'flex', gap: '10px' }}>
+                  <Link 
+                    href={`/project-detail/${project.id}`} 
+                    className="lcars-button"
+                    style={{ flex: 1, textAlign: 'center', textDecoration: 'none' }}
+                  >
+                    VIEW DETAILS
+                  </Link>
+                  
+                  <button 
+                    onClick={() => handleEditProject(project.id)}
+                    className="lcars-button secondary"
+                    style={{ flex: 1 }}
+                  >
+                    EDIT
+                  </button>
                 </div>
               </div>
             ))}
           </div>
-        ) : (
-          <div className="text-center py-12">
-            <FolderIcon className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-            <h3 className="text-lg font-medium text-gray-900 mb-2">No projects found</h3>
-            <p className="text-gray-500 mb-6">
-              {searchTerm || statusFilter !== 'all' || priorityFilter !== 'all' 
-                ? 'Try adjusting your filters or search terms.'
-                : 'Get started by creating your first project.'
-              }
-            </p>
-            {!searchTerm && statusFilter === 'all' && priorityFilter === 'all' && (
-              <button
-                onClick={createMockData}
-                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
-              >
-                <PlusIcon className="h-4 w-4 mr-2" />
-                Create Sample Data
-              </button>
-            )}
-          </div>
         )}
-      </main>
-    </div>
+      </div>
+    </>
   );
 } 

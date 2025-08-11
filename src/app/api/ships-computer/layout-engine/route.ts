@@ -70,14 +70,14 @@ async function generateIntentDrivenLayout(
 }
 
 function analyzeUserIntent(userIntent: string, goalType: string, context: any) {
-  const analysis = {
+  const analysis: any = {
     primaryIntent: goalType || 'information-seeking',
     intentComplexity: 'medium',
-    userActions: [],
-    requiredComponents: [],
-    informationHierarchy: [],
-    interactionPatterns: [],
-    successMetrics: []
+    userActions: [] as string[],
+    requiredComponents: [] as string[],
+    informationHierarchy: [] as any[],
+    interactionPatterns: [] as string[],
+    successMetrics: [] as string[]
   };
   
   const intentLower = userIntent.toLowerCase();
@@ -145,13 +145,13 @@ function analyzeUserIntent(userIntent: string, goalType: string, context: any) {
 }
 
 function generateLayoutFromIntent(intentAnalysis: any, preferences: any) {
-  const layout = {
+  const layout: any = {
     layoutType: 'intent-driven-adaptive',
     primaryLayout: 'single-column',
-    componentConfiguration: [],
-    responsiveAdaptation: {},
-    accessibilityFeatures: [],
-    performanceOptimizations: []
+    componentConfiguration: [] as any[],
+    responsiveAdaptation: {} as any,
+    accessibilityFeatures: [] as string[],
+    performanceOptimizations: [] as string[]
   };
   
   // Configure layout based on intent
@@ -365,12 +365,12 @@ function generateLayoutFromIntent(intentAnalysis: any, preferences: any) {
 }
 
 function designOptimalFlow(intentAnalysis: any, layoutConfiguration: any) {
-  const flow = {
-    primaryFlow: [],
-    alternativeFlows: [],
-    errorRecoveryFlows: [],
-    optimizationPoints: [],
-    measurementPoints: []
+  const flow: any = {
+    primaryFlow: [] as any[],
+    alternativeFlows: [] as any[],
+    errorRecoveryFlows: [] as any[],
+    optimizationPoints: [] as any[],
+    measurementPoints: [] as any[]
   };
   
   // Design primary flow based on user actions
@@ -412,12 +412,12 @@ function designOptimalFlow(intentAnalysis: any, layoutConfiguration: any) {
 }
 
 function adaptLCARSForIntent(intentAnalysis: any, context: any) {
-  const lcarsConfig = {
-    colorScheme: 'adaptive',
+  const lcarsConfig: any = {
+    colorScheme: 'adaptive' as any,
     panelConfiguration: 'intent-optimized',
     soundEffects: 'contextual',
     voiceResponses: 'enabled',
-    layoutAdaptations: {}
+    layoutAdaptations: {} as any
   };
   
   // Adapt LCARS color scheme based on intent urgency and type

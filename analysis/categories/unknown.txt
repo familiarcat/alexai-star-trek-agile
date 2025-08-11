@@ -1,0 +1,721 @@
+# ========================================
+# SCRIPT: ab-test-best-of-both-worlds.sh
+# PATH: ab-test-best-of-both-worlds.sh
+# CATEGORY: unknown
+# REASON: 
+# LINES: 1
+# FUNCTIONS: 0
+0
+# ========================================
+
+
+
+# ========================================
+# SCRIPT: best-of-both-worlds-strategy.sh
+# PATH: best-of-both-worlds-strategy.sh
+# CATEGORY: unknown
+# REASON: 
+# LINES: 1
+# FUNCTIONS: 0
+0
+# ========================================
+
+
+
+# ========================================
+# SCRIPT: activate-bilateral-learning.sh
+# PATH: bilateral-sync/scripts/activate-bilateral-learning.sh
+# CATEGORY: unknown
+# REASON: 
+# LINES: 1
+# FUNCTIONS: 0
+0
+# ========================================
+
+
+
+# ========================================
+# SCRIPT: monitor-sync.sh
+# PATH: bilateral-sync/scripts/monitor-sync.sh
+# CATEGORY: unknown
+# REASON: 
+# LINES: 1
+# FUNCTIONS: 0
+0
+# ========================================
+
+
+
+# ========================================
+# SCRIPT: test-bilateral-integration.sh
+# PATH: bilateral-sync/scripts/test-bilateral-integration.sh
+# CATEGORY: unknown
+# REASON: 
+# LINES: 1
+# FUNCTIONS: 0
+0
+# ========================================
+
+
+
+# ========================================
+# SCRIPT: verify-katra-transfer.sh
+# PATH: bilateral-sync/scripts/verify-katra-transfer.sh
+# CATEGORY: unknown
+# REASON: 
+# LINES: 1
+# FUNCTIONS: 0
+0
+# ========================================
+
+
+
+# ========================================
+# SCRIPT: browser-test-ncc-1701-b.sh
+# PATH: browser-test-ncc-1701-b.sh
+# CATEGORY: unknown
+# REASON: 
+# LINES: 1
+# FUNCTIONS: 0
+0
+# ========================================
+
+
+
+# ========================================
+# SCRIPT: cicd-local-deployed-testing.sh
+# PATH: cicd-local-deployed-testing.sh
+# CATEGORY: unknown
+# REASON: 
+# LINES: 1
+# FUNCTIONS: 0
+0
+# ========================================
+
+
+
+# ========================================
+# SCRIPT: comprehensive-deployment-test.sh
+# PATH: comprehensive-deployment-test.sh
+# CATEGORY: unknown
+# REASON: 
+# LINES: 1
+# FUNCTIONS: 0
+0
+# ========================================
+
+
+
+# ========================================
+# SCRIPT: comprehensive-local-test.sh
+# PATH: comprehensive-local-test.sh
+# CATEGORY: unknown
+# REASON: 
+# LINES: 1
+# FUNCTIONS: 0
+0
+# ========================================
+
+
+
+# ========================================
+# SCRIPT: comprehensive-system-wide-test.sh
+# PATH: comprehensive-system-wide-test.sh
+# CATEGORY: unknown
+# REASON: 
+# LINES: 1
+# FUNCTIONS: 0
+0
+# ========================================
+
+
+
+# ========================================
+# SCRIPT: deploy-alexai-workflow.sh
+# PATH: deploy-alexai-workflow.sh
+# CATEGORY: unknown
+# REASON: 
+# LINES: 1
+# FUNCTIONS: 0
+0
+# ========================================
+
+
+
+# ========================================
+# SCRIPT: deploy-all-platforms.sh
+# PATH: deploy-all-platforms.sh
+# CATEGORY: unknown
+# REASON: 
+# LINES: 1
+# FUNCTIONS: 0
+0
+# ========================================
+
+
+
+# ========================================
+# SCRIPT: deploy-complete-crew-workflow.sh
+# PATH: deploy-complete-crew-workflow.sh
+# CATEGORY: unknown
+# REASON: 
+# LINES: 1
+# FUNCTIONS: 0
+0
+# ========================================
+
+
+
+# ========================================
+# SCRIPT: deploy-crew-workflow-simple.sh
+# PATH: deploy-crew-workflow-simple.sh
+# CATEGORY: unknown
+# REASON: 
+# LINES: 1
+# FUNCTIONS: 0
+0
+# ========================================
+
+
+
+# ========================================
+# SCRIPT: deploy-n8n-simple.sh
+# PATH: deploy-n8n-simple.sh
+# CATEGORY: unknown
+# REASON: 
+# LINES: 1
+# FUNCTIONS: 0
+0
+# ========================================
+
+
+
+# ========================================
+# SCRIPT: deploy-n8n-workflow.sh
+# PATH: deploy-n8n-workflow.sh
+# CATEGORY: unknown
+# REASON: 
+# LINES: 1
+# FUNCTIONS: 0
+0
+# ========================================
+
+
+
+# ========================================
+# SCRIPT: fix-ui-issues-live.sh
+# PATH: fix-ui-issues-live.sh
+# CATEGORY: unknown
+# REASON: 
+# LINES: 1
+# FUNCTIONS: 0
+0
+# ========================================
+
+
+
+# ========================================
+# SCRIPT: localhost-to-n8n-single-tests.sh
+# PATH: localhost-to-n8n-single-tests.sh
+# CATEGORY: unknown
+# REASON: 
+# LINES: 1
+# FUNCTIONS: 0
+0
+# ========================================
+
+
+
+# ========================================
+# SCRIPT: n8n-crew-simulation.sh
+# PATH: n8n-crew-simulation.sh
+# CATEGORY: unknown
+# REASON: 
+# LINES: 1
+# FUNCTIONS: 0
+0
+# ========================================
+
+
+
+# ========================================
+# SCRIPT: update-changelog.sh
+# PATH: node_modules/damerau-levenshtein/scripts/update-changelog.sh
+# CATEGORY: unknown
+# REASON: 
+# LINES: 1
+# FUNCTIONS: 0
+0
+# ========================================
+
+
+
+# ========================================
+# SCRIPT: aws_infrastructure_manager.sh
+# PATH: scripts/analysis/aws_infrastructure_manager.sh
+# CATEGORY: unknown
+# REASON: 
+# LINES: 1
+# FUNCTIONS: 0
+0
+# ========================================
+
+
+
+# ========================================
+# SCRIPT: simple_cost_analyzer.sh
+# PATH: scripts/analysis/simple_cost_analyzer.sh
+# CATEGORY: unknown
+# REASON: 
+# LINES: 1
+# FUNCTIONS: 0
+0
+# ========================================
+
+
+
+# ========================================
+# SCRIPT: activate-workflow.sh
+# PATH: scripts/deploy/activate-workflow.sh
+# CATEGORY: unknown
+# REASON: 
+# LINES: 38
+# FUNCTIONS: 0
+0
+# ========================================
+
+#!/bin/bash
+
+# Activate ChatGPT 5 Workflow
+set -e
+
+echo "🔌 Activating ChatGPT 5 workflow..."
+
+# Export credentials
+export N8N_API_KEY="$(grep '^export N8N_API_KEY=' ~/.zshrc | sed "s/export N8N_API_KEY='//" | sed "s/'$//")"
+
+# Get the workflow ID
+WORKFLOW_NAME="AlexAI ChatGPT 5 Ready - Multi-LLM Crew Coordination"
+WORKFLOW_ID=$(curl -s -H "X-N8N-API-KEY: $N8N_API_KEY" \
+  "https://n8n.pbradygeorgen.com/api/v1/workflows" | \
+  jq -r '.data[] | select(.name == "'"$WORKFLOW_NAME"'") | .id')
+
+if [ -n "$WORKFLOW_ID" ]; then
+    echo "✅ Found workflow ID: $WORKFLOW_ID"
+    
+    # Get current workflow data
+    WORKFLOW_DATA=$(curl -s -H "X-N8N-API-KEY: $N8N_API_KEY" \
+      "https://n8n.pbradygeorgen.com/api/v1/workflows/$WORKFLOW_ID")
+    
+    # Update with active: true
+    echo "$WORKFLOW_DATA" | jq '.active = true' > /tmp/workflow_active.json
+    
+    # Update the workflow
+    curl -X PUT \
+      -H "X-N8N-API-KEY: $N8N_API_KEY" \
+      -H "Content-Type: application/json" \
+      -d @/tmp/workflow_active.json \
+      "https://n8n.pbradygeorgen.com/api/v1/workflows/$WORKFLOW_ID"
+    
+    echo "✅ Workflow activated successfully!"
+else
+    echo "❌ Workflow not found"
+    exit 1
+fi
+
+# ========================================
+# SCRIPT: deploy-chatgpt5-workflow.sh
+# PATH: scripts/deploy/deploy-chatgpt5-workflow.sh
+# CATEGORY: unknown
+# REASON: 
+# LINES: 1
+# FUNCTIONS: 0
+0
+# ========================================
+
+
+
+# ========================================
+# SCRIPT: bilateral-learning-system.sh
+# PATH: scripts/knowledge/bilateral-learning-system.sh
+# CATEGORY: unknown
+# REASON: 
+# LINES: 1
+# FUNCTIONS: 0
+0
+# ========================================
+
+
+
+# ========================================
+# SCRIPT: reorganize-knowledge-base.sh
+# PATH: scripts/knowledge/reorganize-knowledge-base.sh
+# CATEGORY: unknown
+# REASON: 
+# LINES: 1
+# FUNCTIONS: 0
+0
+# ========================================
+
+
+
+# ========================================
+# SCRIPT: memory-cleanup.sh
+# PATH: scripts/maintenance/memory-cleanup.sh
+# CATEGORY: unknown
+# REASON: 
+# LINES: 1
+# FUNCTIONS: 0
+0
+# ========================================
+
+
+
+# ========================================
+# SCRIPT: script-robustness-enhancer.sh
+# PATH: scripts/maintenance/script-robustness-enhancer.sh
+# CATEGORY: unknown
+# REASON: 
+# LINES: 1
+# FUNCTIONS: 0
+0
+# ========================================
+
+
+
+# ========================================
+# SCRIPT: quick-openai-recovery.sh
+# PATH: scripts/recovery/quick-openai-recovery.sh
+# CATEGORY: unknown
+# REASON: 
+# LINES: 1
+# FUNCTIONS: 0
+0
+# ========================================
+
+
+
+# ========================================
+# SCRIPT: distribute-credentials-securely.sh
+# PATH: scripts/security/distribute-credentials-securely.sh
+# CATEGORY: unknown
+# REASON: 
+# LINES: 1
+# FUNCTIONS: 0
+0
+# ========================================
+
+
+
+# ========================================
+# SCRIPT: emergency-key-rotation.sh
+# PATH: scripts/security/emergency-key-rotation.sh
+# CATEGORY: unknown
+# REASON: 
+# LINES: 1
+# FUNCTIONS: 0
+0
+# ========================================
+
+
+
+# ========================================
+# SCRIPT: secure-environment-manager.sh
+# PATH: scripts/security/secure-environment-manager.sh
+# CATEGORY: unknown
+# REASON: 
+# LINES: 1
+# FUNCTIONS: 0
+0
+# ========================================
+
+
+
+# ========================================
+# SCRIPT: validate-no-keys.sh
+# PATH: scripts/security/validate-no-keys.sh
+# CATEGORY: unknown
+# REASON: 
+# LINES: 1
+# FUNCTIONS: 0
+0
+# ========================================
+
+
+
+# ========================================
+# SCRIPT: bilateral-integration-setup.sh
+# PATH: scripts/setup/bilateral-integration-setup.sh
+# CATEGORY: unknown
+# REASON: 
+# LINES: 1
+# FUNCTIONS: 0
+0
+# ========================================
+
+
+
+# ========================================
+# SCRIPT: optimized-sync-startup.sh
+# PATH: scripts/setup/optimized-sync-startup.sh
+# CATEGORY: unknown
+# REASON: 
+# LINES: 1
+# FUNCTIONS: 0
+0
+# ========================================
+
+
+
+# ========================================
+# SCRIPT: quick-fix-current-issues.sh
+# PATH: scripts/setup/quick-fix-current-issues.sh
+# CATEGORY: unknown
+# REASON: 
+# LINES: 1
+# FUNCTIONS: 0
+0
+# ========================================
+
+
+
+# ========================================
+# SCRIPT: setup-environment.sh
+# PATH: scripts/setup/setup-environment.sh
+# CATEGORY: unknown
+# REASON: 
+# LINES: 1
+# FUNCTIONS: 0
+0
+# ========================================
+
+
+
+# ========================================
+# SCRIPT: workflow-cleanup-manager.sh
+# PATH: scripts/setup/workflow-cleanup-manager.sh
+# CATEGORY: unknown
+# REASON: 
+# LINES: 1
+# FUNCTIONS: 0
+0
+# ========================================
+
+
+
+# ========================================
+# SCRIPT: workflow-status-summary.sh
+# PATH: scripts/setup/workflow-status-summary.sh
+# CATEGORY: unknown
+# REASON: 
+# LINES: 1
+# FUNCTIONS: 0
+0
+# ========================================
+
+
+
+# ========================================
+# SCRIPT: pull-workflows.sh
+# PATH: scripts/sync/pull-workflows.sh
+# CATEGORY: unknown
+# REASON: 
+# LINES: 1
+# FUNCTIONS: 0
+0
+# ========================================
+
+
+
+# ========================================
+# SCRIPT: sync-workflows.sh
+# PATH: scripts/sync/sync-workflows.sh
+# CATEGORY: unknown
+# REASON: 
+# LINES: 1
+# FUNCTIONS: 0
+0
+# ========================================
+
+
+
+# ========================================
+# SCRIPT: comprehensive-integration-test.sh
+# PATH: scripts/test/comprehensive-integration-test.sh
+# CATEGORY: unknown
+# REASON: 
+# LINES: 1
+# FUNCTIONS: 0
+0
+# ========================================
+
+
+
+# ========================================
+# SCRIPT: test-ship-computer-multimodal.sh
+# PATH: scripts/test/test-ship-computer-multimodal.sh
+# CATEGORY: unknown
+# REASON: 
+# LINES: 1
+# FUNCTIONS: 0
+0
+# ========================================
+
+
+
+# ========================================
+# SCRIPT: shakedown-cruise-browser.sh
+# PATH: shakedown-cruise-browser.sh
+# CATEGORY: unknown
+# REASON: 
+# LINES: 1
+# FUNCTIONS: 0
+0
+# ========================================
+
+
+
+# ========================================
+# SCRIPT: test-alexai-llm-integration.sh
+# PATH: test-alexai-llm-integration.sh
+# CATEGORY: unknown
+# REASON: 
+# LINES: 1
+# FUNCTIONS: 0
+0
+# ========================================
+
+
+
+# ========================================
+# SCRIPT: test-connectivity-fixes.sh
+# PATH: test-connectivity-fixes.sh
+# CATEGORY: unknown
+# REASON: 
+# LINES: 1
+# FUNCTIONS: 0
+0
+# ========================================
+
+
+
+# ========================================
+# SCRIPT: test-dynamic-updates.sh
+# PATH: test-dynamic-updates.sh
+# CATEGORY: unknown
+# REASON: 
+# LINES: 1
+# FUNCTIONS: 0
+0
+# ========================================
+
+
+
+# ========================================
+# SCRIPT: test-milestone-comprehensive.sh
+# PATH: test-milestone-comprehensive.sh
+# CATEGORY: unknown
+# REASON: 
+# LINES: 1
+# FUNCTIONS: 0
+0
+# ========================================
+
+
+
+# ========================================
+# SCRIPT: test-n8n-activation-quick.sh
+# PATH: test-n8n-activation-quick.sh
+# CATEGORY: unknown
+# REASON: 
+# LINES: 1
+# FUNCTIONS: 0
+0
+# ========================================
+
+
+
+# ========================================
+# SCRIPT: test-n8n-agents-simple.sh
+# PATH: test-n8n-agents-simple.sh
+# CATEGORY: unknown
+# REASON: 
+# LINES: 1
+# FUNCTIONS: 0
+0
+# ========================================
+
+
+
+# ========================================
+# SCRIPT: test-n8n-agents.sh
+# PATH: test-n8n-agents.sh
+# CATEGORY: unknown
+# REASON: 
+# LINES: 1
+# FUNCTIONS: 0
+0
+# ========================================
+
+
+
+# ========================================
+# SCRIPT: test-n8n-ai-agents-evolution.sh
+# PATH: test-n8n-ai-agents-evolution.sh
+# CATEGORY: unknown
+# REASON: 
+# LINES: 1
+# FUNCTIONS: 0
+0
+# ========================================
+
+
+
+# ========================================
+# SCRIPT: test-sync-system.sh
+# PATH: test-sync-system.sh
+# CATEGORY: unknown
+# REASON: 
+# LINES: 1
+# FUNCTIONS: 0
+0
+# ========================================
+
+
+
+# ========================================
+# SCRIPT: test-ui-local-deployment.sh
+# PATH: test-ui-local-deployment.sh
+# CATEGORY: unknown
+# REASON: 
+# LINES: 1
+# FUNCTIONS: 0
+0
+# ========================================
+
+
+
+# ========================================
+# SCRIPT: test-visual-workflow-editor.sh
+# PATH: test-visual-workflow-editor.sh
+# CATEGORY: unknown
+# REASON: 
+# LINES: 1
+# FUNCTIONS: 0
+0
+# ========================================
+
+
+
+# ========================================
+# SCRIPT: verify-n8n-integration.sh
+# PATH: verify-n8n-integration.sh
+# CATEGORY: unknown
+# REASON: 
+# LINES: 1
+# FUNCTIONS: 0
+0
+# ========================================
+
+
+

@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import fs from 'fs/promises';
 import path from 'path';
 
-export async function GET() {
+export async function getLocalWorkflows(): Promise<any[]> {
   try {
     const workflowsDir = path.join(process.cwd(), 'workflows');
     
@@ -36,26 +36,33 @@ export async function GET() {
         }
       }
       
-      return NextResponse.json({
-        success: true,
-        workflows,
-        count: workflows.length
-      });
+      return workflows;
     } catch (error) {
       // Directory might not exist yet
-      return NextResponse.json({
-        success: true,
-        workflows: [],
-        count: 0
-      });
+      return [];
     }
+  } catch (error) {
+    console.error('Failed to read local workflows:', error);
+    return [];
+  }
+}
+
+export async function GET() {
+  try {
+    const workflows = await getLocalWorkflows();
+    
+    return NextResponse.json({
+      success: true,
+      workflows,
+      count: workflows.length
+    });
   } catch (error) {
     console.error('Failed to read local workflows:', error);
     return NextResponse.json({
       success: false,
-      error: 'Failed to read local workflows',
+      error: 'Failed to load workflows',
       workflows: [],
       count: 0
-    });
+    }, { status: 500 });
   }
 }

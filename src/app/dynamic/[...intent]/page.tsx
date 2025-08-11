@@ -8,13 +8,13 @@ import { useParams, useSearchParams } from 'next/navigation';
 export default function DynamicIntentPage() {
   const params = useParams();
   const searchParams = useSearchParams();
-  const [layoutConfig, setLayoutConfig] = useState(null);
+  const [layoutConfig, setLayoutConfig] = useState<any>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   // Extract intent from URL parameters
   const intentPath = Array.isArray(params.intent) ? params.intent.join('/') : params.intent;
-  const userIntent = searchParams.get('intent') || extractIntentFromPath(intentPath);
+  const userIntent = searchParams.get('intent') || extractIntentFromPath(intentPath || 'default');
   const goalType = searchParams.get('goal') || 'information-seeking';
   const context = {
     projectId: searchParams.get('project'),

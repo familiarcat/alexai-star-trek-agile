@@ -1,8 +1,11 @@
 import '../lcars-workflow.css';
+import type { Viewport } from 'next';
 
-export const metadata = {
-  title: 'LCARS Workflow System - AlexAI Star Trek Agile',
-  description: 'Real-time collaboration workflow system with authentic Star Trek LCARS design',
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 };
 
 export default function WorkflowLayout({
