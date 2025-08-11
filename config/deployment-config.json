@@ -1,0 +1,81 @@
+{
+  "n8n": {
+    "primary": {
+      "name": "Primary n8n Instance",
+      "url": "https://n8n.pbradygeorgen.com",
+      "description": "Single source of truth for all workflow management",
+      "api_key_env": "N8N_API_KEY",
+      "webhook_base": "https://n8n.pbradygeorgen.com/webhook",
+      "api_base": "https://n8n.pbradygeorgen.com/api/v1",
+      "status": "active",
+      "sync_enabled": true,
+      "deployment_target": true
+    }
+  },
+  "deployment": {
+    "strategy": "centralized",
+    "target": "n8n.pbradygeorgen.com",
+    "workflow_directories": [
+      "workflows",
+      "sync-system/workflows"
+    ],
+    "exclude_patterns": [
+      "*.backup.json",
+      "*.test.json",
+      "*.template.json"
+    ],
+    "validation": {
+      "json_syntax": true,
+      "workflow_structure": true,
+      "endpoint_connectivity": true,
+      "crew_endpoints": true
+    },
+    "rollback": {
+      "enabled": true,
+      "snapshot_before_deploy": true,
+      "max_snapshots": 10
+    }
+  },
+  "sync": {
+    "bilateral": {
+      "enabled": true,
+      "real_time": true,
+      "conflict_resolution": "smart",
+      "snapshot_creation": true,
+      "file_watching": true
+    },
+    "workflows": {
+      "auto_sync": true,
+      "sync_interval": 30000,
+      "max_concurrent_syncs": 5
+    }
+  },
+  "monitoring": {
+    "health_checks": {
+      "n8n_connectivity": true,
+      "workflow_status": true,
+      "api_endpoints": true,
+      "sync_status": true
+    },
+    "alerts": {
+      "deployment_failures": true,
+      "sync_errors": true,
+      "connectivity_issues": true
+    }
+  },
+  "crew": {
+    "endpoints": [
+      "captain-picard",
+      "lieutenant-data", 
+      "observation-lounge"
+    ],
+    "testing": {
+      "enabled": true,
+      "test_queries": [
+        "test",
+        "deployment validation",
+        "system status"
+      ]
+    }
+  }
+}

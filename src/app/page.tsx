@@ -47,66 +47,68 @@ interface DashboardStats {
 // Server-side data fetching
 async function getProjects(): Promise<Project[]> {
   try {
-    const res = await fetch('/api/projects', {
-      cache: 'no-store' // Disable caching for real-time data
+    // Use absolute URL to avoid parsing issues
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+    const res = await fetch(`${baseUrl}/api/projects`, {
+      cache: 'no-store'
     });
     
     if (!res.ok) {
-      throw new Error('Failed to fetch projects');
+      throw new Error(`Failed to fetch projects: ${res.status} ${res.statusText}`);
     }
     
     const data = await res.json();
-    return data.projects || [];
+    return data.projects || data || [];
   } catch (error) {
     console.error('Error fetching projects:', error);
-    // Return fallback data
+    // Return fallback data if API fails
     return [
       {
         id: '1',
-        name: 'Enterprise Database Migration',
+        name: 'LCARS Interface Development',
         status: 'active',
         progress: 75,
-        team_size: 4,
+        team_size: 8,
         created_at: '2024-01-15',
         deadline: '2024-03-15',
         priority: 'high'
       },
       {
         id: '2',
-        name: 'LCARS Interface Redesign',
+        name: 'AI Agent Integration',
         status: 'active',
         progress: 45,
-        team_size: 3,
-        created_at: '2024-02-01',
-        deadline: '2024-04-01',
+        team_size: 6,
+        created_at: '2024-01-20',
+        deadline: '2024-04-20',
         priority: 'medium'
       },
       {
         id: '3',
-        name: 'AI Consultation System',
+        name: 'Database Optimization',
         status: 'completed',
         progress: 100,
-        team_size: 5,
-        created_at: '2023-12-01',
-        deadline: '2024-01-31',
-        priority: 'high'
-      },
-      {
-        id: '4',
-        name: 'Security Protocol Update',
-        status: 'pending',
-        progress: 20,
-        team_size: 2,
-        created_at: '2024-02-15',
-        deadline: '2024-05-15',
+        team_size: 4,
+        created_at: '2024-01-10',
+        deadline: '2024-02-10',
         priority: 'low'
       },
       {
+        id: '4',
+        name: 'Security Protocol Implementation',
+        status: 'pending',
+        progress: 0,
+        team_size: 5,
+        created_at: '2024-01-25',
+        deadline: '2024-05-25',
+        priority: 'high'
+      },
+      {
         id: '5',
-        name: 'Performance Optimization',
+        name: 'Performance Monitoring System',
         status: 'active',
-        progress: 60,
-        team_size: 3,
+        progress: 30,
+        team_size: 7,
         created_at: '2024-01-20',
         deadline: '2024-03-20',
         priority: 'medium'
@@ -117,12 +119,14 @@ async function getProjects(): Promise<Project[]> {
 
 async function getDashboardStats(): Promise<DashboardStats> {
   try {
-    const res = await fetch('/api/dashboard/stats', {
+    // Use absolute URL to avoid parsing issues
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+    const res = await fetch(`${baseUrl}/api/dashboard/stats`, {
       cache: 'no-store'
     });
     
     if (!res.ok) {
-      throw new Error('Failed to fetch dashboard stats');
+      throw new Error(`Failed to fetch dashboard stats: ${res.status} ${res.statusText}`);
     }
     
     const data = await res.json();
@@ -141,6 +145,7 @@ async function getDashboardStats(): Promise<DashboardStats> {
     };
   } catch (error) {
     console.error('Error fetching dashboard stats:', error);
+    // Return fallback data if API fails
     return {
       total_projects: 5,
       active_projects: 3,

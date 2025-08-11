@@ -4,8 +4,8 @@ export async function POST(request: Request) {
   try {
     const requestData = await request.json();
     
-    // Prepare the request for the n8n webhook
-    const n8nRequest = {
+    // Prepare the request for the local fallback webhook
+    const webhookRequest = {
       query: requestData.query || requestData.meetingType || 'General crew coordination',
       context: requestData.context || requestData.projectContext || 'crew-meeting',
       userRole: requestData.userRole || 'user',
@@ -15,72 +15,118 @@ export async function POST(request: Request) {
       interfacePrefs: requestData.interfacePrefs || 'standard'
     };
 
-    // Get n8n configuration from environment
-    const n8nBaseUrl = process.env.N8N_BASE_URL || 'https://n8n.pbradygeorgen.com';
+    // Use local fallback webhook instead of n8n
+    const localWebhookUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
     
-         // Call the n8n webhook endpoint (using the working test webhook for now)
-     const n8nResponse = await fetch(`${n8nBaseUrl}/webhook/test-endpoint`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(n8nRequest)
-    });
+    try {
+      // Call the local fallback webhook endpoint
+      const webhookResponse = await fetch(`${localWebhookUrl}/api/webhook/crew-request`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(webhookRequest)
+      });
 
-    if (!n8nResponse.ok) {
-      throw new Error(`n8n webhook failed: ${n8nResponse.status} ${n8nResponse.statusText}`);
+      if (webhookResponse.ok) {
+        const webhookData = await webhookResponse.json();
+        
+        // Return the webhook response
+        return NextResponse.json({
+          success: true,
+          source: 'local-fallback-webhook',
+          data: webhookData,
+          timestamp: new Date().toISOString()
+        });
+      } else {
+        throw new Error(`Local webhook failed: ${webhookResponse.status} ${webhookResponse.statusText}`);
+      }
+      
+    } catch (webhookError) {
+      // If local webhook fails, fall back to mock data
+      console.warn('Local webhook failed, using mock data:', webhookError);
+      
+      const mockResponse = {
+        meetingType: 'fallback-crew-meeting',
+        crewReports: {
+          captainPicard: {
+            strategicOverview: "Fallback mode activated. The crew is assembled for project review.",
+            missionObjectives: [
+              "Complete n8n workflow integration",
+              "Validate crew coordination systems",
+              "Prepare for production deployment"
+            ]
+          },
+          lieutenantData: {
+            technicalStatus: "Fallback systems operational. Technical integration proceeding.",
+            performanceMetrics: {
+              responseTime: "fallback mode",
+              accuracy: "fallback mode",
+              reliability: "fallback mode"
+            }
+          }
+        },
+        collectiveDecision: {
+          consensus: "Fallback mode: Proceed with n8n workflow testing.",
+          actionItems: [
+            "Complete n8n workflow integration testing",
+            "Validate all crew member responses"
+          ]
+        },
+        timestamp: new Date().toISOString(),
+        meetingId: `fallback-meeting-${Date.now()}`,
+        source: 'mock-fallback'
+      };
+      
+      return NextResponse.json({
+        response: mockResponse,
+        fallback: true,
+        error: 'Local webhook unavailable, using mock data'
+      }, { status: 503 });
     }
-
-    const n8nData = await n8nResponse.json();
-    
-    // Return the n8n response
-    return NextResponse.json({
-      success: true,
-      source: 'n8n-webhook',
-      data: n8nData,
-      timestamp: new Date().toISOString()
-    });
     
   } catch (error) {
     console.error('Observation lounge error:', error);
     
-    // Fallback to mock data if n8n is unavailable
+    // Final fallback to mock data if everything fails
     const fallbackResponse = {
-      meetingType: 'fallback-crew-meeting',
+      meetingType: 'emergency-fallback',
       crewReports: {
         captainPicard: {
-          strategicOverview: "Fallback mode activated. The crew is assembled for project review.",
+          strategicOverview: "Emergency fallback mode. Crew coordination proceeding with basic protocols.",
           missionObjectives: [
-            "Complete n8n workflow integration",
-            "Validate crew coordination systems",
-            "Prepare for production deployment"
+            "Restore system functionality",
+            "Implement emergency protocols",
+            "Coordinate crew response"
           ]
         },
         lieutenantData: {
-          technicalStatus: "Fallback systems operational. Technical integration proceeding.",
+          technicalStatus: "Emergency systems operational. Basic functionality restored.",
           performanceMetrics: {
-            responseTime: "fallback mode",
-            accuracy: "fallback mode",
-            reliability: "fallback mode"
+            responseTime: "emergency mode",
+            accuracy: "basic",
+            reliability: "degraded"
           }
         }
       },
       collectiveDecision: {
-        consensus: "Fallback mode: Proceed with n8n workflow testing.",
+        consensus: "Emergency mode: Implement basic crew coordination protocols.",
         actionItems: [
-          "Complete n8n workflow integration testing",
-          "Validate all crew member responses"
+          "Restore basic functionality",
+          "Implement emergency protocols",
+          "Coordinate with engineering"
         ]
       },
       timestamp: new Date().toISOString(),
-      meetingId: `fallback-meeting-${Date.now()}`,
-      error: error instanceof Error ? error.message : 'Unknown error'
+      meetingId: `emergency-meeting-${Date.now()}`,
+      error: error instanceof Error ? error.message : 'Unknown error',
+      source: 'emergency-fallback'
     };
     
     return NextResponse.json({
       response: fallbackResponse,
       fallback: true,
-      error: 'n8n webhook unavailable, using fallback data'
+      error: 'System error, using emergency fallback data'
     }, { status: 503 });
   }
 }

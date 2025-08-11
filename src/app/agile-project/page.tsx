@@ -5,7 +5,7 @@ import AgileKanbanBoard from '@/components/AgileKanbanBoard';
 
 export default function AgileProjectPage() {
   const [isLoading, setIsLoading] = useState(true);
-  const [projectData, setProjectData] = useState(null);
+  const [projectData, setProjectData] = useState<any>(null);
   const [crewStatus, setCrewStatus] = useState('connecting');
 
   useEffect(() => {

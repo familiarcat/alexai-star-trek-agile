@@ -1,0 +1,69 @@
+{
+  "name": "AlexAI Crew Request Webhook",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "crew-request",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "crew-request-webhook",
+      "name": "Crew Request Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [240, 300],
+      "webhookId": "crew-request"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Process crew request and route to appropriate crew member\nconst request = $input.first().json;\n\n// Extract request parameters\nconst query = request.query || 'General crew coordination';\nconst context = request.context || 'crew-meeting';\nconst userRole = request.userRole || 'user';\nconst urgency = request.urgency || 'normal';\nconst complexity = request.complexity || 'medium';\nconst mission = request.mission || 'crew-coordination';\n\n// Analyze request and determine best crew member\nlet selectedCrew = 'captain-picard'; // default\nlet reasoning = 'Strategic overview and command decisions';\nlet priority = 'normal';\nlet uiLayout = 'standard-lcars';\n\n// Route based on request characteristics\nif (query.toLowerCase().includes('technical') || query.toLowerCase().includes('engineering')) {\n  selectedCrew = 'lieutenant-data';\n  reasoning = 'Technical analysis and engineering solutions';\n  uiLayout = 'technical-analysis';\n} else if (query.toLowerCase().includes('emotional') || query.toLowerCase().includes('psychological')) {\n  selectedCrew = 'counselor-troi';\n  reasoning = 'Emotional intelligence and psychological insights';\n  uiLayout = 'counseling-interface';\n} else if (query.toLowerCase().includes('security') || query.toLowerCase().includes('tactical')) {\n  selectedCrew = 'lieutenant-worf';\n  reasoning = 'Security protocols and tactical analysis';\n  uiLayout = 'security-tactical';\n} else if (query.toLowerCase().includes('crew') || query.toLowerCase().includes('coordination')) {\n  selectedCrew = 'observation-lounge';\n  reasoning = 'Crew coordination and collective decision making';\n  uiLayout = 'crew-coordination';\n}\n\n// Set priority based on urgency\nif (urgency === 'critical') priority = 'critical';\nelse if (urgency === 'high') priority = 'high';\nelse if (urgency === 'low') priority = 'low';\n\n// Prepare crew response\nconst crewResponse = {\n  meetingType: 'crew-request-analysis',\n  selectedCrew: selectedCrew,\n  reasoning: reasoning,\n  priority: priority,\n  uiLayout: uiLayout,\n  request: {\n    query: query,\n    context: context,\n    userRole: userRole,\n    urgency: urgency,\n    complexity: complexity,\n    mission: mission\n  },\n  crewReports: {\n    [selectedCrew]: {\n      strategicOverview: `Crew member ${selectedCrew} selected for: ${reasoning}`,\n      missionObjectives: [\n        `Process ${complexity} complexity request`,\n        `Apply ${urgency} priority protocols`,\n        `Execute ${mission} mission parameters`\n      ]\n    }\n  },\n  collectiveDecision: {\n    consensus: `Request routed to ${selectedCrew} for ${reasoning}`,\n    actionItems: [\n      `Engage ${selectedCrew} for primary response`,\n      `Apply ${priority} priority protocols`,\n      `Configure ${uiLayout} interface layout`\n    ]\n  },\n  timestamp: new Date().toISOString(),\n  meetingId: `crew-request-${Date.now()}`\n};\n\nreturn crewResponse;"
+      },
+      "id": "crew-request-processor",
+      "name": "Crew Request Processor",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [480, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {}
+      },
+      "id": "crew-response",
+      "name": "Crew Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [720, 300]
+    }
+  ],
+  "connections": {
+    "Crew Request Webhook": {
+      "main": [
+        [
+          {
+            "node": "Crew Request Processor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Crew Request Processor": {
+      "main": [
+        [
+          {
+            "node": "Crew Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null
+}

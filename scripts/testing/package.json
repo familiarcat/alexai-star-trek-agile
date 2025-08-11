@@ -1,0 +1,41 @@
+{
+  "name": "n8n-workflow-testing-system",
+  "version": "1.0.0",
+  "description": "Comprehensive testing and cleanup system for N8N workflows",
+  "main": "test-orchestrator.js",
+  "scripts": {
+    "test:all": "node test-orchestrator.js complete",
+    "test:workflows": "node test-orchestrator.js phase testing",
+    "test:cleanup": "node test-orchestrator.js phase cleanup",
+    "test:analysis": "node test-orchestrator.js phase analysis",
+    "test:orchestrator": "node test-orchestrator.js",
+    "test:system": "node workflow-testing-system.js",
+    "test:cleanup-manager": "node workflow-cleanup-manager.js",
+    "test:quick": "node test-orchestrator.js complete --no-cleanup",
+    "test:cleanup-only": "node test-orchestrator.js complete --no-testing",
+    "test:non-interactive": "node test-orchestrator.js complete --non-interactive",
+    "test:no-save": "node test-orchestrator.js complete --no-save",
+    "start": "node test-orchestrator.js complete",
+    "help": "echo 'Available commands: test:all, test:workflows, test:cleanup, test:analysis, test:quick, test:cleanup-only'"
+  },
+  "keywords": [
+    "n8n",
+    "workflow",
+    "testing",
+    "automation",
+    "cleanup",
+    "orchestration"
+  ],
+  "author": "AlexAI Team",
+  "license": "MIT",
+  "dependencies": {
+    "node-fetch": "^3.3.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bradygeorgen/alexai_katra_transfer_package_remote_v7"
+  }
+}

@@ -10,16 +10,18 @@
     "changeDetection": "fileWatcher",
     "minSyncInterval": 120,
     "maxSyncInterval": 1800,
-    "adaptiveSync": true
+    "adaptiveSync": true,
+    "batchSize": 5,
+    "maxConcurrentSyncs": 2
   },
   "n8n": {
     "baseUrl": "https://n8n.pbradygeorgen.com",
-    "apiKey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmZTVmMmJmOC1lM2Y3LTQ3ZWQtOTcxNS05NWY5MTQyYWNmZjMiLCJpc3MiOiJuOG4iLCJhdWQiOiJwdWJsaWMtYXBpIiwiaWF0IjoxNzU0MDc1ODg1fQ.pXKH1LeqgifzEP5cSUaZhYFDwJLfeLVSVS0XjiS8NOE",
+    "apiKey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmZTVmMmJmOC1lM2Y3LTQ3ZWQtOTFxNS05NWY5MTQyYWNmZjMiLCJpc3MiOiJuOG4iLCJhdWQiOiJwdWJsaWMtYXBpIiwiaWF0IjoxNzU0MDc1ODg1fQ.pXKH1LeqgifzEP5cSUaZhYFDwJLfeLVSVS0XjiS8NOE",
     "webhookBase": "https://n8n.pbradygeorgen.com/webhook",
     "autoActivate": true,
     "healthCheck": true,
     "retryAttempts": 3,
-    "timeout": 30000
+    "timeout": 20000
   },
   "cursor": {
     "workflowPath": "workflows",
@@ -35,20 +37,33 @@
       "Crew*",
       "Coordination*",
       "Bilateral*",
-      "Evolution*"
+      "Evolution*",
+      "Ship*",
+      "Multimodal*",
+      "Enhanced*",
+      "Complete*"
     ],
     "exclude": [
       "test*",
       "temp*",
       "backup*",
-      "*.tmp"
+      "*.tmp",
+      "demo*"
     ],
     "priority": [
       "alexai-complete-crew-workflow.json",
+      "alexai-enhanced-ship-agency-multi-llm-crew-orchestration.json",
+      "alexai-multimodal-agency-openrouter.json",
       "alexai-bilateral-learning-workflow.json",
-      "alexai-crew-coordination.json"
+      "alexai-crew-coordination.json",
+      "alexai-enhanced-ai-insights-workflow.json"
     ],
-    "autoDeploy": true
+    "autoDeploy": true,
+    "agentTypes": {
+      "crew": ["captain-picard", "lieutenant-data", "counselor-troi", "chief-engineer-scott", "commander-spock", "lieutenant-worf", "observation-lounge"],
+      "specialized": ["ships-computer", "multimodal-agency", "bilateral-learning", "enhanced-knowledge", "dynamic-update"],
+      "orchestration": ["crew-coordination", "ship-agency", "llm-orchestration"]
+    }
   },
   "security": {
     "autoUpdateCredentials": true,
@@ -60,13 +75,13 @@
   },
   "monitoring": {
     "enableLogging": true,
-    "logLevel": "warn",
+    "logLevel": "info",
     "enableMetrics": true,
     "alertOnFailure": true,
     "syncHistory": true,
     "performanceTracking": true,
-    "logRetention": 7,
-    "maxLogEntries": 1000
+    "logRetention": 14,
+    "maxLogEntries": 200
   },
   "conflictResolution": {
     "strategy": "smart",
@@ -74,6 +89,72 @@
     "manualReview": false,
     "backupBeforeResolve": true,
     "mergeStrategy": "timestamp"
+  },
+  "agents": {
+    "crew": {
+      "captain-picard": {
+        "role": "strategic-leadership",
+        "llm": "anthropic/claude-3.5-sonnet",
+        "specialization": "mission-strategy",
+        "priority": "high"
+      },
+      "lieutenant-data": {
+        "role": "technical-analysis",
+        "llm": "gpt-4",
+        "specialization": "data-processing",
+        "priority": "high"
+      },
+      "counselor-troi": {
+        "role": "emotional-intelligence",
+        "llm": "anthropic/claude-3.5-sonnet",
+        "specialization": "human-factors",
+        "priority": "medium"
+      },
+      "chief-engineer-scott": {
+        "role": "engineering-solutions",
+        "llm": "anthropic/claude-3.5-sonnet",
+        "specialization": "technical-implementation",
+        "priority": "high"
+      },
+      "commander-spock": {
+        "role": "logical-analysis",
+        "llm": "gpt-4",
+        "specialization": "scientific-reasoning",
+        "priority": "high"
+      },
+      "lieutenant-worf": {
+        "role": "tactical-security",
+        "llm": "anthropic/claude-3.5-sonnet",
+        "specialization": "security-analysis",
+        "priority": "medium"
+      },
+      "observation-lounge": {
+        "role": "comprehensive-analysis",
+        "llm": "gpt-4",
+        "specialization": "holistic-synthesis",
+        "priority": "high"
+      }
+    },
+    "specialized": {
+      "ships-computer": {
+        "role": "mission-orchestration",
+        "llm": "anthropic/claude-3.5-sonnet",
+        "specialization": "system-coordination",
+        "priority": "critical"
+      },
+      "multimodal-agency": {
+        "role": "multimodal-processing",
+        "llm": "gpt-4",
+        "specialization": "cross-modal-analysis",
+        "priority": "high"
+      },
+      "bilateral-learning": {
+        "role": "adaptive-learning",
+        "llm": "anthropic/claude-3.5-sonnet",
+        "specialization": "continuous-improvement",
+        "priority": "high"
+      }
+    }
   },
   "lastSync": {
     "timestamp": "2025-08-10T23:06:57.021Z",

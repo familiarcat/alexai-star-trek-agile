@@ -1,0 +1,68 @@
+{
+  "name": "AlexAI Crew Request Webhook",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "crew-request",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-trigger",
+      "name": "Crew Request Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [240, 300],
+      "webhookId": "crew-request"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Process crew request and determine appropriate crew member\nconst request = $input.first().json;\nconst { query, context, userRole, urgency, complexity, mission, interfacePrefs } = request;\n\n// Crew member selection logic\nlet selectedCrew = 'captain-picard'; // default\nlet reasoning = 'Default selection for general requests';\n\nif (context === 'technical' || context === 'engineering') {\n  selectedCrew = 'lieutenant-data';\n  reasoning = 'Technical context requires Data\\'s analytical capabilities';\n} else if (context === 'security' || context === 'tactical') {\n  selectedCrew = 'lieutenant-worf';\n  reasoning = 'Security context requires Worf\\'s tactical expertise';\n} else if (context === 'counseling' || context === 'diplomatic') {\n  selectedCrew = 'counselor-troi';\n  reasoning = 'Counseling context requires Troi\\'s empathic abilities';\n} else if (context === 'engineering' || context === 'systems') {\n  selectedCrew = 'chief-engineer-scott';\n  reasoning = 'Engineering context requires Scotty\\'s technical knowledge';\n} else if (context === 'strategic' || context === 'command') {\n  selectedCrew = 'captain-picard';\n  reasoning = 'Strategic context requires Picard\\'s leadership';\n} else if (context === 'crew-meeting' || context === 'coordination') {\n  selectedCrew = 'observation-lounge';\n  reasoning = 'Crew coordination requires observation lounge meeting';\n}\n\n// Prepare crew response\nconst crewResponse = {\n  selectedCrew,\n  reasoning,\n  request: {\n    query,\n    context,\n    userRole,\n    urgency,\n    complexity,\n    mission,\n    interfacePrefs\n  },\n  timestamp: new Date().toISOString(),\n  webhookId: 'crew-request'\n};\n\nreturn crewResponse;"
+      },
+      "id": "crew-selector",
+      "name": "Crew Member Selector",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [480, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {}
+      },
+      "id": "response-formatter",
+      "name": "Response Formatter",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [720, 300]
+    }
+  ],
+  "connections": {
+    "Crew Request Webhook": {
+      "main": [
+        [
+          {
+            "node": "Crew Member Selector",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Crew Member Selector": {
+      "main": [
+        [
+          {
+            "node": "Response Formatter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

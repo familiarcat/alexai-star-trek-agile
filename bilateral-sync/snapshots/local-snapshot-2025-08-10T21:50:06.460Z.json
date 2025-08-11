@@ -1,0 +1,63 @@
+{
+  "timestamp": "2025-08-10T21:50:06.460Z",
+  "source": "local",
+  "count": 14,
+  "workflows": [
+    {
+      "name": "AlexAI Complete Crew Coordination Workflow",
+      "_localFile": "alexai-complete-crew-workflow.json"
+    },
+    {
+      "name": "AlexAI Crew Coordination Workflow",
+      "_localFile": "alexai-crew-coordination.json"
+    },
+    {
+      "name": "AlexAI Enhanced AI Insights Workflow",
+      "_localFile": "alexai-enhanced-ai-insights-workflow.json"
+    },
+    {
+      "name": "AlexAI Enhanced Current Workflow",
+      "_localFile": "alexai-enhanced-current-workflow.json"
+    },
+    {
+      "name": "AlexAI Optimized Crew Coordination",
+      "_localFile": "alexai-optimized-crew-coordination-fixed.json"
+    },
+    {
+      "name": "AlexAI Optimized Crew Coordination",
+      "_localFile": "alexai-optimized-crew-coordination.json"
+    },
+    {
+      "name": "AlexAI Simplified Crew Coordination",
+      "_localFile": "alexai-simplified-crew-coordination.json"
+    },
+    {
+      "name": "AlexAI Simplified Crew Coordination",
+      "_localFile": "alexai-simplified-crew-workflow.json"
+    },
+    {
+      "name": "Build Your First AI Agent",
+      "_localFile": "build-your-first-ai-agent.json"
+    },
+    {
+      "name": "Demo: My first AI Agent in n8n",
+      "_localFile": "demo--my-first-ai-agent-in-n8n.json"
+    },
+    {
+      "name": "My workflow 2",
+      "_localFile": "my-workflow-2.json"
+    },
+    {
+      "name": "My workflow",
+      "_localFile": "my-workflow.json"
+    },
+    {
+      "name": "Screenplay",
+      "_localFile": "screenplay.json"
+    },
+    {
+      "name": "Simple Crew Workflow",
+      "_localFile": "simple-crew-workflow.json"
+    }
+  ]
+}

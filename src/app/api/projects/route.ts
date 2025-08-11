@@ -1,91 +1,83 @@
 import { NextResponse } from 'next/server';
-import { db } from '@/lib/supabase';
 
 export async function GET() {
   try {
-    const projects = await db.getProjects();
-    
-    // Transform database projects to match page interface
-    const transformedProjects = projects.map(project => ({
-      id: project.id,
-      name: project.name,
-      status: project.status,
-      progress: project.status === 'completed' ? 100 : 
-                project.status === 'active' ? Math.floor(Math.random() * 40) + 30 : 
-                project.status === 'pending' ? Math.floor(Math.random() * 30) + 10 : 0,
-      team_size: Array.isArray(project.team_members) ? project.team_members.length : 1,
-      created_at: project.created_at,
-      deadline: project.updated_at, // Use updated_at as deadline for now
-      priority: project.status === 'active' ? 'high' : 
-                project.status === 'completed' ? 'medium' : 'low'
-    }));
-    
-    return NextResponse.json({
-      success: true,
-      projects: transformedProjects
-    });
-  } catch (error) {
-    console.error('Error fetching projects:', error);
-    
-    // Fallback to mock data if database is not available
-    const fallbackProjects = [
+    // Mock projects data for now
+    // In production, this would fetch from a database or external service
+    const projects = [
       {
         id: '1',
-        name: 'Enterprise Database Migration',
+        name: 'LCARS Interface Development',
         status: 'active',
         progress: 75,
-        team_size: 4,
+        team_size: 8,
         created_at: '2024-01-15',
         deadline: '2024-03-15',
-        priority: 'high'
+        priority: 'high',
+        description: 'Modern LCARS interface development for Star Trek applications'
       },
       {
         id: '2',
-        name: 'LCARS Interface Redesign',
+        name: 'AI Agent Integration',
         status: 'active',
         progress: 45,
-        team_size: 3,
-        created_at: '2024-02-01',
-        deadline: '2024-04-01',
-        priority: 'medium'
+        team_size: 6,
+        created_at: '2024-01-20',
+        deadline: '2024-04-20',
+        priority: 'medium',
+        description: 'Integration of AI agents for crew coordination and decision making'
       },
       {
         id: '3',
-        name: 'AI Consultation System',
+        name: 'Database Optimization',
         status: 'completed',
         progress: 100,
-        team_size: 5,
-        created_at: '2023-12-01',
-        deadline: '2024-01-31',
-        priority: 'high'
+        team_size: 4,
+        created_at: '2024-01-10',
+        deadline: '2024-02-10',
+        priority: 'low',
+        description: 'Performance optimization of the main database systems'
       },
       {
         id: '4',
-        name: 'Security Protocol Update',
+        name: 'Security Protocol Implementation',
         status: 'pending',
-        progress: 20,
-        team_size: 2,
-        created_at: '2024-02-15',
-        deadline: '2024-05-15',
-        priority: 'low'
+        progress: 0,
+        team_size: 5,
+        created_at: '2024-01-25',
+        deadline: '2024-05-25',
+        priority: 'high',
+        description: 'Enhanced security protocols for the Enterprise systems'
       },
       {
         id: '5',
-        name: 'Performance Optimization',
+        name: 'Performance Monitoring System',
         status: 'active',
-        progress: 60,
-        team_size: 3,
+        progress: 30,
+        team_size: 7,
         created_at: '2024-01-20',
         deadline: '2024-03-20',
-        priority: 'medium'
+        priority: 'medium',
+        description: 'Real-time performance monitoring and alerting system'
       }
     ];
 
     return NextResponse.json({
       success: true,
-      projects: fallbackProjects,
-      note: 'Using fallback data - database connection not configured'
+      projects,
+      total: projects.length,
+      timestamp: new Date().toISOString()
     });
+    
+  } catch (error) {
+    console.error('Projects API error:', error);
+    
+    return NextResponse.json({
+      success: false,
+      error: 'Failed to fetch projects',
+      projects: [],
+      total: 0
+    }, { status: 500 });
   }
 }
 
