@@ -1,0 +1,1871 @@
+{
+  "projectStructure": {
+    "name": "Weekly Execution Plan - $10,000 Revenue Goal",
+    "description": "Systematic 7-day sprint to achieve $10,000 revenue with zero budget",
+    "startDate": "2025-01-13",
+    "endDate": "2025-01-19",
+    "phases": [
+      {
+        "name": "Phase 1: Foundation & Setup",
+        "days": [
+          "Monday"
+        ],
+        "focus": "Business foundation and digital presence",
+        "revenueTarget": "$0",
+        "tasks": []
+      },
+      {
+        "name": "Phase 2: Content & Networking",
+        "days": [
+          "Tuesday"
+        ],
+        "focus": "Content creation and relationship building",
+        "revenueTarget": "$0",
+        "tasks": []
+      },
+      {
+        "name": "Phase 3: Service Delivery Prep",
+        "days": [
+          "Wednesday"
+        ],
+        "focus": "Service refinement and client preparation",
+        "revenueTarget": "$0",
+        "tasks": []
+      },
+      {
+        "name": "Phase 4: First Revenue Generation",
+        "days": [
+          "Thursday"
+        ],
+        "focus": "Client delivery and revenue generation",
+        "revenueTarget": "$500-$1,250",
+        "tasks": []
+      },
+      {
+        "name": "Phase 5: Scaling & Optimization",
+        "days": [
+          "Friday"
+        ],
+        "focus": "Process scaling and optimization",
+        "revenueTarget": "$750-$2,000",
+        "tasks": []
+      },
+      {
+        "name": "Phase 6: Weekend Momentum",
+        "days": [
+          "Saturday"
+        ],
+        "focus": "Content creation and strategic planning",
+        "revenueTarget": "$500-$1,500",
+        "tasks": []
+      },
+      {
+        "name": "Phase 7: Reflection & Planning",
+        "days": [
+          "Sunday"
+        ],
+        "focus": "Week review and next week planning",
+        "revenueTarget": "$0",
+        "tasks": []
+      }
+    ]
+  },
+  "dailyTasks": [
+    {
+      "id": "task-monday-morning-1",
+      "title": "Choose business name and commit to it",
+      "description": "Morning task for Monday - Foundation & Setup",
+      "day": "Monday",
+      "date": "2025-01-13",
+      "timeSlot": "Morning (8:00 AM - 12:00 PM)",
+      "duration": "1 hour",
+      "priority": "High",
+      "status": "Pending",
+      "phase": "Phase 1: Foundation & Setup",
+      "revenueTarget": "$0",
+      "dependencies": [],
+      "assignee": "You",
+      "category": "Execution",
+      "tags": [
+        "monday",
+        "morning",
+        "foundation-&-setup"
+      ]
+    },
+    {
+      "id": "task-monday-morning-2",
+      "title": "Set up free business email (Gmail)",
+      "description": "Morning task for Monday - Foundation & Setup",
+      "day": "Monday",
+      "date": "2025-01-13",
+      "timeSlot": "Morning (8:00 AM - 12:00 PM)",
+      "duration": "1 hour",
+      "priority": "High",
+      "status": "Pending",
+      "phase": "Phase 1: Foundation & Setup",
+      "revenueTarget": "$0",
+      "dependencies": [],
+      "assignee": "You",
+      "category": "Execution",
+      "tags": [
+        "monday",
+        "morning",
+        "foundation-&-setup"
+      ]
+    },
+    {
+      "id": "task-monday-morning-3",
+      "title": "Create professional email signature",
+      "description": "Morning task for Monday - Foundation & Setup",
+      "day": "Monday",
+      "date": "2025-01-13",
+      "timeSlot": "Morning (8:00 AM - 12:00 PM)",
+      "duration": "1 hour",
+      "priority": "High",
+      "status": "Pending",
+      "phase": "Phase 1: Foundation & Setup",
+      "revenueTarget": "$0",
+      "dependencies": [],
+      "assignee": "You",
+      "category": "Execution",
+      "tags": [
+        "monday",
+        "morning",
+        "foundation-&-setup"
+      ]
+    },
+    {
+      "id": "task-monday-morning-4",
+      "title": "Set up email folders for organization",
+      "description": "Morning task for Monday - Foundation & Setup",
+      "day": "Monday",
+      "date": "2025-01-13",
+      "timeSlot": "Morning (8:00 AM - 12:00 PM)",
+      "duration": "1 hour",
+      "priority": "High",
+      "status": "Pending",
+      "phase": "Phase 1: Foundation & Setup",
+      "revenueTarget": "$0",
+      "dependencies": [],
+      "assignee": "You",
+      "category": "Execution",
+      "tags": [
+        "monday",
+        "morning",
+        "foundation-&-setup"
+      ]
+    },
+    {
+      "id": "task-monday-afternoon-1",
+      "title": "Write and publish first LinkedIn post",
+      "description": "Afternoon task for Monday - Foundation & Setup",
+      "day": "Monday",
+      "date": "2025-01-13",
+      "timeSlot": "Afternoon (1:00 PM - 5:00 PM)",
+      "duration": "1 hour",
+      "priority": "High",
+      "status": "Pending",
+      "phase": "Phase 1: Foundation & Setup",
+      "revenueTarget": "$0",
+      "dependencies": [],
+      "assignee": "You",
+      "category": "Execution",
+      "tags": [
+        "monday",
+        "afternoon",
+        "foundation-&-setup"
+      ]
+    },
+    {
+      "id": "task-monday-afternoon-2",
+      "title": "Create first Twitter thread (6 tweets)",
+      "description": "Afternoon task for Monday - Foundation & Setup",
+      "day": "Monday",
+      "date": "2025-01-13",
+      "timeSlot": "Afternoon (1:00 PM - 5:00 PM)",
+      "duration": "1 hour",
+      "priority": "High",
+      "status": "Pending",
+      "phase": "Phase 1: Foundation & Setup",
+      "revenueTarget": "$0",
+      "dependencies": [],
+      "assignee": "You",
+      "category": "Execution",
+      "tags": [
+        "monday",
+        "afternoon",
+        "foundation-&-setup"
+      ]
+    },
+    {
+      "id": "task-monday-afternoon-3",
+      "title": "Start first blog post draft",
+      "description": "Afternoon task for Monday - Foundation & Setup",
+      "day": "Monday",
+      "date": "2025-01-13",
+      "timeSlot": "Afternoon (1:00 PM - 5:00 PM)",
+      "duration": "1 hour",
+      "priority": "High",
+      "status": "Pending",
+      "phase": "Phase 1: Foundation & Setup",
+      "revenueTarget": "$0",
+      "dependencies": [],
+      "assignee": "You",
+      "category": "Execution",
+      "tags": [
+        "monday",
+        "afternoon",
+        "foundation-&-setup"
+      ]
+    },
+    {
+      "id": "task-monday-afternoon-4",
+      "title": "Set up content calendar",
+      "description": "Afternoon task for Monday - Foundation & Setup",
+      "day": "Monday",
+      "date": "2025-01-13",
+      "timeSlot": "Afternoon (1:00 PM - 5:00 PM)",
+      "duration": "1 hour",
+      "priority": "High",
+      "status": "Pending",
+      "phase": "Phase 1: Foundation & Setup",
+      "revenueTarget": "$0",
+      "dependencies": [],
+      "assignee": "You",
+      "category": "Execution",
+      "tags": [
+        "monday",
+        "afternoon",
+        "foundation-&-setup"
+      ]
+    },
+    {
+      "id": "task-monday-evening-1",
+      "title": "Review tomorrow's tasks",
+      "description": "Evening task for Monday - Planning and preparation",
+      "day": "Monday",
+      "date": "2025-01-13",
+      "timeSlot": "Evening (7:00 PM - 9:00 PM)",
+      "duration": "30 minutes",
+      "priority": "Medium",
+      "status": "Pending",
+      "phase": "Phase 1: Foundation & Setup",
+      "revenueTarget": "$0",
+      "dependencies": [],
+      "assignee": "You",
+      "category": "Planning",
+      "tags": [
+        "monday",
+        "evening",
+        "planning"
+      ]
+    },
+    {
+      "id": "task-monday-evening-2",
+      "title": "Prepare content for Tuesday",
+      "description": "Evening task for Monday - Planning and preparation",
+      "day": "Monday",
+      "date": "2025-01-13",
+      "timeSlot": "Evening (7:00 PM - 9:00 PM)",
+      "duration": "30 minutes",
+      "priority": "Medium",
+      "status": "Pending",
+      "phase": "Phase 1: Foundation & Setup",
+      "revenueTarget": "$0",
+      "dependencies": [],
+      "assignee": "You",
+      "category": "Planning",
+      "tags": [
+        "monday",
+        "evening",
+        "planning"
+      ]
+    },
+    {
+      "id": "task-monday-evening-3",
+      "title": "Update project management system",
+      "description": "Evening task for Monday - Planning and preparation",
+      "day": "Monday",
+      "date": "2025-01-13",
+      "timeSlot": "Evening (7:00 PM - 9:00 PM)",
+      "duration": "30 minutes",
+      "priority": "Medium",
+      "status": "Pending",
+      "phase": "Phase 1: Foundation & Setup",
+      "revenueTarget": "$0",
+      "dependencies": [],
+      "assignee": "You",
+      "category": "Planning",
+      "tags": [
+        "monday",
+        "evening",
+        "planning"
+      ]
+    },
+    {
+      "id": "task-monday-evening-4",
+      "title": "Set iCal reminders for tomorrow",
+      "description": "Evening task for Monday - Planning and preparation",
+      "day": "Monday",
+      "date": "2025-01-13",
+      "timeSlot": "Evening (7:00 PM - 9:00 PM)",
+      "duration": "30 minutes",
+      "priority": "Medium",
+      "status": "Pending",
+      "phase": "Phase 1: Foundation & Setup",
+      "revenueTarget": "$0",
+      "dependencies": [],
+      "assignee": "You",
+      "category": "Planning",
+      "tags": [
+        "monday",
+        "evening",
+        "planning"
+      ]
+    },
+    {
+      "id": "task-tuesday-morning-1",
+      "title": "Complete blog post from Monday",
+      "description": "Morning task for Tuesday - Content & Networking",
+      "day": "Tuesday",
+      "date": "2025-01-14",
+      "timeSlot": "Morning (8:00 AM - 12:00 PM)",
+      "duration": "1 hour",
+      "priority": "High",
+      "status": "Pending",
+      "phase": "Phase 2: Content & Networking",
+      "revenueTarget": "$0",
+      "dependencies": [],
+      "assignee": "You",
+      "category": "Execution",
+      "tags": [
+        "tuesday",
+        "morning",
+        "content-&-networking"
+      ]
+    },
+    {
+      "id": "task-tuesday-morning-2",
+      "title": "Create Tuesday LinkedIn post",
+      "description": "Morning task for Tuesday - Content & Networking",
+      "day": "Tuesday",
+      "date": "2025-01-14",
+      "timeSlot": "Morning (8:00 AM - 12:00 PM)",
+      "duration": "1 hour",
+      "priority": "High",
+      "status": "Pending",
+      "phase": "Phase 2: Content & Networking",
+      "revenueTarget": "$0",
+      "dependencies": [],
+      "assignee": "You",
+      "category": "Execution",
+      "tags": [
+        "tuesday",
+        "morning",
+        "content-&-networking"
+      ]
+    },
+    {
+      "id": "task-tuesday-morning-3",
+      "title": "Plan Wednesday content",
+      "description": "Morning task for Tuesday - Content & Networking",
+      "day": "Tuesday",
+      "date": "2025-01-14",
+      "timeSlot": "Morning (8:00 AM - 12:00 PM)",
+      "duration": "1 hour",
+      "priority": "High",
+      "status": "Pending",
+      "phase": "Phase 2: Content & Networking",
+      "revenueTarget": "$0",
+      "dependencies": [],
+      "assignee": "You",
+      "category": "Execution",
+      "tags": [
+        "tuesday",
+        "morning",
+        "content-&-networking"
+      ]
+    },
+    {
+      "id": "task-tuesday-morning-4",
+      "title": "Research trending topics in AI/business",
+      "description": "Morning task for Tuesday - Content & Networking",
+      "day": "Tuesday",
+      "date": "2025-01-14",
+      "timeSlot": "Morning (8:00 AM - 12:00 PM)",
+      "duration": "1 hour",
+      "priority": "High",
+      "status": "Pending",
+      "phase": "Phase 2: Content & Networking",
+      "revenueTarget": "$0",
+      "dependencies": [],
+      "assignee": "You",
+      "category": "Execution",
+      "tags": [
+        "tuesday",
+        "morning",
+        "content-&-networking"
+      ]
+    },
+    {
+      "id": "task-tuesday-afternoon-1",
+      "title": "Create assessment templates",
+      "description": "Afternoon task for Tuesday - Content & Networking",
+      "day": "Tuesday",
+      "date": "2025-01-14",
+      "timeSlot": "Afternoon (1:00 PM - 5:00 PM)",
+      "duration": "1 hour",
+      "priority": "High",
+      "status": "Pending",
+      "phase": "Phase 2: Content & Networking",
+      "revenueTarget": "$0",
+      "dependencies": [],
+      "assignee": "You",
+      "category": "Execution",
+      "tags": [
+        "tuesday",
+        "afternoon",
+        "content-&-networking"
+      ]
+    },
+    {
+      "id": "task-tuesday-afternoon-2",
+      "title": "Develop workflow optimization tools",
+      "description": "Afternoon task for Tuesday - Content & Networking",
+      "day": "Tuesday",
+      "date": "2025-01-14",
+      "timeSlot": "Afternoon (1:00 PM - 5:00 PM)",
+      "duration": "1 hour",
+      "priority": "High",
+      "status": "Pending",
+      "phase": "Phase 2: Content & Networking",
+      "revenueTarget": "$0",
+      "dependencies": [],
+      "assignee": "You",
+      "category": "Execution",
+      "tags": [
+        "tuesday",
+        "afternoon",
+        "content-&-networking"
+      ]
+    },
+    {
+      "id": "task-tuesday-afternoon-3",
+      "title": "Build emergency support protocols",
+      "description": "Afternoon task for Tuesday - Content & Networking",
+      "day": "Tuesday",
+      "date": "2025-01-14",
+      "timeSlot": "Afternoon (1:00 PM - 5:00 PM)",
+      "duration": "1 hour",
+      "priority": "High",
+      "status": "Pending",
+      "phase": "Phase 2: Content & Networking",
+      "revenueTarget": "$0",
+      "dependencies": [],
+      "assignee": "You",
+      "category": "Execution",
+      "tags": [
+        "tuesday",
+        "afternoon",
+        "content-&-networking"
+      ]
+    },
+    {
+      "id": "task-tuesday-afternoon-4",
+      "title": "Document service delivery processes",
+      "description": "Afternoon task for Tuesday - Content & Networking",
+      "day": "Tuesday",
+      "date": "2025-01-14",
+      "timeSlot": "Afternoon (1:00 PM - 5:00 PM)",
+      "duration": "1 hour",
+      "priority": "High",
+      "status": "Pending",
+      "phase": "Phase 2: Content & Networking",
+      "revenueTarget": "$0",
+      "dependencies": [],
+      "assignee": "You",
+      "category": "Execution",
+      "tags": [
+        "tuesday",
+        "afternoon",
+        "content-&-networking"
+      ]
+    },
+    {
+      "id": "task-wednesday-morning-1",
+      "title": "Test assessment tools with sample data",
+      "description": "Morning task for Wednesday - Service Delivery Prep",
+      "day": "Wednesday",
+      "date": "2025-01-15",
+      "timeSlot": "Morning (8:00 AM - 12:00 PM)",
+      "duration": "1 hour",
+      "priority": "High",
+      "status": "Pending",
+      "phase": "Phase 3: Service Delivery Prep",
+      "revenueTarget": "$0",
+      "dependencies": [],
+      "assignee": "You",
+      "category": "Execution",
+      "tags": [
+        "wednesday",
+        "morning",
+        "service-delivery-prep"
+      ]
+    },
+    {
+      "id": "task-wednesday-morning-2",
+      "title": "Refine workflow optimization processes",
+      "description": "Morning task for Wednesday - Service Delivery Prep",
+      "day": "Wednesday",
+      "date": "2025-01-15",
+      "timeSlot": "Morning (8:00 AM - 12:00 PM)",
+      "duration": "1 hour",
+      "priority": "High",
+      "status": "Pending",
+      "phase": "Phase 3: Service Delivery Prep",
+      "revenueTarget": "$0",
+      "dependencies": [],
+      "assignee": "You",
+      "category": "Execution",
+      "tags": [
+        "wednesday",
+        "morning",
+        "service-delivery-prep"
+      ]
+    },
+    {
+      "id": "task-wednesday-morning-3",
+      "title": "Practice emergency support scenarios",
+      "description": "Morning task for Wednesday - Service Delivery Prep",
+      "day": "Wednesday",
+      "date": "2025-01-15",
+      "timeSlot": "Morning (8:00 AM - 12:00 PM)",
+      "duration": "1 hour",
+      "priority": "High",
+      "status": "Pending",
+      "phase": "Phase 3: Service Delivery Prep",
+      "revenueTarget": "$0",
+      "dependencies": [],
+      "assignee": "You",
+      "category": "Execution",
+      "tags": [
+        "wednesday",
+        "morning",
+        "service-delivery-prep"
+      ]
+    },
+    {
+      "id": "task-wednesday-morning-4",
+      "title": "Create client onboarding materials",
+      "description": "Morning task for Wednesday - Service Delivery Prep",
+      "day": "Wednesday",
+      "date": "2025-01-15",
+      "timeSlot": "Morning (8:00 AM - 12:00 PM)",
+      "duration": "1 hour",
+      "priority": "High",
+      "status": "Pending",
+      "phase": "Phase 3: Service Delivery Prep",
+      "revenueTarget": "$0",
+      "dependencies": [],
+      "assignee": "You",
+      "category": "Execution",
+      "tags": [
+        "wednesday",
+        "morning",
+        "service-delivery-prep"
+      ]
+    },
+    {
+      "id": "task-wednesday-afternoon-1",
+      "title": "Conduct first free consultation",
+      "description": "Afternoon task for Wednesday - Service Delivery Prep",
+      "day": "Wednesday",
+      "date": "2025-01-15",
+      "timeSlot": "Afternoon (1:00 PM - 5:00 PM)",
+      "duration": "1 hour",
+      "priority": "High",
+      "status": "Pending",
+      "phase": "Phase 3: Service Delivery Prep",
+      "revenueTarget": "$0",
+      "dependencies": [],
+      "assignee": "You",
+      "category": "Execution",
+      "tags": [
+        "wednesday",
+        "afternoon",
+        "service-delivery-prep"
+      ]
+    },
+    {
+      "id": "task-wednesday-afternoon-2",
+      "title": "Refine consultation process",
+      "description": "Afternoon task for Wednesday - Service Delivery Prep",
+      "day": "Wednesday",
+      "date": "2025-01-15",
+      "timeSlot": "Afternoon (1:00 PM - 5:00 PM)",
+      "duration": "1 hour",
+      "priority": "High",
+      "status": "Pending",
+      "phase": "Phase 3: Service Delivery Prep",
+      "revenueTarget": "$0",
+      "dependencies": [],
+      "assignee": "You",
+      "category": "Execution",
+      "tags": [
+        "wednesday",
+        "afternoon",
+        "service-delivery-prep"
+      ]
+    },
+    {
+      "id": "task-wednesday-afternoon-3",
+      "title": "Document client needs",
+      "description": "Afternoon task for Wednesday - Service Delivery Prep",
+      "day": "Wednesday",
+      "date": "2025-01-15",
+      "timeSlot": "Afternoon (1:00 PM - 5:00 PM)",
+      "duration": "1 hour",
+      "priority": "High",
+      "status": "Pending",
+      "phase": "Phase 3: Service Delivery Prep",
+      "revenueTarget": "$0",
+      "dependencies": [],
+      "assignee": "You",
+      "category": "Execution",
+      "tags": [
+        "wednesday",
+        "afternoon",
+        "service-delivery-prep"
+      ]
+    },
+    {
+      "id": "task-wednesday-afternoon-4",
+      "title": "Create follow-up materials",
+      "description": "Afternoon task for Wednesday - Service Delivery Prep",
+      "day": "Wednesday",
+      "date": "2025-01-15",
+      "timeSlot": "Afternoon (1:00 PM - 5:00 PM)",
+      "duration": "1 hour",
+      "priority": "High",
+      "status": "Pending",
+      "phase": "Phase 3: Service Delivery Prep",
+      "revenueTarget": "$0",
+      "dependencies": [],
+      "assignee": "You",
+      "category": "Execution",
+      "tags": [
+        "wednesday",
+        "afternoon",
+        "service-delivery-prep"
+      ]
+    },
+    {
+      "id": "task-thursday-morning-1",
+      "title": "Deliver first paid service",
+      "description": "Morning task for Thursday - First Revenue Generation",
+      "day": "Thursday",
+      "date": "2025-01-16",
+      "timeSlot": "Morning (8:00 AM - 12:00 PM)",
+      "duration": "1 hour",
+      "priority": "High",
+      "status": "Pending",
+      "phase": "Phase 4: First Revenue Generation",
+      "revenueTarget": "$500-$1,250",
+      "dependencies": [],
+      "assignee": "You",
+      "category": "Execution",
+      "tags": [
+        "thursday",
+        "morning",
+        "first-revenue-generation"
+      ]
+    },
+    {
+      "id": "task-thursday-morning-2",
+      "title": "Conduct client consultation",
+      "description": "Morning task for Thursday - First Revenue Generation",
+      "day": "Thursday",
+      "date": "2025-01-16",
+      "timeSlot": "Morning (8:00 AM - 12:00 PM)",
+      "duration": "1 hour",
+      "priority": "High",
+      "status": "Pending",
+      "phase": "Phase 4: First Revenue Generation",
+      "revenueTarget": "$500-$1,250",
+      "dependencies": [],
+      "assignee": "You",
+      "category": "Execution",
+      "tags": [
+        "thursday",
+        "morning",
+        "first-revenue-generation"
+      ]
+    },
+    {
+      "id": "task-thursday-morning-3",
+      "title": "Implement initial optimizations",
+      "description": "Morning task for Thursday - First Revenue Generation",
+      "day": "Thursday",
+      "date": "2025-01-16",
+      "timeSlot": "Morning (8:00 AM - 12:00 PM)",
+      "duration": "1 hour",
+      "priority": "High",
+      "status": "Pending",
+      "phase": "Phase 4: First Revenue Generation",
+      "revenueTarget": "$500-$1,250",
+      "dependencies": [],
+      "assignee": "You",
+      "category": "Execution",
+      "tags": [
+        "thursday",
+        "morning",
+        "first-revenue-generation"
+      ]
+    },
+    {
+      "id": "task-thursday-morning-4",
+      "title": "Document results and feedback",
+      "description": "Morning task for Thursday - First Revenue Generation",
+      "day": "Thursday",
+      "date": "2025-01-16",
+      "timeSlot": "Morning (8:00 AM - 12:00 PM)",
+      "duration": "1 hour",
+      "priority": "High",
+      "status": "Pending",
+      "phase": "Phase 4: First Revenue Generation",
+      "revenueTarget": "$500-$1,250",
+      "dependencies": [],
+      "assignee": "You",
+      "category": "Execution",
+      "tags": [
+        "thursday",
+        "morning",
+        "first-revenue-generation"
+      ]
+    },
+    {
+      "id": "task-thursday-afternoon-1",
+      "title": "Analyze first client results",
+      "description": "Afternoon task for Thursday - First Revenue Generation",
+      "day": "Thursday",
+      "date": "2025-01-16",
+      "timeSlot": "Afternoon (1:00 PM - 5:00 PM)",
+      "duration": "1 hour",
+      "priority": "High",
+      "status": "Pending",
+      "phase": "Phase 4: First Revenue Generation",
+      "revenueTarget": "$500-$1,250",
+      "dependencies": [],
+      "assignee": "You",
+      "category": "Execution",
+      "tags": [
+        "thursday",
+        "afternoon",
+        "first-revenue-generation"
+      ]
+    },
+    {
+      "id": "task-thursday-afternoon-2",
+      "title": "Refine service delivery process",
+      "description": "Afternoon task for Thursday - First Revenue Generation",
+      "day": "Thursday",
+      "date": "2025-01-16",
+      "timeSlot": "Afternoon (1:00 PM - 5:00 PM)",
+      "duration": "1 hour",
+      "priority": "High",
+      "status": "Pending",
+      "phase": "Phase 4: First Revenue Generation",
+      "revenueTarget": "$500-$1,250",
+      "dependencies": [],
+      "assignee": "You",
+      "category": "Execution",
+      "tags": [
+        "thursday",
+        "afternoon",
+        "first-revenue-generation"
+      ]
+    },
+    {
+      "id": "task-thursday-afternoon-3",
+      "title": "Identify upsell opportunities",
+      "description": "Afternoon task for Thursday - First Revenue Generation",
+      "day": "Thursday",
+      "date": "2025-01-16",
+      "timeSlot": "Afternoon (1:00 PM - 5:00 PM)",
+      "duration": "1 hour",
+      "priority": "High",
+      "status": "Pending",
+      "phase": "Phase 4: First Revenue Generation",
+      "revenueTarget": "$500-$1,250",
+      "dependencies": [],
+      "assignee": "You",
+      "category": "Execution",
+      "tags": [
+        "thursday",
+        "afternoon",
+        "first-revenue-generation"
+      ]
+    },
+    {
+      "id": "task-thursday-afternoon-4",
+      "title": "Plan next client acquisition",
+      "description": "Afternoon task for Thursday - First Revenue Generation",
+      "day": "Thursday",
+      "date": "2025-01-16",
+      "timeSlot": "Afternoon (1:00 PM - 5:00 PM)",
+      "duration": "1 hour",
+      "priority": "High",
+      "status": "Pending",
+      "phase": "Phase 4: First Revenue Generation",
+      "revenueTarget": "$500-$1,250",
+      "dependencies": [],
+      "assignee": "You",
+      "category": "Execution",
+      "tags": [
+        "thursday",
+        "afternoon",
+        "first-revenue-generation"
+      ]
+    },
+    {
+      "id": "task-friday-morning-1",
+      "title": "Deliver second paid service",
+      "description": "Morning task for Friday - Scaling & Optimization",
+      "day": "Friday",
+      "date": "2025-01-17",
+      "timeSlot": "Morning (8:00 AM - 12:00 PM)",
+      "duration": "1 hour",
+      "priority": "High",
+      "status": "Pending",
+      "phase": "Phase 5: Scaling & Optimization",
+      "revenueTarget": "$750-$2,000",
+      "dependencies": [],
+      "assignee": "You",
+      "category": "Execution",
+      "tags": [
+        "friday",
+        "morning",
+        "scaling-&-optimization"
+      ]
+    },
+    {
+      "id": "task-friday-morning-2",
+      "title": "Refine delivery process",
+      "description": "Morning task for Friday - Scaling & Optimization",
+      "day": "Friday",
+      "date": "2025-01-17",
+      "timeSlot": "Morning (8:00 AM - 12:00 PM)",
+      "duration": "1 hour",
+      "priority": "High",
+      "status": "Pending",
+      "phase": "Phase 5: Scaling & Optimization",
+      "revenueTarget": "$750-$2,000",
+      "dependencies": [],
+      "assignee": "You",
+      "category": "Execution",
+      "tags": [
+        "friday",
+        "morning",
+        "scaling-&-optimization"
+      ]
+    },
+    {
+      "id": "task-friday-morning-3",
+      "title": "Collect client testimonials",
+      "description": "Morning task for Friday - Scaling & Optimization",
+      "day": "Friday",
+      "date": "2025-01-17",
+      "timeSlot": "Morning (8:00 AM - 12:00 PM)",
+      "duration": "1 hour",
+      "priority": "High",
+      "status": "Pending",
+      "phase": "Phase 5: Scaling & Optimization",
+      "revenueTarget": "$750-$2,000",
+      "dependencies": [],
+      "assignee": "You",
+      "category": "Execution",
+      "tags": [
+        "friday",
+        "morning",
+        "scaling-&-optimization"
+      ]
+    },
+    {
+      "id": "task-friday-morning-4",
+      "title": "Identify improvement areas",
+      "description": "Morning task for Friday - Scaling & Optimization",
+      "day": "Friday",
+      "date": "2025-01-17",
+      "timeSlot": "Morning (8:00 AM - 12:00 PM)",
+      "duration": "1 hour",
+      "priority": "High",
+      "status": "Pending",
+      "phase": "Phase 5: Scaling & Optimization",
+      "revenueTarget": "$750-$2,000",
+      "dependencies": [],
+      "assignee": "You",
+      "category": "Execution",
+      "tags": [
+        "friday",
+        "morning",
+        "scaling-&-optimization"
+      ]
+    },
+    {
+      "id": "task-friday-afternoon-1",
+      "title": "Document successful processes",
+      "description": "Afternoon task for Friday - Scaling & Optimization",
+      "day": "Friday",
+      "date": "2025-01-17",
+      "timeSlot": "Afternoon (1:00 PM - 5:00 PM)",
+      "duration": "1 hour",
+      "priority": "High",
+      "status": "Pending",
+      "phase": "Phase 5: Scaling & Optimization",
+      "revenueTarget": "$750-$2,000",
+      "dependencies": [],
+      "assignee": "You",
+      "category": "Execution",
+      "tags": [
+        "friday",
+        "afternoon",
+        "scaling-&-optimization"
+      ]
+    },
+    {
+      "id": "task-friday-afternoon-2",
+      "title": "Create standard operating procedures",
+      "description": "Afternoon task for Friday - Scaling & Optimization",
+      "day": "Friday",
+      "date": "2025-01-17",
+      "timeSlot": "Afternoon (1:00 PM - 5:00 PM)",
+      "duration": "1 hour",
+      "priority": "High",
+      "status": "Pending",
+      "phase": "Phase 5: Scaling & Optimization",
+      "revenueTarget": "$750-$2,000",
+      "dependencies": [],
+      "assignee": "You",
+      "category": "Execution",
+      "tags": [
+        "friday",
+        "afternoon",
+        "scaling-&-optimization"
+      ]
+    },
+    {
+      "id": "task-friday-afternoon-3",
+      "title": "Optimize client onboarding",
+      "description": "Afternoon task for Friday - Scaling & Optimization",
+      "day": "Friday",
+      "date": "2025-01-17",
+      "timeSlot": "Afternoon (1:00 PM - 5:00 PM)",
+      "duration": "1 hour",
+      "priority": "High",
+      "status": "Pending",
+      "phase": "Phase 5: Scaling & Optimization",
+      "revenueTarget": "$750-$2,000",
+      "dependencies": [],
+      "assignee": "You",
+      "category": "Execution",
+      "tags": [
+        "friday",
+        "afternoon",
+        "scaling-&-optimization"
+      ]
+    },
+    {
+      "id": "task-friday-afternoon-4",
+      "title": "Plan next week's strategy",
+      "description": "Afternoon task for Friday - Scaling & Optimization",
+      "day": "Friday",
+      "date": "2025-01-17",
+      "timeSlot": "Afternoon (1:00 PM - 5:00 PM)",
+      "duration": "1 hour",
+      "priority": "High",
+      "status": "Pending",
+      "phase": "Phase 5: Scaling & Optimization",
+      "revenueTarget": "$750-$2,000",
+      "dependencies": [],
+      "assignee": "You",
+      "category": "Execution",
+      "tags": [
+        "friday",
+        "afternoon",
+        "scaling-&-optimization"
+      ]
+    },
+    {
+      "id": "task-saturday-morning-1",
+      "title": "Create weekend social media content",
+      "description": "Morning task for Saturday - Weekend Momentum",
+      "day": "Saturday",
+      "date": "2025-01-18",
+      "timeSlot": "Morning (8:00 AM - 12:00 PM)",
+      "duration": "1 hour",
+      "priority": "High",
+      "status": "Pending",
+      "phase": "Phase 6: Weekend Momentum",
+      "revenueTarget": "$500-$1,500",
+      "dependencies": [],
+      "assignee": "You",
+      "category": "Execution",
+      "tags": [
+        "saturday",
+        "morning",
+        "weekend-momentum"
+      ]
+    },
+    {
+      "id": "task-saturday-morning-2",
+      "title": "Write blog post for next week",
+      "description": "Morning task for Saturday - Weekend Momentum",
+      "day": "Saturday",
+      "date": "2025-01-18",
+      "timeSlot": "Morning (8:00 AM - 12:00 PM)",
+      "duration": "1 hour",
+      "priority": "High",
+      "status": "Pending",
+      "phase": "Phase 6: Weekend Momentum",
+      "revenueTarget": "$500-$1,500",
+      "dependencies": [],
+      "assignee": "You",
+      "category": "Execution",
+      "tags": [
+        "saturday",
+        "morning",
+        "weekend-momentum"
+      ]
+    },
+    {
+      "id": "task-saturday-morning-3",
+      "title": "Plan Monday's marketing strategy",
+      "description": "Morning task for Saturday - Weekend Momentum",
+      "day": "Saturday",
+      "date": "2025-01-18",
+      "timeSlot": "Morning (8:00 AM - 12:00 PM)",
+      "duration": "1 hour",
+      "priority": "High",
+      "status": "Pending",
+      "phase": "Phase 6: Weekend Momentum",
+      "revenueTarget": "$500-$1,500",
+      "dependencies": [],
+      "assignee": "You",
+      "category": "Execution",
+      "tags": [
+        "saturday",
+        "morning",
+        "weekend-momentum"
+      ]
+    },
+    {
+      "id": "task-saturday-morning-4",
+      "title": "Engage with weekend audience",
+      "description": "Morning task for Saturday - Weekend Momentum",
+      "day": "Saturday",
+      "date": "2025-01-18",
+      "timeSlot": "Morning (8:00 AM - 12:00 PM)",
+      "duration": "1 hour",
+      "priority": "High",
+      "status": "Pending",
+      "phase": "Phase 6: Weekend Momentum",
+      "revenueTarget": "$500-$1,500",
+      "dependencies": [],
+      "assignee": "You",
+      "category": "Execution",
+      "tags": [
+        "saturday",
+        "morning",
+        "weekend-momentum"
+      ]
+    },
+    {
+      "id": "task-saturday-afternoon-1",
+      "title": "Review week's accomplishments",
+      "description": "Afternoon task for Saturday - Weekend Momentum",
+      "day": "Saturday",
+      "date": "2025-01-18",
+      "timeSlot": "Afternoon (1:00 PM - 5:00 PM)",
+      "duration": "1 hour",
+      "priority": "High",
+      "status": "Pending",
+      "phase": "Phase 6: Weekend Momentum",
+      "revenueTarget": "$500-$1,500",
+      "dependencies": [],
+      "assignee": "You",
+      "category": "Execution",
+      "tags": [
+        "saturday",
+        "afternoon",
+        "weekend-momentum"
+      ]
+    },
+    {
+      "id": "task-saturday-afternoon-2",
+      "title": "Plan next week's goals",
+      "description": "Afternoon task for Saturday - Weekend Momentum",
+      "day": "Saturday",
+      "date": "2025-01-18",
+      "timeSlot": "Afternoon (1:00 PM - 5:00 PM)",
+      "duration": "1 hour",
+      "priority": "High",
+      "status": "Pending",
+      "phase": "Phase 6: Weekend Momentum",
+      "revenueTarget": "$500-$1,500",
+      "dependencies": [],
+      "assignee": "You",
+      "category": "Execution",
+      "tags": [
+        "saturday",
+        "afternoon",
+        "weekend-momentum"
+      ]
+    },
+    {
+      "id": "task-saturday-afternoon-3",
+      "title": "Update project management system",
+      "description": "Afternoon task for Saturday - Weekend Momentum",
+      "day": "Saturday",
+      "date": "2025-01-18",
+      "timeSlot": "Afternoon (1:00 PM - 5:00 PM)",
+      "duration": "1 hour",
+      "priority": "High",
+      "status": "Pending",
+      "phase": "Phase 6: Weekend Momentum",
+      "revenueTarget": "$500-$1,500",
+      "dependencies": [],
+      "assignee": "You",
+      "category": "Execution",
+      "tags": [
+        "saturday",
+        "afternoon",
+        "weekend-momentum"
+      ]
+    },
+    {
+      "id": "task-saturday-afternoon-4",
+      "title": "Set Sunday objectives",
+      "description": "Afternoon task for Saturday - Weekend Momentum",
+      "day": "Saturday",
+      "date": "2025-01-18",
+      "timeSlot": "Afternoon (1:00 PM - 5:00 PM)",
+      "duration": "1 hour",
+      "priority": "High",
+      "status": "Pending",
+      "phase": "Phase 6: Weekend Momentum",
+      "revenueTarget": "$500-$1,500",
+      "dependencies": [],
+      "assignee": "You",
+      "category": "Execution",
+      "tags": [
+        "saturday",
+        "afternoon",
+        "weekend-momentum"
+      ]
+    },
+    {
+      "id": "task-sunday-morning-1",
+      "title": "Analyze week's results",
+      "description": "Morning task for Sunday - Reflection & Planning",
+      "day": "Sunday",
+      "date": "2025-01-19",
+      "timeSlot": "Morning (8:00 AM - 12:00 PM)",
+      "duration": "1 hour",
+      "priority": "High",
+      "status": "Pending",
+      "phase": "Phase 7: Reflection & Planning",
+      "revenueTarget": "$0",
+      "dependencies": [],
+      "assignee": "You",
+      "category": "Execution",
+      "tags": [
+        "sunday",
+        "morning",
+        "reflection-&-planning"
+      ]
+    },
+    {
+      "id": "task-sunday-morning-2",
+      "title": "Calculate total revenue generated",
+      "description": "Morning task for Sunday - Reflection & Planning",
+      "day": "Sunday",
+      "date": "2025-01-19",
+      "timeSlot": "Morning (8:00 AM - 12:00 PM)",
+      "duration": "1 hour",
+      "priority": "High",
+      "status": "Pending",
+      "phase": "Phase 7: Reflection & Planning",
+      "revenueTarget": "$0",
+      "dependencies": [],
+      "assignee": "You",
+      "category": "Execution",
+      "tags": [
+        "sunday",
+        "morning",
+        "reflection-&-planning"
+      ]
+    },
+    {
+      "id": "task-sunday-morning-3",
+      "title": "Identify successful strategies",
+      "description": "Morning task for Sunday - Reflection & Planning",
+      "day": "Sunday",
+      "date": "2025-01-19",
+      "timeSlot": "Morning (8:00 AM - 12:00 PM)",
+      "duration": "1 hour",
+      "priority": "High",
+      "status": "Pending",
+      "phase": "Phase 7: Reflection & Planning",
+      "revenueTarget": "$0",
+      "dependencies": [],
+      "assignee": "You",
+      "category": "Execution",
+      "tags": [
+        "sunday",
+        "morning",
+        "reflection-&-planning"
+      ]
+    },
+    {
+      "id": "task-sunday-morning-4",
+      "title": "Document lessons learned",
+      "description": "Morning task for Sunday - Reflection & Planning",
+      "day": "Sunday",
+      "date": "2025-01-19",
+      "timeSlot": "Morning (8:00 AM - 12:00 PM)",
+      "duration": "1 hour",
+      "priority": "High",
+      "status": "Pending",
+      "phase": "Phase 7: Reflection & Planning",
+      "revenueTarget": "$0",
+      "dependencies": [],
+      "assignee": "You",
+      "category": "Execution",
+      "tags": [
+        "sunday",
+        "morning",
+        "reflection-&-planning"
+      ]
+    },
+    {
+      "id": "task-sunday-afternoon-1",
+      "title": "Set next week's revenue targets",
+      "description": "Afternoon task for Sunday - Reflection & Planning",
+      "day": "Sunday",
+      "date": "2025-01-19",
+      "timeSlot": "Afternoon (1:00 PM - 5:00 PM)",
+      "duration": "1 hour",
+      "priority": "High",
+      "status": "Pending",
+      "phase": "Phase 7: Reflection & Planning",
+      "revenueTarget": "$0",
+      "dependencies": [],
+      "assignee": "You",
+      "category": "Execution",
+      "tags": [
+        "sunday",
+        "afternoon",
+        "reflection-&-planning"
+      ]
+    },
+    {
+      "id": "task-sunday-afternoon-2",
+      "title": "Plan content calendar",
+      "description": "Afternoon task for Sunday - Reflection & Planning",
+      "day": "Sunday",
+      "date": "2025-01-19",
+      "timeSlot": "Afternoon (1:00 PM - 5:00 PM)",
+      "duration": "1 hour",
+      "priority": "High",
+      "status": "Pending",
+      "phase": "Phase 7: Reflection & Planning",
+      "revenueTarget": "$0",
+      "dependencies": [],
+      "assignee": "You",
+      "category": "Execution",
+      "tags": [
+        "sunday",
+        "afternoon",
+        "reflection-&-planning"
+      ]
+    },
+    {
+      "id": "task-sunday-afternoon-3",
+      "title": "Schedule client consultations",
+      "description": "Afternoon task for Sunday - Reflection & Planning",
+      "day": "Sunday",
+      "date": "2025-01-19",
+      "timeSlot": "Afternoon (1:00 PM - 5:00 PM)",
+      "duration": "1 hour",
+      "priority": "High",
+      "status": "Pending",
+      "phase": "Phase 7: Reflection & Planning",
+      "revenueTarget": "$0",
+      "dependencies": [],
+      "assignee": "You",
+      "category": "Execution",
+      "tags": [
+        "sunday",
+        "afternoon",
+        "reflection-&-planning"
+      ]
+    },
+    {
+      "id": "task-sunday-afternoon-4",
+      "title": "Update project management system",
+      "description": "Afternoon task for Sunday - Reflection & Planning",
+      "day": "Sunday",
+      "date": "2025-01-19",
+      "timeSlot": "Afternoon (1:00 PM - 5:00 PM)",
+      "duration": "1 hour",
+      "priority": "High",
+      "status": "Pending",
+      "phase": "Phase 7: Reflection & Planning",
+      "revenueTarget": "$0",
+      "dependencies": [],
+      "assignee": "You",
+      "category": "Execution",
+      "tags": [
+        "sunday",
+        "afternoon",
+        "reflection-&-planning"
+      ]
+    }
+  ],
+  "systemTasks": [
+    {
+      "id": "system-monday-morning",
+      "title": "Morning System Update",
+      "description": "Update project management system with daily objectives",
+      "day": "Monday",
+      "date": "2025-01-13",
+      "timeSlot": "8:00 AM - 8:15 AM",
+      "duration": "15 minutes",
+      "priority": "Critical",
+      "status": "Pending",
+      "phase": "System Integration",
+      "revenueTarget": "$0",
+      "dependencies": [],
+      "assignee": "System",
+      "category": "System Integration",
+      "tags": [
+        "system",
+        "daily",
+        "morning",
+        "update"
+      ]
+    },
+    {
+      "id": "system-monday-evening",
+      "title": "Evening System Update",
+      "description": "Update project management system with daily results",
+      "day": "Monday",
+      "date": "2025-01-13",
+      "timeSlot": "5:00 PM - 5:15 PM",
+      "duration": "15 minutes",
+      "priority": "Critical",
+      "status": "Pending",
+      "phase": "System Integration",
+      "revenueTarget": "$0",
+      "dependencies": [],
+      "assignee": "System",
+      "category": "System Integration",
+      "tags": [
+        "system",
+        "daily",
+        "evening",
+        "update"
+      ]
+    },
+    {
+      "id": "system-tuesday-morning",
+      "title": "Morning System Update",
+      "description": "Update project management system with daily objectives",
+      "day": "Tuesday",
+      "date": "2025-01-14",
+      "timeSlot": "8:00 AM - 8:15 AM",
+      "duration": "15 minutes",
+      "priority": "Critical",
+      "status": "Pending",
+      "phase": "System Integration",
+      "revenueTarget": "$0",
+      "dependencies": [],
+      "assignee": "System",
+      "category": "System Integration",
+      "tags": [
+        "system",
+        "daily",
+        "morning",
+        "update"
+      ]
+    },
+    {
+      "id": "system-tuesday-evening",
+      "title": "Evening System Update",
+      "description": "Update project management system with daily results",
+      "day": "Tuesday",
+      "date": "2025-01-14",
+      "timeSlot": "5:00 PM - 5:15 PM",
+      "duration": "15 minutes",
+      "priority": "Critical",
+      "status": "Pending",
+      "phase": "System Integration",
+      "revenueTarget": "$0",
+      "dependencies": [],
+      "assignee": "System",
+      "category": "System Integration",
+      "tags": [
+        "system",
+        "daily",
+        "evening",
+        "update"
+      ]
+    },
+    {
+      "id": "system-wednesday-morning",
+      "title": "Morning System Update",
+      "description": "Update project management system with daily objectives",
+      "day": "Wednesday",
+      "date": "2025-01-15",
+      "timeSlot": "8:00 AM - 8:15 AM",
+      "duration": "15 minutes",
+      "priority": "Critical",
+      "status": "Pending",
+      "phase": "System Integration",
+      "revenueTarget": "$0",
+      "dependencies": [],
+      "assignee": "System",
+      "category": "System Integration",
+      "tags": [
+        "system",
+        "daily",
+        "morning",
+        "update"
+      ]
+    },
+    {
+      "id": "system-wednesday-evening",
+      "title": "Evening System Update",
+      "description": "Update project management system with daily results",
+      "day": "Wednesday",
+      "date": "2025-01-15",
+      "timeSlot": "5:00 PM - 5:15 PM",
+      "duration": "15 minutes",
+      "priority": "Critical",
+      "status": "Pending",
+      "phase": "System Integration",
+      "revenueTarget": "$0",
+      "dependencies": [],
+      "assignee": "System",
+      "category": "System Integration",
+      "tags": [
+        "system",
+        "daily",
+        "evening",
+        "update"
+      ]
+    },
+    {
+      "id": "system-thursday-morning",
+      "title": "Morning System Update",
+      "description": "Update project management system with daily objectives",
+      "day": "Thursday",
+      "date": "2025-01-16",
+      "timeSlot": "8:00 AM - 8:15 AM",
+      "duration": "15 minutes",
+      "priority": "Critical",
+      "status": "Pending",
+      "phase": "System Integration",
+      "revenueTarget": "$0",
+      "dependencies": [],
+      "assignee": "System",
+      "category": "System Integration",
+      "tags": [
+        "system",
+        "daily",
+        "morning",
+        "update"
+      ]
+    },
+    {
+      "id": "system-thursday-evening",
+      "title": "Evening System Update",
+      "description": "Update project management system with daily results",
+      "day": "Thursday",
+      "date": "2025-01-16",
+      "timeSlot": "5:00 PM - 5:15 PM",
+      "duration": "15 minutes",
+      "priority": "Critical",
+      "status": "Pending",
+      "phase": "System Integration",
+      "revenueTarget": "$0",
+      "dependencies": [],
+      "assignee": "System",
+      "category": "System Integration",
+      "tags": [
+        "system",
+        "daily",
+        "evening",
+        "update"
+      ]
+    },
+    {
+      "id": "system-friday-morning",
+      "title": "Morning System Update",
+      "description": "Update project management system with daily objectives",
+      "day": "Friday",
+      "date": "2025-01-17",
+      "timeSlot": "8:00 AM - 8:15 AM",
+      "duration": "15 minutes",
+      "priority": "Critical",
+      "status": "Pending",
+      "phase": "System Integration",
+      "revenueTarget": "$0",
+      "dependencies": [],
+      "assignee": "System",
+      "category": "System Integration",
+      "tags": [
+        "system",
+        "daily",
+        "morning",
+        "update"
+      ]
+    },
+    {
+      "id": "system-friday-evening",
+      "title": "Evening System Update",
+      "description": "Update project management system with daily results",
+      "day": "Friday",
+      "date": "2025-01-17",
+      "timeSlot": "5:00 PM - 5:15 PM",
+      "duration": "15 minutes",
+      "priority": "Critical",
+      "status": "Pending",
+      "phase": "System Integration",
+      "revenueTarget": "$0",
+      "dependencies": [],
+      "assignee": "System",
+      "category": "System Integration",
+      "tags": [
+        "system",
+        "daily",
+        "evening",
+        "update"
+      ]
+    },
+    {
+      "id": "system-sunday-review",
+      "title": "Weekly System Review",
+      "description": "Comprehensive system update and optimization",
+      "day": "Sunday",
+      "date": "2025-01-19",
+      "timeSlot": "4:00 PM - 5:00 PM",
+      "duration": "1 hour",
+      "priority": "Critical",
+      "status": "Pending",
+      "phase": "System Integration",
+      "revenueTarget": "$0",
+      "dependencies": [],
+      "assignee": "System",
+      "category": "System Integration",
+      "tags": [
+        "system",
+        "weekly",
+        "review",
+        "optimization"
+      ]
+    }
+  ],
+  "progressMetrics": {
+    "daily": {},
+    "weekly": {
+      "totalTasks": 71,
+      "completedTasks": 0,
+      "pendingTasks": 71,
+      "revenueTarget": "$1,750-$4,750",
+      "revenueGenerated": "$0",
+      "timeInvestment": "56 hours",
+      "successRate": "0%"
+    },
+    "revenue": {
+      "monday": {
+        "target": "$0",
+        "actual": "$0",
+        "status": "Pending"
+      },
+      "tuesday": {
+        "target": "$0",
+        "actual": "$0",
+        "status": "Pending"
+      },
+      "wednesday": {
+        "target": "$0",
+        "actual": "$0",
+        "status": "Pending"
+      },
+      "thursday": {
+        "target": "$500-$1,250",
+        "actual": "$0",
+        "status": "Pending"
+      },
+      "friday": {
+        "target": "$750-$2,000",
+        "actual": "$0",
+        "status": "Pending"
+      },
+      "saturday": {
+        "target": "$500-$1,500",
+        "actual": "$0",
+        "status": "Pending"
+      },
+      "sunday": {
+        "target": "$0",
+        "actual": "$0",
+        "status": "Pending"
+      }
+    },
+    "progress": {
+      "foundation": {
+        "status": "Pending",
+        "completion": "0%"
+      },
+      "content": {
+        "status": "Pending",
+        "completion": "0%"
+      },
+      "services": {
+        "status": "Pending",
+        "completion": "0%"
+      },
+      "revenue": {
+        "status": "Pending",
+        "completion": "0%"
+      },
+      "scaling": {
+        "status": "Pending",
+        "completion": "0%"
+      },
+      "optimization": {
+        "status": "Pending",
+        "completion": "0%"
+      }
+    }
+  },
+  "dashboardData": {
+    "overview": {
+      "projectName": "Weekly Execution Plan - $10,000 Revenue Goal",
+      "startDate": "2025-01-13",
+      "endDate": "2025-01-19",
+      "duration": "7 days",
+      "totalTasks": 71,
+      "completedTasks": 0,
+      "pendingTasks": 71,
+      "revenueTarget": "$1,750-$4,750",
+      "revenueGenerated": "$0",
+      "progress": "0%"
+    },
+    "phases": [
+      {
+        "name": "Phase 1: Foundation & Setup",
+        "days": [
+          "Monday"
+        ],
+        "focus": "Business foundation and digital presence",
+        "revenueTarget": "$0",
+        "tasks": []
+      },
+      {
+        "name": "Phase 2: Content & Networking",
+        "days": [
+          "Tuesday"
+        ],
+        "focus": "Content creation and relationship building",
+        "revenueTarget": "$0",
+        "tasks": []
+      },
+      {
+        "name": "Phase 3: Service Delivery Prep",
+        "days": [
+          "Wednesday"
+        ],
+        "focus": "Service refinement and client preparation",
+        "revenueTarget": "$0",
+        "tasks": []
+      },
+      {
+        "name": "Phase 4: First Revenue Generation",
+        "days": [
+          "Thursday"
+        ],
+        "focus": "Client delivery and revenue generation",
+        "revenueTarget": "$500-$1,250",
+        "tasks": []
+      },
+      {
+        "name": "Phase 5: Scaling & Optimization",
+        "days": [
+          "Friday"
+        ],
+        "focus": "Process scaling and optimization",
+        "revenueTarget": "$750-$2,000",
+        "tasks": []
+      },
+      {
+        "name": "Phase 6: Weekend Momentum",
+        "days": [
+          "Saturday"
+        ],
+        "focus": "Content creation and strategic planning",
+        "revenueTarget": "$500-$1,500",
+        "tasks": []
+      },
+      {
+        "name": "Phase 7: Reflection & Planning",
+        "days": [
+          "Sunday"
+        ],
+        "focus": "Week review and next week planning",
+        "revenueTarget": "$0",
+        "tasks": []
+      }
+    ],
+    "dailyProgress": {
+      "Monday": {
+        "totalTasks": 14,
+        "completedTasks": 0,
+        "pendingTasks": 14,
+        "progress": "0%",
+        "revenueTarget": "$0",
+        "revenueGenerated": "$0"
+      },
+      "Tuesday": {
+        "totalTasks": 10,
+        "completedTasks": 0,
+        "pendingTasks": 10,
+        "progress": "0%",
+        "revenueTarget": "$0",
+        "revenueGenerated": "$0"
+      },
+      "Wednesday": {
+        "totalTasks": 10,
+        "completedTasks": 0,
+        "pendingTasks": 10,
+        "progress": "0%",
+        "revenueTarget": "$0",
+        "revenueGenerated": "$0"
+      },
+      "Thursday": {
+        "totalTasks": 10,
+        "completedTasks": 0,
+        "pendingTasks": 10,
+        "progress": "0%",
+        "revenueTarget": "$500-$1,250",
+        "revenueGenerated": "$0"
+      },
+      "Friday": {
+        "totalTasks": 10,
+        "completedTasks": 0,
+        "pendingTasks": 10,
+        "progress": "0%",
+        "revenueTarget": "$750-$2,000",
+        "revenueGenerated": "$0"
+      },
+      "Saturday": {
+        "totalTasks": 8,
+        "completedTasks": 0,
+        "pendingTasks": 8,
+        "progress": "0%",
+        "revenueTarget": "$500-$1,500",
+        "revenueGenerated": "$0"
+      },
+      "Sunday": {
+        "totalTasks": 9,
+        "completedTasks": 0,
+        "pendingTasks": 9,
+        "progress": "0%",
+        "revenueTarget": "$0",
+        "revenueGenerated": "$0"
+      }
+    },
+    "metrics": {
+      "daily": {},
+      "weekly": {
+        "totalTasks": 71,
+        "completedTasks": 0,
+        "pendingTasks": 71,
+        "revenueTarget": "$1,750-$4,750",
+        "revenueGenerated": "$0",
+        "timeInvestment": "56 hours",
+        "successRate": "0%"
+      },
+      "revenue": {
+        "monday": {
+          "target": "$0",
+          "actual": "$0",
+          "status": "Pending"
+        },
+        "tuesday": {
+          "target": "$0",
+          "actual": "$0",
+          "status": "Pending"
+        },
+        "wednesday": {
+          "target": "$0",
+          "actual": "$0",
+          "status": "Pending"
+        },
+        "thursday": {
+          "target": "$500-$1,250",
+          "actual": "$0",
+          "status": "Pending"
+        },
+        "friday": {
+          "target": "$750-$2,000",
+          "actual": "$0",
+          "status": "Pending"
+        },
+        "saturday": {
+          "target": "$500-$1,500",
+          "actual": "$0",
+          "status": "Pending"
+        },
+        "sunday": {
+          "target": "$0",
+          "actual": "$0",
+          "status": "Pending"
+        }
+      },
+      "progress": {
+        "foundation": {
+          "status": "Pending",
+          "completion": "0%"
+        },
+        "content": {
+          "status": "Pending",
+          "completion": "0%"
+        },
+        "services": {
+          "status": "Pending",
+          "completion": "0%"
+        },
+        "revenue": {
+          "status": "Pending",
+          "completion": "0%"
+        },
+        "scaling": {
+          "status": "Pending",
+          "completion": "0%"
+        },
+        "optimization": {
+          "status": "Pending",
+          "completion": "0%"
+        }
+      }
+    },
+    "recentActivity": [],
+    "upcomingDeadlines": [],
+    "systemStatus": "Operational"
+  },
+  "generatedAt": "2025-08-11T09:37:02.933Z",
+  "version": "1.0.0"
+}

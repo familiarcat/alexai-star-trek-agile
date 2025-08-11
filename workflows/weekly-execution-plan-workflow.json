@@ -1,0 +1,698 @@
+{
+  "name": "Weekly Execution Plan - $10,000 Revenue Goal",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 8 * * 1-7"
+            }
+          ]
+        }
+      },
+      "id": "trigger-weekly-execution",
+      "name": "Daily Execution Trigger",
+      "type": "n8n-nodes-base.cron",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "check-day-of-week",
+              "leftValue": "={{ $json.dayOfWeek }}",
+              "rightValue": "1",
+              "operator": {
+                "type": "number",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "monday-check",
+      "name": "Monday Check",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "check-day-of-week",
+              "leftValue": "={{ $json.dayOfWeek }}",
+              "rightValue": "2",
+              "operator": {
+                "type": "number",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "tuesday-check",
+      "name": "Tuesday Check",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        460,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "check-day-of-week",
+              "leftValue": "={{ $json.dayOfWeek }}",
+              "rightValue": "3",
+              "operator": {
+                "type": "number",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "wednesday-check",
+      "name": "Wednesday Check",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        460,
+        500
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "check-day-of-week",
+              "leftValue": "={{ $json.dayOfWeek }}",
+              "rightValue": "4",
+              "operator": {
+                "type": "number",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "thursday-check",
+      "name": "Thursday Check",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        460,
+        600
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "check-day-of-week",
+              "leftValue": "={{ $json.dayOfWeek }}",
+              "rightValue": "5",
+              "operator": {
+                "type": "number",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "friday-check",
+      "name": "Friday Check",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        460,
+        700
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "check-day-of-week",
+              "leftValue": "={{ $json.dayOfWeek }}",
+              "rightValue": "6",
+              "operator": {
+                "type": "number",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "saturday-check",
+      "name": "Saturday Check",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        460,
+        800
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "check-day-of-week",
+              "leftValue": "={{ $json.dayOfWeek }}",
+              "rightValue": "0",
+              "operator": {
+                "type": "number",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "sunday-check",
+      "name": "Sunday Check",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        460,
+        900
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "// Monday Execution Plan\nconst mondayPlan = {\n  day: \"Monday\",\n  focus: \"Foundation & Setup\",\n  revenueTarget: \"$0\",\n  timeInvestment: \"8 hours\",\n  morningTasks: [\n    \"Choose business name and commit to it\",\n    \"Set up free business email (Gmail)\",\n    \"Create professional email signature\",\n    \"Set up email folders for organization\"\n  ],\n  afternoonTasks: [\n    \"Write and publish first LinkedIn post\",\n    \"Create first Twitter thread (6 tweets)\",\n    \"Start first blog post draft\",\n    \"Set up content calendar\"\n  ],\n  eveningTasks: [\n    \"Review tomorrow's tasks\",\n    \"Prepare content for Tuesday\",\n    \"Update project management system\",\n    \"Set iCal reminders for tomorrow\"\n  ]\n};\n\nreturn [{ json: mondayPlan }];"
+      },
+      "id": "monday-execution",
+      "name": "Monday Execution Plan",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        680,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "// Tuesday Execution Plan\nconst tuesdayPlan = {\n  day: \"Tuesday\",\n  focus: \"Content & Networking\",\n  revenueTarget: \"$0\",\n  timeInvestment: \"8 hours\",\n  morningTasks: [\n    \"Complete blog post from Monday\",\n    \"Create Tuesday LinkedIn post\",\n    \"Plan Wednesday content\",\n    \"Research trending topics in AI/business\"\n  ],\n  afternoonTasks: [\n    \"Create assessment templates\",\n    \"Develop workflow optimization tools\",\n    \"Build emergency support protocols\",\n    \"Document service delivery processes\"\n  ]\n};\n\nreturn [{ json: tuesdayPlan }];"
+      },
+      "id": "tuesday-execution",
+      "name": "Tuesday Execution Plan",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        680,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "// Wednesday Execution Plan\nconst wednesdayPlan = {\n  day: \"Wednesday\",\n  focus: \"Service Delivery Prep\",\n  revenueTarget: \"$0\",\n  timeInvestment: \"8 hours\",\n  morningTasks: [\n    \"Test assessment tools with sample data\",\n    \"Refine workflow optimization processes\",\n    \"Practice emergency support scenarios\",\n    \"Create client onboarding materials\"\n  ],\n  afternoonTasks: [\n    \"Conduct first free consultation\",\n    \"Refine consultation process\",\n    \"Document client needs\",\n    \"Create follow-up materials\"\n  ]\n};\n\nreturn [{ json: wednesdayPlan }];"
+      },
+      "id": "wednesday-execution",
+      "name": "Wednesday Execution Plan",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        680,
+        500
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "// Thursday Execution Plan\nconst thursdayPlan = {\n  day: \"Thursday\",\n  focus: \"First Revenue Generation\",\n  revenueTarget: \"$500-$1,250\",\n  timeInvestment: \"8 hours\",\n  morningTasks: [\n    \"Deliver first paid service\",\n    \"Conduct client consultation\",\n    \"Implement initial optimizations\",\n    \"Document results and feedback\"\n  ],\n  afternoonTasks: [\n    \"Analyze first client results\",\n    \"Refine service delivery process\",\n    \"Identify upsell opportunities\",\n    \"Plan next client acquisition\"\n  ]\n};\n\nreturn [{ json: thursdayPlan }];"
+      },
+      "id": "thursday-execution",
+      "name": "Thursday Execution Plan",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        680,
+        600
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "// Friday Execution Plan\nconst fridayPlan = {\n  day: \"Friday\",\n  focus: \"Scaling & Optimization\",\n  revenueTarget: \"$750-$2,000\",\n  timeInvestment: \"8 hours\",\n  morningTasks: [\n    \"Deliver second paid service\",\n    \"Refine delivery process\",\n    \"Collect client testimonials\",\n    \"Identify improvement areas\"\n  ],\n  afternoonTasks: [\n    \"Document successful processes\",\n    \"Create standard operating procedures\",\n    \"Optimize client onboarding\",\n    \"Plan next week's strategy\"\n  ]\n};\n\nreturn [{ json: fridayPlan }];"
+      },
+      "id": "friday-execution",
+      "name": "Friday Execution Plan",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        680,
+        700
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "// Saturday Execution Plan\nconst saturdayPlan = {\n  day: \"Saturday\",\n  focus: \"Weekend Momentum\",\n  revenueTarget: \"$500-$1,500\",\n  timeInvestment: \"4 hours\",\n  morningTasks: [\n    \"Create weekend social media content\",\n    \"Write blog post for next week\",\n    \"Plan Monday's marketing strategy\",\n    \"Engage with weekend audience\"\n  ],\n  afternoonTasks: [\n    \"Review week's accomplishments\",\n    \"Plan next week's goals\",\n    \"Update project management system\",\n    \"Set Sunday objectives\"\n  ]\n};\n\nreturn [{ json: saturdayPlan }];"
+      },
+      "id": "saturday-execution",
+      "name": "Saturday Execution Plan",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        680,
+        800
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "// Sunday Execution Plan\nconst sundayPlan = {\n  day: \"Sunday\",\n  focus: \"Reflection & Planning\",\n  revenueTarget: \"$0\",\n  timeInvestment: \"4 hours\",\n  morningTasks: [\n    \"Analyze week's results\",\n    \"Calculate total revenue generated\",\n    \"Identify successful strategies\",\n    \"Document lessons learned\"\n  ],\n  afternoonTasks: [\n    \"Set next week's revenue targets\",\n    \"Plan content calendar\",\n    \"Schedule client consultations\",\n    \"Update project management system\"\n  ]\n};\n\nreturn [{ json: sundayPlan }];"
+      },
+      "id": "sunday-execution",
+      "name": "Sunday Execution Plan",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        680,
+        900
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "task",
+        "operation": "create",
+        "additionalFields": {
+          "title": "={{ $json.day }} - {{ $json.focus }}",
+          "description": "{{ $json.morningTasks.join('\\n') }}\\n\\n{{ $json.afternoonTasks.join('\\n') }}",
+          "status": "pending",
+          "priority": "high",
+          "dueDate": "={{ new Date().toISOString().split('T')[0] }}"
+        }
+      },
+      "id": "create-supabase-task",
+      "name": "Create Supabase Task",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        900,
+        600
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "project",
+        "operation": "create",
+        "additionalFields": {
+          "name": "Weekly Execution Plan - {{ $json.day }}",
+          "description": "{{ $json.focus }} - Revenue Target: {{ $json.revenueTarget }}",
+          "status": "active",
+          "startDate": "={{ new Date().toISOString().split('T')[0] }}",
+          "endDate": "={{ new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0] }}"
+        }
+      },
+      "id": "create-supabase-project",
+      "name": "Create Supabase Project",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        900,
+        700
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "// Send email notification\nconst emailData = {\n  to: \"brady@pbradygeorgen.com\",\n  subject: \"🚀 {{ $json.day }} Execution Plan - Ready for Implementation\",\n  body: `\n    <h2>{{ $json.day }} - {{ $json.focus }}</h2>\n    <p><strong>Revenue Target:</strong> {{ $json.revenueTarget }}</p>\n    <p><strong>Time Investment:</strong> {{ $json.timeInvestment }}</p>\n    \n    <h3>Morning Tasks:</h3>\n    <ul>\n      {{ $json.morningTasks.map(task => '<li>' + task + '</li>').join('') }}\n    </ul>\n    \n    <h3>Afternoon Tasks:</h3>\n    <ul>\n      {{ $json.afternoonTasks.map(task => '<li>' + task + '</li>').join('') }}\n    </ul>\n    \n    {{ $json.eveningTasks ? `\n    <h3>Evening Tasks:</h3>\n    <ul>\n      {{ $json.eveningTasks.map(task => '<li>' + task + '</li>').join('') }}\n    </ul>\n    ` : '' }}\n    \n    <p><strong>Status:</strong> Ready for immediate execution</p>\n  `\n};\n\nreturn [{ json: emailData }];"
+      },
+      "id": "prepare-email",
+      "name": "Prepare Email Notification",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        900,
+        800
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "email",
+        "operation": "send",
+        "additionalFields": {
+          "to": "={{ $json.to }}",
+          "subject": "={{ $json.subject }}",
+          "html": "={{ $json.body }}"
+        }
+      },
+      "id": "send-email",
+      "name": "Send Email",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 1,
+      "position": [
+        1120,
+        800
+      ]
+    }
+  ],
+  "connections": {
+    "Daily Execution Trigger": {
+      "main": [
+        [
+          {
+            "node": "Monday Check",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Tuesday Check",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Wednesday Check",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Thursday Check",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Friday Check",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Saturday Check",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Sunday Check",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Monday Check": {
+      "main": [
+        [
+          {
+            "node": "Monday Execution Plan",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tuesday Check": {
+      "main": [
+        [
+          {
+            "node": "Tuesday Execution Plan",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wednesday Check": {
+      "main": [
+        [
+          {
+            "node": "Wednesday Execution Plan",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Thursday Check": {
+      "main": [
+        [
+          {
+            "node": "Thursday Execution Plan",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Friday Check": {
+      "main": [
+        [
+          {
+            "node": "Friday Execution Plan",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Saturday Check": {
+      "main": [
+        [
+          {
+            "node": "Saturday Execution Plan",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sunday Check": {
+      "main": [
+        [
+          {
+            "node": "Sunday Execution Plan",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Monday Execution Plan": {
+      "main": [
+        [
+          {
+            "node": "Create Supabase Task",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Create Supabase Project",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Prepare Email Notification",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tuesday Execution Plan": {
+      "main": [
+        [
+          {
+            "node": "Create Supabase Task",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Create Supabase Project",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Prepare Email Notification",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wednesday Execution Plan": {
+      "main": [
+        [
+          {
+            "node": "Create Supabase Task",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Create Supabase Project",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Prepare Email Notification",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Thursday Execution Plan": {
+      "main": [
+        [
+          {
+            "node": "Create Supabase Task",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Create Supabase Project",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Prepare Email Notification",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Friday Execution Plan": {
+      "main": [
+        [
+          {
+            "node": "Create Supabase Task",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Create Supabase Project",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Prepare Email Notification",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Saturday Execution Plan": {
+      "main": [
+        [
+          {
+            "node": "Create Supabase Task",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Create Supabase Project",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Prepare Email Notification",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sunday Execution Plan": {
+      "main": [
+        [
+          {
+            "node": "Create Supabase Task",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Create Supabase Project",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Prepare Email Notification",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Email Notification": {
+      "main": [
+        [
+          {
+            "node": "Send Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "1",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "tags": [
+    "weekly-execution",
+    "revenue-goal",
+    "production"
+  ]
+}

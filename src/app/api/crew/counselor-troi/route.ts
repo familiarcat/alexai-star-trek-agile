@@ -3,7 +3,15 @@ import { NextResponse } from 'next/server';
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { query, context, userRole, urgency } = body;
+    const { query = '', context = 'general', userRole = 'default', urgency = 'normal' } = body;
+
+    // Validate required parameters
+    if (!query || typeof query !== 'string') {
+      return NextResponse.json(
+        { error: 'Query parameter is required and must be a string' },
+        { status: 400 }
+      );
+    }
 
     // Counselor Troi - Emotional Intelligence and Human Relations
     const response = {

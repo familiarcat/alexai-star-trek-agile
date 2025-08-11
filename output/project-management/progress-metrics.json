@@ -1,0 +1,75 @@
+{
+  "daily": {},
+  "weekly": {
+    "totalTasks": 71,
+    "completedTasks": 0,
+    "pendingTasks": 71,
+    "revenueTarget": "$1,750-$4,750",
+    "revenueGenerated": "$0",
+    "timeInvestment": "56 hours",
+    "successRate": "0%"
+  },
+  "revenue": {
+    "monday": {
+      "target": "$0",
+      "actual": "$0",
+      "status": "Pending"
+    },
+    "tuesday": {
+      "target": "$0",
+      "actual": "$0",
+      "status": "Pending"
+    },
+    "wednesday": {
+      "target": "$0",
+      "actual": "$0",
+      "status": "Pending"
+    },
+    "thursday": {
+      "target": "$500-$1,250",
+      "actual": "$0",
+      "status": "Pending"
+    },
+    "friday": {
+      "target": "$750-$2,000",
+      "actual": "$0",
+      "status": "Pending"
+    },
+    "saturday": {
+      "target": "$500-$1,500",
+      "actual": "$0",
+      "status": "Pending"
+    },
+    "sunday": {
+      "target": "$0",
+      "actual": "$0",
+      "status": "Pending"
+    }
+  },
+  "progress": {
+    "foundation": {
+      "status": "Pending",
+      "completion": "0%"
+    },
+    "content": {
+      "status": "Pending",
+      "completion": "0%"
+    },
+    "services": {
+      "status": "Pending",
+      "completion": "0%"
+    },
+    "revenue": {
+      "status": "Pending",
+      "completion": "0%"
+    },
+    "scaling": {
+      "status": "Pending",
+      "completion": "0%"
+    },
+    "optimization": {
+      "status": "Pending",
+      "completion": "0%"
+    }
+  }
+}

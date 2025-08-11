@@ -1,0 +1,314 @@
+{
+  "tables": [
+    {
+      "name": "weekly_execution_plans",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "default": "gen_random_uuid()",
+          "primaryKey": true
+        },
+        {
+          "name": "day",
+          "type": "text",
+          "notNull": true
+        },
+        {
+          "name": "date",
+          "type": "date",
+          "notNull": true
+        },
+        {
+          "name": "focus",
+          "type": "text",
+          "notNull": true
+        },
+        {
+          "name": "revenue_target",
+          "type": "text",
+          "notNull": true
+        },
+        {
+          "name": "time_investment",
+          "type": "text",
+          "notNull": true
+        },
+        {
+          "name": "morning_tasks",
+          "type": "jsonb",
+          "notNull": true
+        },
+        {
+          "name": "afternoon_tasks",
+          "type": "jsonb",
+          "notNull": true
+        },
+        {
+          "name": "evening_tasks",
+          "type": "jsonb"
+        },
+        {
+          "name": "status",
+          "type": "text",
+          "default": "'pending'",
+          "notNull": true
+        },
+        {
+          "name": "progress",
+          "type": "integer",
+          "default": "0",
+          "notNull": true
+        },
+        {
+          "name": "revenue_generated",
+          "type": "decimal",
+          "default": "0",
+          "notNull": true
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp",
+          "default": "now()",
+          "notNull": true
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp",
+          "default": "now()",
+          "notNull": true
+        }
+      ],
+      "indexes": [
+        {
+          "name": "idx_weekly_execution_plans_date",
+          "columns": [
+            "date"
+          ]
+        },
+        {
+          "name": "idx_weekly_execution_plans_status",
+          "columns": [
+            "status"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "daily_tasks",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "default": "gen_random_uuid()",
+          "primaryKey": true
+        },
+        {
+          "name": "plan_id",
+          "type": "uuid",
+          "references": "weekly_execution_plans(id)",
+          "notNull": true
+        },
+        {
+          "name": "title",
+          "type": "text",
+          "notNull": true
+        },
+        {
+          "name": "description",
+          "type": "text"
+        },
+        {
+          "name": "time_slot",
+          "type": "text",
+          "notNull": true
+        },
+        {
+          "name": "duration",
+          "type": "text",
+          "notNull": true
+        },
+        {
+          "name": "priority",
+          "type": "text",
+          "default": "'medium'",
+          "notNull": true
+        },
+        {
+          "name": "status",
+          "type": "text",
+          "default": "'pending'",
+          "notNull": true
+        },
+        {
+          "name": "phase",
+          "type": "text",
+          "notNull": true
+        },
+        {
+          "name": "revenue_target",
+          "type": "text",
+          "notNull": true
+        },
+        {
+          "name": "assignee",
+          "type": "text",
+          "default": "'You'",
+          "notNull": true
+        },
+        {
+          "name": "category",
+          "type": "text",
+          "notNull": true
+        },
+        {
+          "name": "tags",
+          "type": "jsonb",
+          "default": "[]",
+          "notNull": true
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp",
+          "default": "now()",
+          "notNull": true
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp",
+          "default": "now()",
+          "notNull": true
+        }
+      ],
+      "indexes": [
+        {
+          "name": "idx_daily_tasks_plan_id",
+          "columns": [
+            "plan_id"
+          ]
+        },
+        {
+          "name": "idx_daily_tasks_status",
+          "columns": [
+            "status"
+          ]
+        },
+        {
+          "name": "idx_daily_tasks_priority",
+          "columns": [
+            "priority"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "progress_metrics",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "default": "gen_random_uuid()",
+          "primaryKey": true
+        },
+        {
+          "name": "week_start_date",
+          "type": "date",
+          "notNull": true
+        },
+        {
+          "name": "total_tasks",
+          "type": "integer",
+          "default": "0",
+          "notNull": true
+        },
+        {
+          "name": "completed_tasks",
+          "type": "integer",
+          "default": "0",
+          "notNull": true
+        },
+        {
+          "name": "pending_tasks",
+          "type": "integer",
+          "default": "0",
+          "notNull": true
+        },
+        {
+          "name": "revenue_target",
+          "type": "text",
+          "notNull": true
+        },
+        {
+          "name": "revenue_generated",
+          "type": "decimal",
+          "default": "0",
+          "notNull": true
+        },
+        {
+          "name": "time_investment",
+          "type": "text",
+          "notNull": true
+        },
+        {
+          "name": "success_rate",
+          "type": "text",
+          "default": "'0%'",
+          "notNull": true
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp",
+          "default": "now()",
+          "notNull": true
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp",
+          "default": "now()",
+          "notNull": true
+        }
+      ],
+      "indexes": [
+        {
+          "name": "idx_progress_metrics_week_start",
+          "columns": [
+            "week_start_date"
+          ]
+        }
+      ]
+    }
+  ],
+  "functions": [
+    {
+      "name": "update_updated_at_column",
+      "language": "plpgsql",
+      "definition": "\n            CREATE OR REPLACE FUNCTION update_updated_at_column()\n            RETURNS TRIGGER AS $$\n            BEGIN\n                NEW.updated_at = now();\n                RETURN NEW;\n            END;\n            $$ language 'plpgsql';\n          "
+    }
+  ],
+  "triggers": [
+    {
+      "name": "update_weekly_execution_plans_updated_at",
+      "table": "weekly_execution_plans",
+      "function": "update_updated_at_column",
+      "events": [
+        "UPDATE"
+      ]
+    },
+    {
+      "name": "update_daily_tasks_updated_at",
+      "table": "daily_tasks",
+      "function": "update_updated_at_column",
+      "events": [
+        "UPDATE"
+      ]
+    },
+    {
+      "name": "update_progress_metrics_updated_at",
+      "table": "progress_metrics",
+      "function": "update_updated_at_column",
+      "events": [
+        "UPDATE"
+      ]
+    }
+  ]
+}
