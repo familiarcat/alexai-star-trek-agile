@@ -63,7 +63,7 @@ export default function ObservationLoungePage() {
   const [isConsulting, setIsConsulting] = useState(false);
   const [marketData, setMarketData] = useState<MarketData | null>(null);
   const [projects, setProjects] = useState<Project[]>([]);
-  const [activeTab, setActiveTab] = useState<'consultation' | 'market-intelligence' | 'project-orchestration'>('consultation');
+  const [activeTab, setActiveTab] = useState<'consultation' | 'market-intelligence' | 'project-orchestration' | 'profit-ethics'>('consultation');
 
   useEffect(() => {
     fetchAIAgents();
@@ -155,6 +155,16 @@ export default function ObservationLoungePage() {
           avatar: '/api/placeholder/150/150',
           specialties: ['Coordination', 'Knowledge Synthesis', 'Strategic Planning', 'Orchestration'],
           consultation_count: 342
+        },
+        {
+          id: 'quark',
+          name: 'Quark (Deep Space 9)',
+          role: 'Profit Optimization & Business Strategy',
+          description: 'Ferengi entrepreneur with a heart of gold. Expert in profit maximization, market opportunities, and business ethics. Always seeks the best deal while maintaining moral integrity.',
+          status: 'available',
+          avatar: '/api/placeholder/150/150',
+          specialties: ['Profit Optimization', 'Market Opportunities', 'Business Ethics', 'Deal Making', 'Risk Assessment'],
+          consultation_count: 189
         }
       ];
       setAgents(mockAgents);
@@ -396,6 +406,17 @@ export default function ObservationLoungePage() {
                     <RocketLaunchIcon className="h-5 w-5 inline mr-2" />
                     Project Orchestration
                   </button>
+                  <button
+                    onClick={() => setActiveTab('profit-ethics')}
+                    className={`py-4 px-1 border-b-2 font-medium text-sm ${
+                      activeTab === 'profit-ethics'
+                        ? 'border-blue-500 text-blue-600'
+                        : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                    }`}
+                  >
+                    <LightBulbIcon className="h-5 w-5 inline mr-2" />
+                    Profit & Ethics
+                  </button>
                 </nav>
               </div>
 
@@ -571,6 +592,133 @@ export default function ObservationLoungePage() {
                         <p>Loading project orchestration data...</p>
                       </div>
                     )}
+                  </div>
+                )}
+
+                {/* Profit & Ethics Tab */}
+                {activeTab === 'profit-ethics' && (
+                  <div>
+                    <h2 className="text-2xl font-bold text-gray-900 mb-6">💎 Profit & Ethics Analysis</h2>
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                      {/* Quark's Profit Analysis */}
+                      <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
+                        <div className="flex items-center mb-4">
+                          <div className="w-12 h-12 bg-yellow-200 rounded-full flex items-center justify-center mr-3">
+                            <span className="text-2xl">💎</span>
+                          </div>
+                          <div>
+                            <h3 className="text-lg font-semibold text-yellow-900">Quark's Profit Analysis</h3>
+                            <p className="text-sm text-yellow-700">Ferengi Business Strategy</p>
+                          </div>
+                        </div>
+                        
+                        <div className="space-y-4">
+                          <div className="bg-white p-4 rounded-lg">
+                            <h4 className="font-medium text-yellow-900 mb-2">Market Domination Opportunities</h4>
+                            <ul className="text-sm text-yellow-800 space-y-2">
+                              <li>• <strong>Enterprise Scaling:</strong> 30-50% profit increase (6-12 months)</li>
+                              <li>• <strong>Global Expansion:</strong> 50-100% profit increase (12-18 months)</li>
+                              <li>• <strong>Market Leadership:</strong> Sustainable competitive advantage</li>
+                            </ul>
+                          </div>
+                          
+                          <div className="bg-white p-4 rounded-lg">
+                            <h4 className="font-medium text-yellow-900 mb-2">Ferengi Wisdom</h4>
+                            <p className="text-sm text-yellow-800 italic">
+                              "Rule of Acquisition #62: The riskier the road, the greater the profit."
+                            </p>
+                          </div>
+                          
+                          <div className="bg-white p-4 rounded-lg">
+                            <h4 className="font-medium text-yellow-900 mb-2">Business Recommendations</h4>
+                            <ul className="text-sm text-yellow-800 space-y-2">
+                              <li>• Focus on low-risk, high-return opportunities first</li>
+                              <li>• Implement aggressive scaling strategies</li>
+                              <li>• Maximize market share while maintaining quality</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Troi's Ethical Guidance */}
+                      <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
+                        <div className="flex items-center mb-4">
+                          <div className="w-12 h-12 bg-blue-200 rounded-full flex items-center justify-center mr-3">
+                            <span className="text-2xl">🧠</span>
+                          </div>
+                          <div>
+                            <h3 className="text-lg font-semibold text-blue-900">Counselor Troi's Ethical Guidance</h3>
+                            <p className="text-sm text-blue-700">Empathic Business Ethics</p>
+                          </div>
+                        </div>
+                        
+                        <div className="space-y-4">
+                          <div className="bg-white p-4 rounded-lg">
+                            <h4 className="font-medium text-blue-900 mb-2">Ethical Considerations</h4>
+                            <ul className="text-sm text-blue-800 space-y-2">
+                              <li>• <strong>Customer Welfare:</strong> Profit must not harm user experience</li>
+                              <li>• <strong>Market Fairness:</strong> Maintain competitive but fair practices</li>
+                              <li>• <strong>Sustainability:</strong> Balance immediate gains with long-term growth</li>
+                            </ul>
+                          </div>
+                          
+                          <div className="bg-white p-4 rounded-lg">
+                            <h4 className="font-medium text-blue-900 mb-2">Emotional Intelligence</h4>
+                            <p className="text-sm text-blue-800">
+                              "Success without integrity is hollow. Our users trust us to do what's right, not just what's profitable."
+                            </p>
+                          </div>
+                          
+                          <div className="bg-white p-4 rounded-lg">
+                            <h4 className="font-medium text-blue-900 mb-2">Ethical Recommendations</h4>
+                            <ul className="text-sm text-blue-800 space-y-2">
+                              <li>• Implement ethical review processes for all major decisions</li>
+                              <li>• Prioritize user experience over pure profit maximization</li>
+                              <li>• Build sustainable business models that benefit all stakeholders</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Combined Strategy */}
+                    <div className="mt-8 bg-gradient-to-r from-yellow-50 to-blue-50 border border-yellow-200 rounded-lg p-6">
+                      <h3 className="text-xl font-bold text-gray-900 mb-4 text-center">🎯 Combined Strategy: Profit + Ethics</h3>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div className="text-center">
+                          <div className="w-16 h-16 bg-yellow-200 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <span className="text-3xl">💎</span>
+                          </div>
+                          <h4 className="font-semibold text-yellow-900 mb-2">Quark's Profit Focus</h4>
+                          <p className="text-sm text-yellow-800">Aggressive market expansion and profit optimization</p>
+                        </div>
+                        
+                        <div className="text-center">
+                          <div className="w-16 h-16 bg-blue-200 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <span className="text-3xl">⚖️</span>
+                          </div>
+                          <h4 className="font-semibold text-blue-900 mb-2">Ethical Balance</h4>
+                          <p className="text-sm text-blue-800">Counselor Troi ensures all decisions align with our values</p>
+                        </div>
+                        
+                        <div className="text-center">
+                          <div className="w-16 h-16 bg-green-200 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <span className="text-3xl">🚀</span>
+                          </div>
+                          <h4 className="font-semibold text-green-900 mb-2">Optimal Outcome</h4>
+                          <p className="text-sm text-green-800">Maximum profit with complete ethical compliance</p>
+                        </div>
+                      </div>
+                      
+                      <div className="mt-6 text-center">
+                        <p className="text-lg font-medium text-gray-900">
+                          "The best deal is one where everyone profits and no one loses their soul." - Quark
+                        </p>
+                        <p className="text-sm text-gray-600 mt-2">
+                          "And that's exactly what we'll achieve together." - Counselor Troi
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 )}
 
