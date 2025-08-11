@@ -31,8 +31,29 @@ export async function POST(request: Request) {
 // New GET method for status and info
 export async function GET() {
   try {
+    // Check if we can actually connect to n8n
+    const n8nUrl = process.env.N8N_URL;
+    const n8nApiKey = process.env.N8N_API_KEY;
+    
+    let connected = false;
+    if (n8nUrl && n8nApiKey) {
+      try {
+        // Test connection by trying to fetch workflows
+        const testResponse = await fetch(`${n8nUrl}/api/v1/workflows`, {
+          headers: {
+            'X-N8N-API-KEY': n8nApiKey
+          }
+        });
+        connected = testResponse.ok;
+      } catch (error) {
+        console.log('N8N connection test failed:', error);
+        connected = false;
+      }
+    }
+    
     const systemStatus = {
       status: 'operational',
+      connected: connected,
       architecture: 'best-of-both-worlds',
       timestamp: new Date().toISOString(),
       workflows: {
@@ -47,7 +68,8 @@ export async function GET() {
       integration: {
         supabase: 'connected',
         bilateral_sync: 'active',
-        ui_refinement: 'live'
+        ui_refinement: 'live',
+        n8n: connected ? 'connected' : 'disconnected'
       }
     };
     
@@ -55,7 +77,7 @@ export async function GET() {
   } catch (error) {
     console.error('N8N status error:', error);
     return NextResponse.json(
-      { error: 'Failed to get status' },
+      { error: 'Failed to get status', connected: false },
       { status: 500 }
     );
   }

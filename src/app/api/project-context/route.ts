@@ -264,11 +264,11 @@ async function switchProjectContext(clientId: string, projectId: string, context
 
 async function getProjectKnowledgeAssets(projectPath: string) {
   const assets = {
-    businessLogic: [],
-    designSystem: [],
-    requirements: [],
-    workflows: [],
-    documentation: []
+    businessLogic: [] as string[],
+    designSystem: [] as string[],
+    requirements: [] as string[],
+    workflows: [] as string[],
+    documentation: [] as string[]
   };
   
   try {
@@ -298,7 +298,7 @@ async function getProjectAgentMemories(projectPath: string) {
   
   try {
     const memoryFiles = await fs.readdir(memoriesPath);
-    const memories = {};
+    const memories: Record<string, any> = {};
     
     for (const file of memoryFiles) {
       if (file.endsWith('.json')) {
@@ -413,6 +413,51 @@ async function listAllClients() {
       message: 'No clients found or projects directory not accessible',
       timestamp: new Date().toISOString()
     });
+  }
+}
+
+async function getClientProjects(clientId: string) {
+  try {
+    const projectsDir = path.join(process.cwd(), 'alexai-knowledge-base', 'projects', clientId);
+    const projects = await fs.readdir(projectsDir);
+    
+    const projectData = [];
+    
+    for (const projectId of projects) {
+      try {
+        const projectPath = path.join(projectsDir, projectId);
+        const configPath = path.join(projectPath, 'project-config.json');
+        const configContent = await fs.readFile(configPath, 'utf-8');
+        const config = JSON.parse(configContent);
+        
+        projectData.push({
+          projectId,
+          ...config
+        });
+      } catch {
+        projectData.push({
+          projectId,
+          status: 'unknown',
+          createdAt: new Date().toISOString()
+        });
+      }
+    }
+    
+    return NextResponse.json({
+      clientId,
+      projects: projectData,
+      total: projectData.length,
+      timestamp: new Date().toISOString()
+    });
+    
+  } catch (error) {
+    return NextResponse.json({
+      error: 'Failed to retrieve client projects',
+      clientId,
+      projects: [],
+      total: 0,
+      timestamp: new Date().toISOString()
+    }, { status: 500 });
   }
 }
 

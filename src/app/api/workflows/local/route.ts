@@ -4,14 +4,16 @@ import path from 'path';
 
 export async function GET() {
   try {
-    const workflowsDir = path.join(process.cwd(), 'sync-system', 'workflows');
+    const workflowsDir = path.join(process.cwd(), 'workflows');
     
     try {
       const files = await fs.readdir(workflowsDir);
       const jsonFiles = files.filter(file => file.endsWith('.json'));
       
-      const workflows = await Promise.all(
-        jsonFiles.map(async (file) => {
+      const workflows = [];
+      
+      for (const file of jsonFiles) {
+        try {
           const filePath = path.join(workflowsDir, file);
           const content = await fs.readFile(filePath, 'utf-8');
           const workflow = JSON.parse(content);
@@ -19,16 +21,20 @@ export async function GET() {
           // Add metadata
           const stats = await fs.stat(filePath);
           
-          return {
+          workflows.push({
             ...workflow,
             id: `local-${file.replace('.json', '')}`,
             source: 'local',
             filename: file,
             updatedAt: stats.mtime.toISOString(),
             createdAt: stats.birthtime.toISOString()
-          };
-        })
-      );
+          });
+        } catch (fileError) {
+          console.warn(`Skipping corrupted workflow file ${file}:`, fileError);
+          // Continue processing other files instead of failing completely
+          continue;
+        }
+      }
       
       return NextResponse.json({
         success: true,

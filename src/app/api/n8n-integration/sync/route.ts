@@ -88,7 +88,7 @@ async function pullWorkflowsFromN8n(workflowIds?: string[], force = false): Prom
       ? n8nWorkflows.filter(w => workflowIds.includes(w.id))
       : n8nWorkflows;
     
-    const workflowsDir = path.join(process.cwd(), 'sync-system', 'workflows');
+    const workflowsDir = path.join(process.cwd(), 'workflows');
     await fs.mkdir(workflowsDir, { recursive: true });
     
     for (const workflow of workflowsToSync) {
@@ -227,7 +227,7 @@ async function fetchN8nWorkflows(): Promise<any[]> {
 }
 
 async function getLocalWorkflows(): Promise<any[]> {
-  const workflowsDir = path.join(process.cwd(), 'sync-system', 'workflows');
+  const workflowsDir = path.join(process.cwd(), 'workflows');
   
   try {
     const files = await fs.readdir(workflowsDir);

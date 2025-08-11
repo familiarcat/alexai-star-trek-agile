@@ -48,7 +48,7 @@ interface DashboardStats {
 async function getProjects(): Promise<Project[]> {
   try {
     // Use absolute URL to avoid parsing issues
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3001';
     const res = await fetch(`${baseUrl}/api/projects`, {
       cache: 'no-store'
     });
@@ -120,7 +120,7 @@ async function getProjects(): Promise<Project[]> {
 async function getDashboardStats(): Promise<DashboardStats> {
   try {
     // Use absolute URL to avoid parsing issues
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3001';
     const res = await fetch(`${baseUrl}/api/dashboard/stats`, {
       cache: 'no-store'
     });
@@ -154,7 +154,7 @@ async function getDashboardStats(): Promise<DashboardStats> {
       completed_tasks: 18,
       pending_tasks: 7,
       team_members: 12,
-      ai_consultations: 8
+      ai_consultations: 127
     };
   }
 }

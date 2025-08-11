@@ -26,7 +26,7 @@ deploy_bilateral_workflow() {
         # Try to load from ~/.zshrc
         if [[ -z "$N8N_API_KEY" ]]; then
             if grep -q "N8N_API_KEY" ~/.zshrc 2>/dev/null; then
-                eval "$(grep "export N8N_API_KEY" ~/.zshrc)"
+                source <(grep "export N8N_API_KEY" ~/.zshrc)
             fi
         fi
         

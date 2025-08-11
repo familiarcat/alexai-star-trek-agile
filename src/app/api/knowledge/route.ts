@@ -47,7 +47,7 @@ export async function GET(request: Request) {
       
       return NextResponse.json({
         agent,
-        relevantDomains: agentKnowledge[agent] || [],
+        relevantDomains: agentKnowledge[agent as keyof typeof agentKnowledge] || [],
         timestamp: new Date().toISOString()
       });
     }

@@ -83,25 +83,17 @@ export async function GET() {
 
 export async function POST() {
   try {
-    const result = await db.seedInitialData();
-    
-    if (result.success) {
-      return NextResponse.json({
-        success: true,
-        message: 'Sample data created successfully'
-      });
-    } else {
-      return NextResponse.json({
-        success: false,
-        error: result.error
-      }, { status: 500 });
-    }
+    // Database seeding functionality not yet configured
+    return NextResponse.json({
+      success: false,
+      error: 'Database seeding functionality not yet configured'
+    }, { status: 501 });
   } catch (error) {
-    console.error('Error seeding data:', error);
+    console.error('Error in projects POST:', error);
     
     return NextResponse.json({
       success: false,
-      error: 'Failed to seed data - database connection not configured'
+      error: 'Failed to process request'
     }, { status: 500 });
   }
 } 

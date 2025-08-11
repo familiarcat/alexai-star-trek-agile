@@ -80,8 +80,8 @@ export async function POST(request: Request) {
 function analyzeShipSystems(query: string, projectContext: any) {
   const systemAnalysis = {
     primarySystems: "All ship's systems operational",
-    relevantSystems: [],
-    recommendations: []
+    relevantSystems: [] as string[],
+    recommendations: [] as string[]
   };
   
   // Analyze query for system relevance
@@ -218,9 +218,9 @@ function generateAgentSpecificPanels(agentMemories: any) {
 function coordinateCrewForProject(query: string, projectContext: any) {
   const crewCoordination = {
     recommendedLeadAgent: "captain-picard",
-    supportingAgents: [],
+    supportingAgents: [] as string[],
     collaborationStrategy: "standard-project-team",
-    consultationOrder: []
+    consultationOrder: [] as string[]
   };
   
   // Analyze query complexity and requirements

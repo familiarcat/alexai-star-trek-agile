@@ -1,6 +1,6 @@
 {
-  "version": "2.0",
-  "description": "Enhanced LLM Configuration for AlexAI Bilateral Sync System",
+  "version": "3.0",
+  "description": "Optimized LLM Configuration for AlexAI Bilateral Sync System - Enhanced with All Available API Services",
   "lastUpdated": "2025-01-10T00:00:00.000Z",
   "default": "chatgpt5",
   
@@ -33,7 +33,34 @@
       ]
     },
     
-    "claude": {
+    "claude-opus": {
+      "name": "Claude 3.5 Opus",
+      "provider": "anthropic",
+      "model": "anthropic/claude-3.5-opus",
+      "baseUrl": "https://openrouter.ai/api/v1",
+      "apiKey": "ENV_OPENROUTER_API_KEY",
+      "maxTokens": 4000,
+      "temperature": 0.3,
+      "priority": 2,
+      "status": "premium",
+      "capabilities": {
+        "functionCalling": true,
+        "vision": false,
+        "codeInterpreter": false,
+        "retrieval": false,
+        "advancedReasoning": true,
+        "contextAwareness": true
+      },
+      "costPer1K": 0.015,
+      "recommendedUse": [
+        "expert_analysis",
+        "research",
+        "complex_problem_solving",
+        "strategic_planning"
+      ]
+    },
+    
+    "claude-sonnet": {
       "name": "Claude 3.5 Sonnet",
       "provider": "anthropic",
       "model": "anthropic/claude-3.5-sonnet",
@@ -41,7 +68,7 @@
       "apiKey": "ENV_OPENROUTER_API_KEY",
       "maxTokens": 2000,
       "temperature": 0.3,
-      "priority": 2,
+      "priority": 3,
       "status": "standard",
       "capabilities": {
         "functionCalling": true,
@@ -68,7 +95,7 @@
       "apiKey": "ENV_OPENAI_API_KEY",
       "maxTokens": 4000,
       "temperature": 0.3,
-      "priority": 3,
+      "priority": 4,
       "status": "standard",
       "capabilities": {
         "functionCalling": true,
@@ -87,30 +114,84 @@
       ]
     },
     
-    "claude-opus": {
-      "name": "Claude 3.5 Opus",
-      "provider": "anthropic",
-      "model": "anthropic/claude-3.5-opus",
-      "baseUrl": "https://openrouter.ai/api/v1",
-      "apiKey": "ENV_OPENROUTER_API_KEY",
-      "maxTokens": 4000,
+    "gemini-pro": {
+      "name": "Gemini Pro",
+      "provider": "google",
+      "model": "gemini-pro",
+      "baseUrl": "https://generativelanguage.googleapis.com/v1beta",
+      "apiKey": "ENV_GEMINI_API_KEY",
+      "maxTokens": 3000,
       "temperature": 0.3,
-      "priority": 4,
-      "status": "premium",
+      "priority": 5,
+      "status": "cost_effective",
       "capabilities": {
-        "functionCalling": true,
+        "functionCalling": false,
         "vision": false,
         "codeInterpreter": false,
         "retrieval": false,
         "advancedReasoning": true,
         "contextAwareness": true
       },
-      "costPer1K": 0.015,
+      "costPer1K": 0.0005,
       "recommendedUse": [
-        "expert_analysis",
-        "research",
-        "complex_problem_solving",
-        "strategic_planning"
+        "creative_writing",
+        "content_generation",
+        "general_analysis",
+        "cost_effective_tasks"
+      ]
+    },
+    
+    "continue": {
+      "name": "Continue AI",
+      "provider": "continue",
+      "model": "continue",
+      "baseUrl": "https://api.continue.dev",
+      "apiKey": "ENV_CONTINUE_API_KEY",
+      "maxTokens": 2000,
+      "temperature": 0.2,
+      "priority": 6,
+      "status": "specialized",
+      "capabilities": {
+        "functionCalling": false,
+        "vision": false,
+        "codeInterpreter": true,
+        "retrieval": false,
+        "advancedReasoning": true,
+        "contextAwareness": true
+      },
+      "costPer1K": 0.001,
+      "recommendedUse": [
+        "code_generation",
+        "code_review",
+        "programming_tasks",
+        "technical_documentation"
+      ]
+    },
+    
+    "bito": {
+      "name": "BitO AI",
+      "provider": "bito",
+      "model": "bito",
+      "baseUrl": "https://api.bito.ai",
+      "apiKey": "ENV_BITO_API_KEY",
+      "maxTokens": 2000,
+      "temperature": 0.3,
+      "priority": 7,
+      "status": "specialized",
+      "capabilities": {
+        "functionCalling": false,
+        "vision": false,
+        "codeInterpreter": false,
+        "retrieval": false,
+        "advancedReasoning": true,
+        "contextAwareness": true
+      },
+      "costPer1K": 0.002,
+      "recommendedUse": [
+        "general_ai_tasks",
+        "content_creation",
+        "analysis",
+        "backup_llm"
       ]
     }
   },
@@ -119,6 +200,7 @@
     "picard": {
       "name": "Captain Jean-Luc Picard",
       "llm": "chatgpt5",
+      "fallback": "claude-opus",
       "specialty": "strategic_planning",
       "ui_layout": "strategic-command",
       "priority": "high",
@@ -128,6 +210,7 @@
     "data": {
       "name": "Lieutenant Commander Data",
       "llm": "chatgpt5",
+      "fallback": "continue",
       "specialty": "technical_analysis",
       "ui_layout": "technical-analysis",
       "priority": "high",
@@ -136,7 +219,8 @@
     
     "troi": {
       "name": "Counselor Deanna Troi",
-      "llm": "claude",
+      "llm": "claude-sonnet",
+      "fallback": "gemini-pro",
       "specialty": "emotional_intelligence",
       "ui_layout": "standard-lcars",
       "priority": "normal",
@@ -146,6 +230,7 @@
     "scott": {
       "name": "Chief Engineer Montgomery Scott",
       "llm": "chatgpt5",
+      "fallback": "continue",
       "specialty": "engineering_solutions",
       "ui_layout": "technical-analysis",
       "priority": "high",
@@ -155,6 +240,7 @@
     "spock": {
       "name": "Commander Spock",
       "llm": "claude-opus",
+      "fallback": "chatgpt5",
       "specialty": "logical_analysis",
       "ui_layout": "strategic-command",
       "priority": "normal",
@@ -164,6 +250,7 @@
     "worf": {
       "name": "Lieutenant Worf",
       "llm": "gpt4",
+      "fallback": "claude-sonnet",
       "specialty": "security_tactical",
       "ui_layout": "security-tactical",
       "priority": "normal",
@@ -173,11 +260,21 @@
     "observation-lounge": {
       "name": "Observation Lounge",
       "llm": "chatgpt5",
+      "fallback": "claude-opus",
       "specialty": "collaborative_analysis",
       "ui_layout": "strategic-command",
       "priority": "high",
       "description": "Multi-perspective analysis and collaboration"
     }
+  },
+  
+  "optimization": {
+    "autoFallback": true,
+    "costOptimization": true,
+    "performanceTracking": true,
+    "adaptiveSelection": true,
+    "loadBalancing": true,
+    "fallbackStrategy": "performance_based"
   },
   
   "uiLayouts": {

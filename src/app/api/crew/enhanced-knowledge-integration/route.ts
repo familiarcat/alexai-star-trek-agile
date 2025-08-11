@@ -83,7 +83,7 @@ async function generateKnowledgeEnhancedResponse(
     }
   };
   
-  const personality = basePersonalities[agent];
+  const personality = basePersonalities[agent as keyof typeof basePersonalities];
   if (!personality) {
     return { message: 'Unknown agent', error: true };
   }

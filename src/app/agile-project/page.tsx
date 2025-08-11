@@ -147,7 +147,7 @@ export default function AgileProjectPage() {
         <div className="max-w-7xl mx-auto">
           <h3 className="text-lg font-semibold text-white mb-3">🎯 Sprint Goals</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
-            {projectData?.currentSprint?.goals?.map((goal, index) => (
+            {projectData?.currentSprint?.goals?.map((goal: string, index: number) => (
               <div key={index} className="bg-gray-700 p-3 rounded-lg">
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
