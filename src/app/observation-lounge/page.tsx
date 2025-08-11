@@ -8,7 +8,10 @@ import {
   UserIcon,
   SparklesIcon,
   ExclamationTriangleIcon,
-  ArrowPathIcon
+  ArrowPathIcon,
+  ChartBarIcon,
+  RocketLaunchIcon,
+  LightBulbIcon
 } from '@heroicons/react/24/outline';
 
 interface AIAgent {
@@ -31,6 +34,25 @@ interface Consultation {
   type: 'user' | 'ai';
 }
 
+interface MarketData {
+  currentPosition: string;
+  targetPosition: string;
+  marketShare: number;
+  targetShare: number;
+  innovationRate: string;
+  targetRate: string;
+}
+
+interface Project {
+  id: string;
+  name: string;
+  status: string;
+  marketTarget: string;
+  innovationFocus: string;
+  crewInvolvement: string[];
+  progress: number;
+}
+
 export default function ObservationLoungePage() {
   const [agents, setAgents] = useState<AIAgent[]>([]);
   const [selectedAgent, setSelectedAgent] = useState<AIAgent | null>(null);
@@ -39,9 +61,14 @@ export default function ObservationLoungePage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isConsulting, setIsConsulting] = useState(false);
+  const [marketData, setMarketData] = useState<MarketData | null>(null);
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [activeTab, setActiveTab] = useState<'consultation' | 'market-intelligence' | 'project-orchestration'>('consultation');
 
   useEffect(() => {
     fetchAIAgents();
+    fetchMarketData();
+    fetchProjects();
   }, []);
 
   const fetchAIAgents = async () => {
@@ -98,28 +125,79 @@ export default function ObservationLoungePage() {
           avatar: '/api/placeholder/150/150',
           specialties: ['Engineering', 'Technical Solutions', 'Resource Management'],
           consultation_count: 94
+        },
+        {
+          id: 'worf',
+          name: 'Lieutenant Worf',
+          role: 'Security & Risk Assessment',
+          description: 'Klingon warrior specializing in security protocols, risk management, and strategic defense planning.',
+          status: 'available',
+          avatar: '/api/placeholder/150/150',
+          specialties: ['Security', 'Risk Management', 'Defense', 'Strategy'],
+          consultation_count: 78
+        },
+        {
+          id: 'crusher',
+          name: 'Chief Medical Officer Beverly Crusher',
+          role: 'System Health & Performance',
+          description: 'Medical expert focused on system diagnostics, performance optimization, and preventive maintenance.',
+          status: 'available',
+          avatar: '/api/placeholder/150/150',
+          specialties: ['Diagnostics', 'Performance', 'Maintenance', 'Health'],
+          consultation_count: 112
+        },
+        {
+          id: 'ships-computer',
+          name: 'Ship\'s Computer',
+          role: 'Central Coordination',
+          description: 'Master coordinator and knowledge aggregator. Orchestrates all crew activities and synthesizes strategic insights.',
+          status: 'available',
+          avatar: '/api/placeholder/150/150',
+          specialties: ['Coordination', 'Knowledge Synthesis', 'Strategic Planning', 'Orchestration'],
+          consultation_count: 342
         }
       ];
-      
       setAgents(mockAgents);
-    } catch (err) {
-      setError('Failed to load AI agents');
-      console.error('AI agents fetch error:', err);
-    } finally {
       setLoading(false);
+    } catch (error) {
+      setError('Failed to fetch AI agents');
+      setLoading(false);
+    }
+  };
+
+  const fetchMarketData = async () => {
+    try {
+      const response = await fetch('/api/market-intelligence/analysis');
+      if (response.ok) {
+        const data = await response.json();
+        setMarketData(data);
+      }
+    } catch (error) {
+      console.error('Failed to fetch market data:', error);
+    }
+  };
+
+  const fetchProjects = async () => {
+    try {
+      const response = await fetch('/api/project-orchestration/projects');
+      if (response.ok) {
+        const data = await response.json();
+        setProjects(data);
+      }
+    } catch (error) {
+      console.error('Failed to fetch projects:', error);
     }
   };
 
   const startConsultation = (agent: AIAgent) => {
     setSelectedAgent(agent);
-    setConsultations([]);
-    setUserMessage('');
+    setActiveTab('consultation');
   };
 
   const sendMessage = async () => {
     if (!userMessage.trim() || !selectedAgent) return;
 
-    const userConsultation: Consultation = {
+    const newConsultation: Consultation = {
       id: Date.now().toString(),
       agent_id: selectedAgent.id,
       agent_name: selectedAgent.name,
@@ -128,7 +206,7 @@ export default function ObservationLoungePage() {
       type: 'user'
     };
 
-    setConsultations(prev => [...prev, userConsultation]);
+    setConsultations(prev => [...prev, newConsultation]);
     setUserMessage('');
     setIsConsulting(true);
 
@@ -138,7 +216,7 @@ export default function ObservationLoungePage() {
         id: (Date.now() + 1).toString(),
         agent_id: selectedAgent.id,
         agent_name: selectedAgent.name,
-        message: `Thank you for your inquiry. As ${selectedAgent.role}, I would recommend analyzing this situation from a ${selectedAgent.specialties[0].toLowerCase()} perspective. Would you like me to elaborate on any specific aspect?`,
+        message: `Thank you for your message. As ${selectedAgent.role}, I'm analyzing your request and will provide strategic guidance shortly.`,
         timestamp: new Date().toISOString(),
         type: 'ai'
       };
@@ -200,9 +278,9 @@ export default function ObservationLoungePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-6">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">Observation Lounge</h1>
+              <h1 className="text-3xl font-bold text-gray-900">Strategic Command Center</h1>
               <p className="text-gray-600 mt-1">
-                AI consultation interface with Star Trek characters
+                AI consultation, market intelligence, and project orchestration
               </p>
             </div>
             <div className="flex space-x-4">
@@ -218,7 +296,7 @@ export default function ObservationLoungePage() {
       </header>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* AI Agents Panel */}
           <div className="lg:col-span-1">
             <div className="bg-white shadow rounded-lg">
@@ -248,17 +326,29 @@ export default function ObservationLoungePage() {
                           <h3 className="text-sm font-medium text-gray-900 truncate">
                             {agent.name}
                           </h3>
-                          <span className="text-lg">{getStatusIcon(agent.status)}</span>
-                        </div>
-                        <p className="text-xs text-gray-500 mt-1">{agent.role}</p>
-                        <div className="flex items-center mt-2">
-                          <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(agent.status)}`}>
-                            {agent.status}
-                          </span>
-                          <span className="text-xs text-gray-500 ml-2">
-                            {agent.consultation_count} consultations
+                          <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(agent.status)}`}>
+                            {getStatusIcon(agent.status)} {agent.status}
                           </span>
                         </div>
+                        <p className="text-sm text-gray-500 mt-1">{agent.role}</p>
+                        <div className="flex flex-wrap gap-1 mt-2">
+                          {agent.specialties.slice(0, 2).map((specialty) => (
+                            <span
+                              key={specialty}
+                              className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800"
+                            >
+                              {specialty}
+                            </span>
+                          ))}
+                          {agent.specialties.length > 2 && (
+                            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                              +{agent.specialties.length - 2} more
+                            </span>
+                          )}
+                        </div>
+                        <p className="text-xs text-gray-400 mt-2">
+                          {agent.consultation_count} consultations
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -267,20 +357,61 @@ export default function ObservationLoungePage() {
             </div>
           </div>
 
-          {/* Consultation Panel */}
-          <div className="lg:col-span-2">
-            <div className="bg-white shadow rounded-lg h-[600px] flex flex-col">
-              {selectedAgent ? (
-                <>
-                  {/* Agent Header */}
-                  <div className="px-6 py-4 border-b border-gray-200">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-3">
-                        <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
-                          <UserIcon className="h-5 w-5 text-gray-500" />
+          {/* Main Content Area */}
+          <div className="lg:col-span-3">
+            <div className="bg-white shadow rounded-lg">
+              {/* Tab Navigation */}
+              <div className="border-b border-gray-200">
+                <nav className="-mb-px flex space-x-8 px-6">
+                  <button
+                    onClick={() => setActiveTab('consultation')}
+                    className={`py-4 px-1 border-b-2 font-medium text-sm ${
+                      activeTab === 'consultation'
+                        ? 'border-blue-500 text-blue-600'
+                        : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                    }`}
+                  >
+                    <ChatBubbleLeftRightIcon className="h-5 w-5 inline mr-2" />
+                    AI Consultation
+                  </button>
+                  <button
+                    onClick={() => setActiveTab('market-intelligence')}
+                    className={`py-4 px-1 border-b-2 font-medium text-sm ${
+                      activeTab === 'market-intelligence'
+                        ? 'border-blue-500 text-blue-600'
+                        : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                    }`}
+                  >
+                    <ChartBarIcon className="h-5 w-5 inline mr-2" />
+                    Market Intelligence
+                  </button>
+                  <button
+                    onClick={() => setActiveTab('project-orchestration')}
+                    className={`py-4 px-1 border-b-2 font-medium text-sm ${
+                      activeTab === 'project-orchestration'
+                        ? 'border-blue-500 text-blue-600'
+                        : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                    }`}
+                  >
+                    <RocketLaunchIcon className="h-5 w-5 inline mr-2" />
+                    Project Orchestration
+                  </button>
+                </nav>
+              </div>
+
+              {/* Tab Content */}
+              <div className="p-6">
+                {/* AI Consultation Tab */}
+                {activeTab === 'consultation' && selectedAgent && (
+                  <>
+                    {/* Agent Header */}
+                    <div className="flex items-center justify-between mb-6">
+                      <div className="flex items-center space-x-4">
+                        <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center">
+                          <UserIcon className="h-8 w-8 text-gray-500" />
                         </div>
                         <div>
-                          <h3 className="text-lg font-medium text-gray-900">
+                          <h3 className="text-xl font-semibold text-gray-900">
                             {selectedAgent.name}
                           </h3>
                           <p className="text-sm text-gray-500">{selectedAgent.role}</p>
@@ -290,8 +421,8 @@ export default function ObservationLoungePage() {
                         {selectedAgent.status}
                       </span>
                     </div>
-                    <p className="text-sm text-gray-600 mt-2">{selectedAgent.description}</p>
-                    <div className="flex flex-wrap gap-1 mt-2">
+                    <p className="text-sm text-gray-600 mb-6">{selectedAgent.description}</p>
+                    <div className="flex flex-wrap gap-1 mb-6">
                       {selectedAgent.specialties.map((specialty) => (
                         <span
                           key={specialty}
@@ -301,79 +432,158 @@ export default function ObservationLoungePage() {
                         </span>
                       ))}
                     </div>
-                  </div>
 
-                  {/* Chat Messages */}
-                  <div className="flex-1 overflow-y-auto p-6 space-y-4">
-                    {consultations.length === 0 ? (
-                      <div className="text-center text-gray-500 mt-8">
-                        <ChatBubbleLeftRightIcon className="h-12 w-12 mx-auto mb-4 text-gray-300" />
-                        <p>Start a conversation with {selectedAgent.name}</p>
-                        <p className="text-sm">Ask about project management, team dynamics, or strategic planning.</p>
+                    {/* Chat Messages */}
+                    <div className="flex-1 overflow-y-auto space-y-4 mb-6" style={{ maxHeight: '400px' }}>
+                      {consultations.length === 0 ? (
+                        <div className="text-center text-gray-500 mt-8">
+                          <ChatBubbleLeftRightIcon className="h-12 w-12 mx-auto mb-4 text-gray-300" />
+                          <p>Start a conversation with {selectedAgent.name}</p>
+                          <p className="text-sm">Ask about project management, team dynamics, or strategic planning.</p>
+                        </div>
+                      ) : (
+                        consultations.map((consultation) => (
+                          <div
+                            key={consultation.id}
+                            className={`flex ${consultation.type === 'user' ? 'justify-end' : 'justify-start'}`}
+                          >
+                            <div
+                              className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
+                                consultation.type === 'user'
+                                  ? 'bg-blue-600 text-white'
+                                  : 'bg-gray-100 text-gray-900'
+                              }`}
+                            >
+                              <p className="text-sm">{consultation.message}</p>
+                              <p className="text-xs opacity-70 mt-1">
+                                {new Date(consultation.timestamp).toLocaleTimeString()}
+                              </p>
+                            </div>
+                          </div>
+                        ))
+                      )}
+                      {isConsulting && (
+                        <div className="flex justify-start">
+                          <div className="bg-gray-100 text-gray-900 max-w-xs lg:max-w-md px-4 py-2 rounded-lg">
+                            <div className="flex items-center space-x-2">
+                              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-gray-600"></div>
+                              <span className="text-sm">Thinking...</span>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Message Input */}
+                    <div className="border-t border-gray-200 pt-4">
+                      <div className="flex space-x-4">
+                        <input
+                          type="text"
+                          value={userMessage}
+                          onChange={(e) => setUserMessage(e.target.value)}
+                          onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
+                          placeholder="Type your message..."
+                          className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                          disabled={isConsulting}
+                        />
+                        <button
+                          onClick={sendMessage}
+                          disabled={!userMessage.trim() || isConsulting}
+                          className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                          <SparklesIcon className="h-4 w-4" />
+                        </button>
+                      </div>
+                    </div>
+                  </>
+                )}
+
+                {/* Market Intelligence Tab */}
+                {activeTab === 'market-intelligence' && (
+                  <div>
+                    <h2 className="text-2xl font-bold text-gray-900 mb-6">🎯 Market Intelligence Dashboard</h2>
+                    {marketData ? (
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div className="bg-blue-50 p-6 rounded-lg">
+                          <h3 className="text-lg font-semibold text-blue-900 mb-2">Market Position</h3>
+                          <p className="text-3xl font-bold text-blue-600">{marketData.currentPosition}</p>
+                          <p className="text-sm text-blue-700 mt-1">Target: {marketData.targetPosition}</p>
+                        </div>
+                        <div className="bg-green-50 p-6 rounded-lg">
+                          <h3 className="text-lg font-semibold text-green-900 mb-2">Market Share</h3>
+                          <p className="text-3xl font-bold text-green-600">{marketData.marketShare}%</p>
+                          <p className="text-sm text-green-700 mt-1">Target: {marketData.targetShare}%</p>
+                        </div>
+                        <div className="bg-purple-50 p-6 rounded-lg">
+                          <h3 className="text-lg font-semibold text-purple-900 mb-2">Innovation Rate</h3>
+                          <p className="text-3xl font-bold text-purple-600">{marketData.innovationRate}</p>
+                          <p className="text-sm text-purple-700 mt-1">Target: {marketData.targetRate}</p>
+                        </div>
                       </div>
                     ) : (
-                      consultations.map((consultation) => (
-                        <div
-                          key={consultation.id}
-                          className={`flex ${consultation.type === 'user' ? 'justify-end' : 'justify-start'}`}
-                        >
-                          <div
-                            className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
-                              consultation.type === 'user'
-                                ? 'bg-blue-600 text-white'
-                                : 'bg-gray-100 text-gray-900'
-                            }`}
-                          >
-                            <p className="text-sm">{consultation.message}</p>
-                            <p className="text-xs opacity-70 mt-1">
-                              {new Date(consultation.timestamp).toLocaleTimeString()}
-                            </p>
-                          </div>
-                        </div>
-                      ))
-                    )}
-                    {isConsulting && (
-                      <div className="flex justify-start">
-                        <div className="bg-gray-100 text-gray-900 max-w-xs lg:max-w-md px-4 py-2 rounded-lg">
-                          <div className="flex items-center space-x-2">
-                            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-gray-600"></div>
-                            <span className="text-sm">Thinking...</span>
-                          </div>
-                        </div>
+                      <div className="text-center text-gray-500 py-12">
+                        <ChartBarIcon className="h-12 w-12 mx-auto mb-4 text-gray-300" />
+                        <p>Loading market intelligence data...</p>
                       </div>
                     )}
                   </div>
+                )}
 
-                  {/* Message Input */}
-                  <div className="px-6 py-4 border-t border-gray-200">
-                    <div className="flex space-x-4">
-                      <input
-                        type="text"
-                        value={userMessage}
-                        onChange={(e) => setUserMessage(e.target.value)}
-                        onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
-                        placeholder="Type your message..."
-                        className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                        disabled={isConsulting}
-                      />
-                      <button
-                        onClick={sendMessage}
-                        disabled={!userMessage.trim() || isConsulting}
-                        className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
-                      >
-                        <SparklesIcon className="h-4 w-4" />
-                      </button>
+                {/* Project Orchestration Tab */}
+                {activeTab === 'project-orchestration' && (
+                  <div>
+                    <h2 className="text-2xl font-bold text-gray-900 mb-6">🚀 Project Orchestration</h2>
+                    {projects.length > 0 ? (
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {projects.map((project) => (
+                          <div key={project.id} className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow">
+                            <div className="flex items-center justify-between mb-4">
+                              <h3 className="text-lg font-semibold text-gray-900">{project.name}</h3>
+                              <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                                project.status === 'active' ? 'bg-green-100 text-green-800' :
+                                project.status === 'development' ? 'bg-yellow-100 text-yellow-800' :
+                                'bg-gray-100 text-gray-800'
+                              }`}>
+                                {project.status}
+                              </span>
+                            </div>
+                            <p className="text-sm text-gray-600 mb-2"><strong>Market Target:</strong> {project.marketTarget}</p>
+                            <p className="text-sm text-gray-600 mb-2"><strong>Innovation Focus:</strong> {project.innovationFocus}</p>
+                            <p className="text-sm text-gray-600 mb-4"><strong>Crew:</strong> {project.crewInvolvement.join(', ')}</p>
+                            <div className="mb-2">
+                              <div className="flex justify-between text-sm text-gray-600 mb-1">
+                                <span>Progress</span>
+                                <span>{project.progress}%</span>
+                              </div>
+                              <div className="w-full bg-gray-200 rounded-full h-2">
+                                <div 
+                                  className="bg-blue-600 h-2 rounded-full transition-all duration-300" 
+                                  style={{ width: `${project.progress}%` }}
+                                ></div>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="text-center text-gray-500 py-12">
+                        <RocketLaunchIcon className="h-12 w-12 mx-auto mb-4 text-gray-300" />
+                        <p>Loading project orchestration data...</p>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* No Agent Selected */}
+                {activeTab === 'consultation' && !selectedAgent && (
+                  <div className="flex-1 flex items-center justify-center">
+                    <div className="text-center text-gray-500">
+                      <EyeIcon className="h-12 w-12 mx-auto mb-4 text-gray-300" />
+                      <p>Select an AI agent to begin consultation</p>
                     </div>
                   </div>
-                </>
-              ) : (
-                <div className="flex-1 flex items-center justify-center">
-                  <div className="text-center text-gray-500">
-                    <EyeIcon className="h-12 w-12 mx-auto mb-4 text-gray-300" />
-                    <p>Select an AI agent to begin consultation</p>
-                  </div>
-                </div>
-              )}
+                )}
+              </div>
             </div>
           </div>
         </div>
