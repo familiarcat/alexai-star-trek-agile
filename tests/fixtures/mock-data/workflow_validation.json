@@ -1,0 +1,30 @@
+{
+  "validation_type": "comprehensive",
+  "include_specialized": true,
+  "test_depth": "full_integration",
+  "mock_execution": true,
+  "validation_parameters": {
+    "test_scenarios": ["normal_operation", "high_load", "error_conditions", "edge_cases"],
+    "performance_metrics": ["response_time", "throughput", "error_rate", "resource_usage"],
+    "validation_criteria": ["functionality", "reliability", "performance", "security"],
+    "test_duration": "extended"
+  },
+  "workflow_specific_tests": {
+    "comprehensive_agent_validation": {
+      "test_cases": ["single_agent", "multi_agent", "full_system", "stress_test"],
+      "expected_outcomes": ["validation_plan", "health_checks", "system_status", "recommendations"]
+    },
+    "crew_coordination": {
+      "test_cases": ["simple_coordination", "complex_mission", "emergency_response", "conflict_resolution"],
+      "expected_outcomes": ["crew_status", "coordination_level", "mission_status", "efficiency_metrics"]
+    },
+    "bilateral_learning": {
+      "test_cases": ["knowledge_synthesis", "cross_agent_learning", "adaptive_improvement", "performance_optimization"],
+      "expected_outcomes": ["sync_status", "learning_progress", "knowledge_gained", "improvement_metrics"]
+    },
+    "multimodal_agency": {
+      "test_cases": ["data_analysis", "pattern_recognition", "insight_generation", "threat_assessment"],
+      "expected_outcomes": ["analysis_result", "data_processed", "insights_generated", "confidence_levels"]
+    }
+  }
+}

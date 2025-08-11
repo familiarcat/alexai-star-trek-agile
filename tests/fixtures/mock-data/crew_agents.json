@@ -1,0 +1,76 @@
+{
+  "captain_picard": {
+    "context": "Strategic decision making for diplomatic mission to Betazed",
+    "priority": "high",
+    "crew_members": ["lieutenant_data", "counselor_troi", "commander_riker"],
+    "mission_type": "diplomatic",
+    "stardate": "47988.1",
+    "sector": "Beta Quadrant",
+    "threat_level": "moderate",
+    "diplomatic_protocols": ["first_contact", "cultural_exchange", "trade_negotiation"],
+    "expected_duration": "72_hours",
+    "resources_required": ["diplomatic_team", "cultural_database", "translation_matrix"]
+  },
+  "lieutenant_data": {
+    "context": "Technical analysis of advanced alien technology discovered in asteroid field",
+    "priority": "medium",
+    "crew_members": ["chief_engineer_scott", "chief_obrien"],
+    "analysis_type": "technology_assessment",
+    "technology_category": "propulsion_system",
+    "complexity_level": "advanced",
+    "safety_concerns": ["unknown_energy_signatures", "unstable_quantum_fields"],
+    "analysis_tools": ["tricorder", "quantum_scanner", "energy_analyzer"],
+    "estimated_analysis_time": "48_hours",
+    "potential_applications": ["warp_drive_enhancement", "shield_technology", "weapon_systems"]
+  },
+  "counselor_troi": {
+    "context": "Psychological profile analysis of newly discovered telepathic species",
+    "priority": "medium",
+    "crew_members": ["captain_picard", "dr_crusher"],
+    "analysis_type": "psychological_assessment",
+    "species_characteristics": ["telepathic", "emotionally_sensitive", "collective_consciousness"],
+    "risk_factors": ["mental_projection", "emotional_overwhelm", "cultural_shock"],
+    "assessment_methods": ["empathic_scan", "cultural_observation", "interaction_analysis"],
+    "adaptation_strategies": ["mental_shields", "cultural_mediation", "gradual_exposure"],
+    "recommended_approach": "cautious_optimism"
+  },
+  "chief_engineer_scott": {
+    "context": "Critical engineering solution for warp core instability during battle",
+    "priority": "critical",
+    "crew_members": ["lieutenant_data", "chief_obrien", "ensign_la_forge"],
+    "problem_type": "warp_core_issue",
+    "symptoms": ["plasma_leaks", "energy_fluctuations", "containment_breach_imminent"],
+    "root_cause": "damaged_dilithium_crystals",
+    "immediate_actions": ["emergency_shutdown", "containment_field_reinforcement", "coolant_injection"],
+    "repair_priority": "immediate",
+    "estimated_repair_time": "6_hours",
+    "required_materials": ["dilithium_crystals", "plasma_conduits", "containment_field_generators"],
+    "safety_protocols": ["radiation_shielding", "emergency_evacuation", "containment_breach_protocols"]
+  },
+  "commander_spock": {
+    "context": "Logical analysis of temporal paradox caused by time travel incident",
+    "priority": "high",
+    "crew_members": ["lieutenant_data", "captain_picard", "dr_crusher"],
+    "analysis_type": "temporal_analysis",
+    "paradox_type": "grandfather_paradox",
+    "temporal_anomaly_indicators": ["chroniton_particles", "temporal_distortion_fields", "causality_loops"],
+    "affected_timeline_period": "past_100_years",
+    "potential_solutions": ["temporal_reset", "causality_restoration", "timeline_merging"],
+    "risk_assessment": "extreme",
+    "required_precautions": ["temporal_shielding", "causality_monitoring", "emergency_temporal_reset"],
+    "analysis_complexity": "maximum"
+  },
+  "lieutenant_worf": {
+    "context": "Security protocol assessment for hostile environment in Klingon space",
+    "priority": "high",
+    "crew_members": ["captain_picard", "security_team_alpha"],
+    "security_level": "maximum",
+    "threat_assessment": "hostile_klingon_factions",
+    "environmental_hazards": ["ion_storms", "gravitational_anomalies", "radiation_belts"],
+    "security_measures": ["enhanced_shields", "weapons_ready", "cloaking_detection"],
+    "evasion_protocols": ["stealth_mode", "emergency_escape_routes", "distress_beacon_disabled"],
+    "combat_readiness": "maximum",
+    "escape_plan": "multiple_evasion_routes",
+    "backup_support": "federation_fleet_standby"
+  }
+}

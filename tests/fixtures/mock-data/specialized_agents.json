@@ -1,0 +1,53 @@
+{
+  "ships_computer": {
+    "context": "Comprehensive database query for historical mission data analysis",
+    "query_type": "mission_history",
+    "timeframe": "last_5_years",
+    "data_categories": ["diplomatic_missions", "scientific_discoveries", "combat_engagements", "first_contacts"],
+    "analysis_depth": "comprehensive",
+    "correlation_factors": ["stardate", "sector", "crew_composition", "mission_outcome"],
+    "output_format": "detailed_report",
+    "data_volume": "large_dataset",
+    "processing_priority": "high",
+    "required_insights": ["mission_success_patterns", "risk_assessment_trends", "crew_performance_metrics"]
+  },
+  "multimodal_agency": {
+    "context": "Advanced analysis of visual sensor data from unknown alien object",
+    "data_type": "visual_sensors",
+    "analysis_depth": "comprehensive",
+    "sensor_data": {
+      "visual_spectrum": ["visible_light", "infrared", "ultraviolet"],
+      "energy_signatures": ["plasma_emissions", "quantum_fields", "temporal_distortions"],
+      "structural_analysis": ["molecular_composition", "energy_patterns", "temporal_anomalies"]
+    },
+    "analysis_parameters": {
+      "resolution": "maximum",
+      "temporal_analysis": "real_time",
+      "pattern_recognition": "advanced_ai",
+      "threat_assessment": "immediate"
+    },
+    "expected_outputs": ["object_identification", "threat_assessment", "interaction_protocols", "safety_recommendations"]
+  },
+  "bilateral_learning": {
+    "context": "Cross-agent knowledge synthesis for enhanced mission coordination",
+    "agents_involved": ["captain_picard", "lieutenant_data", "counselor_troi"],
+    "learning_type": "collaborative",
+    "knowledge_domains": ["strategic_planning", "technical_analysis", "psychological_insights"],
+    "synthesis_methods": ["pattern_matching", "cross_reference_analysis", "emergent_knowledge_generation"],
+    "learning_objectives": ["improved_coordination", "enhanced_decision_making", "adaptive_strategies"],
+    "expected_outcomes": ["unified_mission_strategy", "optimized_crew_utilization", "enhanced_risk_mitigation"],
+    "integration_level": "deep_synthesis"
+  },
+  "enhanced_knowledge": {
+    "context": "Knowledge base expansion with new discoveries from alien civilization",
+    "discovery_type": "alien_civilization",
+    "integration_priority": "high",
+    "discovery_categories": ["technology", "culture", "history", "philosophy", "science"],
+    "knowledge_volume": "extensive",
+    "verification_status": "preliminary",
+    "integration_methods": ["categorization", "cross_referencing", "validation", "synthesis"],
+    "access_levels": ["public", "restricted", "classified", "captain_only"],
+    "update_frequency": "real_time",
+    "quality_metrics": ["accuracy", "completeness", "relevance", "timeliness"]
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "test_environment": {
+    "local_url": "http://localhost:3000",
+    "n8n_url": "https://n8n.pbradygeorgen.com",
+    "timeout_settings": {
+      "api_requests": 15,
+      "workflow_execution": 30,
+      "integration_tests": 20
+    },
+    "retry_settings": {
+      "max_retries": 3,
+      "retry_delay": 2,
+      "backoff_multiplier": 1.5
+    }
+  },
+  "test_data": {
+    "mock_data_files": [
+      "crew_agents.json",
+      "specialized_agents.json",
+      "orchestration_agents.json",
+      "workflow_validation.json",
+      "integration_scenarios.json"
+    ],
+    "data_refresh_interval": "24_hours",
+    "validation_required": true
+  },
+  "reporting": {
+    "output_format": "json",
+    "include_timestamps": true,
+    "include_performance_metrics": true,
+    "include_recommendations": true,
+    "report_retention": "30_days"
+  },
+  "notifications": {
+    "email_alerts": false,
+    "slack_notifications": false,
+    "console_output": true,
+    "log_file_output": true
+  }
+}

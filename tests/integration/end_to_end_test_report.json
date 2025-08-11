@@ -1,0 +1,41 @@
+{
+  "timestamp": "2025-08-10T18:28:51.214123",
+  "summary": {
+    "total_tests": 4,
+    "passed": 2,
+    "failed": 2,
+    "warnings": 0,
+    "success_rate": 50.0
+  },
+  "test_results": [
+    {
+      "timestamp": "2025-08-10 18:28:47",
+      "test": "Local Deployment",
+      "status": "FAIL",
+      "details": "Connection error: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x1068c30e0>: Failed to establish a new connection: [Errno 61] Connection refused'))"
+    },
+    {
+      "timestamp": "2025-08-10 18:28:50",
+      "test": "Remote Main Page",
+      "status": "PASS",
+      "details": "Status: 200"
+    },
+    {
+      "timestamp": "2025-08-10 18:28:50",
+      "test": "Remote AlexAI Status",
+      "status": "PASS",
+      "details": "AlexAI core agent responding"
+    },
+    {
+      "timestamp": "2025-08-10 18:28:51",
+      "test": "Remote Dashboard",
+      "status": "FAIL",
+      "details": "Status: 404"
+    }
+  ],
+  "deployment_urls": {
+    "local": "http://localhost:8000",
+    "remote_main": "https://alexaikatratransferpackageremotev7-em8uv8wwo-pbradygeorgen.vercel.app",
+    "remote_dashboard": "https://alexaikatratransferpackageremotev7-5a0huy992-pbradygeorgen.vercel.app"
+  }
+}

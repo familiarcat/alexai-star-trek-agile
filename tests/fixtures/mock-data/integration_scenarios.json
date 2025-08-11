@@ -1,0 +1,50 @@
+{
+  "multi_agent_mission": {
+    "scenario": "multi_agent_mission",
+    "agents": ["captain_picard", "lieutenant_data", "chief_engineer_scott"],
+    "mission_type": "critical_engineering",
+    "priority": "critical",
+    "timeframe": "immediate",
+    "mission_parameters": {
+      "objective": "repair_critical_system_failure",
+      "constraints": ["time_pressure", "resource_limitations", "safety_requirements"],
+      "success_criteria": ["system_restoration", "crew_safety", "mission_continuation"]
+    },
+    "coordination_requirements": {
+      "real_time_communication": true,
+      "shared_decision_making": true,
+      "resource_coordination": true,
+      "progress_tracking": true
+    }
+  },
+  "knowledge_synthesis": {
+    "scenario": "knowledge_synthesis",
+    "agents": ["enhanced_knowledge", "bilateral_learning"],
+    "synthesis_type": "cross_domain",
+    "complexity": "high",
+    "synthesis_parameters": {
+      "domains": ["science", "technology", "culture", "history"],
+      "synthesis_method": "intelligent_integration",
+      "output_format": "comprehensive_knowledge_base",
+      "validation_required": true
+    },
+    "expected_outcomes": {
+      "new_insights": "emergent_knowledge",
+      "pattern_recognition": "cross_domain_patterns",
+      "knowledge_relationships": "interconnected_understanding",
+      "applicability": "practical_applications"
+    }
+  },
+  "emergency_response": {
+    "scenario": "emergency_response",
+    "agents": ["lieutenant_worf", "chief_engineer_scott", "dr_crusher"],
+    "emergency_type": "multiple_system_failures",
+    "priority": "critical",
+    "response_parameters": {
+      "immediate_actions": ["damage_assessment", "safety_measures", "emergency_protocols"],
+      "coordination_requirements": ["unified_command", "resource_allocation", "communication_management"],
+      "success_criteria": ["crew_safety", "system_stabilization", "mission_survival"]
+    },
+    "time_critical_factors": ["life_support", "structural_integrity", "power_systems", "communications"]
+  }
+}

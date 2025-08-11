@@ -1,0 +1,57 @@
+{
+  "crew_coordination": {
+    "context": "Multi-agent mission coordination for deep space exploration mission",
+    "mission_type": "exploration",
+    "crew_size": 6,
+    "duration": "72_hours",
+    "mission_parameters": {
+      "destination": "unexplored_nebula",
+      "objectives": ["scientific_analysis", "resource_mapping", "anomaly_investigation"],
+      "risk_level": "moderate",
+      "resource_allocation": "standard"
+    },
+    "coordination_requirements": {
+      "communication_protocols": ["real_time", "hierarchical", "emergency_override"],
+      "decision_making": ["consensus", "captain_authority", "expert_opinion"],
+      "resource_sharing": ["equipment", "data", "expertise"],
+      "conflict_resolution": ["immediate", "escalation_protocols", "mediation"]
+    },
+    "success_metrics": ["mission_completion", "crew_safety", "scientific_discoveries", "efficiency"]
+  },
+  "ship_agency": {
+    "context": "Automated ship systems management during critical operations",
+    "systems": ["life_support", "navigation", "communications", "weapons", "shields", "engines"],
+    "autonomy_level": "full",
+    "operational_modes": {
+      "normal": "standard_automation",
+      "alert": "enhanced_monitoring",
+      "battle": "combat_automation",
+      "emergency": "survival_automation"
+    },
+    "decision_parameters": {
+      "safety_thresholds": "maximum",
+      "efficiency_optimization": "balanced",
+      "resource_conservation": "moderate",
+      "crew_comfort": "standard"
+    },
+    "emergency_protocols": ["automatic_evasion", "emergency_shields", "life_support_priority", "distress_beacon"]
+  },
+  "llm_orchestration": {
+    "context": "Multi-LLM task distribution for complex problem solving",
+    "llm_providers": ["openai", "anthropic", "local", "specialized"],
+    "task_complexity": "high",
+    "orchestration_strategy": {
+      "task_decomposition": "hierarchical",
+      "llm_selection": "capability_based",
+      "result_synthesis": "intelligent_merging",
+      "quality_assurance": "cross_validation"
+    },
+    "task_categories": {
+      "strategic_planning": "openai_gpt4",
+      "technical_analysis": "anthropic_claude",
+      "creative_solutions": "local_models",
+      "specialized_knowledge": "domain_specific"
+    },
+    "coordination_mechanisms": ["workflow_management", "result_aggregation", "conflict_resolution", "quality_optimization"]
+  }
+}
