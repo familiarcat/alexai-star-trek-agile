@@ -248,7 +248,7 @@ export function ShipsComputerProvider({ children }: ShipsComputerProviderProps) 
         ai: 'Operational',
         database: 'Operational'
       },
-      recommendations: []
+      recommendations: [] as string[]
     };
     
     if (!showSidebar) health.recommendations.push('Consider enabling sidebar for full navigation');

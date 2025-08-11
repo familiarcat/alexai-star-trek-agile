@@ -239,7 +239,7 @@ function generateMockConnections(category: string): string[] {
     'Technical Architecture': ['Cloud Infrastructure', 'API Management', 'Performance Monitoring', 'Security Protocols']
   };
   
-  return connections[category as keyof typeof areas] || [];
+  return connections[category as keyof typeof connections] || [];
 }
 
 function createKnowledgeConnections(videoAnalyses: VideoAnalysis[]): KnowledgeConnection[] {
@@ -370,7 +370,7 @@ function identifyKnowledgeGaps(agent: any, videoAnalyses: VideoAnalysis[]): stri
   const agentExpertise = agent.expertise.map((exp: string) => exp.toLowerCase());
   
   return allKnowledgeAreas
-    .filter(area => !agentExpertise.some(exp => area.toLowerCase().includes(exp)))
+    .filter(area => !agentExpertise.some((exp: string) => area.toLowerCase().includes(exp)))
     .slice(0, 3);
 }
 

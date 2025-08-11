@@ -27,6 +27,7 @@ import { ShipsComputerControlPanel } from '@/components/lcars/ships-computer-con
 import { YouTubeAnalysisWorkflow } from '@/components/lcars/youtube-analysis-workflow';
 import { ProfitabilityResultsFlow } from '@/components/lcars/profitability-results-flow';
 import { KnowledgeBaseExpander } from '@/components/lcars/knowledge-base-expander';
+import { AutomatedBusinessExecutor } from '@/components/lcars/automated-business-executor';
 
 interface Project {
   id: string;
@@ -397,6 +398,15 @@ async function DashboardContent() {
           Expand knowledge base with additional YouTube content and create self-referential logic for all agents
         </p>
         <KnowledgeBaseExpander />
+      </div>
+
+      {/* Automated Business Executor */}
+      <div className="lcars-panel">
+        <h2>🚀 AUTOMATED BUSINESS EXECUTOR & PROFITABILITY LAUNCHER</h2>
+        <p style={{ color: '#000', fontSize: '1rem', marginBottom: '20px' }}>
+          Launch your first profitable AI consulting business with automated execution phases and crew coordination
+        </p>
+        <AutomatedBusinessExecutor />
       </div>
 
       {/* Ship's Computer Control Panel */}

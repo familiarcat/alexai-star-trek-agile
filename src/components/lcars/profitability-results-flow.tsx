@@ -277,9 +277,8 @@ export function ProfitabilityResultsFlow({ analysisResult, onLaunchProject }: Pr
             <div style={{ 
               padding: '15px', 
               border: '2px solid', 
-              borderRadius: '8px',
-              ...getPhaseStatusColor(phase.status)
-            }}>
+              borderRadius: '8px'
+            }} className={getPhaseStatusColor(phase.status)}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px' }}>
                 {getPhaseStatusIcon(phase.status)}
                 <span style={{ fontWeight: 'bold' }}>
