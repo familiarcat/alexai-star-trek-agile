@@ -14,6 +14,8 @@ import {
   LightBulbIcon
 } from '@heroicons/react/24/outline';
 
+import QuarkHierarchicalDashboard from '@/components/market-intelligence/quark-hierarchical-dashboard';
+
 interface AIAgent {
   id: string;
   name: string;
@@ -63,7 +65,7 @@ export default function ObservationLoungePage() {
   const [isConsulting, setIsConsulting] = useState(false);
   const [marketData, setMarketData] = useState<MarketData | null>(null);
   const [projects, setProjects] = useState<Project[]>([]);
-  const [activeTab, setActiveTab] = useState<'consultation' | 'market-intelligence' | 'project-orchestration' | 'profit-ethics'>('consultation');
+  const [activeTab, setActiveTab] = useState<'consultation' | 'market-intelligence' | 'project-orchestration' | 'profit-ethics' | 'hierarchical-dashboard'>('consultation');
 
   useEffect(() => {
     fetchAIAgents();
@@ -417,6 +419,17 @@ export default function ObservationLoungePage() {
                     <LightBulbIcon className="h-5 w-5 inline mr-2" />
                     Profit & Ethics
                   </button>
+                  <button
+                    onClick={() => setActiveTab('hierarchical-dashboard')}
+                    className={`py-4 px-1 border-b-2 font-medium text-sm ${
+                      activeTab === 'hierarchical-dashboard'
+                        ? 'border-blue-500 text-blue-600'
+                        : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                    }`}
+                  >
+                    <ChartBarIcon className="h-5 w-5 inline mr-2" />
+                    Hierarchical Dashboard
+                  </button>
                 </nav>
               </div>
 
@@ -719,6 +732,14 @@ export default function ObservationLoungePage() {
                         </p>
                       </div>
                     </div>
+                  </div>
+                )}
+
+                {/* Hierarchical Dashboard Tab */}
+                {activeTab === 'hierarchical-dashboard' && (
+                  <div>
+                    <h2 className="text-2xl font-bold text-gray-900 mb-6">🧠 Hierarchical Dashboard</h2>
+                    <QuarkHierarchicalDashboard />
                   </div>
                 )}
 
