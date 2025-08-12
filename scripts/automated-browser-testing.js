@@ -200,6 +200,81 @@ class AutomatedBrowserTester {
           'Test error handling',
           'Validate recovery procedures'
         ]
+      },
+
+      // System Intelligence Use Cases (Ship's Computer)
+      {
+        agent: 'shipsComputer',
+        category: 'System Intelligence',
+        name: 'Omniscient System Monitoring',
+        description: 'Monitor all system components with intelligent insights',
+        steps: [
+          'Access system health dashboard',
+          'Monitor performance metrics',
+          'Analyze resource utilization',
+          'Generate system insights',
+          'Validate monitoring accuracy'
+        ]
+      },
+
+      // Business Intelligence Use Cases (Quark)
+      {
+        agent: 'quark',
+        category: 'Business Intelligence',
+        name: 'Profit Optimization Analysis',
+        description: 'Analyze business opportunities and revenue optimization',
+        steps: [
+          'Access business analytics',
+          'Review market trends',
+          'Analyze revenue metrics',
+          'Identify opportunities',
+          'Generate business insights'
+        ]
+      },
+
+      // Logical Reasoning Use Cases (Commander Spock)
+      {
+        agent: 'spock',
+        category: 'Logical Reasoning',
+        name: 'Scientific Method Validation',
+        description: 'Apply logical reasoning to system analysis and testing',
+        steps: [
+          'Formulate testing hypotheses',
+          'Design systematic tests',
+          'Collect empirical data',
+          'Analyze results logically',
+          'Validate conclusions'
+        ]
+      },
+
+      // Communication & Integration Use Cases (Lieutenant Uhura)
+      {
+        agent: 'uhura',
+        category: 'Communication & Integration',
+        name: 'Universal Translator Integration',
+        description: 'Test cross-system communication and API integration',
+        steps: [
+          'Test API endpoints',
+          'Validate data translation',
+          'Check cross-system sync',
+          'Monitor integration health',
+          'Test communication protocols'
+        ]
+      },
+
+      // Infrastructure & Scalability Use Cases (Chief Engineer Scott)
+      {
+        agent: 'scotty',
+        category: 'Infrastructure & Scalability',
+        name: 'Miracle Worker Scaling',
+        description: 'Test infrastructure scaling and resource optimization',
+        steps: [
+          'Monitor system resources',
+          'Test scaling capabilities',
+          'Validate resource allocation',
+          'Check performance under load',
+          'Optimize efficiency'
+        ]
       }
     ];
 

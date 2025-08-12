@@ -55,6 +55,41 @@ class N8nAgentExploration {
         personality: 'Vigilant, disciplined, performance-oriented',
         expertise: ['Security protocols', 'Performance testing', 'Battle readiness'],
         workflowId: 'worf-security-performance'
+      },
+      shipsComputer: {
+        name: "Ship's Computer",
+        role: 'System Intelligence',
+        personality: 'Omniscient, efficient, always helpful',
+        expertise: ['System monitoring', 'Data synthesis', 'Predictive analytics', 'Resource management'],
+        workflowId: 'ships-computer-intelligence'
+      },
+      quark: {
+        name: 'Quark',
+        role: 'Business Intelligence',
+        personality: 'Opportunistic, shrewd, profit-motivated',
+        expertise: ['Market analysis', 'Revenue optimization', 'Business opportunities', 'Risk assessment'],
+        workflowId: 'quark-business-intelligence'
+      },
+      spock: {
+        name: 'Commander Spock',
+        role: 'Logical Reasoning',
+        personality: 'Vulcan logic, scientific method, analytical',
+        expertise: ['Scientific analysis', 'Logical problem solving', 'Hypothesis testing', 'Evidence evaluation'],
+        workflowId: 'spock-logical-reasoning'
+      },
+      uhura: {
+        name: 'Lieutenant Uhura',
+        role: 'Communication & Integration',
+        personality: 'Diplomatic, multilingual, culturally aware',
+        expertise: ['Cross-system communication', 'API integration', 'Data translation', 'Cultural sensitivity'],
+        workflowId: 'uhura-communication-integration'
+      },
+      scotty: {
+        name: 'Chief Engineer Scott',
+        role: 'Infrastructure & Scalability',
+        personality: 'Practical, resourceful, miracle worker',
+        expertise: ['Infrastructure scaling', 'Performance optimization', 'Resource allocation', 'System resilience'],
+        workflowId: 'scotty-infrastructure-scalability'
       }
     };
     
@@ -286,6 +321,71 @@ class N8nAgentExploration {
           'Implement advanced security features',
           'Add performance monitoring alerts',
           'Enhance error recovery procedures'
+        );
+        break;
+
+      case 'System Intelligence':
+        fallbackFindings.push(
+          'System monitoring provides comprehensive oversight',
+          'Data synthesis capabilities enable informed decisions',
+          'Resource management optimizes system performance'
+        );
+        fallbackRecommendations.push(
+          'Implement predictive maintenance alerts',
+          'Add intelligent resource scaling',
+          'Enhance system self-healing capabilities'
+        );
+        break;
+
+      case 'Business Intelligence':
+        fallbackFindings.push(
+          'Market analysis tools support strategic decisions',
+          'Revenue optimization features drive business growth',
+          'Risk assessment capabilities protect investments'
+        );
+        fallbackRecommendations.push(
+          'Add competitive analysis features',
+          'Implement market trend predictions',
+          'Enhance ROI tracking capabilities'
+        );
+        break;
+
+      case 'Logical Reasoning':
+        fallbackFindings.push(
+          'Scientific analysis provides evidence-based insights',
+          'Logical problem solving ensures systematic approaches',
+          'Hypothesis testing validates solutions'
+        );
+        fallbackRecommendations.push(
+          'Add A/B testing frameworks',
+          'Implement statistical analysis tools',
+          'Enhance decision validation processes'
+        );
+        break;
+
+      case 'Communication & Integration':
+        fallbackFindings.push(
+          'Cross-system communication enables seamless workflows',
+          'API integration provides extensible architecture',
+          'Data translation supports interoperability'
+        );
+        fallbackRecommendations.push(
+          'Add webhook management features',
+          'Implement real-time sync capabilities',
+          'Enhance third-party integrations'
+        );
+        break;
+
+      case 'Infrastructure & Scalability':
+        fallbackFindings.push(
+          'Infrastructure scaling supports growth requirements',
+          'Performance optimization ensures system efficiency',
+          'Resource allocation maximizes system utilization'
+        );
+        fallbackRecommendations.push(
+          'Add auto-scaling capabilities',
+          'Implement load balancing features',
+          'Enhance disaster recovery procedures'
         );
         break;
     }
@@ -538,6 +638,91 @@ class N8nAgentExploration {
       ],
       complexity: 'HIGH',
       priority: 'CRITICAL'
+    });
+
+    // System Intelligence Use Cases (Ship's Computer)
+    useCases.push({
+      agent: 'shipsComputer',
+      category: 'System Intelligence',
+      name: 'Omniscient System Monitoring',
+      description: 'Comprehensive system monitoring with predictive analytics and intelligent alerts',
+      steps: [
+        'Monitor all system components in real-time',
+        'Analyze performance patterns and trends',
+        'Generate predictive maintenance alerts',
+        'Optimize resource allocation automatically',
+        'Provide intelligent system recommendations'
+      ],
+      complexity: 'HIGH',
+      priority: 'HIGH'
+    });
+
+    // Business Intelligence Use Cases (Quark)
+    useCases.push({
+      agent: 'quark',
+      category: 'Business Intelligence',
+      name: 'Profit Optimization Analysis',
+      description: 'Maximize business opportunities and revenue through intelligent market analysis',
+      steps: [
+        'Analyze market trends and opportunities',
+        'Identify revenue optimization strategies',
+        'Assess business risks and mitigation',
+        'Generate profit maximization recommendations',
+        'Track ROI and business impact metrics'
+      ],
+      complexity: 'MEDIUM',
+      priority: 'HIGH'
+    });
+
+    // Logical Reasoning Use Cases (Commander Spock)
+    useCases.push({
+      agent: 'spock',
+      category: 'Logical Reasoning',
+      name: 'Scientific Method Validation',
+      description: 'Apply logical reasoning and scientific method to validate system decisions',
+      steps: [
+        'Formulate hypotheses for system improvements',
+        'Design controlled experiments and tests',
+        'Collect and analyze empirical data',
+        'Validate findings through statistical analysis',
+        'Implement evidence-based improvements'
+      ],
+      complexity: 'HIGH',
+      priority: 'MEDIUM'
+    });
+
+    // Communication & Integration Use Cases (Lieutenant Uhura)
+    useCases.push({
+      agent: 'uhura',
+      category: 'Communication & Integration',
+      name: 'Universal Translator Integration',
+      description: 'Seamless integration and communication across diverse systems and APIs',
+      steps: [
+        'Establish cross-system communication protocols',
+        'Implement API translation and mapping',
+        'Validate data integrity across integrations',
+        'Monitor communication performance metrics',
+        'Optimize integration efficiency'
+      ],
+      complexity: 'MEDIUM',
+      priority: 'HIGH'
+    });
+
+    // Infrastructure & Scalability Use Cases (Chief Engineer Scott)
+    useCases.push({
+      agent: 'scotty',
+      category: 'Infrastructure & Scalability',
+      name: 'Miracle Worker Scaling',
+      description: 'Optimize infrastructure scaling and resource allocation for maximum efficiency',
+      steps: [
+        'Analyze current infrastructure capacity',
+        'Identify scaling bottlenecks and opportunities',
+        'Implement intelligent resource allocation',
+        'Monitor scaling performance metrics',
+        'Optimize for maximum efficiency gains'
+      ],
+      complexity: 'HIGH',
+      priority: 'HIGH'
     });
 
     return {
