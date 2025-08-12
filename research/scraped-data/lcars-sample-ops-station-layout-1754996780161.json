@@ -1,0 +1,18 @@
+{
+  "name": "Ops Station Layout",
+  "description": "Command center with mission-critical functions",
+  "elements": {
+    "navigation": "Primary navigation controls",
+    "tactical": "Tactical systems and weapons",
+    "operations": "General operations and coordination",
+    "communications": "Communication systems"
+  },
+  "userIntent": "Mission command and coordination",
+  "layout": "Adaptive grid with priority information hierarchy",
+  "colors": [
+    "orange",
+    "red",
+    "blue",
+    "green"
+  ]
+}

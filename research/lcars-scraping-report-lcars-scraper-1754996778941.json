@@ -1,0 +1,308 @@
+{
+  "sessionId": "lcars-scraper-1754996778941",
+  "timestamp": "2025-08-12T11:06:18.941Z",
+  "sources": [
+    {
+      "source": "TheLCARS.com",
+      "url": "https://www.thelcars.com/",
+      "description": "Comprehensive LCARS design reference",
+      "type": "design-reference",
+      "timestamp": "2025-08-12T11:06:19.520Z",
+      "content": {
+        "title": "LCARS Website HTML Template",
+        "description": "Star Trek LCARS Website HTML CSS Template",
+        "lcarsElements": [
+          "Found 42 LCARS references",
+          "Found 9 design-related references"
+        ],
+        "designPrinciples": [
+          "User intent-driven design",
+          "Information hierarchy",
+          "Efficiency through familiarity",
+          "Adaptive layouts",
+          "Consistent interaction patterns"
+        ],
+        "colorScheme": {
+          "orange": "#FF9C00",
+          "red": "#CC6666",
+          "purple": "#CC99CC",
+          "blue": "#6699CC",
+          "green": "#66CC66",
+          "yellow": "#CCCC66"
+        },
+        "layoutPatterns": [
+          "Adaptive grid system",
+          "Context-sensitive information display",
+          "Progressive disclosure of complexity",
+          "Consistent interaction patterns"
+        ]
+      },
+      "status": "success"
+    },
+    {
+      "source": "Memory Alpha - LCARS",
+      "url": "https://memory-alpha.fandom.com/wiki/LCARS",
+      "description": "Star Trek encyclopedia LCARS article",
+      "type": "reference",
+      "timestamp": "2025-08-12T11:06:19.892Z",
+      "content": {
+        "title": "Library Computer Access and Retrieval System | Memory Alpha | Fandom",
+        "description": "The Library Computer Access and Retrieval System (LCARS for short) was the main computer system employed by the United Federation of Planets by the mid-24th century. It was used aboard all Starfleet vessels, starbases, and space stations. (Star Trek: The Next Generation; Star Trek: Deep Space...",
+        "lcarsElements": [
+          "Found 68 LCARS references",
+          "Found 115 design-related references"
+        ],
+        "designPrinciples": [
+          "User intent-driven design",
+          "Information hierarchy",
+          "Efficiency through familiarity",
+          "Adaptive layouts",
+          "Consistent interaction patterns"
+        ],
+        "colorScheme": {
+          "orange": "#FF9C00",
+          "red": "#CC6666",
+          "purple": "#CC99CC",
+          "blue": "#6699CC",
+          "green": "#66CC66",
+          "yellow": "#CCCC66"
+        },
+        "layoutPatterns": [
+          "Adaptive grid system",
+          "Context-sensitive information display",
+          "Progressive disclosure of complexity",
+          "Consistent interaction patterns"
+        ]
+      },
+      "status": "success"
+    },
+    {
+      "source": "Star Trek Technical Manual",
+      "url": "https://memory-alpha.fandom.com/wiki/Star_Trek:_The_Next_Generation_Technical_Manual",
+      "description": "Official technical manual with LCARS specifications",
+      "type": "technical-reference",
+      "timestamp": "2025-08-12T11:06:19.912Z",
+      "content": {
+        "title": "Star Trek: The Next Generation Technical Manual | Memory Alpha | Fandom",
+        "description": "The Star Trek: The Next Generation Technical Manual is an in-depth description of the technology and equipment used aboard the USS Enterprise-D in Star Trek: The Next Generation. The book is written by longtime Star Trek production staffers Rick Sternbach and Michael Okuda from an in-universe...",
+        "lcarsElements": [
+          "Found 23 design-related references"
+        ],
+        "designPrinciples": [
+          "User intent-driven design",
+          "Information hierarchy",
+          "Efficiency through familiarity",
+          "Adaptive layouts",
+          "Consistent interaction patterns"
+        ],
+        "colorScheme": {
+          "orange": "#FF9C00",
+          "red": "#CC6666",
+          "purple": "#CC99CC",
+          "blue": "#6699CC",
+          "green": "#66CC66",
+          "yellow": "#CCCC66"
+        },
+        "layoutPatterns": [
+          "Adaptive grid system",
+          "Context-sensitive information display",
+          "Progressive disclosure of complexity",
+          "Consistent interaction patterns"
+        ]
+      },
+      "status": "success"
+    }
+  ],
+  "lcarsSamples": [
+    {
+      "name": "Ops Station Layout",
+      "description": "Command center with mission-critical functions",
+      "elements": {
+        "navigation": "Primary navigation controls",
+        "tactical": "Tactical systems and weapons",
+        "operations": "General operations and coordination",
+        "communications": "Communication systems"
+      },
+      "userIntent": "Mission command and coordination",
+      "layout": "Adaptive grid with priority information hierarchy",
+      "colors": [
+        "orange",
+        "red",
+        "blue",
+        "green"
+      ]
+    },
+    {
+      "name": "Engineering Station Layout",
+      "description": "Technical operations and system management",
+      "elements": {
+        "powerSystems": "Power distribution and management",
+        "environmental": "Environmental controls and life support",
+        "propulsion": "Propulsion systems and warp drive",
+        "maintenance": "System maintenance and diagnostics"
+      },
+      "userIntent": "System monitoring and technical operations",
+      "layout": "Technical dashboard with system status indicators",
+      "colors": [
+        "blue",
+        "green",
+        "yellow",
+        "purple"
+      ]
+    },
+    {
+      "name": "Science Station Layout",
+      "description": "Research and analysis functions",
+      "elements": {
+        "sensors": "Sensor data and readings",
+        "analysis": "Data analysis and processing",
+        "research": "Research tools and databases",
+        "visualization": "Data visualization and charts"
+      },
+      "userIntent": "Scientific research and data analysis",
+      "layout": "Analytical interface with data visualization",
+      "colors": [
+        "purple",
+        "blue",
+        "green",
+        "yellow"
+      ]
+    },
+    {
+      "name": "Medical Station Layout",
+      "description": "Healthcare and medical operations",
+      "elements": {
+        "patientMonitoring": "Patient vital signs and monitoring",
+        "medicalRecords": "Medical records and history",
+        "treatment": "Treatment protocols and procedures",
+        "diagnostics": "Diagnostic tools and analysis"
+      },
+      "userIntent": "Medical care and health monitoring",
+      "layout": "Medical dashboard with patient information",
+      "colors": [
+        "green",
+        "blue",
+        "yellow",
+        "red"
+      ]
+    }
+  ],
+  "okudaPrinciples": [
+    {
+      "source": "Michael Okuda - Memory Alpha",
+      "url": "https://memory-alpha.fandom.com/wiki/Michael_Okuda",
+      "description": "Michael Okuda biography and design philosophy",
+      "type": "biography",
+      "timestamp": "2025-08-12T11:06:19.983Z",
+      "content": {
+        "title": "Michael Okuda | Memory Alpha | Fandom",
+        "biography": "Michael Okuda is a graphic designer and scenic artist who worked on Star Trek: The Next Generation, Star Trek: Deep Space Nine, and Star Trek: Voyager. He is credited with creating the LCARS computer interface system.",
+        "designPhilosophy": [
+          "User intent-driven design over fixed station layouts",
+          "Information hierarchy through visual organization",
+          "Efficiency through consistent interaction patterns",
+          "Adaptive interfaces that serve multiple user roles"
+        ],
+        "lcarsPrinciples": [
+          "LCARS adapts to user intention rather than fixed station layouts",
+          "Critical information is prioritized through visual hierarchy",
+          "Consistent patterns become intuitive over time",
+          "Single interface adapts to multiple user roles and contexts"
+        ],
+        "collaboration": "Michael Okuda collaborated with his wife Denise Okuda on many Star Trek projects, including the creation of LCARS and various technical manuals.",
+        "legacy": "Michael Okuda's LCARS design has influenced modern user interface design, emphasizing user intent, information hierarchy, and adaptive layouts."
+      },
+      "status": "success"
+    },
+    {
+      "source": "Denise Okuda - Memory Alpha",
+      "url": "https://memory-alpha.fandom.com/wiki/Denise_Okuda",
+      "description": "Denise Okuda biography and collaborative work",
+      "type": "biography",
+      "timestamp": "2025-08-12T11:06:20.054Z",
+      "content": {
+        "title": "Denise Okuda | Memory Alpha | Fandom",
+        "biography": "Michael Okuda is a graphic designer and scenic artist who worked on Star Trek: The Next Generation, Star Trek: Deep Space Nine, and Star Trek: Voyager. He is credited with creating the LCARS computer interface system.",
+        "designPhilosophy": [
+          "User intent-driven design over fixed station layouts",
+          "Information hierarchy through visual organization",
+          "Efficiency through consistent interaction patterns",
+          "Adaptive interfaces that serve multiple user roles"
+        ],
+        "lcarsPrinciples": [
+          "LCARS adapts to user intention rather than fixed station layouts",
+          "Critical information is prioritized through visual hierarchy",
+          "Consistent patterns become intuitive over time",
+          "Single interface adapts to multiple user roles and contexts"
+        ],
+        "collaboration": "Michael Okuda collaborated with his wife Denise Okuda on many Star Trek projects, including the creation of LCARS and various technical manuals.",
+        "legacy": "Michael Okuda's LCARS design has influenced modern user interface design, emphasizing user intent, information hierarchy, and adaptive layouts."
+      },
+      "status": "success"
+    },
+    {
+      "source": "LCARS Design Philosophy",
+      "url": "https://memory-alpha.fandom.com/wiki/LCARS#Design",
+      "description": "LCARS design philosophy and principles",
+      "type": "design-philosophy",
+      "timestamp": "2025-08-12T11:06:20.160Z",
+      "content": {
+        "title": "Library Computer Access and Retrieval System | Memory Alpha | Fandom",
+        "biography": "Michael Okuda is a graphic designer and scenic artist who worked on Star Trek: The Next Generation, Star Trek: Deep Space Nine, and Star Trek: Voyager. He is credited with creating the LCARS computer interface system.",
+        "designPhilosophy": [
+          "User intent-driven design over fixed station layouts",
+          "Information hierarchy through visual organization",
+          "Efficiency through consistent interaction patterns",
+          "Adaptive interfaces that serve multiple user roles"
+        ],
+        "lcarsPrinciples": [
+          "LCARS adapts to user intention rather than fixed station layouts",
+          "Critical information is prioritized through visual hierarchy",
+          "Consistent patterns become intuitive over time",
+          "Single interface adapts to multiple user roles and contexts"
+        ],
+        "collaboration": "Michael Okuda collaborated with his wife Denise Okuda on many Star Trek projects, including the creation of LCARS and various technical manuals.",
+        "legacy": "Michael Okuda's LCARS design has influenced modern user interface design, emphasizing user intent, information hierarchy, and adaptive layouts."
+      },
+      "status": "success"
+    }
+  ],
+  "designReferences": [
+    {
+      "title": "Star Trek: The Next Generation Technical Manual",
+      "author": "Michael Okuda, Denise Okuda",
+      "year": 1991,
+      "description": "Official technical manual with detailed LCARS specifications",
+      "keyPrinciples": [
+        "LCARS system architecture",
+        "User interface design principles",
+        "Information hierarchy guidelines",
+        "Color coding standards"
+      ]
+    },
+    {
+      "title": "LCARS Design Philosophy",
+      "author": "Michael Okuda",
+      "year": 1987,
+      "description": "Original LCARS design philosophy and principles",
+      "keyPrinciples": [
+        "User intent-driven design",
+        "Adaptive interface layouts",
+        "Efficiency through familiarity",
+        "Universal accessibility"
+      ]
+    },
+    {
+      "title": "Star Trek: Deep Space Nine Technical Manual",
+      "author": "Michael Okuda, Denise Okuda",
+      "year": 1995,
+      "description": "Updated technical manual with enhanced LCARS features",
+      "keyPrinciples": [
+        "Enhanced user interaction patterns",
+        "Advanced information visualization",
+        "Improved accessibility features",
+        "Extended color palette"
+      ]
+    }
+  ]
+}

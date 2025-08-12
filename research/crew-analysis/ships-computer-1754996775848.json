@@ -1,0 +1,36 @@
+{
+  "crewMember": "Ship's Computer",
+  "role": "Dynamic Layout Orchestration",
+  "analysis": {
+    "adaptiveLayouts": {
+      "principle": "Context-aware interface adaptation",
+      "implementation": "AI-driven layout optimization",
+      "recommendations": [
+        "Real-time layout adjustment",
+        "User preference learning",
+        "Task-specific interface modes",
+        "Multi-user layout coordination"
+      ]
+    },
+    "systemIntegration": {
+      "principle": "Seamless integration across all systems",
+      "implementation": "Unified interface architecture",
+      "recommendations": [
+        "Centralized layout management",
+        "Cross-system data sharing",
+        "Unified interaction patterns",
+        "System-wide state management"
+      ]
+    },
+    "intelligentOrchestration": {
+      "principle": "AI-powered interface optimization",
+      "implementation": "Machine learning layout adaptation",
+      "recommendations": [
+        "Predictive layout changes",
+        "User behavior analysis",
+        "Performance optimization",
+        "Adaptive complexity management"
+      ]
+    }
+  }
+}

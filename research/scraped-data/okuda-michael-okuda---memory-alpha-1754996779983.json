@@ -1,0 +1,26 @@
+{
+  "source": "Michael Okuda - Memory Alpha",
+  "url": "https://memory-alpha.fandom.com/wiki/Michael_Okuda",
+  "description": "Michael Okuda biography and design philosophy",
+  "type": "biography",
+  "timestamp": "2025-08-12T11:06:19.983Z",
+  "content": {
+    "title": "Michael Okuda | Memory Alpha | Fandom",
+    "biography": "Michael Okuda is a graphic designer and scenic artist who worked on Star Trek: The Next Generation, Star Trek: Deep Space Nine, and Star Trek: Voyager. He is credited with creating the LCARS computer interface system.",
+    "designPhilosophy": [
+      "User intent-driven design over fixed station layouts",
+      "Information hierarchy through visual organization",
+      "Efficiency through consistent interaction patterns",
+      "Adaptive interfaces that serve multiple user roles"
+    ],
+    "lcarsPrinciples": [
+      "LCARS adapts to user intention rather than fixed station layouts",
+      "Critical information is prioritized through visual hierarchy",
+      "Consistent patterns become intuitive over time",
+      "Single interface adapts to multiple user roles and contexts"
+    ],
+    "collaboration": "Michael Okuda collaborated with his wife Denise Okuda on many Star Trek projects, including the creation of LCARS and various technical manuals.",
+    "legacy": "Michael Okuda's LCARS design has influenced modern user interface design, emphasizing user intent, information hierarchy, and adaptive layouts."
+  },
+  "status": "success"
+}

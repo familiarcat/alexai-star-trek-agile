@@ -1,0 +1,36 @@
+{
+  "source": "Star Trek Technical Manual",
+  "url": "https://memory-alpha.fandom.com/wiki/Star_Trek:_The_Next_Generation_Technical_Manual",
+  "description": "Official technical manual with LCARS specifications",
+  "type": "technical-reference",
+  "timestamp": "2025-08-12T11:06:19.912Z",
+  "content": {
+    "title": "Star Trek: The Next Generation Technical Manual | Memory Alpha | Fandom",
+    "description": "The Star Trek: The Next Generation Technical Manual is an in-depth description of the technology and equipment used aboard the USS Enterprise-D in Star Trek: The Next Generation. The book is written by longtime Star Trek production staffers Rick Sternbach and Michael Okuda from an in-universe...",
+    "lcarsElements": [
+      "Found 23 design-related references"
+    ],
+    "designPrinciples": [
+      "User intent-driven design",
+      "Information hierarchy",
+      "Efficiency through familiarity",
+      "Adaptive layouts",
+      "Consistent interaction patterns"
+    ],
+    "colorScheme": {
+      "orange": "#FF9C00",
+      "red": "#CC6666",
+      "purple": "#CC99CC",
+      "blue": "#6699CC",
+      "green": "#66CC66",
+      "yellow": "#CCCC66"
+    },
+    "layoutPatterns": [
+      "Adaptive grid system",
+      "Context-sensitive information display",
+      "Progressive disclosure of complexity",
+      "Consistent interaction patterns"
+    ]
+  },
+  "status": "success"
+}

@@ -1,0 +1,12 @@
+{
+  "title": "LCARS Design Philosophy",
+  "author": "Michael Okuda",
+  "year": 1987,
+  "description": "Original LCARS design philosophy and principles",
+  "keyPrinciples": [
+    "User intent-driven design",
+    "Adaptive interface layouts",
+    "Efficiency through familiarity",
+    "Universal accessibility"
+  ]
+}

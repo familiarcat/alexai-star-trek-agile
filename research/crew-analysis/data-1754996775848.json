@@ -1,0 +1,36 @@
+{
+  "crewMember": "Commander Data",
+  "role": "Analytical Analysis & Efficiency Optimization",
+  "analysis": {
+    "systemEfficiency": {
+      "principle": "Optimal performance through logical design",
+      "implementation": "Data-driven interface optimization",
+      "recommendations": [
+        "Task completion time optimization",
+        "Cognitive load reduction",
+        "Information density optimization",
+        "Error prevention through design"
+      ]
+    },
+    "dataVisualization": {
+      "principle": "Clear presentation of complex information",
+      "implementation": "Intelligent data organization",
+      "recommendations": [
+        "Hierarchical information display",
+        "Progressive data disclosure",
+        "Contextual data relationships",
+        "Real-time data updates"
+      ]
+    },
+    "workflowOptimization": {
+      "principle": "Streamlined task execution",
+      "implementation": "Intelligent workflow automation",
+      "recommendations": [
+        "Automated task sequencing",
+        "Smart default selections",
+        "Batch operation support",
+        "Predictive task completion"
+      ]
+    }
+  }
+}

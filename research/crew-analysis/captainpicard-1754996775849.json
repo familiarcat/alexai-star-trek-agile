@@ -1,0 +1,16 @@
+{
+  "crewMember": "Captain Picard",
+  "timestamp": "2025-08-12T11:06:15.848Z",
+  "perspective": "Strategic mission alignment and crew effectiveness",
+  "recommendations": [
+    "Ensure interface supports mission-critical decision making",
+    "Maintain clear command hierarchy in UI design",
+    "Prioritize crew safety and mission success",
+    "Enable rapid situation assessment capabilities"
+  ],
+  "priorities": [
+    "Mission Success",
+    "Crew Safety",
+    "Strategic Decision Making"
+  ]
+}

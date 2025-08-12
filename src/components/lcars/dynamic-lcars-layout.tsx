@@ -1,213 +1,327 @@
 'use client';
 
-import { useState, useEffect, ReactNode } from 'react';
-import { cn } from '@/lib/utils';
+import React, { useState, useEffect } from 'react';
+import { useShipsComputer } from './ships-computer-orchestrator';
 
 interface DynamicLCARSLayoutProps {
-  children: ReactNode;
-  className?: string;
-  uiConfiguration?: UIConfiguration;
-  onLayoutChange?: (layout: UIConfiguration) => void;
+  children?: React.ReactNode;
+  initialIntent?: string;
+  onLayoutChange?: (layout: any) => void;
 }
 
-interface UIConfiguration {
-  layout: string;
-  elements: string[];
-  priority: string;
-  crew_highlight: string;
-  mission_status: string;
-  dynamic_layout?: {
-    sidebar_config: {
-      active_crew: string;
-      mission_priority: string;
-      status_indicators: string[];
-    };
-    main_content: {
-      layout_type: string;
-      primary_elements: string[];
-      secondary_elements: string[];
-    };
-    responsive_config: {
-      mobile_optimized: boolean;
-      tablet_optimized: boolean;
-      desktop_optimized: boolean;
-    };
-  };
-}
-
-export function DynamicLCARSLayout({ 
-  children, 
-  className = '', 
-  uiConfiguration,
-  onLayoutChange 
-}: DynamicLCARSLayoutProps) {
-  const [currentLayout, setCurrentLayout] = useState<UIConfiguration | null>(uiConfiguration || null);
+export const DynamicLCARSLayout: React.FC<DynamicLCARSLayoutProps> = ({
+  children,
+  initialIntent,
+  onLayoutChange
+}) => {
+  const { state, analyzeUserIntent, generateOptimalLayout } = useShipsComputer();
+  const [currentLayout, setCurrentLayout] = useState<any>(null);
   const [isAdapting, setIsAdapting] = useState(false);
 
-  // Default layout configuration
-  const defaultLayout: UIConfiguration = {
-    layout: 'standard-lcars',
-    elements: ['standard-panel'],
-    priority: 'medium',
-    crew_highlight: 'none',
-    mission_status: 'standard-operations',
-    dynamic_layout: {
-      sidebar_config: {
-        active_crew: 'System Ready',
-        mission_priority: 'medium',
-        status_indicators: ['system-health', 'crew-status']
-      },
-      main_content: {
-        layout_type: 'standard-lcars',
-        primary_elements: ['main-panel'],
-        secondary_elements: ['crew-status', 'mission-timeline', 'system-health']
-      },
-      responsive_config: {
-        mobile_optimized: true,
-        tablet_optimized: true,
-        desktop_optimized: true
-      }
+  useEffect(() => {
+    if (initialIntent) {
+      handleIntentChange(initialIntent);
     }
-  };
+  }, [initialIntent]);
 
   useEffect(() => {
-    if (uiConfiguration) {
-      setIsAdapting(true);
-      // Simulate layout adaptation animation
-      setTimeout(() => {
-        setCurrentLayout(uiConfiguration);
-        setIsAdapting(false);
-        onLayoutChange?.(uiConfiguration);
-      }, 500);
+    if (state.activeLayout) {
+      setCurrentLayout(state.activeLayout);
+      onLayoutChange?.(state.activeLayout);
     }
-  }, [uiConfiguration, onLayoutChange]);
+  }, [state.activeLayout, onLayoutChange]);
 
-  const getLayoutClass = (layout: string) => {
-    const layoutClasses = {
-      'strategic-command': 'lcars-layout-strategic',
-      'technical-operations': 'lcars-layout-technical',
-      'emotional-support': 'lcars-layout-emotional',
-      'engineering-solutions': 'lcars-layout-engineering',
-      'logical-analysis': 'lcars-layout-logical',
-      'security-validation': 'lcars-layout-security',
-      'group-collaboration': 'lcars-layout-collaboration',
-      'standard-lcars': 'lcars-layout-standard'
-    };
-    return layoutClasses[layout as keyof typeof layoutClasses] || 'lcars-layout-standard';
+  const handleIntentChange = (intent: string) => {
+    setIsAdapting(true);
+    
+    // Analyze user intent using Counselor Troi's emotional intelligence
+    const userIntent = analyzeUserIntent(intent);
+    
+    // Generate optimal layout using Commander Data's efficiency analysis
+    const optimalLayout = generateOptimalLayout(userIntent);
+    
+    // Simulate adaptation delay
+    setTimeout(() => {
+      setCurrentLayout(optimalLayout);
+      setIsAdapting(false);
+    }, 500);
   };
 
-  const getPriorityClass = (priority: string) => {
-    const priorityClasses = {
-      'low': 'lcars-priority-low',
-      'medium': 'lcars-priority-medium',
-      'high': 'lcars-priority-high',
-      'critical': 'lcars-priority-critical'
+  const getLayoutStyle = () => {
+    if (!currentLayout) return {};
+    
+    return {
+      display: 'grid',
+      gridTemplateAreas: currentLayout.gridTemplate.replace('grid-template-areas: ', '').replace(/"/g, ''),
+      gap: '10px',
+      padding: '20px',
+      minHeight: '100vh',
+      backgroundColor: currentLayout.colorScheme.background,
+      color: currentLayout.colorScheme.text,
+      transition: 'all 0.3s ease-in-out'
     };
-    return priorityClasses[priority as keyof typeof priorityClasses] || 'lcars-priority-medium';
   };
 
-  const getCrewHighlightClass = (crew: string) => {
-    const crewClasses = {
-      'captain-picard': 'lcars-crew-captain',
-      'lieutenant-data': 'lcars-crew-data',
-      'counselor-troi': 'lcars-crew-counselor',
-      'chief-engineer-scott': 'lcars-crew-engineer',
-      'commander-spock': 'lcars-crew-spock',
-      'lieutenant-worf': 'lcars-crew-worf',
-      'observation-lounge': 'lcars-crew-lounge'
+  const renderLayoutComponent = (component: any) => {
+    const componentStyle: React.CSSProperties = {
+      gridArea: `${component.position.x} ${component.position.y} / span ${component.position.width} / span ${component.position.height}`,
+      backgroundColor: currentLayout.colorScheme.primary,
+      border: `2px solid ${currentLayout.colorScheme.secondary}`,
+      borderRadius: '8px',
+      padding: '15px',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      minHeight: '100px'
     };
-    return crewClasses[crew as keyof typeof crewClasses] || '';
+
+    return (
+      <div key={component.id} style={componentStyle} className="lcars-component">
+        <div className="lcars-text-large lcars-text-white lcars-mb-10">
+          {component.type.toUpperCase()}
+        </div>
+        <div className="lcars-text-medium lcars-text-gold">
+          Priority: {component.priority}
+        </div>
+        {component.adaptive && (
+          <div className="lcars-text-small lcars-text-purple lcars-mt-5">
+            Adaptive Component
+          </div>
+        )}
+      </div>
+    );
   };
 
-  const activeLayout = currentLayout || defaultLayout;
-  const layoutClass = getLayoutClass(activeLayout.layout);
-  const priorityClass = getPriorityClass(activeLayout.priority);
-  const crewClass = getCrewHighlightClass(activeLayout.crew_highlight);
+  const renderAdaptationOverlay = () => {
+    if (!isAdapting) return null;
 
-  return (
-    <div className={cn(
-      'dynamic-lcars-container',
-      layoutClass,
-      priorityClass,
-      crewClass,
-      className,
-      isAdapting && 'lcars-adapting'
-    )}>
-      {/* Dynamic Layout Adaptation Indicator */}
-      {isAdapting && (
-        <div className="lcars-adaptation-indicator">
-          <div className="lcars-adaptation-spinner"></div>
-          <span>ADAPTING LCARS INTERFACE...</span>
-        </div>
-      )}
-
-      {/* Mission Status Bar */}
-      <div className="lcars-mission-status-bar">
-        <div className="lcars-mission-priority">
-          <span className="lcars-priority-label">MISSION PRIORITY:</span>
-          <span className={cn('lcars-priority-value', priorityClass)}>
-            {activeLayout.priority.toUpperCase()}
-          </span>
-        </div>
-        <div className="lcars-mission-status">
-          <span className="lcars-status-label">STATUS:</span>
-          <span className="lcars-status-value">{activeLayout.mission_status.toUpperCase()}</span>
-        </div>
-        <div className="lcars-crew-highlight">
-          <span className="lcars-crew-label">ACTIVE CREW:</span>
-          <span className="lcars-crew-value">{activeLayout.dynamic_layout?.sidebar_config.active_crew}</span>
+    return (
+      <div className="lcars-adaptation-overlay">
+        <div className="lcars-panel lcars-p-20 lcars-text-center">
+          <div className="lcars-text-xlarge lcars-text-gold lcars-mb-10">
+            ADAPTING LAYOUT
+          </div>
+          <div className="lcars-loading-spinner">
+            <div className="lcars-spinner-icon">🔄</div>
+          </div>
+          <div className="lcars-text-large lcars-text-white lcars-mt-10">
+            Ship's Computer analyzing user intent...
+          </div>
+          <div className="lcars-text-medium lcars-text-orange lcars-mt-5">
+            Counselor Troi: Assessing emotional context
+          </div>
+          <div className="lcars-text-medium lcars-text-blue lcars-mt-5">
+            Commander Data: Optimizing efficiency
+          </div>
         </div>
       </div>
+    );
+  };
 
-      {/* Dynamic Content Area */}
-      <div className="lcars-dynamic-content">
-        <div className="lcars-primary-elements">
-          {activeLayout.dynamic_layout?.main_content.primary_elements.map((element, index) => (
-            <div key={index} className={cn('lcars-element', `lcars-element-${element}`)}>
-              {element === 'main-panel' ? children : (
-                <div className="lcars-element-content">
-                  <span className="lcars-element-label">{element.toUpperCase()}</span>
-                </div>
-              )}
-            </div>
+  const renderIntentControls = () => {
+    const intentOptions = [
+      { label: 'Navigation', value: 'Navigate to main bridge' },
+      { label: 'Analysis', value: 'Analyze sensor data' },
+      { label: 'Monitoring', value: 'Monitor system status' },
+      { label: 'Command', value: 'Execute tactical command' },
+      { label: 'Communication', value: 'Open communication channel' },
+      { label: 'Research', value: 'Research alien technology' }
+    ];
+
+    return (
+      <div className="lcars-intent-controls lcars-panel lcars-p-15 lcars-mb-20">
+        <div className="lcars-text-large lcars-text-orange lcars-mb-10">
+          USER INTENT CONTROLS
+        </div>
+        <div className="lcars-grid lcars-grid-cols-2 lcars-md-grid-cols-3 lcars-gap-10">
+          {intentOptions.map((option, index) => (
+            <button
+              key={index}
+              onClick={() => handleIntentChange(option.value)}
+              className="lcars-button lcars-button-secondary"
+              disabled={isAdapting}
+            >
+              {option.label}
+            </button>
           ))}
         </div>
-        
-        <div className="lcars-secondary-elements">
-          {activeLayout.dynamic_layout?.main_content.secondary_elements.map((element, index) => (
-            <div key={index} className={cn('lcars-element', 'lcars-element-secondary', `lcars-element-${element}`)}>
-              <div className="lcars-element-content">
-                <span className="lcars-element-label">{element.toUpperCase()}</span>
+      </div>
+    );
+  };
+
+  const renderLayoutInfo = () => {
+    if (!currentLayout) return null;
+
+    return (
+      <div className="lcars-layout-info lcars-panel lcars-p-15 lcars-mb-20">
+        <div className="lcars-text-large lcars-text-orange lcars-mb-10">
+          ACTIVE LAYOUT: {currentLayout.name}
+        </div>
+        <div className="lcars-text-medium lcars-text-white lcars-mb-5">
+          {currentLayout.description}
+        </div>
+        <div className="lcars-grid lcars-grid-cols-2 lcars-md-grid-cols-4 lcars-gap-10">
+          <div className="lcars-text-small lcars-text-gold">
+            Components: {currentLayout.components.length}
+          </div>
+          <div className="lcars-text-small lcars-text-gold">
+            Adaptive: {currentLayout.components.filter((c: any) => c.adaptive).length}
+          </div>
+          <div className="lcars-text-small lcars-text-gold">
+            Interactions: {currentLayout.interactionPatterns.length}
+          </div>
+          <div className="lcars-text-small lcars-text-gold">
+            Accessibility: {Object.values(currentLayout.accessibility).filter(Boolean).length}/5
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  const renderColorScheme = () => {
+    if (!currentLayout) return null;
+
+    return (
+      <div className="lcars-color-scheme lcars-panel lcars-p-15 lcars-mb-20">
+        <div className="lcars-text-large lcars-text-orange lcars-mb-10">
+          COLOR SCHEME
+        </div>
+        <div className="lcars-grid lcars-grid-cols-2 lcars-md-grid-cols-4 lcars-gap-10">
+          {Object.entries(currentLayout.colorScheme).map(([key, value]) => (
+            <div key={key} className="lcars-color-sample">
+              <div 
+                className="lcars-color-preview"
+                style={{ backgroundColor: value as string }}
+              ></div>
+              <div className="lcars-text-small lcars-text-white lcars-mt-5">
+                {key.toUpperCase()}
               </div>
             </div>
           ))}
         </div>
       </div>
+    );
+  };
 
-      {/* Dynamic Interface Elements */}
-      <div className="lcars-interface-elements">
-        {activeLayout.elements.map((element, index) => (
-          <div key={index} className={cn('lcars-interface-element', `lcars-interface-${element}`)}>
-            <span className="lcars-interface-label">{element.toUpperCase()}</span>
-          </div>
-        ))}
-      </div>
+  const renderInteractionPatterns = () => {
+    if (!currentLayout) return null;
 
-      {/* Responsive Configuration Indicator */}
-      <div className="lcars-responsive-config">
-        <div className="lcars-responsive-indicators">
-          {activeLayout.dynamic_layout?.responsive_config.mobile_optimized && (
-            <span className="lcars-responsive-indicator lcars-mobile">📱</span>
-          )}
-          {activeLayout.dynamic_layout?.responsive_config.tablet_optimized && (
-            <span className="lcars-responsive-indicator lcars-tablet">📱</span>
-          )}
-          {activeLayout.dynamic_layout?.responsive_config.desktop_optimized && (
-            <span className="lcars-responsive-indicator lcars-desktop">💻</span>
-          )}
+    return (
+      <div className="lcars-interaction-patterns lcars-panel lcars-p-15 lcars-mb-20">
+        <div className="lcars-text-large lcars-text-orange lcars-mb-10">
+          INTERACTION PATTERNS
+        </div>
+        <div className="lcars-grid lcars-grid-cols-1 lcars-md-grid-cols-2 lcars-gap-10">
+          {currentLayout.interactionPatterns.map((pattern: any, index: number) => (
+            <div key={index} className="lcars-panel lcars-p-10">
+              <div className="lcars-text-medium lcars-text-gold">
+                {pattern.type.toUpperCase()}
+              </div>
+              <div className="lcars-text-small lcars-text-white lcars-mt-5">
+                Action: {pattern.action}
+              </div>
+              <div className="lcars-text-small lcars-text-white">
+                Feedback: {pattern.feedback}
+              </div>
+              {pattern.accessibility && (
+                <div className="lcars-text-small lcars-text-green lcars-mt-5">
+                  Accessibility Enabled
+                </div>
+              )}
+            </div>
+          ))}
         </div>
       </div>
+    );
+  };
+
+  return (
+    <div className="lcars-dynamic-layout">
+      {/* Intent Controls */}
+      {renderIntentControls()}
+      
+      {/* Layout Information */}
+      {renderLayoutInfo()}
+      
+      {/* Color Scheme Display */}
+      {renderColorScheme()}
+      
+      {/* Interaction Patterns */}
+      {renderInteractionPatterns()}
+      
+      {/* Main Layout */}
+      <div className="lcars-main-layout" style={getLayoutStyle()}>
+        {currentLayout?.components.map(renderLayoutComponent)}
+        {children}
+      </div>
+      
+      {/* Adaptation Overlay */}
+      {renderAdaptationOverlay()}
+      
+      {/* CSS for additional styling */}
+      <style jsx>{`
+        .lcars-dynamic-layout {
+          position: relative;
+          min-height: 100vh;
+        }
+        
+        .lcars-adaptation-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: rgba(0, 0, 0, 0.8);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          z-index: 1000;
+        }
+        
+        .lcars-color-sample {
+          text-align: center;
+        }
+        
+        .lcars-color-preview {
+          width: 40px;
+          height: 40px;
+          border-radius: 4px;
+          border: 2px solid var(--lcars-white);
+          margin: 0 auto;
+        }
+        
+        .lcars-component {
+          transition: all 0.3s ease-in-out;
+        }
+        
+        .lcars-component:hover {
+          transform: scale(1.02);
+          box-shadow: 0 4px 8px rgba(255, 156, 0, 0.3);
+        }
+        
+        .lcars-loading-spinner {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin: 20px 0;
+        }
+        
+        .lcars-spinner-icon {
+          width: 48px;
+          height: 48px;
+          animation: spin 2s linear infinite;
+          font-size: 48px;
+        }
+        
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+      `}</style>
     </div>
   );
-}
+};
+
+export default DynamicLCARSLayout;
 

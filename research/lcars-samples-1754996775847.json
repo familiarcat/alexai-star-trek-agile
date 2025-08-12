@@ -1,0 +1,56 @@
+{
+  "layouts": [
+    {
+      "name": "Ops Station",
+      "description": "Command center with mission-critical functions",
+      "elements": [
+        "Navigation",
+        "Tactical",
+        "Operations",
+        "Communications"
+      ],
+      "userIntent": "Mission command and coordination"
+    },
+    {
+      "name": "Engineering Station",
+      "description": "Technical operations and system management",
+      "elements": [
+        "Power Systems",
+        "Environmental",
+        "Propulsion",
+        "Maintenance"
+      ],
+      "userIntent": "System monitoring and technical operations"
+    },
+    {
+      "name": "Science Station",
+      "description": "Research and analysis functions",
+      "elements": [
+        "Sensors",
+        "Analysis",
+        "Research",
+        "Data Visualization"
+      ],
+      "userIntent": "Scientific research and data analysis"
+    },
+    {
+      "name": "Medical Station",
+      "description": "Healthcare and medical operations",
+      "elements": [
+        "Patient Monitoring",
+        "Medical Records",
+        "Treatment",
+        "Diagnostics"
+      ],
+      "userIntent": "Medical care and health monitoring"
+    }
+  ],
+  "commonElements": [
+    "Status indicators",
+    "Navigation controls",
+    "Data displays",
+    "Action buttons",
+    "Alert systems",
+    "Progress indicators"
+  ]
+}

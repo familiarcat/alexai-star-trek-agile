@@ -1,0 +1,36 @@
+{
+  "crewMember": "Counselor Troi",
+  "role": "User Experience & Emotional Intelligence",
+  "analysis": {
+    "userIntentRecognition": {
+      "principle": "Understand user emotional state and goals",
+      "implementation": "AI-powered intent detection with emotional context",
+      "recommendations": [
+        "Adaptive UI based on user stress levels",
+        "Progressive disclosure for complex tasks",
+        "Emotional feedback through color and animation",
+        "Personalized interaction patterns"
+      ]
+    },
+    "accessibility": {
+      "principle": "Universal design for all crew members",
+      "implementation": "Multi-modal interaction support",
+      "recommendations": [
+        "Voice command integration",
+        "Gesture-based controls",
+        "High contrast mode options",
+        "Customizable interaction preferences"
+      ]
+    },
+    "userJourney": {
+      "principle": "Seamless experience across all tasks",
+      "implementation": "Context-aware navigation",
+      "recommendations": [
+        "Intelligent task suggestions",
+        "Predictive interface adaptation",
+        "Consistent interaction patterns",
+        "Clear progress indicators"
+      ]
+    }
+  }
+}

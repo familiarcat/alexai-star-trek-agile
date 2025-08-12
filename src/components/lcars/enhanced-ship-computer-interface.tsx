@@ -393,7 +393,7 @@ export function EnhancedShipComputerInterface({
           <div className="lcars-layout-preview">
             <span className="lcars-preview-label">DYNAMIC LCARS LAYOUT PREVIEW:</span>
             <DynamicLCARSLayout 
-              uiConfiguration={currentResponse.ui_configuration}
+              initialIntent={currentResponse.crew_response.response}
               onLayoutChange={(layout) => console.log('Layout adapted:', layout)}
             >
               <div className="lcars-preview-content">

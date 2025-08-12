@@ -1,0 +1,41 @@
+{
+  "designer": "Michael Okuda",
+  "principles": [
+    {
+      "name": "User Intent-Driven Design",
+      "description": "LCARS adapts to user intention rather than fixed station layouts",
+      "source": "Star Trek: The Next Generation Technical Manual",
+      "implementation": "Dynamic UI based on user goals and context"
+    },
+    {
+      "name": "Information Hierarchy",
+      "description": "Critical information prioritized through visual hierarchy",
+      "source": "Okuda Design Philosophy",
+      "implementation": "Color coding and spatial organization"
+    },
+    {
+      "name": "Efficiency Through Familiarity",
+      "description": "Consistent patterns that become intuitive over time",
+      "source": "Human-Computer Interaction Principles",
+      "implementation": "Standardized interaction patterns"
+    },
+    {
+      "name": "Adaptive Layouts",
+      "description": "Single interface adapts to multiple user roles and contexts",
+      "source": "LCARS System Architecture",
+      "implementation": "Context-aware UI components"
+    }
+  ],
+  "colorTheory": {
+    "orange": "Primary action color - most important functions",
+    "red": "Critical alerts and warnings",
+    "purple": "Secondary functions and navigation",
+    "blue": "Information and data display",
+    "green": "Status indicators and confirmations",
+    "yellow": "Caution and attention required"
+  },
+  "typography": {
+    "font": "Antonio (authentic LCARS font)",
+    "principles": "Monospace for technical precision, clear hierarchy"
+  }
+}

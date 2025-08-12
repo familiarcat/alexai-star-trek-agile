@@ -403,13 +403,7 @@ export const ShipComputerUI: React.FC = () => {
                 <div className="lcars-preview">
                   <h4>LCARS Layout Preview</h4>
                   <DynamicLCARSLayout
-                    uiConfiguration={{
-                      layout: shipResponse.uiConfiguration.layout,
-                      priority: shipResponse.uiConfiguration.priority,
-                      crew_highlight: shipResponse.uiConfiguration.crew.active.join(', '),
-                      mission_status: shipResponse.uiConfiguration.mission,
-                      elements: ['preview-panel']
-                    }}
+                    initialIntent={`${shipResponse.uiConfiguration.layout} interface for ${shipResponse.uiConfiguration.priority} priority mission`}
                   >
                     <div>LCARS Layout Preview Content</div>
                   </DynamicLCARSLayout>

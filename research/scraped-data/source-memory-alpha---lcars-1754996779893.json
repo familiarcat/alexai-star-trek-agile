@@ -1,0 +1,37 @@
+{
+  "source": "Memory Alpha - LCARS",
+  "url": "https://memory-alpha.fandom.com/wiki/LCARS",
+  "description": "Star Trek encyclopedia LCARS article",
+  "type": "reference",
+  "timestamp": "2025-08-12T11:06:19.892Z",
+  "content": {
+    "title": "Library Computer Access and Retrieval System | Memory Alpha | Fandom",
+    "description": "The Library Computer Access and Retrieval System (LCARS for short) was the main computer system employed by the United Federation of Planets by the mid-24th century. It was used aboard all Starfleet vessels, starbases, and space stations. (Star Trek: The Next Generation; Star Trek: Deep Space...",
+    "lcarsElements": [
+      "Found 68 LCARS references",
+      "Found 115 design-related references"
+    ],
+    "designPrinciples": [
+      "User intent-driven design",
+      "Information hierarchy",
+      "Efficiency through familiarity",
+      "Adaptive layouts",
+      "Consistent interaction patterns"
+    ],
+    "colorScheme": {
+      "orange": "#FF9C00",
+      "red": "#CC6666",
+      "purple": "#CC99CC",
+      "blue": "#6699CC",
+      "green": "#66CC66",
+      "yellow": "#CCCC66"
+    },
+    "layoutPatterns": [
+      "Adaptive grid system",
+      "Context-sensitive information display",
+      "Progressive disclosure of complexity",
+      "Consistent interaction patterns"
+    ]
+  },
+  "status": "success"
+}

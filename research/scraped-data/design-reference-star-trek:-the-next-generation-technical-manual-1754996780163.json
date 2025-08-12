@@ -1,0 +1,12 @@
+{
+  "title": "Star Trek: The Next Generation Technical Manual",
+  "author": "Michael Okuda, Denise Okuda",
+  "year": 1991,
+  "description": "Official technical manual with detailed LCARS specifications",
+  "keyPrinciples": [
+    "LCARS system architecture",
+    "User interface design principles",
+    "Information hierarchy guidelines",
+    "Color coding standards"
+  ]
+}

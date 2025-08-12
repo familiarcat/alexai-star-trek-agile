@@ -1,0 +1,37 @@
+{
+  "source": "TheLCARS.com",
+  "url": "https://www.thelcars.com/",
+  "description": "Comprehensive LCARS design reference",
+  "type": "design-reference",
+  "timestamp": "2025-08-12T11:06:19.520Z",
+  "content": {
+    "title": "LCARS Website HTML Template",
+    "description": "Star Trek LCARS Website HTML CSS Template",
+    "lcarsElements": [
+      "Found 42 LCARS references",
+      "Found 9 design-related references"
+    ],
+    "designPrinciples": [
+      "User intent-driven design",
+      "Information hierarchy",
+      "Efficiency through familiarity",
+      "Adaptive layouts",
+      "Consistent interaction patterns"
+    ],
+    "colorScheme": {
+      "orange": "#FF9C00",
+      "red": "#CC6666",
+      "purple": "#CC99CC",
+      "blue": "#6699CC",
+      "green": "#66CC66",
+      "yellow": "#CCCC66"
+    },
+    "layoutPatterns": [
+      "Adaptive grid system",
+      "Context-sensitive information display",
+      "Progressive disclosure of complexity",
+      "Consistent interaction patterns"
+    ]
+  },
+  "status": "success"
+}

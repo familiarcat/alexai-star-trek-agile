@@ -1,0 +1,18 @@
+{
+  "name": "Science Station Layout",
+  "description": "Research and analysis functions",
+  "elements": {
+    "sensors": "Sensor data and readings",
+    "analysis": "Data analysis and processing",
+    "research": "Research tools and databases",
+    "visualization": "Data visualization and charts"
+  },
+  "userIntent": "Scientific research and data analysis",
+  "layout": "Analytical interface with data visualization",
+  "colors": [
+    "purple",
+    "blue",
+    "green",
+    "yellow"
+  ]
+}
