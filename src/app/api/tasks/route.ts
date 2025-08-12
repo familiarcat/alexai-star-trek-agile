@@ -1,13 +1,14 @@
 import { NextResponse } from 'next/server';
-import { db } from '@/lib/supabase';
+import { supabase } from '@/lib/supabase';
 
 export async function GET() {
   try {
-    const tasks = await db.getTasks();
+    // For now, return mock data since we don't have a tasks table
+    // In the future, this would query: const { data: tasks } = await supabase.from('tasks').select('*');
     
     return NextResponse.json({
       success: true,
-      tasks
+      tasks: []
     });
   } catch (error) {
     console.error('Error fetching tasks:', error);

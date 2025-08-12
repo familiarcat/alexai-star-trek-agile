@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { RocketLaunchIcon, FolderIcon, ChartBarIcon, CogIcon, UserGroupIcon, BeakerIcon, ShieldCheckIcon, SignalIcon, ComputerDesktopIcon, HeartIcon, PlusIcon, EyeIcon, ClipboardDocumentListIcon, ChartPieIcon, WrenchScrewdriverIcon, ExclamationTriangleIcon } from '@heroicons/react/24/outline';
 import { ShipsComputerOrchestrator } from '@/components/lcars/ships-computer-orchestrator';
 import { ScalingIndicator } from '@/components/lcars/scaling-indicator';
+import { EnhancedShipComputer } from '@/components/lcars/enhanced-ship-computer';
+import { AICollaborationDashboard } from '@/components/lcars/ai-collaboration-dashboard';
 
 interface DashboardStats {
   totalProjects: number;
@@ -24,7 +26,7 @@ export default function HomePage() {
     systemHealth: 'Optimal',
     lastUpdate: new Date().toLocaleString()
   });
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true); // Restored to normal loading state
   const [activeNavigation, setActiveNavigation] = useState('dashboard');
 
   useEffect(() => {
@@ -262,7 +264,22 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* Dynamic Scaling Indicator */}
+      {/* Enhanced Ship Computer - Collective Intelligence */}
+      <div className="lcars-elbow-container">
+        <div className="lcars-elbow-header">🧠 COLLECTIVE INTELLIGENCE SYSTEM</div>
+        <div className="lcars-elbow-content">
+          <EnhancedShipComputer />
+        </div>
+      </div>
+
+      
+             {/* AI Collaboration Dashboard */}
+             <div className="lcars-elbow-container">
+               <div className="lcars-elbow-header">🤖 AI AGENT COLLABORATION DASHBOARD</div>
+               <div className="lcars-elbow-content">
+                 <AICollaborationDashboard />
+               </div>
+             </div>{/* Dynamic Scaling Indicator */}
       <div className="lcars-elbow-container">
         <div className="lcars-elbow-header">SYSTEM SCALING METRICS</div>
         <div className="lcars-elbow-content">

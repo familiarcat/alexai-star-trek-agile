@@ -14,7 +14,7 @@ export const DynamicLCARSLayout: React.FC<DynamicLCARSLayoutProps> = ({
   initialIntent,
   onLayoutChange
 }) => {
-  const { state, analyzeUserIntent, generateOptimalLayout } = useShipsComputer();
+  const { state, updateIntent } = useShipsComputer();
   const [currentLayout, setCurrentLayout] = useState<any>(null);
   const [isAdapting, setIsAdapting] = useState(false);
 
@@ -25,26 +25,81 @@ export const DynamicLCARSLayout: React.FC<DynamicLCARSLayoutProps> = ({
   }, [initialIntent]);
 
   useEffect(() => {
-    if (state.activeLayout) {
-      setCurrentLayout(state.activeLayout);
-      onLayoutChange?.(state.activeLayout);
+    // Initialize with a default layout when component mounts
+    if (!currentLayout) {
+      const defaultLayout = generateSimpleLayout(state.currentIntent);
+      setCurrentLayout(defaultLayout);
+      onLayoutChange?.(defaultLayout);
     }
-  }, [state.activeLayout, onLayoutChange]);
+  }, [state.currentIntent, onLayoutChange, currentLayout]);
 
   const handleIntentChange = (intent: string) => {
     setIsAdapting(true);
     
-    // Analyze user intent using Counselor Troi's emotional intelligence
-    const userIntent = analyzeUserIntent(intent);
+    // Update intent in the context
+    updateIntent(intent);
     
-    // Generate optimal layout using Commander Data's efficiency analysis
-    const optimalLayout = generateOptimalLayout(userIntent);
+    // Generate a simple layout based on intent
+    const optimalLayout = generateSimpleLayout(intent);
     
     // Simulate adaptation delay
     setTimeout(() => {
       setCurrentLayout(optimalLayout);
       setIsAdapting(false);
     }, 500);
+  };
+
+  const generateSimpleLayout = (intent: string) => {
+    // Simple layout generation based on intent
+    const baseLayout = {
+      gridTemplate: 'grid-template-areas: "header header" "sidebar main" "footer footer"',
+      colorScheme: {
+        background: 'var(--lcars-background)',
+        text: 'var(--lcars-text)',
+        primary: 'var(--lcars-orange)',
+        secondary: 'var(--lcars-yellow)'
+      },
+      components: [
+        {
+          id: 'header',
+          type: 'header',
+          position: { x: 1, y: 1, width: 2, height: 1 },
+          priority: 'high',
+          adaptive: true
+        },
+        {
+          id: 'sidebar',
+          type: 'sidebar',
+          position: { x: 1, y: 2, width: 1, height: 1 },
+          priority: 'medium',
+          adaptive: true
+        },
+        {
+          id: 'main',
+          type: 'main',
+          position: { x: 2, y: 2, width: 1, height: 1 },
+          priority: 'high',
+          adaptive: true
+        },
+        {
+          id: 'footer',
+          type: 'footer',
+          position: { x: 1, y: 3, width: 2, height: 1 },
+          priority: 'low',
+          adaptive: false
+        }
+      ]
+    };
+
+    // Customize based on intent
+    if (intent.includes('navigation')) {
+      baseLayout.components[1].priority = 'high'; // Make sidebar high priority
+    }
+    if (intent.includes('analysis')) {
+      baseLayout.components[2].priority = 'critical'; // Make main area critical
+    }
+
+    return baseLayout;
   };
 
   const getLayoutStyle = () => {

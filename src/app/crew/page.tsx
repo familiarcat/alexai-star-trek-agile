@@ -38,7 +38,8 @@ export default function CrewPage() {
             email: 'picard@enterprise.starfleet',
             phone: '001-001',
             experience: 35,
-            performance: 98
+            performance: 98,
+            avatar: '/avatars/picard.jpg'
           },
           {
             id: '2',
@@ -50,7 +51,8 @@ export default function CrewPage() {
             email: 'data@enterprise.starfleet',
             phone: '001-002',
             experience: 28,
-            performance: 99
+            performance: 99,
+            avatar: '/avatars/data.jpg'
           },
           {
             id: '3',
@@ -62,7 +64,8 @@ export default function CrewPage() {
             email: 'laforge@enterprise.starfleet',
             phone: '001-003',
             experience: 22,
-            performance: 96
+            performance: 96,
+            avatar: '/avatars/laforge.jpg'
           },
           {
             id: '4',
@@ -74,7 +77,8 @@ export default function CrewPage() {
             email: 'troi@enterprise.starfleet',
             phone: '001-004',
             experience: 18,
-            performance: 94
+            performance: 94,
+            avatar: '/avatars/troi.jpg'
           },
           {
             id: '5',
@@ -86,7 +90,8 @@ export default function CrewPage() {
             email: 'worff@enterprise.starfleet',
             phone: '001-005',
             experience: 15,
-            performance: 92
+            performance: 92,
+            avatar: '/avatars/worf.jpg'
           },
           {
             id: '6',
@@ -98,7 +103,8 @@ export default function CrewPage() {
             email: 'crusher@enterprise.starfleet',
             phone: '001-006',
             experience: 25,
-            performance: 97
+            avatar: '/avatars/crusher.jpg',
+            performance: 97,
           }
         ]);
       } catch (error) {

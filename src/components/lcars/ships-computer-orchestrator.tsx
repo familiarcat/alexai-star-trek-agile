@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode, useCallback } from 'react';
 import { 
   ComputerDesktopIcon,
   CpuChipIcon,
@@ -13,6 +13,7 @@ import {
   BeakerIcon,
   ShieldCheckIcon
 } from '@heroicons/react/24/outline';
+import { collectiveMemoryEngine } from '@/lib/ai-orchestration-engine';
 
 // AI Agent Interface Definitions
 interface AIAgent {
@@ -105,6 +106,9 @@ const ShipsComputerContext = createContext<{
   addRecommendation: (agentId: string, recommendation: Omit<AgentRecommendation, 'id' | 'timestamp'>) => void;
   updateLayoutElement: (elementId: string, updates: Partial<LayoutElement>) => void;
   executeAction: (action: string) => Promise<void>;
+  getCollectiveInsights: () => Promise<any[]>;
+  startMultiAgentCollaboration: (taskType: string, userIntent: string) => Promise<string | null>;
+  updateAgentContexts: () => void;
 } | null>(null);
 
 // Provider Component
@@ -231,7 +235,7 @@ export function ShipsComputerProvider({ children }: { children: ReactNode }) {
       ...prev,
       userContext: {
         ...prev.userContext,
-        userBehavior: [...prev.userBehavior, action]
+        userBehavior: [...prev.userContext.userBehavior, action]
       }
     }));
 
@@ -249,13 +253,104 @@ export function ShipsComputerProvider({ children }: { children: ReactNode }) {
     });
   };
 
+  // ========================================
+  // COLLECTIVE MEMORY INTEGRATION
+  // ========================================
+  
+  /**
+   * Get insights from collective memory for all agents
+   */
+  const getCollectiveInsights = useCallback(async () => {
+    try {
+      const agents = collectiveMemoryEngine.getAllAgents();
+      const insights = await Promise.all(
+        agents.map(async (agent) => {
+          const agentInsights = await collectiveMemoryEngine.getAgentInsights(
+            agent.id,
+            agent.currentContext
+          );
+          return { agent, insights: agentInsights };
+        })
+      );
+      
+      console.log('🧠 Collective insights gathered for all agents:', insights);
+      return insights;
+    } catch (error) {
+      console.error('Error getting collective insights:', error);
+      return [];
+    }
+  }, []);
+
+  /**
+   * Start multi-agent collaboration for complex tasks
+   */
+  const startMultiAgentCollaboration = useCallback(async (taskType: string, userIntent: string) => {
+    try {
+      const agents = ['ship_computer', 'commander_data', 'counselor_troi'];
+      const sessionId = await collectiveMemoryEngine.startCollaboration(
+        agents,
+        taskType,
+        userIntent,
+        {
+          screenSize: 'desktop',
+          userIntent,
+          userContext: 'collaboration',
+          currentPage: '/',
+          userBehavior: {
+            navigationPattern: [],
+            interactionFrequency: 0,
+            preferredFeatures: [],
+            painPoints: [],
+            satisfactionScore: 0.8
+          },
+          systemState: {
+            performance: { loadTime: 0, renderTime: 0, memoryUsage: 0, cpuUsage: 0, successRate: 0.8 },
+            accessibility: { wcagCompliance: 0.9, keyboardNavigation: true, screenReaderSupport: true, colorContrast: 0.95, focusManagement: true },
+            userExperience: { taskCompletionRate: 0.85, userSatisfaction: 0.8, errorRate: 0.1, learningCurve: 0.7, engagementScore: 0.8 },
+            technicalHealth: { buildSuccess: true, testCoverage: 0.8, deploymentStatus: 'operational', errorLogs: [], systemUptime: 99.9 }
+          }
+        }
+      );
+      
+      console.log('🤝 Multi-agent collaboration started:', sessionId);
+      return sessionId;
+    } catch (error) {
+      console.error('Error starting multi-agent collaboration:', error);
+      return null;
+    }
+  }, []);
+
+  /**
+   * Update agent contexts based on current system state
+   */
+  const updateAgentContexts = useCallback(() => {
+    try {
+      const agents = collectiveMemoryEngine.getAllAgents();
+      agents.forEach(agent => {
+        collectiveMemoryEngine.updateAgentContext(agent.id, {
+          screenSize: 'desktop',
+          userIntent: 'system_monitoring',
+          userContext: 'orchestration',
+          currentPage: '/'
+        });
+      });
+      
+      console.log('🔄 Agent contexts updated');
+    } catch (error) {
+      console.error('Error updating agent contexts:', error);
+    }
+  }, []);
+
   return (
     <ShipsComputerContext.Provider value={{
       state,
       updateIntent,
       addRecommendation,
       updateLayoutElement,
-      executeAction
+      executeAction,
+      getCollectiveInsights,
+      startMultiAgentCollaboration,
+      updateAgentContexts
     }}>
       {children}
     </ShipsComputerContext.Provider>
@@ -284,7 +379,8 @@ async function analyzeLayoutNeeds(intent: string, userContext: ShipsComputerStat
       title: 'Navigation-Focused Layout',
       description: 'Optimize layout for navigation tasks with prominent navigation elements',
       action: 'prioritize_navigation_elements',
-      impact: 'high'
+      impact: 'high',
+      timestamp: new Date()
     });
   }
   
@@ -296,7 +392,8 @@ async function analyzeLayoutNeeds(intent: string, userContext: ShipsComputerStat
       title: 'Mobile-First Optimization',
       description: 'Ensure all elements are touch-friendly and properly sized for mobile',
       action: 'optimize_mobile_layout',
-      impact: 'critical'
+      impact: 'critical',
+      timestamp: new Date()
     });
   }
   
@@ -316,7 +413,8 @@ async function analyzeEfficiency(layoutElements: LayoutElement[], userContext: S
       title: 'Non-Executable Elements Detected',
       description: `${nonExecutableElements.length} UI elements lack executable functionality`,
       action: 'implement_executable_functionality',
-      impact: 'high'
+      impact: 'high',
+      timestamp: new Date()
     });
   }
   
@@ -329,7 +427,8 @@ async function analyzeEfficiency(layoutElements: LayoutElement[], userContext: S
       title: 'Mobile Responsiveness Issues',
       description: 'Some elements are not optimized for mobile devices',
       action: 'fix_mobile_responsiveness',
-      impact: 'critical'
+      impact: 'critical',
+      timestamp: new Date()
     });
   }
   
@@ -348,7 +447,8 @@ async function analyzeUserExperience(userContext: ShipsComputerState['userContex
       title: 'Efficiency-Focused User',
       description: 'User is in efficiency mode - prioritize quick access and streamlined workflows',
       action: 'optimize_for_efficiency',
-      impact: 'medium'
+      impact: 'medium',
+      timestamp: new Date()
     });
   }
   
@@ -361,7 +461,8 @@ async function analyzeUserExperience(userContext: ShipsComputerState['userContex
       title: 'Mobile UX Optimization',
       description: 'Ensure touch targets are appropriately sized and gestures are intuitive',
       action: 'optimize_mobile_ux',
-      impact: 'high'
+      impact: 'high',
+      timestamp: new Date()
     });
   }
   
