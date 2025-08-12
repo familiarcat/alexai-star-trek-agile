@@ -5,10 +5,19 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { query = '', context = 'general', userRole = 'default', urgency = 'normal' } = body;
 
-    // Validate required parameters
+    // Validate required parameters with additional safety checks
     if (!query || typeof query !== 'string') {
       return NextResponse.json(
         { error: 'Query parameter is required and must be a string' },
+        { status: 400 }
+      );
+    }
+
+    // Additional safety check - ensure query is a valid string
+    const safeQuery = String(query).trim();
+    if (!safeQuery) {
+      return NextResponse.json(
+        { error: 'Query parameter cannot be empty' },
         { status: 400 }
       );
     }
@@ -18,10 +27,10 @@ export async function POST(request: Request) {
       crewMember: "counselor-troi",
       role: "Counselor & Emotional Intelligence Specialist",
       greeting: "I sense your feelings about this matter. Let me help you process this.",
-      guidance: generateEmpathicGuidance(query, context, userRole, urgency),
-      emotionalAssessment: analyzeEmotionalContext(query, context, urgency),
-      recommendations: provideSupportRecommendations(query, context, userRole),
-      nextSteps: suggestEmotionalApproach(query, context, urgency),
+      guidance: generateEmpathicGuidance(safeQuery, context, userRole, urgency),
+      emotionalAssessment: analyzeEmotionalContext(safeQuery, context, urgency),
+      recommendations: provideSupportRecommendations(safeQuery, context, userRole),
+      nextSteps: suggestEmotionalApproach(safeQuery, context, urgency),
       starfleetProtocol: "Emotional support and interpersonal guidance per Starfleet counseling protocols"
     };
 
