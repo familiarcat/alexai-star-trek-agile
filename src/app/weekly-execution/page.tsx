@@ -9,7 +9,6 @@ import {
   CheckCircleIcon,
   ExclamationTriangleIcon,
   ArrowTrendingUpIcon,
-  UserGroupIcon,
   ChartBarIcon
 } from '@heroicons/react/24/outline';
 
@@ -298,19 +297,27 @@ export default function WeeklyExecutionPage() {
                     </div>
                     
                     <div className="lcars-task-list">
-                      {weeklyPlan.days.find(day => day.day === selectedDay)?.[session as keyof DailyPlan]?.map((task, index) => (
-                        <div key={index} className="lcars-task-item">
-                          <div className="lcars-task-checkbox">
-                            <input
-                              type="checkbox"
-                              checked={false} // This would be connected to actual task completion state
-                              onChange={() => updateTaskCompletion(selectedDay, index, true)}
-                              className="lcars-checkbox"
-                            />
+                      {(() => {
+                        const day = weeklyPlan.days.find(day => day.day === selectedDay);
+                        if (!day) return null;
+                        
+                        const tasks = day[session as keyof DailyPlan];
+                        if (!Array.isArray(tasks)) return null;
+                        
+                        return tasks.map((task, index) => (
+                          <div key={index} className="lcars-task-item">
+                            <div className="lcars-task-checkbox">
+                              <input
+                                type="checkbox"
+                                checked={false} // This would be connected to actual task completion state
+                                onChange={() => updateTaskCompletion(selectedDay, index, true)}
+                                className="lcars-checkbox"
+                              />
+                            </div>
+                            <div className="lcars-task-text">{task}</div>
                           </div>
-                          <div className="lcars-task-text">{task}</div>
-                        </div>
-                      ))}
+                        ));
+                      })()}
                     </div>
                   </div>
                 ))}

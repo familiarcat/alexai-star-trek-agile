@@ -3,7 +3,7 @@ import fs from 'fs/promises';
 import path from 'path';
 
 // Import the functions directly instead of making HTTP calls
-import { getLocalWorkflows } from './local/route';
+import { getLocalWorkflows } from '@/lib/workflow-utils';
 
 export async function GET() {
   try {

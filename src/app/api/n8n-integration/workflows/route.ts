@@ -3,7 +3,7 @@ import fs from 'fs/promises';
 import path from 'path';
 
 // Import the fixed getLocalWorkflows function
-import { getLocalWorkflows } from '../../workflows/local/route';
+import { getLocalWorkflows } from '@/lib/workflow-utils';
 
 interface N8nWorkflow {
   id: string;

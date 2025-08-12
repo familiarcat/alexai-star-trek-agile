@@ -71,7 +71,7 @@ export function LCARSWorkflowBoard({ board, onTaskMove, onTaskUpdate, onTaskCrea
       if (realTimeUpdates) {
         // Update task timestamps
         board.tasks.forEach(task => {
-          task.lastModifiedAt = new Date().toISOString();
+          task.lastModifiedAt = new Date();
         });
       }
     }, 5000);
