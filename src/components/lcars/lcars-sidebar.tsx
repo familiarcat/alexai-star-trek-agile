@@ -12,7 +12,8 @@ import {
   ShieldCheckIcon,
   UserGroupIcon,
   RocketLaunchIcon,
-  BeakerIcon
+  BeakerIcon,
+  CpuChipIcon
 } from '@heroicons/react/24/outline';
 
 interface LCARSSidebarProps {
@@ -44,13 +45,20 @@ export function LCARSSidebar({ collapsed = false }: LCARSSidebarProps) {
       icon: ClipboardDocumentListIcon,
       active: pathname.startsWith('/tasks')
     },
-    {
-      href: '/weekly-execution',
-      label: 'WEEKLY PLAN',
-      description: 'EXECUTION STRATEGY',
-      icon: RocketLaunchIcon,
-      active: pathname.startsWith('/weekly-execution')
-    },
+          {
+        href: '/weekly-execution',
+        label: 'WEEKLY PLAN',
+        description: 'EXECUTION STRATEGY',
+        icon: RocketLaunchIcon,
+        active: pathname.startsWith('/weekly-execution')
+      },
+      {
+        href: '/ai-orchestration',
+        label: 'AI ORCHESTRATION',
+        description: 'DYNAMIC LAYOUTS',
+        icon: CpuChipIcon,
+        active: pathname.startsWith('/ai-orchestration')
+      },
     {
       href: '/analytics',
       label: 'ANALYTICS',

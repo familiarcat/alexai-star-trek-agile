@@ -57,7 +57,7 @@
     "fix:issues": "./scripts/setup/quick-fix-current-issues.sh"
   },
   "dependencies": {
-    "@heroicons/react": "^2.0.18",
+    "@heroicons/react": "^2.2.0",
     "@supabase/supabase-js": "^2.38.4",
     "@types/react-beautiful-dnd": "^13.1.8",
     "chokidar": "^4.0.3",
