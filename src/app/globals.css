@@ -940,3 +940,78 @@ body {
     text-align: center;
   }
 }
+
+/* Dashboard Loading and Error States */
+.lcars-loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.lcars-spinner-icon {
+  width: 48px;
+  height: 48px;
+  color: var(--lcars-orange);
+  animation: spin 2s linear infinite;
+}
+
+.lcars-loading-progress {
+  margin-top: 20px;
+}
+
+.lcars-progress-bar {
+  width: 100%;
+  height: 8px;
+  background: var(--lcars-black);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.lcars-progress-fill {
+  height: 100%;
+  background: var(--lcars-orange);
+  animation: progress 3s ease-in-out infinite;
+}
+
+.lcars-error-boundary {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+  padding: 40px;
+}
+
+.lcars-error-content {
+  text-align: center;
+  max-width: 500px;
+}
+
+.lcars-error-icon {
+  width: 64px;
+  height: 64px;
+  color: var(--lcars-red);
+  margin-bottom: 20px;
+}
+
+.lcars-error-title {
+  font-size: 1.5rem;
+  color: var(--lcars-red);
+  margin-bottom: 10px;
+}
+
+.lcars-error-message {
+  color: var(--lcars-white);
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes progress {
+  0% { width: 0%; }
+  50% { width: 70%; }
+  100% { width: 100%; }
+}

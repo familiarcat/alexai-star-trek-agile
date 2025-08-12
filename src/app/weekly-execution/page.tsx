@@ -53,16 +53,46 @@ export default function WeeklyExecutionPage() {
   const fetchWeeklyPlan = async () => {
     try {
       setLoading(true);
+      setError(null);
+      
       const response = await fetch('/api/weekly-plan');
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
       const data = await response.json();
       
-      if (data.success) {
-        setWeeklyPlan(data.weeklyPlan);
+      if (data.success && data.weeklyPlan) {
+        // Validate the data structure
+        if (!data.weeklyPlan.days || !Array.isArray(data.weeklyPlan.days)) {
+          throw new Error('Invalid weekly plan data structure');
+        }
+        
+        // Ensure all required fields are present
+        const validatedPlan = {
+          ...data.weeklyPlan,
+          days: data.weeklyPlan.days.map((day: any) => ({
+            day: day.day || 'Unknown',
+            focus: day.focus || 'No focus defined',
+            revenueTarget: day.revenueTarget || 0,
+            timeInvestment: day.timeInvestment || '0 hours',
+            morningTasks: Array.isArray(day.morningTasks) ? day.morningTasks : [],
+            afternoonTasks: Array.isArray(day.afternoonTasks) ? day.afternoonTasks : [],
+            eveningTasks: Array.isArray(day.eveningTasks) ? day.eveningTasks : [],
+            completed: Boolean(day.completed),
+            revenueGenerated: day.revenueGenerated || 0,
+            tasksCompleted: day.tasksCompleted || 0
+          }))
+        };
+        
+        setWeeklyPlan(validatedPlan);
       } else {
         setError(data.error || 'Failed to load weekly plan');
       }
     } catch (err) {
-      setError('Failed to load weekly execution plan');
+      const errorMessage = err instanceof Error ? err.message : 'Failed to load weekly execution plan';
+      setError(errorMessage);
       console.error('Weekly plan fetch error:', err);
     } finally {
       setLoading(false);
@@ -94,28 +124,37 @@ export default function WeeklyExecutionPage() {
   };
 
   const getRevenueProgress = () => {
-    if (!weeklyPlan) return 0;
-    return (weeklyPlan.currentRevenue / weeklyPlan.revenueTarget) * 100;
+    if (!weeklyPlan || !weeklyPlan.revenueTarget) return 0;
+    const progress = (weeklyPlan.currentRevenue / weeklyPlan.revenueTarget) * 100;
+    return Math.min(Math.max(progress, 0), 100); // Clamp between 0 and 100
   };
 
   const getTaskProgress = () => {
-    if (!weeklyPlan) return 0;
-    return (weeklyPlan.progress.tasksCompleted / weeklyPlan.progress.totalTasks) * 100;
+    if (!weeklyPlan || !weeklyPlan.progress.totalTasks) return 0;
+    const progress = (weeklyPlan.progress.tasksCompleted / weeklyPlan.progress.totalTasks) * 100;
+    return Math.min(Math.max(progress, 0), 100); // Clamp between 0 and 100
   };
 
   const getDayProgress = (day: DailyPlan) => {
-    const totalTasks = day.morningTasks.length + day.afternoonTasks.length + day.eveningTasks.length;
-    return totalTasks > 0 ? (day.tasksCompleted / totalTasks) * 100 : 0;
+    if (!day) return 0;
+    const totalTasks = (day.morningTasks?.length || 0) + (day.afternoonTasks?.length || 0) + (day.eveningTasks?.length || 0);
+    if (totalTasks === 0) return 0;
+    const progress = ((day.tasksCompleted || 0) / totalTasks) * 100;
+    return Math.min(Math.max(progress, 0), 100); // Clamp between 0 and 100
   };
 
   if (loading) {
     return (
       <LCARSLayout>
         <div className="lcars-panel lcars-p-30 lcars-text-center">
+          <div className="lcars-loading-spinner">
+            <ChartBarIcon className="lcars-spinner-icon" />
+          </div>
           <div className="lcars-text-xlarge lcars-text-gold">Loading Weekly Execution Plan...</div>
-          <div className="lcars-mt-10">
-            <div className="lcars-progress">
-              <div className="lcars-progress-bar" style={{ width: '100%' }}></div>
+          <div className="lcars-text-large lcars-text-white lcars-mt-10">Initializing mission data</div>
+          <div className="lcars-loading-progress lcars-mt-20">
+            <div className="lcars-progress-bar">
+              <div className="lcars-progress-fill"></div>
             </div>
           </div>
         </div>
@@ -127,8 +166,17 @@ export default function WeeklyExecutionPage() {
     return (
       <LCARSLayout>
         <div className="lcars-panel lcars-p-30 lcars-text-center">
-          <div className="lcars-text-xlarge lcars-text-orange">Error</div>
-          <div className="lcars-text-large lcars-mt-10">{error}</div>
+          <div className="lcars-error-icon">
+            <ExclamationTriangleIcon className="w-16 h-16" />
+          </div>
+          <div className="lcars-text-xlarge lcars-text-orange lcars-mt-10">Mission Control Error</div>
+          <div className="lcars-text-large lcars-text-white lcars-mt-10">{error}</div>
+          <button 
+            onClick={fetchWeeklyPlan}
+            className="lcars-button lcars-button-primary lcars-mt-20"
+          >
+            Retry Mission Data
+          </button>
         </div>
       </LCARSLayout>
     );
@@ -234,7 +282,7 @@ export default function WeeklyExecutionPage() {
           <div className="lcars-text-large lcars-text-gold lcars-mb-20">WEEKLY SCHEDULE</div>
           
           <div className="lcars-grid lcars-grid-cols-1 lcars-md-grid-cols-7 lcars-gap-15">
-            {weeklyPlan.days.map((day) => (
+            {weeklyPlan.days && weeklyPlan.days.length > 0 ? weeklyPlan.days.map((day) => (
               <div 
                 key={day.day}
                 className={`lcars-day-card ${selectedDay === day.day ? 'lcars-selected' : ''}`}
@@ -274,7 +322,12 @@ export default function WeeklyExecutionPage() {
                   )}
                 </div>
               </div>
-            ))}
+            )) : (
+              <div className="lcars-col-span-7 lcars-text-center lcars-p-20">
+                <div className="lcars-text-large lcars-text-orange">No weekly schedule available</div>
+                <div className="lcars-text-medium lcars-text-white lcars-mt-10">Please check back later</div>
+              </div>
+            )}
           </div>
         </div>
 

@@ -1,6 +1,7 @@
-import { Suspense } from 'react';
+import { Suspense, useState, useEffect } from 'react';
 import Link from 'next/link';
 import { RealtimeStatus } from '@/components/lcars/realtime-collaboration';
+import DashboardErrorBoundary from '@/components/lcars/dashboard-error-boundary';
 import { 
   FolderIcon, 
   EyeIcon, 
@@ -421,23 +422,33 @@ async function DashboardContent() {
   );
 }
 
-// Loading component
+// Enhanced Loading component with better UX
 function DashboardLoading() {
   return (
     <div className="lcars-main-content">
       <div className="lcars-panel lcars-p-30">
+        <div className="lcars-loading-spinner">
+          <CpuChipIcon className="lcars-spinner-icon" />
+        </div>
         <div className="lcars-text-xxlarge lcars-text-gold">INITIALIZING LCARS SYSTEM...</div>
         <div className="lcars-text-large lcars-text-white">LOADING MISSION DATA</div>
+        <div className="lcars-loading-progress">
+          <div className="lcars-progress-bar">
+            <div className="lcars-progress-fill"></div>
+          </div>
+        </div>
       </div>
     </div>
   );
 }
 
-// Main page component
+// Main page component with error boundary and loading states
 export default function DashboardPage() {
   return (
-    <Suspense fallback={<DashboardLoading />}>
-      <DashboardContent />
-    </Suspense>
+    <DashboardErrorBoundary>
+      <Suspense fallback={<DashboardLoading />}>
+        <DashboardContent />
+      </Suspense>
+    </DashboardErrorBoundary>
   );
 } 

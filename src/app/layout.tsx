@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import "/public/assets/lcars.css";
 import { LCARSLayout } from "@/components/lcars/lcars-layout";
 import { ShipsComputerProvider } from "@/components/lcars/ships-computer-controller";
 

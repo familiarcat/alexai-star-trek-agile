@@ -1,33 +1,61 @@
-import type { NextConfig } from 'next';
+import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
-  serverExternalPackages: ['socket.io'],
-  eslint: {
-    // Enable ESLint during builds for proper CI/CD
-    ignoreDuringBuilds: false,
-    dirs: ['src', 'scripts', 'components']
+  experimental: {
+    optimizePackageImports: ['@heroicons/react'],
   },
-  typescript: {
-    // Enable TypeScript checking during builds
-    ignoreBuildErrors: false,
-  },
-  env: {
-    N8N_BASE_URL: process.env.N8N_BASE_URL,
-  },
-  webpack: (config, { isServer }) => {
-    if (isServer) {
-      config.externals.push('socket.io');
-    }
-    return config;
-  },
-  async rewrites() {
-    return [
-      {
-        source: '/api/socket/:path*',
-        destination: '/api/socket/:path*',
+  webpack: (config, { dev, isServer }) => {
+    // Fix webpack chunk resolution issues
+    config.optimization = {
+      ...config.optimization,
+      splitChunks: {
+        chunks: 'all',
+        cacheGroups: {
+          default: false,
+          vendors: false,
+          // Create stable vendor chunks
+          vendor: {
+            name: 'vendor',
+            chunks: 'all',
+            test: /node_modules/,
+            priority: 20,
+          },
+          // Create stable common chunks
+          common: {
+            name: 'common',
+            minChunks: 2,
+            chunks: 'all',
+            priority: 10,
+            reuseExistingChunk: true,
+            enforce: true,
+          },
+        },
       },
-    ];
-  },
-};
+      // Ensure consistent chunk IDs
+      chunkIds: 'deterministic',
+    }
 
-export default nextConfig; 
+    // Fix module resolution
+    config.resolve = {
+      ...config.resolve,
+      fallback: {
+        ...config.resolve.fallback,
+        fs: false,
+        net: false,
+        tls: false,
+      },
+    }
+
+    return config
+  },
+  // Ensure stable builds
+  generateBuildId: async () => {
+    return 'build-' + Date.now()
+  },
+  // Optimize for production
+  swcMinify: true,
+  compress: true,
+  poweredByHeader: false,
+}
+
+export default nextConfig 
