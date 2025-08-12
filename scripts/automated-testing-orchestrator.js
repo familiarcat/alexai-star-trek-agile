@@ -19,6 +19,9 @@ const path = require('path');
 
 class AutomatedTestingOrchestrator {
   constructor() {
+    // Check if running in CI mode
+    this.isCIMode = process.argv.includes('--ci-mode');
+    
     this.browserTester = new AutomatedBrowserTester();
     this.agentExplorer = new N8nAgentExploration();
     this.testSession = {
@@ -27,12 +30,17 @@ class AutomatedTestingOrchestrator {
       phases: [],
       results: {},
       insights: {},
-      recommendations: []
+      recommendations: [],
+      ciMode: this.isCIMode
     };
   }
 
   async initialize() {
     console.log('🚀 Initializing Automated Testing Orchestrator...');
+    
+    if (this.isCIMode) {
+      console.log('🏭 Running in CI/CD mode - optimizing for automated pipeline');
+    }
     
     // Create necessary directories
     await fs.mkdir('test-screenshots', { recursive: true });

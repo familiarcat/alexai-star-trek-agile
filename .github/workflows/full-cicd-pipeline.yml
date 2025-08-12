@@ -340,7 +340,7 @@ jobs:
 
       - name: Run integration tests
         run: |
-          npm test -- --testPathPattern=integration
+          npm run test:integration
 
   # Performance Tests
   performance-tests:

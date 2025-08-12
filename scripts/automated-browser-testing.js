@@ -35,8 +35,11 @@ class AutomatedBrowserTester {
   async initialize() {
     console.log('🚀 Initializing Automated Browser Testing System...');
     
+    // Check if running in CI mode
+    const isCIMode = process.argv.includes('--ci-mode');
+    
     this.browser = await puppeteer.launch({
-      headless: false, // Set to true for CI/CD
+      headless: isCIMode ? true : false, // Headless for CI/CD, visible for development
       defaultViewport: { width: 1920, height: 1080 },
       args: ['--no-sandbox', '--disable-setuid-sandbox']
     });
