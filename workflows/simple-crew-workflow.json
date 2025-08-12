@@ -1,6 +1,10 @@
 {
+  "createdAt": "2025-08-10T21:21:47.452Z",
+  "updatedAt": "2025-08-10T22:25:06.024Z",
   "id": "ky17lIPDFA6SjVvr",
   "name": "Simple Crew Workflow",
+  "active": false,
+  "isArchived": true,
   "nodes": [
     {
       "parameters": {
@@ -235,8 +239,12 @@
     "executionOrder": "v1"
   },
   "staticData": null,
+  "meta": null,
   "pinData": null,
-  "versionId": "4c208d39-ec67-4b3d-8ff2-6184d50686de",
-  "createdAt": "2025-08-10T21:21:47.452Z",
-  "updatedAt": "2025-08-10T21:53:11.828Z"
+  "versionId": "bd5de2e9-e15b-4a45-9cec-bc89ca57661f",
+  "triggerCount": 0,
+  "tags": [],
+  "syncedAt": "2025-08-12T11:34:34.388Z",
+  "syncDirection": "pulled-from-n8n",
+  "originalId": "ky17lIPDFA6SjVvr"
 }

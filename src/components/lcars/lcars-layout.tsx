@@ -46,8 +46,9 @@ export function LCARSLayout({
   // Handle responsive behavior
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-      if (window.innerWidth < 768) {
+      const mobile = window.innerWidth < 768;
+      setIsMobile(mobile);
+      if (mobile) {
         setShowSidebar(false);
         setSidebarCollapsed(false);
       }
@@ -120,19 +121,24 @@ export function LCARSLayout({
 
       {/* Main Layout Container */}
       <div className="wrap-everything">
-        {/* Column 1: Sidebar */}
+        {/* Column 1: Sidebar - Enhanced with proper hide/show functionality */}
         <section id="column-1" className={cn(
           'lcars-sidebar-section',
           showSidebar && 'lcars-sidebar-visible',
-          sidebarCollapsed && 'lcars-sidebar-collapsed'
+          sidebarCollapsed && 'lcars-sidebar-collapsed',
+          !showSidebar && 'lcars-sidebar-hidden'
         )}>
           <LCARSSidebar collapsed={sidebarCollapsed} />
           
-          {/* Sidebar Toggle Button */}
+          {/* Enhanced Sidebar Toggle Button with proper UX */}
           <button
             onClick={toggleCollapse}
-            className="lcars-sidebar-toggle"
-            aria-label="Collapse Sidebar"
+            className={cn(
+              'lcars-sidebar-toggle',
+              sidebarCollapsed && 'lcars-sidebar-toggle-collapsed'
+            )}
+            aria-label={sidebarCollapsed ? "Expand Sidebar" : "Collapse Sidebar"}
+            title={sidebarCollapsed ? "Expand Sidebar" : "Collapse Sidebar"}
           >
             {sidebarCollapsed ? (
               <ChevronRightIcon style={{ width: '16px', height: '16px' }} />
@@ -142,10 +148,18 @@ export function LCARSLayout({
           </button>
         </section>
 
-        {/* Column 2: Middle Navigation */}
+        {/* Column 2: Middle Navigation - Simplified and non-redundant */}
         <section id="column-2" className="lcars-middle-section">
           <div className="section-2-panel-a">
-            <div className="lcars-nav-toggle" onClick={toggleSidebar}>
+            {/* Enhanced Sidebar Toggle with proper visual feedback */}
+            <div 
+              className={cn(
+                'lcars-nav-toggle',
+                showSidebar && 'lcars-nav-toggle-active'
+              )} 
+              onClick={toggleSidebar}
+              title={showSidebar ? "Hide Sidebar" : "Show Sidebar"}
+            >
               {showSidebar ? (
                 <XMarkIcon style={{ width: '20px', height: '20px' }} />
               ) : (
@@ -154,11 +168,7 @@ export function LCARSLayout({
             </div>
           </div>
           
-          <div className="section-2-buttons">
-            <a href="/dashboard" className="lcars-nav-button">DASHBOARD</a>
-            <a href="/projects" className="lcars-nav-button">PROJECTS</a>
-            <a href="/tasks" className="lcars-nav-button">TASKS</a>
-          </div>
+          {/* Removed redundant navigation buttons - they're in the sidebar */}
           
           <div className="section-2-panel-b">
             <div className="lcars-status-display">

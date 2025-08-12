@@ -1,6 +1,10 @@
 {
+  "createdAt": "2025-08-10T21:37:48.496Z",
+  "updatedAt": "2025-08-10T22:25:03.425Z",
   "id": "ilqi01ug4rPx2fDO",
   "name": "AlexAI Crew Coordination Workflow",
+  "active": true,
+  "isArchived": false,
   "nodes": [
     {
       "parameters": {
@@ -364,8 +368,12 @@
     "executionOrder": "v1"
   },
   "staticData": null,
+  "meta": null,
   "pinData": null,
-  "versionId": "b74f7d57-9262-4c7f-8456-9ab4e7eecf40",
-  "createdAt": "2025-08-10T21:37:48.496Z",
-  "updatedAt": "2025-08-10T21:42:38.327Z"
+  "versionId": "c3448647-59ef-4fe3-ae6c-d90ccaf4986e",
+  "triggerCount": 1,
+  "tags": [],
+  "syncedAt": "2025-08-12T11:34:34.390Z",
+  "syncDirection": "pulled-from-n8n",
+  "originalId": "ilqi01ug4rPx2fDO"
 }

@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import "./lcars-components.css";
 import "/public/assets/lcars.css";
-import { LCARSLayout } from "@/components/lcars/lcars-layout";
-import { ShipsComputerProvider } from "@/components/lcars/ships-computer-controller";
+import { ProperLCARSLayout } from "@/components/lcars/proper-lcars-layout";
+import { ShipsComputerProvider } from "@/components/lcars/ships-computer-orchestrator";
+import { DynamicScalingProvider } from "@/components/lcars/dynamic-scaling-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,17 +31,19 @@ export const viewport = {
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <ShipsComputerProvider>
-          <LCARSLayout>
-            {children}
-          </LCARSLayout>
-        </ShipsComputerProvider>
+        <DynamicScalingProvider>
+          <ShipsComputerProvider>
+            <ProperLCARSLayout>
+              {children}
+            </ProperLCARSLayout>
+          </ShipsComputerProvider>
+        </DynamicScalingProvider>
       </body>
     </html>
   );

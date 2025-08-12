@@ -1,6 +1,10 @@
 {
+  "createdAt": "2025-08-10T21:39:59.592Z",
+  "updatedAt": "2025-08-10T22:25:03.778Z",
   "id": "9A0buuHcoOikK0NP",
   "name": "AlexAI Enhanced Current Workflow",
+  "active": false,
+  "isArchived": false,
   "nodes": [
     {
       "parameters": {
@@ -210,8 +214,12 @@
     "timezone": "America/Chicago"
   },
   "staticData": null,
+  "meta": null,
   "pinData": null,
-  "versionId": "8f93d2ac-f2d6-49a5-884a-1f18858783e4",
-  "createdAt": "2025-08-10T21:39:59.592Z",
-  "updatedAt": "2025-08-10T21:42:38.669Z"
+  "versionId": "269b4263-9bba-4781-8653-5328f8db0653",
+  "triggerCount": 0,
+  "tags": [],
+  "syncedAt": "2025-08-12T11:34:34.391Z",
+  "syncDirection": "pulled-from-n8n",
+  "originalId": "9A0buuHcoOikK0NP"
 }

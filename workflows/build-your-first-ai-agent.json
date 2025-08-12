@@ -1,6 +1,10 @@
 {
+  "createdAt": "2025-07-25T00:17:16.746Z",
+  "updatedAt": "2025-08-10T21:23:03.549Z",
   "id": "gHLrS78kfIFgUiv3",
   "name": "Build Your First AI Agent",
+  "active": true,
+  "isArchived": false,
   "nodes": [
     {
       "parameters": {
@@ -371,8 +375,14 @@
   },
   "settings": {},
   "staticData": null,
+  "meta": {
+    "templateId": "6270"
+  },
   "pinData": {},
   "versionId": "0b84ce49-49aa-4780-987a-506ced750a2b",
-  "createdAt": "2025-07-25T00:17:16.746Z",
-  "updatedAt": "2025-08-10T21:23:03.549Z"
+  "triggerCount": 1,
+  "tags": [],
+  "syncedAt": "2025-08-12T11:34:34.380Z",
+  "syncDirection": "pulled-from-n8n",
+  "originalId": "gHLrS78kfIFgUiv3"
 }

@@ -1,6 +1,10 @@
 {
+  "createdAt": "2025-07-27T17:30:35.601Z",
+  "updatedAt": "2025-08-10T22:25:05.831Z",
   "id": "v99DXn6yjR2SlYoa",
   "name": "Screenplay",
+  "active": true,
+  "isArchived": false,
   "nodes": [
     {
       "parameters": {
@@ -726,8 +730,14 @@
     "executionOrder": "v1"
   },
   "staticData": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
   "pinData": {},
-  "versionId": "853b2066-b578-44d4-92e8-a9d719e64319",
-  "createdAt": "2025-07-27T17:30:35.601Z",
-  "updatedAt": "2025-08-10T21:23:03.709Z"
+  "versionId": "ba9a6ad4-b1b8-447f-b29d-135ad2cbf995",
+  "triggerCount": 3,
+  "tags": [],
+  "syncedAt": "2025-08-12T11:34:34.387Z",
+  "syncDirection": "pulled-from-n8n",
+  "originalId": "v99DXn6yjR2SlYoa"
 }

@@ -1,362 +1,305 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import Link from 'next/link';
-import { 
-  FolderIcon, 
-  PlusIcon, 
-  MagnifyingGlassIcon,
-  FunnelIcon,
-  ClockIcon,
-  UserGroupIcon,
-  CheckCircleIcon,
-  ExclamationTriangleIcon,
-  BeakerIcon,
-  CalendarIcon
-} from '@heroicons/react/24/outline';
+import { useState, useEffect } from 'react';
+import { PlusIcon, MagnifyingGlassIcon, FunnelIcon, EyeIcon, PencilIcon, TrashIcon, CalendarIcon, UserIcon, FlagIcon } from '@heroicons/react/24/outline';
 
 interface Project {
   id: string;
   name: string;
   description: string;
-  status: string;
+  status: 'active' | 'completed' | 'overdue' | 'planning';
+  priority: 'high' | 'medium' | 'low';
+  startDate: string;
+  endDate: string;
+  teamSize: number;
   progress: number;
-  team_size: number;
-  created_at: string;
-  deadline: string;
-  priority: string;
-  category: string;
 }
 
 export default function ProjectsPage() {
   const [projects, setProjects] = useState<Project[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
   const [priorityFilter, setPriorityFilter] = useState('all');
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    // Simulate data fetching
+    const fetchProjects = async () => {
+      try {
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        
+        setProjects([
+          {
+            id: '1',
+            name: 'LCARS Interface Development',
+            description: 'Modern LCARS interface development for Star Trek applications with responsive design',
+            status: 'active',
+            priority: 'high',
+            startDate: '2025-01-15',
+            endDate: '2025-06-30',
+            teamSize: 5,
+            progress: 75
+          },
+          {
+            id: '2',
+            name: 'AI Agent Integration',
+            description: 'Integration of AI agents for crew coordination and decision making',
+            status: 'active',
+            priority: 'high',
+            startDate: '2025-02-01',
+            endDate: '2025-08-15',
+            teamSize: 3,
+            progress: 45
+          },
+          {
+            id: '3',
+            name: 'Quantum Database Optimization',
+            description: 'Optimization of quantum database systems for faster data retrieval',
+            status: 'planning',
+            priority: 'medium',
+            startDate: '2025-03-01',
+            endDate: '2025-09-30',
+            teamSize: 4,
+            progress: 0
+          },
+          {
+            id: '4',
+            name: 'Security Protocol Enhancement',
+            description: 'Enhanced security protocols for Starfleet communications',
+            status: 'completed',
+            priority: 'high',
+            startDate: '2024-10-01',
+            endDate: '2025-01-31',
+            teamSize: 2,
+            progress: 100
+          }
+        ]);
+      } catch (error) {
+        console.error('Failed to fetch projects:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
     fetchProjects();
   }, []);
 
-  const fetchProjects = async () => {
-    try {
-      setLoading(true);
-      const response = await fetch('/api/projects');
-      const data = await response.json();
-      
-      if (data.success) {
-        setProjects(data.projects);
-      } else {
-        setError('Failed to load projects');
-      }
-    } catch (err) {
-      setError('Failed to load projects');
-      console.error('Projects fetch error:', err);
-    } finally {
-      setLoading(false);
-    }
+  const handleCreateProject = () => {
+    console.log('Creating new project...');
+    // Navigate to project creation form
   };
 
-  const createMockData = async () => {
-    setLoading(true);
-    try {
-      // Create sample projects
-      const sampleProjects = [
-        {
-          name: 'LCARS Interface Development',
-          description: 'Develop and refine the LCARS interface for the AlexAI system, ensuring authentic Star Trek aesthetics and optimal user experience.',
-          status: 'active',
-          priority: 'high',
-          category: 'Development',
-          team_size: 8,
-          progress: 75,
-          deadline: '2024-12-31'
-        },
-        {
-          name: 'AI Core Optimization',
-          description: 'Optimize the core AI algorithms for enhanced performance and efficiency in data processing and decision-making.',
-          status: 'pending',
-          priority: 'high',
-          category: 'AI/ML',
-          team_size: 5,
-          progress: 30,
-          deadline: '2024-09-30'
-        },
-        {
-          name: 'N8N Backend Integration',
-          description: 'Integrate the n8n workflow automation backend for seamless data flow and task automation within the AlexAI system.',
-          status: 'active',
-          priority: 'medium',
-          category: 'Integration',
-          team_size: 3,
-          progress: 90,
-          deadline: '2024-08-15'
-        }
-      ];
-
-      for (const project of sampleProjects) {
-        await fetch('/api/projects', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(project),
-        });
-      }
-
-      // Refresh projects
-      await fetchProjects();
-    } catch (error) {
-      console.error('Failed to create sample data:', error);
-    } finally {
-      setLoading(false);
-    }
+  const handleViewProject = (projectId: string) => {
+    console.log('Viewing project:', projectId);
+    // Navigate to project detail
   };
 
   const handleEditProject = (projectId: string) => {
-    // TODO: Implement edit functionality
-    console.log('Edit project:', projectId);
-    // Could navigate to edit page or open modal
+    console.log('Editing project:', projectId);
+    // Navigate to project edit form
   };
 
-  const getStatusColor = (status: string) => {
-    switch (status.toLowerCase()) {
-      case 'active': return 'text-green-600 bg-green-100';
-      case 'completed': return 'text-blue-600 bg-blue-100';
-      case 'pending': return 'text-yellow-600 bg-yellow-100';
-      case 'overdue': return 'text-red-600 bg-red-100';
-      default: return 'text-gray-600 bg-gray-100';
-    }
-  };
-
-  const getPriorityColor = (priority: string) => {
-    switch (priority.toLowerCase()) {
-      case 'high': return 'text-red-600';
-      case 'medium': return 'text-yellow-600';
-      case 'low': return 'text-green-600';
-      default: return 'text-gray-600';
-    }
-  };
-
-  const getProgressColor = (progress: number) => {
-    if (progress >= 80) return 'bg-green-600';
-    if (progress >= 60) return 'bg-blue-600';
-    if (progress >= 40) return 'bg-yellow-600';
-    return 'bg-red-600';
+  const handleDeleteProject = (projectId: string) => {
+    console.log('Deleting project:', projectId);
+    // Show confirmation dialog and delete
   };
 
   const filteredProjects = projects.filter(project => {
     const matchesSearch = project.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          project.description.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesStatus = statusFilter === 'all' || project.status.toLowerCase() === statusFilter;
-    const matchesPriority = priorityFilter === 'all' || project.priority.toLowerCase() === priorityFilter;
+    const matchesStatus = statusFilter === 'all' || project.status === statusFilter;
+    const matchesPriority = priorityFilter === 'all' || project.priority === priorityFilter;
     
     return matchesSearch && matchesStatus && matchesPriority;
   });
 
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading projects...</p>
-        </div>
-      </div>
-    );
-  }
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'active': return 'var(--lcars-green)';
+      case 'completed': return 'var(--lcars-blue)';
+      case 'overdue': return 'var(--lcars-red)';
+      case 'planning': return 'var(--lcars-yellow)';
+      default: return 'var(--lcars-gray)';
+    }
+  };
 
-  if (error) {
+  const getPriorityColor = (priority: string) => {
+    switch (priority) {
+      case 'high': return 'var(--lcars-red)';
+      case 'medium': return 'var(--lcars-yellow)';
+      case 'low': return 'var(--lcars-green)';
+      default: return 'var(--lcars-gray)';
+    }
+  };
+
+  if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <ExclamationTriangleIcon className="h-12 w-12 text-red-500 mx-auto" />
-          <p className="mt-4 text-red-600">{error}</p>
-          <button 
-            onClick={fetchProjects}
-            className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-          >
-            Retry
-          </button>
+      <div className="main-content">
+        <div className="lcars-elbow-container">
+          <div className="lcars-elbow-header">PROJECTS SYSTEM</div>
+          <div className="lcars-elbow-content">
+            <p className="lcars-text">Loading Projects...</p>
+            <p className="lcars-text-small">Initializing mission database...</p>
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <>
-      {/* Header */}
-      <div className="lcars-panel">
-        <h2>MISSION LOGS</h2>
-        <p style={{ color: '#000', fontSize: '1rem', marginBottom: '20px' }}>
-          Manage your Star Trek projects and missions
-        </p>
-        
-        <div style={{ display: 'flex', gap: '15px', flexWrap: 'wrap' }}>
-          <Link href="/projects/new" className="lcars-button primary">
-            <PlusIcon style={{ width: '20px', height: '20px', marginRight: '8px' }} />
-            NEW MISSION
-          </Link>
-          
-          <button 
-            onClick={createMockData} 
-            className="lcars-button secondary"
-            disabled={loading}
-          >
-            <BeakerIcon style={{ width: '20px', height: '20px', marginRight: '8px' }} />
-            CREATE SAMPLE DATA
-          </button>
+    <div className="main-content">
+      {/* Mission Logs Section */}
+      <div className="lcars-elbow-container">
+        <div className="lcars-elbow-header">MISSION LOGS</div>
+        <div className="lcars-elbow-content">
+          <p className="lcars-text-medium">Manage your Star Trek projects and missions</p>
+          <div className="lcars-responsive-grid lcars-grid-2">
+            <button onClick={handleCreateProject} className="lcars-cta-button lcars-cta-primary">
+              <PlusIcon className="lcars-icon" />
+              <span>CREATE NEW MISSION</span>
+            </button>
+            <button className="lcars-cta-button lcars-cta-secondary">
+              <EyeIcon className="lcars-icon" />
+              <span>GENERATE SAMPLE DATA</span>
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* Search and Filters */}
-      <div className="lcars-panel">
-        <h3 style={{ color: '#000', marginBottom: '15px' }}>SEARCH & FILTERS</h3>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '15px' }}>
-          <input
-            type="text"
-            placeholder="Search missions..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="lcars-input"
-          />
-          
-          <select
-            value={statusFilter}
-            onChange={(e) => setStatusFilter(e.target.value)}
-            className="lcars-select"
-          >
-            <option value="">All Statuses</option>
-            <option value="active">Active</option>
-            <option value="pending">Pending</option>
-            <option value="completed">Completed</option>
-          </select>
-          
-          <select
-            value={priorityFilter}
-            onChange={(e) => setPriorityFilter(e.target.value)}
-            className="lcars-select"
-          >
-            <option value="">All Priorities</option>
-            <option value="high">High</option>
-            <option value="medium">Medium</option>
-            <option value="low">Low</option>
-          </select>
+      {/* Search & Filters Section */}
+      <div className="lcars-elbow-container">
+        <div className="lcars-elbow-header">SEARCH & FILTERS</div>
+        <div className="lcars-elbow-content">
+          <div className="lcars-responsive-grid lcars-grid-3">
+            <div className="lcars-grid-item">
+              <label className="lcars-text-small">Search Missions</label>
+              <div className="lcars-input-container">
+                <MagnifyingGlassIcon className="lcars-icon" />
+                <input
+                  type="text"
+                  placeholder="Search missions..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="lcars-input"
+                />
+              </div>
+            </div>
+            <div className="lcars-grid-item">
+              <label className="lcars-text-small">Status Filter</label>
+              <select
+                value={statusFilter}
+                onChange={(e) => setStatusFilter(e.target.value)}
+                className="lcars-select"
+              >
+                <option value="all">All Statuses</option>
+                <option value="active">Active</option>
+                <option value="completed">Completed</option>
+                <option value="overdue">Overdue</option>
+                <option value="planning">Planning</option>
+              </select>
+            </div>
+            <div className="lcars-grid-item">
+              <label className="lcars-text-small">Priority Filter</label>
+              <select
+                value={priorityFilter}
+                onChange={(e) => setPriorityFilter(e.target.value)}
+                className="lcars-select"
+              >
+                <option value="all">All Priorities</option>
+                <option value="high">High</option>
+                <option value="medium">Medium</option>
+                <option value="low">Low</option>
+              </select>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Projects Grid */}
-      <div className="lcars-panel">
-        <h3 style={{ color: '#000', marginBottom: '20px' }}>ACTIVE MISSIONS</h3>
-        
-        {loading ? (
-          <div style={{ textAlign: 'center', padding: '40px', color: '#000' }}>
-            <div className="lcars-animate-pulse">Loading missions...</div>
-          </div>
-        ) : filteredProjects.length === 0 ? (
-          <div style={{ textAlign: 'center', padding: '40px', color: '#000' }}>
-            <div style={{ fontSize: '1.2rem', marginBottom: '10px' }}>No missions found</div>
-            <div style={{ fontSize: '1rem', opacity: 0.8 }}>Create your first mission or adjust your filters</div>
-          </div>
-        ) : (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '20px' }}>
-            {filteredProjects.map((project) => (
-              <div key={project.id} className="lcars-card">
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '15px' }}>
-                  <h3 style={{ color: '#fff', margin: 0, fontSize: '1.2rem' }}>{project.name}</h3>
-                  <div className={`lcars-status ${project.status === 'active' ? 'active' : project.status === 'completed' ? 'completed' : 'pending'}`}>
-                    {project.status?.toUpperCase() || 'PENDING'}
-                  </div>
-                </div>
-                
-                {project.description && (
-                  <p style={{ color: 'var(--lcars-text-purple)', marginBottom: '15px', lineHeight: '1.4' }}>
-                    {project.description}
-                  </p>
-                )}
-                
-                <div style={{ marginBottom: '15px' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                    <span style={{ color: 'var(--lcars-text-purple)', fontSize: '0.9rem' }}>Mission Progress</span>
-                    <span style={{ color: '#fff', fontWeight: 'bold' }}>{project.progress || 0}%</span>
-                  </div>
-                  <div className="lcars-progress">
-                    <div 
-                      className="lcars-progress-bar" 
-                      style={{ width: `${project.progress || 0}%` }}
-                    ></div>
-                  </div>
-                </div>
-                
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '15px', marginBottom: '20px' }}>
-                  <div>
-                    <div style={{ color: 'var(--lcars-text-purple)', fontSize: '0.8rem', marginBottom: '4px' }}>Priority</div>
-                    <div className={`lcars-priority-${project.priority || 'medium'}`} style={{ 
-                      fontSize: '0.8rem', 
-                      padding: '4px 8px', 
-                      borderRadius: '4px', 
-                      fontWeight: 'bold',
-                      textAlign: 'center'
-                    }}>
-                      {project.priority?.toUpperCase() || 'MEDIUM'}
-                    </div>
-                  </div>
-                  
-                  <div>
-                    <div style={{ color: 'var(--lcars-text-purple)', fontSize: '0.8rem', marginBottom: '4px' }}>Category</div>
-                    <div className={`lcars-category-${project.category?.toLowerCase() || 'general'}`} style={{ 
-                      fontSize: '0.8rem', 
-                      padding: '4px 8px', 
-                      borderRadius: '4px', 
-                      fontWeight: 'bold',
-                      textAlign: 'center'
-                    }}>
-                      {project.category?.toUpperCase() || 'GENERAL'}
-                    </div>
-                  </div>
-                </div>
-                
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '15px' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <UserGroupIcon style={{ width: '16px', height: '16px', color: 'var(--lcars-sky)' }} />
-                    <span style={{ color: 'var(--lcars-text-purple)', fontSize: '0.8rem' }}>
-                      {project.team_size || 1} Crew Members
+      {/* Active Missions Section */}
+      <div className="lcars-elbow-container">
+        <div className="lcars-elbow-header">ACTIVE MISSIONS</div>
+        <div className="lcars-elbow-content">
+          <div className="lcars-responsive-grid lcars-grid-2">
+            {filteredProjects.map(project => (
+              <div key={project.id} className="lcars-grid-item lcars-mission-card">
+                <div className="lcars-mission-header">
+                  <h3 className="lcars-text-medium lcars-text-orange">{project.name}</h3>
+                  <div className="lcars-mission-status">
+                    <span 
+                      className="lcars-status-badge"
+                      style={{ backgroundColor: getStatusColor(project.status) }}
+                    >
+                      {project.status.toUpperCase()}
+                    </span>
+                    <span 
+                      className="lcars-priority-badge"
+                      style={{ backgroundColor: getPriorityColor(project.priority) }}
+                    >
+                      {project.priority.toUpperCase()}
                     </span>
                   </div>
-                  
-                  {project.deadline && (
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <CalendarIcon style={{ width: '16px', height: '16px', color: 'var(--lcars-yellow)' }} />
-                      <span style={{ color: 'var(--lcars-text-purple)', fontSize: '0.8rem' }}>
-                        {new Date(project.deadline).toLocaleDateString()}
-                      </span>
-                    </div>
-                  )}
                 </div>
                 
-                <div style={{ display: 'flex', gap: '10px' }}>
-                  <Link 
-                    href={`/project-detail/${project.id}`} 
-                    className="lcars-button"
-                    style={{ flex: 1, textAlign: 'center', textDecoration: 'none' }}
+                <p className="lcars-text-small lcars-mission-description">
+                  {project.description}
+                </p>
+                
+                <div className="lcars-mission-details">
+                  <div className="lcars-mission-info">
+                    <CalendarIcon className="lcars-icon-small" />
+                    <span className="lcars-text-small">
+                      {project.startDate} - {project.endDate}
+                    </span>
+                  </div>
+                  <div className="lcars-mission-info">
+                    <UserIcon className="lcars-icon-small" />
+                    <span className="lcars-text-small">
+                      Team: {project.teamSize} members
+                    </span>
+                  </div>
+                  <div className="lcars-mission-info">
+                    <FlagIcon className="lcars-icon-small" />
+                    <span className="lcars-text-small">
+                      Progress: {project.progress}%
+                    </span>
+                  </div>
+                </div>
+                
+                <div className="lcars-progress-bar">
+                  <div 
+                    className="lcars-progress-fill"
+                    style={{ width: `${project.progress}%` }}
+                  ></div>
+                </div>
+                
+                <div className="lcars-mission-actions">
+                  <button 
+                    onClick={() => handleViewProject(project.id)}
+                    className="lcars-cta-button lcars-cta-info"
                   >
-                    VIEW DETAILS
-                  </Link>
-                  
+                    <EyeIcon className="lcars-icon-small" />
+                    <span>VIEW</span>
+                  </button>
                   <button 
                     onClick={() => handleEditProject(project.id)}
-                    className="lcars-button secondary"
-                    style={{ flex: 1 }}
+                    className="lcars-cta-button lcars-cta-warning"
                   >
-                    EDIT
+                    <PencilIcon className="lcars-icon-small" />
+                    <span>EDIT</span>
+                  </button>
+                  <button 
+                    onClick={() => handleDeleteProject(project.id)}
+                    className="lcars-cta-button lcars-cta-danger"
+                  >
+                    <TrashIcon className="lcars-icon-small" />
+                    <span>DELETE</span>
                   </button>
                 </div>
               </div>
             ))}
           </div>
-        )}
+        </div>
       </div>
-    </>
+    </div>
   );
 } 

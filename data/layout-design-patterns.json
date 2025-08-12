@@ -1,0 +1,159 @@
+{
+  "timestamp": "2025-08-12T12:01:24.680Z",
+  "version": "1.0.0",
+  "patterns": {
+    "responsiveBreakpoints": {
+      "mobile": {
+        "maxWidth": 768,
+        "sidebarBehavior": "overlay",
+        "gridColumns": 1
+      },
+      "tablet": {
+        "maxWidth": 1024,
+        "sidebarBehavior": "collapsed",
+        "gridColumns": 2
+      },
+      "desktop": {
+        "minWidth": 1025,
+        "sidebarBehavior": "expanded",
+        "gridColumns": 4
+      }
+    },
+    "intentBasedLayouts": {
+      "navigation": {
+        "primaryColor": "var(--lcars-orange)",
+        "secondaryColor": "var(--lcars-yellow)",
+        "priorityElements": [
+          "navigation",
+          "quick-actions",
+          "status-display"
+        ],
+        "layout": "horizontal-flow",
+        "ctaStyle": "prominent"
+      },
+      "analysis": {
+        "primaryColor": "var(--lcars-blue)",
+        "secondaryColor": "var(--lcars-cyan)",
+        "priorityElements": [
+          "data-panels",
+          "charts",
+          "analytics"
+        ],
+        "layout": "grid-focused",
+        "ctaStyle": "informational"
+      },
+      "monitoring": {
+        "primaryColor": "var(--lcars-green)",
+        "secondaryColor": "var(--lcars-cyan)",
+        "priorityElements": [
+          "status-cards",
+          "alerts",
+          "system-info"
+        ],
+        "layout": "dashboard-style",
+        "ctaStyle": "monitoring"
+      },
+      "tactical": {
+        "primaryColor": "var(--lcars-red)",
+        "secondaryColor": "var(--lcars-orange)",
+        "priorityElements": [
+          "command-controls",
+          "security",
+          "emergency"
+        ],
+        "layout": "command-center",
+        "ctaStyle": "urgent"
+      }
+    },
+    "executableCTAPatterns": {
+      "primary": {
+        "color": "var(--lcars-orange)",
+        "intent": "create-new",
+        "action": "navigate-to-form",
+        "feedback": "immediate"
+      },
+      "secondary": {
+        "color": "var(--lcars-blue)",
+        "intent": "view-information",
+        "action": "navigate-to-page",
+        "feedback": "smooth"
+      },
+      "success": {
+        "color": "var(--lcars-green)",
+        "intent": "positive-action",
+        "action": "execute-function",
+        "feedback": "confirmation"
+      },
+      "warning": {
+        "color": "var(--lcars-yellow)",
+        "intent": "caution-action",
+        "action": "show-dialog",
+        "feedback": "warning"
+      },
+      "danger": {
+        "color": "var(--lcars-red)",
+        "intent": "destructive-action",
+        "action": "confirm-dialog",
+        "feedback": "critical"
+      }
+    },
+    "responsiveGridSystem": {
+      "mobile": {
+        "gridTemplate": "1fr",
+        "gap": "10px",
+        "padding": "10px",
+        "touchTargets": "44px"
+      },
+      "tablet": {
+        "gridTemplate": "repeat(auto-fit, minmax(250px, 1fr))",
+        "gap": "15px",
+        "padding": "15px",
+        "touchTargets": "40px"
+      },
+      "desktop": {
+        "gridTemplate": "repeat(auto-fit, minmax(300px, 1fr))",
+        "gap": "20px",
+        "padding": "20px",
+        "touchTargets": "36px"
+      }
+    }
+  },
+  "aiAgents": {
+    "shipsComputer": {
+      "id": "ships-computer-agent",
+      "name": "Ship's Computer",
+      "role": "Dynamic Layout Orchestrator",
+      "expertise": [
+        "layout-optimization",
+        "content-prioritization",
+        "responsive-design",
+        "ai-coordination"
+      ],
+      "workflowId": "ai-layout-orchestration-workflow"
+    },
+    "commanderData": {
+      "id": "commander-data-agent",
+      "name": "Commander Data",
+      "role": "Efficiency Optimization Specialist",
+      "expertise": [
+        "performance-analysis",
+        "workflow-optimization",
+        "data-driven-decisions",
+        "logical-reasoning"
+      ],
+      "workflowId": "efficiency-optimization-workflow"
+    },
+    "counselorTroi": {
+      "id": "counselor-troi-agent",
+      "name": "Counselor Troi",
+      "role": "User Experience & Emotional Intelligence",
+      "expertise": [
+        "emotional-intelligence",
+        "user-empathy",
+        "experience-design",
+        "behavioral-analysis"
+      ],
+      "workflowId": "ux-emotional-intelligence-workflow"
+    }
+  }
+}

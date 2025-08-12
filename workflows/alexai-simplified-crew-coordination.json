@@ -1,6 +1,10 @@
 {
-  "id": "X5IcqWwNIOGxh1ob",
+  "createdAt": "2025-08-12T11:33:59.347Z",
+  "updatedAt": "2025-08-12T11:33:59.347Z",
+  "id": "jXGDzoDhUYXWe1cB",
   "name": "AlexAI Simplified Crew Coordination",
+  "active": false,
+  "isArchived": false,
   "nodes": [
     {
       "parameters": {
@@ -154,8 +158,12 @@
     "executionOrder": "v1"
   },
   "staticData": null,
+  "meta": null,
   "pinData": null,
-  "versionId": "e2921a55-767a-453f-87ac-995989308843",
-  "createdAt": "2025-08-08T22:47:52.836Z",
-  "updatedAt": "2025-08-10T21:42:39.338Z"
+  "versionId": "bfae0f06-2f03-442d-a68c-321b4cdcd4ae",
+  "triggerCount": 0,
+  "tags": [],
+  "syncedAt": "2025-08-12T11:34:34.386Z",
+  "syncDirection": "pulled-from-n8n",
+  "originalId": "jXGDzoDhUYXWe1cB"
 }

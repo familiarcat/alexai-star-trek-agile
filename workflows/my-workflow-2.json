@@ -1,6 +1,10 @@
 {
+  "createdAt": "2025-07-29T19:36:26.442Z",
+  "updatedAt": "2025-08-10T22:25:05.385Z",
   "id": "500nOgmBaYmpTiYO",
   "name": "My workflow 2",
+  "active": true,
+  "isArchived": false,
   "nodes": [
     {
       "parameters": {
@@ -1033,8 +1037,12 @@
     "executionOrder": "v1"
   },
   "staticData": null,
+  "meta": null,
   "pinData": {},
-  "versionId": "cb91c9f1-34b4-40b1-884e-d9b0f1669bf8",
-  "createdAt": "2025-07-29T19:36:26.442Z",
-  "updatedAt": "2025-08-10T21:23:04.938Z"
+  "versionId": "0cceaa27-9cd5-4bbc-aeba-9f34699ca2ab",
+  "triggerCount": 2,
+  "tags": [],
+  "syncedAt": "2025-08-12T11:34:34.392Z",
+  "syncDirection": "pulled-from-n8n",
+  "originalId": "500nOgmBaYmpTiYO"
 }

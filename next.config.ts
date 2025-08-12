@@ -53,7 +53,6 @@ const nextConfig: NextConfig = {
     return 'build-' + Date.now()
   },
   // Optimize for production
-  swcMinify: true,
   compress: true,
   poweredByHeader: false,
 }
