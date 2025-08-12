@@ -13,7 +13,10 @@ import {
   MagnifyingGlassIcon,
   FunnelIcon,
   PlusIcon,
-  ArrowPathIcon
+  ArrowPathIcon,
+  PencilIcon,
+  EyeIcon,
+  SignalIcon
 } from '@heroicons/react/24/outline';
 
 interface Task {
@@ -28,6 +31,16 @@ interface Task {
   created_at: string;
   estimated_hours: number;
   actual_hours: number;
+  editingBy?: string;
+  lastModified?: string;
+}
+
+interface UserPresence {
+  userId: string;
+  userName: string;
+  isOnline: boolean;
+  lastSeen: string;
+  currentTask?: string;
 }
 
 export default function TasksPage() {
@@ -37,10 +50,58 @@ export default function TasksPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
   const [priorityFilter, setPriorityFilter] = useState('all');
+  const [editingTask, setEditingTask] = useState<string | null>(null);
+  const [editData, setEditData] = useState<Partial<Task>>({});
+  const [userPresence, setUserPresence] = useState<UserPresence[]>([]);
+  const [conflictResolution, setConflictResolution] = useState<{
+    taskId: string;
+    localChanges: Partial<Task>;
+    remoteChanges: Partial<Task>;
+  } | null>(null);
 
   useEffect(() => {
     fetchTasks();
+    initializeRealTimeCollaboration();
   }, []);
+
+  const initializeRealTimeCollaboration = () => {
+    // Simulate real-time user presence
+    const mockUsers: UserPresence[] = [
+      {
+        userId: '1',
+        userName: 'Captain Picard',
+        isOnline: true,
+        lastSeen: new Date().toISOString(),
+        currentTask: '1'
+      },
+      {
+        userId: '2',
+        userName: 'Commander Data',
+        isOnline: true,
+        lastSeen: new Date().toISOString(),
+        currentTask: '3'
+      },
+      {
+        userId: '3',
+        userName: 'Geordi La Forge',
+        isOnline: false,
+        lastSeen: new Date(Date.now() - 300000).toISOString()
+      }
+    ];
+    setUserPresence(mockUsers);
+
+    // Simulate real-time updates
+    const interval = setInterval(() => {
+      setTasks(prevTasks => 
+        prevTasks.map(task => ({
+          ...task,
+          lastModified: new Date().toISOString()
+        }))
+      );
+    }, 5000);
+
+    return () => clearInterval(interval);
+  };
 
   const fetchTasks = async () => {
     try {
@@ -58,7 +119,8 @@ export default function TasksPage() {
           due_date: '2024-01-15',
           created_at: '2024-01-01',
           estimated_hours: 8,
-          actual_hours: 6
+          actual_hours: 6,
+          lastModified: new Date().toISOString()
         },
         {
           id: '2',
@@ -71,7 +133,8 @@ export default function TasksPage() {
           due_date: '2024-02-01',
           created_at: '2024-01-10',
           estimated_hours: 16,
-          actual_hours: 12
+          actual_hours: 12,
+          lastModified: new Date().toISOString()
         },
         {
           id: '3',
@@ -84,7 +147,8 @@ export default function TasksPage() {
           due_date: '2024-02-15',
           created_at: '2024-01-20',
           estimated_hours: 24,
-          actual_hours: 0
+          actual_hours: 0,
+          lastModified: new Date().toISOString()
         },
         {
           id: '4',
@@ -97,7 +161,8 @@ export default function TasksPage() {
           due_date: '2024-01-31',
           created_at: '2024-01-25',
           estimated_hours: 12,
-          actual_hours: 0
+          actual_hours: 0,
+          lastModified: new Date().toISOString()
         },
         {
           id: '5',
@@ -110,7 +175,8 @@ export default function TasksPage() {
           due_date: '2024-01-10',
           created_at: '2023-12-15',
           estimated_hours: 20,
-          actual_hours: 15
+          actual_hours: 15,
+          lastModified: new Date().toISOString()
         }
       ];
       
@@ -121,6 +187,90 @@ export default function TasksPage() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const startEditing = (task: Task) => {
+    setEditingTask(task.id);
+    setEditData(task);
+    // Simulate user presence for editing
+    setUserPresence(prev => 
+      prev.map(user => 
+        user.userName === 'Captain Picard' 
+          ? { ...user, currentTask: task.id }
+          : user
+      )
+    );
+  };
+
+  const saveTask = async (taskId: string) => {
+    try {
+      // Simulate conflict detection
+      const hasConflict = Math.random() < 0.1; // 10% chance of conflict
+      
+      if (hasConflict) {
+        setConflictResolution({
+          taskId,
+          localChanges: editData,
+          remoteChanges: {
+            title: 'Updated by another user',
+            description: 'This task was modified by another crew member'
+          }
+        });
+        return;
+      }
+
+      setTasks(prevTasks => 
+        prevTasks.map(task => 
+          task.id === taskId 
+            ? { ...task, ...editData, lastModified: new Date().toISOString() }
+            : task
+        )
+      );
+      
+      setEditingTask(null);
+      setEditData({});
+    } catch (err) {
+      console.error('Error saving task:', err);
+    }
+  };
+
+  const resolveConflict = (resolution: 'local' | 'remote' | 'merge') => {
+    if (!conflictResolution) return;
+
+    if (resolution === 'local') {
+      setTasks(prevTasks => 
+        prevTasks.map(task => 
+          task.id === conflictResolution.taskId 
+            ? { ...task, ...conflictResolution.localChanges, lastModified: new Date().toISOString() }
+            : task
+        )
+      );
+    } else if (resolution === 'remote') {
+      setTasks(prevTasks => 
+        prevTasks.map(task => 
+          task.id === conflictResolution.taskId 
+            ? { ...task, ...conflictResolution.remoteChanges, lastModified: new Date().toISOString() }
+            : task
+        )
+      );
+    } else if (resolution === 'merge') {
+      setTasks(prevTasks => 
+        prevTasks.map(task => 
+          task.id === conflictResolution.taskId 
+            ? { 
+                ...task, 
+                ...conflictResolution.localChanges,
+                ...conflictResolution.remoteChanges,
+                lastModified: new Date().toISOString() 
+              }
+            : task
+        )
+      );
+    }
+
+    setConflictResolution(null);
+    setEditingTask(null);
+    setEditData({});
   };
 
   const getStatusColor = (status: string) => {
@@ -192,84 +342,156 @@ export default function TasksPage() {
   return (
     <LCARSLayout>
       <div className="lcars-panel lcars-p-30">
-        {/* Header */}
-        <div className="lcars-page-header">
-          <div className="lcars-header-content">
-            <div className="lcars-text-xxlarge lcars-text-gold">TASK MANAGEMENT</div>
-            <div className="lcars-text-large lcars-text-white">STARFLEET MISSION CONTROL</div>
+        {/* Header with real-time indicators */}
+        <div className="lcars-header lcars-mb-20">
+          <div className="lcars-text-xlarge lcars-text-gold">MISSION TASKS</div>
+          <div className="lcars-realtime-indicators lcars-mt-10">
+            <div className="lcars-flex lcars-gap-20">
+              <div className="lcars-online-users">
+                <SignalIcon className="w-4 h-4 lcars-text-green" />
+                <span className="lcars-text-white">
+                  {userPresence.filter(u => u.isOnline).length} crew online
+                </span>
+              </div>
+              <div className="lcars-last-update">
+                <ClockIcon className="w-4 h-4 lcars-text-blue" />
+                <span className="lcars-text-white">Last update: {new Date().toLocaleTimeString()}</span>
+              </div>
+            </div>
           </div>
-          <div className="lcars-header-actions">
-            <button className="lcars-button lcars-button-primary">
-              <PlusIcon className="w-5 h-5 lcars-mr-10" />
-              NEW TASK
+        </div>
+
+        {/* User Presence Panel */}
+        <div className="lcars-user-presence lcars-mb-20">
+          <div className="lcars-text-large lcars-text-gold lcars-mb-10">CREW STATUS</div>
+          <div className="lcars-flex lcars-gap-10 lcars-flex-wrap">
+            {userPresence.map((user) => (
+              <div key={user.userId} className="lcars-user-indicator">
+                <div className={`lcars-user-avatar ${user.isOnline ? 'lcars-online' : 'lcars-offline'}`}>
+                  <UserIcon className="w-3 h-3" />
+                </div>
+                <span className="lcars-text-white lcars-text-sm">{user.userName}</span>
+                {user.currentTask && (
+                  <div className="lcars-current-task">
+                    <EyeIcon className="w-3 h-3 lcars-text-blue" />
+                    <span className="lcars-text-blue lcars-text-xs">Editing Task {user.currentTask}</span>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Search and Filters */}
+        <div className="lcars-filters lcars-mb-20">
+          <div className="lcars-flex lcars-gap-20 lcars-items-center">
+            <div className="lcars-search">
+              <MagnifyingGlassIcon className="w-5 h-5 lcars-text-grey" />
+              <input
+                type="text"
+                placeholder="Search tasks..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="lcars-input lcars-ml-10"
+              />
+            </div>
+            <div className="lcars-filter-group">
+              <FunnelIcon className="w-5 h-5 lcars-text-grey" />
+              <select
+                value={statusFilter}
+                onChange={(e) => setStatusFilter(e.target.value)}
+                className="lcars-select lcars-ml-10"
+              >
+                <option value="all">All Status</option>
+                <option value="pending">Pending</option>
+                <option value="in_progress">In Progress</option>
+                <option value="completed">Completed</option>
+                <option value="overdue">Overdue</option>
+              </select>
+              <select
+                value={priorityFilter}
+                onChange={(e) => setPriorityFilter(e.target.value)}
+                className="lcars-select lcars-ml-10"
+              >
+                <option value="all">All Priority</option>
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+                <option value="critical">Critical</option>
+              </select>
+            </div>
+            <button
+              onClick={fetchTasks}
+              className="lcars-button lcars-button-secondary"
+            >
+              <ArrowPathIcon className="w-4 h-4" />
+              <span className="lcars-ml-5">Refresh</span>
             </button>
           </div>
         </div>
 
-        {/* Filters and Search */}
-        <div className="lcars-filters-section">
-          <div className="lcars-search-box">
-            <MagnifyingGlassIcon className="lcars-search-icon" />
-            <input
-              type="text"
-              placeholder="Search tasks..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="lcars-search-input"
-            />
+        {/* Conflict Resolution Modal */}
+        {conflictResolution && (
+          <div className="lcars-modal-overlay">
+            <div className="lcars-modal lcars-conflict-resolution">
+              <div className="lcars-modal-header">
+                <div className="lcars-text-large lcars-text-orange">⚠️ CONFLICT DETECTED</div>
+                <div className="lcars-text-base lcars-text-white">
+                  Task {conflictResolution.taskId} has been modified by another crew member
+                </div>
+              </div>
+              <div className="lcars-modal-content">
+                <div className="lcars-conflict-comparison">
+                  <div className="lcars-local-changes">
+                    <div className="lcars-text-medium lcars-text-gold">Your Changes</div>
+                    <div className="lcars-text-sm lcars-text-white">
+                      {conflictResolution.localChanges.title && (
+                        <div><strong>Title:</strong> {conflictResolution.localChanges.title}</div>
+                      )}
+                      {conflictResolution.localChanges.description && (
+                        <div><strong>Description:</strong> {conflictResolution.localChanges.description}</div>
+                      )}
+                    </div>
+                  </div>
+                  <div className="lcars-remote-changes">
+                    <div className="lcars-text-medium lcars-text-gold">Remote Changes</div>
+                    <div className="lcars-text-sm lcars-text-white">
+                      {conflictResolution.remoteChanges.title && (
+                        <div><strong>Title:</strong> {conflictResolution.remoteChanges.title}</div>
+                      )}
+                      {conflictResolution.remoteChanges.description && (
+                        <div><strong>Description:</strong> {conflictResolution.remoteChanges.description}</div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="lcars-modal-actions">
+                <button
+                  onClick={() => resolveConflict('local')}
+                  className="lcars-button lcars-button-primary"
+                >
+                  Keep My Changes
+                </button>
+                <button
+                  onClick={() => resolveConflict('remote')}
+                  className="lcars-button lcars-button-secondary"
+                >
+                  Use Remote Changes
+                </button>
+                <button
+                  onClick={() => resolveConflict('merge')}
+                  className="lcars-button lcars-button-warning"
+                >
+                  Merge Both
+                </button>
+              </div>
+            </div>
           </div>
-          
-          <div className="lcars-filter-controls">
-            <select
-              value={statusFilter}
-              onChange={(e) => setStatusFilter(e.target.value)}
-              className="lcars-filter-select"
-            >
-              <option value="all">All Status</option>
-              <option value="pending">Pending</option>
-              <option value="in_progress">In Progress</option>
-              <option value="completed">Completed</option>
-              <option value="overdue">Overdue</option>
-            </select>
-            
-            <select
-              value={priorityFilter}
-              onChange={(e) => setPriorityFilter(e.target.value)}
-              className="lcars-filter-select"
-            >
-              <option value="all">All Priority</option>
-              <option value="critical">Critical</option>
-              <option value="high">High</option>
-              <option value="medium">Medium</option>
-              <option value="low">Low</option>
-            </select>
-          </div>
-        </div>
+        )}
 
-        {/* Task Statistics */}
-        <div className="lcars-stats-grid">
-          <div className="lcars-stat-item">
-            <div className="lcars-stat-value lcars-text-gold">{tasks.length}</div>
-            <div className="lcars-stat-label">TOTAL TASKS</div>
-          </div>
-          <div className="lcars-stat-item">
-            <div className="lcars-stat-value lcars-text-blue">{tasks.filter(t => t.status === 'in_progress').length}</div>
-            <div className="lcars-stat-label">IN PROGRESS</div>
-          </div>
-          <div className="lcars-stat-item">
-            <div className="lcars-stat-value lcars-text-green">{tasks.filter(t => t.status === 'completed').length}</div>
-            <div className="lcars-stat-label">COMPLETED</div>
-          </div>
-          <div className="lcars-stat-item">
-            <div className="lcars-stat-value lcars-text-red">{tasks.filter(t => t.status === 'overdue').length}</div>
-            <div className="lcars-stat-label">OVERDUE</div>
-          </div>
-        </div>
-
-        {/* Tasks List */}
+        {/* Tasks Container */}
         <div className="lcars-tasks-container">
-          <div className="lcars-text-xlarge lcars-text-gold lcars-mb-20">MISSION TASKS</div>
-          
           {filteredTasks.length === 0 ? (
             <div className="lcars-empty-state">
               <div className="lcars-text-large lcars-text-white">No tasks found</div>
@@ -291,8 +513,53 @@ export default function TasksPage() {
                   </div>
                   
                   <div className="lcars-task-content">
-                    <div className="lcars-task-title">{task.title}</div>
-                    <div className="lcars-task-description">{task.description}</div>
+                    {editingTask === task.id ? (
+                      <div className="lcars-task-editing">
+                        <input
+                          type="text"
+                          value={editData.title || task.title}
+                          onChange={(e) => setEditData({...editData, title: e.target.value})}
+                          className="lcars-input lcars-mb-10"
+                        />
+                        <textarea
+                          value={editData.description || task.description}
+                          onChange={(e) => setEditData({...editData, description: e.target.value})}
+                          className="lcars-textarea lcars-mb-10"
+                          rows={3}
+                        />
+                        <div className="lcars-edit-actions">
+                          <button
+                            onClick={() => saveTask(task.id)}
+                            className="lcars-button lcars-button-success lcars-mr-10"
+                          >
+                            Save
+                          </button>
+                          <button
+                            onClick={() => {
+                              setEditingTask(null);
+                              setEditData({});
+                            }}
+                            className="lcars-button lcars-button-secondary"
+                          >
+                            Cancel
+                          </button>
+                        </div>
+                      </div>
+                    ) : (
+                      <>
+                        <div className="lcars-task-title">{task.title}</div>
+                        <div className="lcars-task-description">{task.description}</div>
+                        <div className="lcars-task-actions">
+                          <button
+                            onClick={() => startEditing(task)}
+                            className="lcars-button lcars-button-small lcars-button-primary"
+                          >
+                            <PencilIcon className="w-3 h-3" />
+                            <span className="lcars-ml-2">Edit</span>
+                          </button>
+                        </div>
+                      </>
+                    )}
                   </div>
                   
                   <div className="lcars-task-meta">
@@ -307,6 +574,14 @@ export default function TasksPage() {
                       <CalendarIcon className="w-4 h-4" />
                       <span>Due: {new Date(task.due_date).toLocaleDateString()}</span>
                     </div>
+                    {task.lastModified && (
+                      <div className="lcars-task-modified">
+                        <ClockIcon className="w-3 h-3" />
+                        <span className="lcars-text-xs">
+                          Modified: {new Date(task.lastModified).toLocaleTimeString()}
+                        </span>
+                      </div>
+                    )}
                   </div>
                   
                   <div className="lcars-task-progress">

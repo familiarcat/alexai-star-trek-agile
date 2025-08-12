@@ -45,6 +45,13 @@ export function LCARSSidebar({ collapsed = false }: LCARSSidebarProps) {
       active: pathname.startsWith('/tasks')
     },
     {
+      href: '/weekly-execution',
+      label: 'WEEKLY PLAN',
+      description: 'EXECUTION STRATEGY',
+      icon: RocketLaunchIcon,
+      active: pathname.startsWith('/weekly-execution')
+    },
+    {
       href: '/analytics',
       label: 'ANALYTICS',
       description: 'PERFORMANCE METRICS',
