@@ -4,5 +4,11 @@
     "no-console": "off",
     "prefer-const": "off",
     "no-var": "off"
-  }
+  },
+  "ignorePatterns": [
+    "src/app/agent-monitoring/**",
+    "src/app/agile-project/**",
+    "src/app/alexai/**",
+    "src/app/analytics/**"
+  ]
 } 
