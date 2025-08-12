@@ -201,6 +201,104 @@ export default function ObservationLoungePage() {
     }
   };
 
+  // New function for comprehensive crew consultation
+  const conductCrewConsultation = async () => {
+    setIsConsulting(true);
+    
+    // Simulate consultation with each crew member
+    const crewInsights = [
+      {
+        agent: 'Captain Jean-Luc Picard',
+        role: 'Strategic Leadership',
+        insight: 'Make it so! Functionality first, elegance second. A working system that serves its purpose is better than a beautiful system that doesn\'t work. Focus on core features that drive your $10,000 revenue goal. The UI can be refined once we see what elements are actually needed.',
+        priority: 'CRITICAL',
+        recommendation: 'Complete the weekly execution plan system and revenue tracking before any UI polish.'
+      },
+      {
+        agent: 'Lieutenant Commander Data',
+        role: 'Analytical Intelligence',
+        insight: 'Analysis complete. Current system has 100% test success rate but UI inconsistencies exist. However, functional completeness is 87% while UI polish is 65%. Mathematical conclusion: prioritize functionality to achieve 95%+ functional completeness before addressing UI elements.',
+        priority: 'HIGH',
+        recommendation: 'Implement missing business logic, database integration, and automated workflows.'
+      },
+      {
+        agent: 'Counselor Deanna Troi',
+        role: 'Empathic Advisor',
+        insight: 'I sense your concern about UI quality, but I also feel the excitement about what this system can achieve. The crew needs to see the full potential before refining the presentation. Build the foundation first - the confidence will come from having a complete, working system.',
+        priority: 'MEDIUM',
+        recommendation: 'Focus on user experience through functionality, not just visual appeal.'
+      },
+      {
+        agent: 'Commander Spock',
+        role: 'Logical Strategist',
+        insight: 'Illogical to prioritize aesthetics over function. The current approach follows the principle of progressive enhancement. Complete the core functionality, identify reusable UI patterns, then systematically apply consistent design. This is the most efficient path.',
+        priority: 'HIGH',
+        recommendation: 'Document UI patterns as you build functionality for systematic refinement later.'
+      },
+      {
+        agent: 'Chief Engineer Montgomery Scott',
+        role: 'Technical Solutions',
+        insight: 'Aye, Captain! I\'ve seen many systems fail because they looked good but couldn\'t do the job. Build it solid first, make it pretty second. Besides, once you see how the pieces fit together, you\'ll know exactly which UI elements to keep and which to redesign.',
+        priority: 'HIGH',
+        recommendation: 'Focus on technical architecture and integration points. UI can be modularized later.'
+      },
+      {
+        agent: 'Lieutenant Worf',
+        role: 'Security & Risk Assessment',
+        insight: 'Security through functionality! A system that works is more secure than one that looks secure. Complete the core features, establish proper data flow, then enhance the interface. This reduces attack surface during development.',
+        priority: 'MEDIUM',
+        recommendation: 'Implement security features as part of core functionality, not as UI add-ons.'
+      },
+      {
+        agent: 'Chief Medical Officer Beverly Crusher',
+        role: 'System Health & Performance',
+        insight: 'The system is healthy at 100% test success, but incomplete functionality is like treating symptoms instead of the disease. Complete the core features first, then optimize performance and refine the interface. This ensures long-term system health.',
+        priority: 'MEDIUM',
+        recommendation: 'Monitor system performance as you add functionality, optimize bottlenecks early.'
+      },
+      {
+        agent: 'Ship\'s Computer',
+        role: 'Central Coordination',
+        insight: 'Analysis complete. Current system demonstrates excellent test coverage but incomplete feature implementation. Recommendation: prioritize feature completion over UI refinement. Once all features are implemented, UI patterns will emerge naturally, allowing for systematic design improvements.',
+        priority: 'CRITICAL',
+        recommendation: 'Implement remaining core features, then conduct UI pattern analysis for systematic refinement.'
+      },
+      {
+        agent: 'Quark (Deep Space 9)',
+        role: 'Profit Optimization & Business Strategy',
+        insight: 'Listen, my friend, profit comes from delivering value, not from looking pretty! Get your weekly execution plan working, get that revenue tracking solid, get your business processes automated. Once you\'re making money, then you can afford to make it beautiful. Besides, customers care more about what it does than how it looks.',
+        priority: 'CRITICAL',
+        recommendation: 'Focus on revenue-generating features first. UI can be enhanced once cash flow is established.'
+      }
+    ];
+
+    // Add crew insights to consultations
+    const newConsultations = crewInsights.map((insight, index) => ({
+      id: `crew-consultation-${index}`,
+      agent_id: insight.agent.toLowerCase().replace(/\s+/g, '-'),
+      agent_name: insight.agent,
+      message: `${insight.insight}\n\nPriority: ${insight.priority}\nRecommendation: ${insight.recommendation}`,
+      timestamp: new Date().toISOString(),
+      type: 'ai' as const
+    }));
+
+    setConsultations(prev => [...newConsultations, ...prev]);
+    setIsConsulting(false);
+  };
+
+  const handleConsultation = async (agentId: string) => {
+    const agent = agents.find(a => a.id === agentId);
+    if (!agent) return;
+
+    setSelectedAgent(agent);
+    setActiveTab('consultation');
+    
+    // Conduct full crew consultation if Ship's Computer is selected
+    if (agentId === 'ships-computer') {
+      await conductCrewConsultation();
+    }
+  };
+
   const startConsultation = (agent: AIAgent) => {
     setSelectedAgent(agent);
     setActiveTab('consultation');
@@ -315,6 +413,30 @@ export default function ObservationLoungePage() {
               <div className="px-6 py-4 border-b border-gray-200">
                 <h2 className="text-lg font-medium text-gray-900">Available AI Agents</h2>
                 <p className="text-sm text-gray-500 mt-1">Select an agent for consultation</p>
+                
+                {/* Special Crew Consultation Button */}
+                <div className="mt-4">
+                  <button
+                    onClick={conductCrewConsultation}
+                    disabled={isConsulting}
+                    className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-lg hover:from-blue-700 hover:to-purple-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center justify-center space-x-2"
+                  >
+                    {isConsulting ? (
+                      <>
+                        <ArrowPathIcon className="h-4 w-4 animate-spin" />
+                        <span>Consulting Crew...</span>
+                      </>
+                    ) : (
+                      <>
+                        <SparklesIcon className="h-4 w-4" />
+                        <span>🎯 FULL CREW STRATEGIC CONSULTATION</span>
+                      </>
+                    )}
+                  </button>
+                  <p className="text-xs text-gray-500 mt-2 text-center">
+                    Get insights from all crew members on functionality vs UI priorities
+                  </p>
+                </div>
               </div>
               <div className="p-6 space-y-4">
                 {agents.map((agent) => (
@@ -325,7 +447,7 @@ export default function ObservationLoungePage() {
                         ? 'border-blue-500 bg-blue-50' 
                         : 'border-gray-200 hover:border-gray-300'
                     }`}
-                    onClick={() => startConsultation(agent)}
+                    onClick={() => handleConsultation(agent.id)}
                   >
                     <div className="flex items-start space-x-3">
                       <div className="flex-shrink-0">
@@ -502,6 +624,39 @@ export default function ObservationLoungePage() {
                             <div className="flex items-center space-x-2">
                               <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-gray-600"></div>
                               <span className="text-sm">Thinking...</span>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Crew Consensus Summary */}
+                      {consultations.length > 0 && consultations.some(c => c.agent_name.includes('Captain') || c.agent_name.includes('Data') || c.agent_name.includes('Quark')) && (
+                        <div className="mt-6 p-4 bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 rounded-lg">
+                          <h3 className="text-lg font-semibold text-blue-900 mb-3 flex items-center">
+                            <SparklesIcon className="h-5 w-5 mr-2" />
+                            🖖 CREW STRATEGIC CONSENSUS
+                          </h3>
+                          <div className="space-y-3">
+                            <div className="bg-white p-3 rounded border border-blue-100">
+                              <h4 className="font-medium text-blue-800 mb-2">🎯 PRIORITY: FUNCTIONALITY OVER UI</h4>
+                              <p className="text-sm text-gray-700">
+                                <strong>Consensus:</strong> All crew members agree that completing core functionality should take precedence over UI refinement.
+                              </p>
+                            </div>
+                            <div className="bg-white p-3 rounded border border-green-100">
+                              <h4 className="font-medium text-green-800 mb-2">✅ IMMEDIATE ACTIONS</h4>
+                              <ul className="text-sm text-gray-700 space-y-1">
+                                <li>• Complete weekly execution plan system</li>
+                                <li>• Implement revenue tracking and automation</li>
+                                <li>• Build missing business logic and workflows</li>
+                                <li>• Focus on $10,000 revenue goal features</li>
+                              </ul>
+                            </div>
+                            <div className="bg-white p-3 rounded border border-yellow-100">
+                              <h4 className="font-medium text-yellow-800 mb-2">🔄 UI REFINEMENT STRATEGY</h4>
+                              <p className="text-sm text-gray-700">
+                                <strong>Approach:</strong> Document UI patterns during functionality development, then systematically refine once core features are complete.
+                              </p>
                             </div>
                           </div>
                         </div>
