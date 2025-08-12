@@ -32,6 +32,7 @@
     "test:browser": "node scripts/automated-browser-testing.js",
     "test:agents": "node scripts/n8n-agent-exploration.js",
     "test:orchestration": "node scripts/automated-testing-orchestrator.js",
+    "test:resolve-100": "node scripts/100-percent-success-resolver.js",
     "sync:start": "node bilateral-sync/scripts/enhanced-sync-manager.js start",
     "sync:validate": "node bilateral-sync/scripts/enhanced-sync-manager.js validate",
     "sync:monitor": "node bilateral-sync/scripts/sync-monitor.js",
