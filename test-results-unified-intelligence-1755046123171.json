@@ -1,0 +1,213 @@
+{
+  "timestamp": "2025-08-13T00:48:43.169Z",
+  "totalTests": 23,
+  "passedTests": 23,
+  "failedTests": 0,
+  "testDetails": [
+    {
+      "name": "Enhanced Collective Memory Service exists",
+      "passed": true,
+      "details": "Checking if supabase-collective-memory.ts exists",
+      "timestamp": "2025-08-13T00:48:43.170Z"
+    },
+    {
+      "name": "Ship Computer LCARS Orchestrator exists",
+      "passed": true,
+      "details": "Checking if ships-computer-lcars-orchestrator.tsx exists",
+      "timestamp": "2025-08-13T00:48:43.170Z"
+    },
+    {
+      "name": "Unified Intelligence Workflow exists",
+      "passed": true,
+      "details": "Checking if unified intelligence workflow exists",
+      "timestamp": "2025-08-13T00:48:43.170Z"
+    },
+    {
+      "name": "Ship Computer Page exists",
+      "passed": true,
+      "details": "Checking if ships-computer page exists",
+      "timestamp": "2025-08-13T00:48:43.170Z"
+    },
+    {
+      "name": "Ship Computer CSS exists",
+      "passed": true,
+      "details": "Checking if ships-computer CSS exists",
+      "timestamp": "2025-08-13T00:48:43.170Z"
+    },
+    {
+      "name": "Collective Memory Service has proper exports",
+      "passed": true,
+      "details": "Checking for proper class and instance exports",
+      "timestamp": "2025-08-13T00:48:43.170Z"
+    },
+    {
+      "name": "Collective Memory Service has required methods",
+      "passed": true,
+      "details": "Checking for required service methods",
+      "timestamp": "2025-08-13T00:48:43.170Z"
+    },
+    {
+      "name": "LCARS Orchestrator has proper React component structure",
+      "passed": true,
+      "details": "Checking for proper React component structure",
+      "timestamp": "2025-08-13T00:48:43.170Z"
+    },
+    {
+      "name": "LCARS Orchestrator has required state management",
+      "passed": true,
+      "details": "Checking for required state interfaces",
+      "timestamp": "2025-08-13T00:48:43.170Z"
+    },
+    {
+      "name": "Workflow has correct structure",
+      "passed": {
+        "Unified Intelligence Interface": {
+          "main": [
+            [
+              {
+                "node": "Unified Intelligence Request Processor",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        },
+        "Unified Intelligence Request Processor": {
+          "main": [
+            [
+              {
+                "node": "Agent Coordination & Learning Synchronization",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        },
+        "Agent Coordination & Learning Synchronization": {
+          "main": [
+            [
+              {
+                "node": "Dynamic LCARS Layout Generator",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        },
+        "Dynamic LCARS Layout Generator": {
+          "main": [
+            [
+              {
+                "node": "CursorAI Integration & Development Enhancement",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        },
+        "CursorAI Integration & Development Enhancement": {
+          "main": [
+            [
+              {
+                "node": "Collective Memory Integration & Knowledge Management",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        },
+        "Collective Memory Integration & Knowledge Management": {
+          "main": [
+            [
+              {
+                "node": "Final Integration & Response Generation",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        }
+      },
+      "details": "Checking workflow JSON structure",
+      "timestamp": "2025-08-13T00:48:43.171Z"
+    },
+    {
+      "name": "Workflow has required nodes",
+      "passed": true,
+      "details": "Checking for required workflow nodes",
+      "timestamp": "2025-08-13T00:48:43.171Z"
+    },
+    {
+      "name": "Workflow has proper connections",
+      "passed": true,
+      "details": "Checking workflow node connections",
+      "timestamp": "2025-08-13T00:48:43.171Z"
+    },
+    {
+      "name": "Ship Computer page imports required components",
+      "passed": true,
+      "details": "Checking component imports",
+      "timestamp": "2025-08-13T00:48:43.171Z"
+    },
+    {
+      "name": "Ship Computer page renders orchestrator component",
+      "passed": true,
+      "details": "Checking component rendering",
+      "timestamp": "2025-08-13T00:48:43.171Z"
+    },
+    {
+      "name": "CSS has required LCARS classes",
+      "passed": true,
+      "details": "Checking for required LCARS CSS classes",
+      "timestamp": "2025-08-13T00:48:43.171Z"
+    },
+    {
+      "name": "CSS has responsive design",
+      "passed": true,
+      "details": "Checking for responsive design rules",
+      "timestamp": "2025-08-13T00:48:43.171Z"
+    },
+    {
+      "name": "CSS has theme variations",
+      "passed": true,
+      "details": "Checking for theme variation classes",
+      "timestamp": "2025-08-13T00:48:43.171Z"
+    },
+    {
+      "name": "Has CollectiveMemoryEntry interface",
+      "passed": true,
+      "details": "Checking for CollectiveMemoryEntry interface",
+      "timestamp": "2025-08-13T00:48:43.171Z"
+    },
+    {
+      "name": "Has AgentLearningProfile interface",
+      "passed": true,
+      "details": "Checking for AgentLearningProfile interface",
+      "timestamp": "2025-08-13T00:48:43.171Z"
+    },
+    {
+      "name": "Has MissionOrchestration interface",
+      "passed": true,
+      "details": "Checking for MissionOrchestration interface",
+      "timestamp": "2025-08-13T00:48:43.171Z"
+    },
+    {
+      "name": "Has proper error handling",
+      "passed": true,
+      "details": "Checking for error handling patterns",
+      "timestamp": "2025-08-13T00:48:43.171Z"
+    },
+    {
+      "name": "Uses useCallback for performance optimization",
+      "passed": true,
+      "details": "Checking for useCallback usage",
+      "timestamp": "2025-08-13T00:48:43.171Z"
+    },
+    {
+      "name": "Has proper dependency arrays in useEffect",
+      "passed": true,
+      "details": "Checking for proper useEffect dependencies",
+      "timestamp": "2025-08-13T00:48:43.171Z"
+    }
+  ]
+}

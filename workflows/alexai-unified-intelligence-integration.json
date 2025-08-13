@@ -151,10 +151,33 @@
       "main": [
         [
           {
-          "node": "CursorAI Integration & Development Enhancement",
-          "type": "main",
-          "index": 0
-        }
+            "node": "CursorAI Integration & Development Enhancement",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CursorAI Integration & Development Enhancement": {
+      "main": [
+        [
+          {
+            "node": "Collective Memory Integration & Knowledge Management",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Collective Memory Integration & Knowledge Management": {
+      "main": [
+        [
+          {
+            "node": "Final Integration & Response Generation",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     }
   },

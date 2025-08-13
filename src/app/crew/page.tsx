@@ -104,7 +104,7 @@ export default function CrewPage() {
             phone: '001-006',
             experience: 25,
             avatar: '/avatars/crusher.jpg',
-            performance: 97,
+            performance: 97
           }
         ]);
       } catch (error) {
