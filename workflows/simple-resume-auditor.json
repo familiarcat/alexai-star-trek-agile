@@ -1,0 +1,69 @@
+{
+  "name": "Simple Resume Compliance Auditor",
+  "nodes": [
+    {
+      "id": "webhook",
+      "name": "Resume Upload Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [200, 300],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "resume-audit",
+        "responseMode": "responseNode",
+        "options": {
+          "binaryData": true
+        }
+      }
+    },
+    {
+      "id": "function",
+      "name": "Resume Analysis",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [400, 300],
+      "parameters": {
+        "functionCode": "// Simple Resume Compliance Auditor\n// This function analyzes resume text and provides scoring\n\nconst resumeText = $input.first().json.resume || $input.first().json.text || '';\n\nif (!resumeText) {\n  return [{\n    json: {\n      error: 'No resume text provided',\n      message: 'Please provide resume content in the request body'\n    }\n  }];\n}\n\n// Basic scoring logic\nconst text = resumeText.toLowerCase();\n\n// Count key elements\nconst actionVerbs = (text.match(/\\b(led|architected|built|developed|designed|migrated|created|implemented|optimized|delivered|improved|reduced|increased|drove|owned|managed)\\b/g) || []).length;\nconst metrics = (text.match(/\\b(\\d+\\.?\\d*%|\\$\\d|\\d+\\s*(x|k|million|billion))\\b/g) || []).length;\nconst leadership = (text.match(/\\b(lead|led|managed|mentored|directed|coach|stakeholder|executive|cross-functional|scrum|agile)\\b/g) || []).length;\nconst techKeywords = (text.match(/\\b(react|next\\.js|node|typescript|aws|docker|kubernetes|terraform|graphql|postgres|mongodb|bigquery|ci\\/cd|microservices)\\b/g) || []).length;\n\n// Calculate scores\nconst actionScore = Math.min(100, actionVerbs * 10);\nconst metricsScore = Math.min(100, metrics * 15);\nconst leadershipScore = Math.min(100, leadership * 12);\nconst techScore = Math.min(100, techKeywords * 8);\n\nconst overallScore = Math.round((actionScore + metricsScore + leadershipScore + techScore) / 4);\n\n// Generate feedback\nconst strengths = [];\nif (actionVerbs > 3) strengths.push('Strong action-oriented language');\nif (metrics > 2) strengths.push('Good use of quantifiable results');\nif (leadership > 2) strengths.push('Demonstrated leadership experience');\nif (techKeywords > 3) strengths.push('Comprehensive technical skills');\n\nconst improvements = [];\nif (actionVerbs < 3) improvements.push('Add more action verbs to bullet points');\nif (metrics < 2) improvements.push('Include more quantifiable achievements (%, $, time)');\nif (leadership < 2) improvements.push('Highlight leadership and collaboration examples');\nif (techKeywords < 3) improvements.push('Expand technical skill descriptions');\n\n// Create response\nconst response = {\n  overallScore,\n  breakdown: {\n    actionVerbs: { count: actionVerbs, score: actionScore },\n    metrics: { count: metrics, score: metricsScore },\n    leadership: { count: leadership, score: leadershipScore },\n    technical: { count: techKeywords, score: techScore }\n  },\n  strengths: strengths.length > 0 ? strengths : ['Good overall structure'],\n  improvements: improvements.length > 0 ? improvements : ['Minor refinements needed'],\n  analysis: {\n    textLength: resumeText.length,\n    wordCount: resumeText.split('\\s+').length,\n    timestamp: new Date().toISOString()\n  }\n};\n\nreturn [{ json: response }];"
+      }
+    },
+    {
+      "id": "response",
+      "name": "Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [600, 300],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {}
+      }
+    }
+  ],
+  "connections": {
+    "Resume Upload Webhook": {
+      "main": [
+        [
+          {
+            "node": "Resume Analysis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Resume Analysis": {
+      "main": [
+        [
+          {
+            "node": "Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}
