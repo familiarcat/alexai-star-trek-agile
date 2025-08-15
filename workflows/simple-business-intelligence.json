@@ -1,0 +1,48 @@
+{
+  "name": "Simple Business Intelligence Dashboard",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "business-intelligence",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-node",
+      "name": "Business Intelligence Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"timestamp\": \"{{ $now }}\",\n  \"businessMetrics\": {\n    \"revenue\": {{ $json.revenue || 0 }},\n    \"expenses\": {{ $json.expenses || 0 }},\n    \"customers\": {{ $json.customers || 0 }},\n    \"growthRate\": {{ $json.growthRate || 0 }},\n    \"marketShare\": {{ $json.marketShare || 0 }},\n    \"employeeCount\": {{ $json.employeeCount || 0 }},\n    \"projectCount\": {{ $json.projectCount || 0 }},\n    \"completionRate\": {{ $json.completionRate || 0 }}\n  },\n  \"keyPerformanceIndicators\": {\n    \"profitMargin\": {{ $json.revenue > 0 ? (($json.revenue - $json.expenses) / $json.revenue * 100) | round(2) : 0 }},\n    \"customerValue\": {{ $json.customers > 0 ? ($json.revenue / $json.customers) | round(2) : 0 }},\n    \"efficiencyRatio\": {{ $json.employeeCount > 0 ? ($json.revenue / $json.employeeCount) | round(2) : 0 }},\n    \"projectSuccess\": {{ $json.projectCount > 0 ? ($json.completionRate / $json.projectCount * 100) | round(2) : 0 }}\n  },\n  \"insights\": [\n    {{ $json.revenue > 0 && (($json.revenue - $json.expenses) / $json.revenue * 100) > 20 ? \"\\\"Excellent profit margins indicate strong financial health\\\"\" : $json.revenue > 0 && (($json.revenue - $json.expenses) / $json.revenue * 100) > 10 ? \"\\\"Good profit margins with room for optimization\\\"\" : \"\\\"Profit margins need attention - consider cost reduction strategies\\\"\" }},\n    {{ $json.growthRate > 15 ? \"\\\"Strong growth trajectory - maintain momentum\\\"\" : $json.growthRate > 5 ? \"\\\"Steady growth - look for acceleration opportunities\\\"\" : \"\\\"Growth needs attention - review business strategy\\\"\" }},\n    {{ $json.customers > 0 && ($json.revenue / $json.customers) > 1000 ? \"\\\"High customer value - excellent customer acquisition strategy\\\"\" : $json.customers > 0 && ($json.revenue / $json.customers) > 500 ? \"\\\"Good customer value - consider upselling opportunities\\\"\" : \"\\\"Customer value optimization needed - review pricing strategy\\\"\" }}\n  ],\n  \"recommendations\": [\n    {{ $json.revenue > 0 && (($json.revenue - $json.expenses) / $json.revenue * 100) < 15 ? \"\\\"Implement cost optimization strategies\\\", \\\"Review pricing models for margin improvement\\\"\" : \"\\\"Maintain current financial performance\\\"\" }},\n    {{ $json.growthRate < 10 ? \"\\\"Explore new market opportunities\\\", \\\"Enhance marketing and sales strategies\\\"\" : \"\\\"Continue growth momentum\\\"\" }},\n    {{ $json.employeeCount > 0 && ($json.revenue / $json.employeeCount) < 50000 ? \"\\\"Optimize operational efficiency\\\", \\\"Consider automation opportunities\\\"\" : \"\\\"Maintain operational excellence\\\"\" }}\n  ],\n  \"riskAssessment\": {\n    \"financialRisk\": \"{{ $json.revenue > 0 && (($json.revenue - $json.expenses) / $json.revenue * 100) < 10 ? 'High' : $json.revenue > 0 && (($json.revenue - $json.expenses) / $json.revenue * 100) < 20 ? 'Medium' : 'Low' }}\",\n    \"growthRisk\": \"{{ $json.growthRate < 5 ? 'High' : $json.growthRate < 15 ? 'Medium' : 'Low' }}\",\n    \"operationalRisk\": \"{{ $json.employeeCount > 0 && ($json.revenue / $json.employeeCount) < 30000 ? 'High' : $json.employeeCount > 0 && ($json.revenue / $json.employeeCount) < 60000 ? 'Medium' : 'Low' }}\"\n  },\n  \"marketPosition\": {\n    \"competitiveAdvantage\": \"{{ $json.marketShare > 20 ? 'Strong' : $json.marketShare > 10 ? 'Moderate' : 'Developing' }}\",\n    \"marketOpportunity\": \"{{ $json.growthRate > 15 ? 'High' : $json.growthRate > 5 ? 'Medium' : 'Low' }}\"\n  },\n  \"nextSteps\": [\n    \"Monitor KPIs weekly for trend analysis\",\n    \"Implement top 3 recommendations within 30 days\",\n    \"Schedule monthly business intelligence review\",\n    \"Track progress against industry benchmarks\"\n  ]\n}",
+        "options": {}
+      },
+      "id": "respond-node",
+      "name": "Business Intelligence Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [460, 300]
+    }
+  ],
+  "connections": {
+    "Business Intelligence Webhook": {
+      "main": [
+        [
+          {
+            "node": "Business Intelligence Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null
+}

@@ -1,0 +1,363 @@
+{
+  "name": "YouTube Project Extraction Microservice",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "youtube-project-extraction",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-entry",
+      "name": "YouTube Extraction Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [240, 300],
+      "webhookId": "youtube-project-extraction-webhook"
+    },
+    {
+      "parameters": {
+        "jsCode": "// YouTube Project Extraction Microservice - Input Validation\nconst input = $input.first().json;\n\n// Validate required fields\nconst requiredFields = ['channelUrl', 'extractionType', 'options'];\nconst missingFields = requiredFields.filter(field => !input[field]);\n\nif (missingFields.length > 0) {\n  throw new Error(`Missing required fields: ${missingFields.join(', ')}`);\n}\n\n// Validate channel URL format\nconst youtubeUrlPattern = /^(https?:\\/\\/)?(www\\.)?(youtube\\.com|youtu\\.be)\\/.+/;\nif (!youtubeUrlPattern.test(input.channelUrl)) {\n  throw new Error('Invalid YouTube URL format');\n}\n\n// Set default options if not provided\nconst defaultOptions = {\n  maxVideos: 50,\n  includeArchived: false,\n  revenueEstimation: true,\n  complexityAssessment: true,\n  autoApproval: false,\n  emailNotification: true,\n  agileIntegration: false\n};\n\nconst validatedInput = {\n  ...input,\n  options: { ...defaultOptions, ...input.options },\n  requestId: $json.requestId || `extraction_${Date.now()}`,\n  timestamp: new Date().toISOString()\n};\n\nreturn [{ json: validatedInput }];"
+      },
+      "id": "input-validation",
+      "name": "Input Validation",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// YouTube Channel Analysis - Extract Channel Information\nconst input = $input.first().json;\nconst { channelUrl, options } = input;\n\n// Extract channel ID from URL\nconst channelIdMatch = channelUrl.match(/\\/(@[^\\/]+|channel\\/[^\\/]+|c\\/[^\\/]+)/);\nconst channelId = channelIdMatch ? channelIdMatch[1] : null;\n\nif (!channelId) {\n  throw new Error('Could not extract channel ID from URL');\n}\n\n// Simulate channel info extraction (replace with actual YouTube API call)\nconst channelInfo = {\n  channelId,\n  channelUrl,\n  name: 'Greg Isenberg',\n  subscribers: '1.2M',\n  videoCount: '500+',\n  description: 'Entrepreneur and startup advisor sharing business insights',\n  category: 'Education',\n  createdDate: '2018-01-01',\n  lastUpdated: new Date().toISOString(),\n  extractionStatus: 'analyzing'\n};\n\n// Add to input for next steps\nreturn [{ json: { ...input, channelInfo } }];"
+      },
+      "id": "channel-analysis",
+      "name": "Channel Analysis",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [680, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Video Content Extraction - Extract Video Titles and Metadata\nconst input = $input.first().json;\nconst { channelInfo, options } = input;\n\n// Simulate video extraction (replace with actual YouTube API/scraping)\nconst mockVideos = [\n  {\n    id: 'video1',\n    title: 'How I Built a $10M SaaS Business in 6 Months',\n    url: 'https://www.youtube.com/watch?v=example1',\n    views: '150K',\n    publishedDate: '2024-01-15',\n    duration: '15:30',\n    description: 'Complete guide to building a successful SaaS business'\n  },\n  {\n    id: 'video2',\n    title: 'The Ultimate Guide to AI Automation for Startups',\n    url: 'https://www.youtube.com/watch?v=example2',\n    views: '200K',\n    publishedDate: '2024-01-10',\n    duration: '20:45',\n    description: 'How to implement AI automation in your startup'\n  },\n  {\n    id: 'video3',\n    title: '5 Passive Income Ideas That Actually Work in 2024',\n    url: 'https://www.youtube.com/watch?v=example3',\n    views: '300K',\n    publishedDate: '2024-01-05',\n    duration: '18:20',\n    description: 'Proven passive income strategies for entrepreneurs'\n  }\n];\n\nconst extractedVideos = mockVideos.slice(0, options.maxVideos);\n\nreturn [{ json: { ...input, extractedVideos, extractionStatus: 'videos_extracted' } }];"
+      },
+      "id": "video-extraction",
+      "name": "Video Extraction",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [900, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Business Opportunity Detection - Analyze Video Titles for Project Ideas\nconst input = $input.first().json;\nconst { extractedVideos, options } = input;\n\n// Business keywords and patterns\nconst businessKeywords = [\n  'saas', 'business', 'startup', 'entrepreneur', 'passive income',\n  'automation', 'ai', 'marketing', 'social media', 'agency',\n  'consulting', 'freelance', 'ecommerce', 'dropshipping', 'affiliate'\n];\n\nconst projectIdeas = extractedVideos.map(video => {\n  const title = video.title.toLowerCase();\n  const description = video.description.toLowerCase();\n  \n  // Detect business opportunities\n  const detectedKeywords = businessKeywords.filter(keyword => \n    title.includes(keyword) || description.includes(keyword)\n  );\n  \n  if (detectedKeywords.length === 0) return null;\n  \n  // Generate project idea\n  const idea = {\n    sourceVideo: video,\n    detectedKeywords,\n    businessOpportunity: true,\n    potentialRevenue: Math.floor(Math.random() * 5000) + 2000,\n    complexity: ['Simple', 'Medium', 'Complex'][Math.floor(Math.random() * 3)],\n    category: getCategory(detectedKeywords),\n    estimatedTime: `${Math.floor(Math.random() * 30) + 15} minutes`\n  };\n  \n  return idea;\n}).filter(idea => idea !== null);\n\nfunction getCategory(keywords) {\n  if (keywords.some(k => ['saas', 'software'].includes(k))) return 'Software & SaaS';\n  if (keywords.some(k => ['ai', 'automation'].includes(k))) return 'AI & Automation';\n  if (keywords.some(k => ['marketing', 'social media'].includes(k))) return 'Marketing & Social Media';\n  return 'Business & Entrepreneurship';\n}\n\nreturn [{ json: { ...input, projectIdeas, extractionStatus: 'opportunities_detected' } }];"
+      },
+      "id": "opportunity-detection",
+      "name": "Opportunity Detection",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1120, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Project Template Generation - Create Standardized Project Templates\nconst input = $input.first().json;\nconst { projectIdeas, channelInfo, options } = input;\n\nconst projectTemplates = projectIdeas.map((idea, index) => {\n  const templateId = `project_${Date.now()}_${index}`;\n  \n  return {\n    id: templateId,\n    name: generateProjectName(idea.sourceVideo.title),\n    description: generateDescription(idea.sourceVideo.title, idea.sourceVideo.description),\n    revenuePotential: idea.potentialRevenue,\n    targetMarket: getTargetMarket(idea.category),\n    complexity: idea.complexity,\n    estimatedTime: idea.estimatedTime,\n    category: idea.category,\n    features: generateFeatures(idea.category),\n    n8nWorkflowTemplate: `${templateId}-webhook`,\n    nextJsComponent: `${generateComponentName(idea.sourceVideo.title)}Component`,\n    apiRoute: `/api/n8n-${templateId}`,\n    sourceVideo: idea.sourceVideo.url,\n    sourceChannel: channelInfo.name,\n    status: options.autoApproval ? 'approved' : 'pending',\n    createdAt: new Date().toISOString(),\n    metadata: {\n      detectedKeywords: idea.detectedKeywords,\n      viewCount: idea.sourceVideo.views,\n      publishedDate: idea.sourceVideo.publishedDate\n    }\n  };\n});\n\nfunction generateProjectName(title) {\n  const cleanTitle = title.replace(/[^a-zA-Z0-9\\s]/g, '');\n  const words = cleanTitle.split(' ').slice(0, 4);\n  return words.join(' ') + ' Platform';\n}\n\nfunction generateDescription(title, description) {\n  return `Business solution based on: ${title}. ${description}`;\n}\n\nfunction getTargetMarket(category) {\n  const markets = {\n    'Software & SaaS': 'Startups, Entrepreneurs',\n    'AI & Automation': 'Startups, Entrepreneurs',\n    'Marketing & Social Media': 'Marketers, Social Media Managers',\n    'Business & Entrepreneurship': 'General Business Audience'\n  };\n  return markets[category] || 'General Business Audience';\n}\n\nfunction generateFeatures(category) {\n  const featureSets = {\n    'Software & SaaS': ['User Management', 'Analytics', 'Customization'],\n    'AI & Automation': ['AI Integration', 'Automation', 'Analytics'],\n    'Marketing & Social Media': ['Marketing Tools', 'Social Media Integration', 'Analytics'],\n    'Business & Entrepreneurship': ['User Management', 'Analytics', 'Customization']\n  };\n  return featureSets[category] || ['User Management', 'Analytics', 'Customization'];\n}\n\nfunction generateComponentName(title) {\n  const cleanTitle = title.replace(/[^a-zA-Z0-9\\s]/g, '');\n  const words = cleanTitle.split(' ').slice(0, 3);\n  return words.map(word => word.charAt(0).toUpperCase() + word.slice(1)).join('');\n}\n\nreturn [{ json: { ...input, projectTemplates, extractionStatus: 'templates_generated' } }];"
+      },
+      "id": "template-generation",
+      "name": "Template Generation",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1340, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Revenue Analysis - Calculate Total Revenue Potential and ROI\nconst input = $input.first().json;\nconst { projectTemplates, channelInfo, options } = input;\n\nconst revenueAnalysis = {\n  totalProjects: projectTemplates.length,\n  totalRevenuePotential: projectTemplates.reduce((sum, project) => sum + project.revenuePotential, 0),\n  averageRevenuePerProject: projectTemplates.length > 0 ? \n    projectTemplates.reduce((sum, project) => sum + project.revenuePotential, 0) / projectTemplates.length : 0,\n  revenueByCategory: projectTemplates.reduce((acc, project) => {\n    acc[project.category] = (acc[project.category] || 0) + project.revenuePotential;\n    return acc;\n  }, {}),\n  complexityDistribution: projectTemplates.reduce((acc, project) => {\n    acc[project.complexity] = (acc[project.complexity] || 0) + 1;\n    return acc;\n  }, {}),\n  estimatedROI: calculateROI(projectTemplates),\n  extractionCost: 50, // Estimated cost of extraction\n  netProfit: projectTemplates.reduce((sum, project) => sum + project.revenuePotential, 0) - 50\n};\n\nfunction calculateROI(projects) {\n  const totalRevenue = projects.reduce((sum, project) => sum + project.revenuePotential, 0);\n  const extractionCost = 50;\n  return totalRevenue > 0 ? ((totalRevenue - extractionCost) / extractionCost) * 100 : 0;\n}\n\nreturn [{ json: { ...input, revenueAnalysis, extractionStatus: 'revenue_analyzed' } }];"
+      },
+      "id": "revenue-analysis",
+      "name": "Revenue Analysis",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1560, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "email-notification",
+              "leftValue": "={{ $json.options.emailNotification }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equal"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "email-decision",
+      "name": "Email Notification Decision",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [1780, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Email Template Generation - Create Professional Email Notifications\nconst input = $input.first().json;\nconst { projectTemplates, channelInfo, revenueAnalysis, options } = input;\n\nconst emailContent = {\n  subject: `YouTube Project Extraction Results - ${channelInfo.name}`,\n  html: generateEmailHTML(),\n  text: generateEmailText(),\n  recipients: options.recipients || ['team@company.com'],\n  metadata: {\n    channelName: channelInfo.name,\n    extractionDate: new Date().toISOString(),\n    totalProjects: revenueAnalysis.totalProjects,\n    totalRevenue: revenueAnalysis.totalRevenuePotential\n  }\n};\n\nfunction generateEmailHTML() {\n  return `\n    <!DOCTYPE html>\n    <html>\n    <head>\n      <title>YouTube Project Extraction Results</title>\n      <style>\n        body { font-family: Arial, sans-serif; margin: 20px; }\n        .header { background: #2c3e50; color: white; padding: 20px; border-radius: 5px; }\n        .project { border: 1px solid #ddd; margin: 10px 0; padding: 15px; border-radius: 5px; }\n        .revenue { color: #27ae60; font-weight: bold; }\n        .footer { margin-top: 30px; padding: 15px; background: #ecf0f1; border-radius: 5px; }\n      </style>\n    </head>\n    <body>\n      <div class=\"header\">\n        <h1>🚀 YouTube Project Extraction Results</h1>\n        <p>Channel: ${channelInfo.name}</p>\n        <p>Date: ${new Date().toLocaleDateString()}</p>\n      </div>\n      \n      <h2>📋 Extracted Projects (${revenueAnalysis.totalProjects})</h2>\n      ${projectTemplates.map(project => `\n        <div class=\"project\">\n          <h3>${project.name}</h3>\n          <p><strong>Revenue Potential:</strong> <span class=\"revenue\">$${project.revenuePotential.toLocaleString()}</span></p>\n          <p><strong>Complexity:</strong> ${project.complexity}</p>\n          <p><strong>Category:</strong> ${project.category}</p>\n          <p><strong>Description:</strong> ${project.description}</p>\n        </div>\n      `).join('')}\n      \n      <div class=\"footer\">\n        <p><strong>Total Revenue Potential:</strong> $${revenueAnalysis.totalRevenuePotential.toLocaleString()}</p>\n        <p><strong>ROI:</strong> ${revenueAnalysis.estimatedROI.toFixed(1)}%</p>\n        <p>Generated by YouTube Project Extraction Microservice</p>\n      </div>\n    </body>\n    </html>\n  `;\n}\n\nfunction generateEmailText() {\n  return `\nYouTube Project Extraction Results\n\nChannel: ${channelInfo.name}\nDate: ${new Date().toLocaleDateString()}\n\nExtracted Projects (${revenueAnalysis.totalProjects}):\n${projectTemplates.map(project => `\n- ${project.name}\n  Revenue: $${project.revenuePotential.toLocaleString()}\n  Complexity: ${project.complexity}\n  Category: ${project.category}\n`).join('')}\n\nTotal Revenue Potential: $${revenueAnalysis.totalRevenuePotential.toLocaleString()}\nROI: ${revenueAnalysis.estimatedROI.toFixed(1)}%\n\nGenerated by YouTube Project Extraction Microservice\n  `;\n}\n\nreturn [{ json: { ...input, emailContent } }];"
+      },
+      "id": "email-generation",
+      "name": "Email Generation",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [2000, 200]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "agile-integration",
+              "leftValue": "={{ $json.options.agileIntegration }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equal"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "agile-decision",
+      "name": "Agile Integration Decision",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [1780, 400]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Agile Integration - Prepare Projects for Agile Workflow\nconst input = $input.first().json;\nconst { projectTemplates, options } = input;\n\nconst agileProjects = projectTemplates.map(project => ({\n  ...project,\n  agileId: `${project.id}-agile-${Date.now()}`,\n  sprint: 'backlog',\n  priority: 'medium',\n  storyPoints: getStoryPoints(project.complexity),\n  assignedTo: 'team',\n  status: 'ready',\n  estimatedHours: getEstimatedHours(project.complexity),\n  dependencies: [],\n  acceptanceCriteria: generateAcceptanceCriteria(project),\n  technicalRequirements: generateTechnicalRequirements(project)\n}));\n\nfunction getStoryPoints(complexity) {\n  const points = { 'Simple': 3, 'Medium': 5, 'Complex': 8 };\n  return points[complexity] || 5;\n}\n\nfunction getEstimatedHours(complexity) {\n  const hours = { 'Simple': 8, 'Medium': 16, 'Complex': 32 };\n  return hours[complexity] || 16;\n}\n\nfunction generateAcceptanceCriteria(project) {\n  return [\n    `User can access ${project.name} functionality`,\n    `Revenue tracking is implemented`,\n    `Integration with existing systems is complete`,\n    `Documentation is provided`\n  ];\n}\n\nfunction generateTechnicalRequirements(project) {\n  return [\n    'n8n workflow implementation',\n    'Next.js component creation',\n    'API route development',\n    'Database schema design',\n    'Testing and validation'\n  ];\n}\n\nreturn [{ json: { ...input, agileProjects, extractionStatus: 'agile_ready' } }];"
+      },
+      "id": "agile-integration",
+      "name": "Agile Integration",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [2000, 400]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Response Assembly - Prepare Final Response\nconst input = $input.first().json;\nconst { \n  channelInfo, \n  projectTemplates, \n  revenueAnalysis, \n  emailContent, \n  agileProjects, \n  extractionStatus,\n  requestId,\n  timestamp \n} = input;\n\nconst response = {\n  success: true,\n  requestId,\n  timestamp,\n  extractionStatus,\n  channel: channelInfo,\n  projects: projectTemplates,\n  revenue: revenueAnalysis,\n  email: emailContent || null,\n  agile: agileProjects || null,\n  metadata: {\n    totalProjects: revenueAnalysis.totalProjects,\n    totalRevenue: revenueAnalysis.totalRevenuePotential,\n    averageRevenue: revenueAnalysis.averageRevenuePerProject,\n    roi: revenueAnalysis.estimatedROI,\n    processingTime: Date.now() - new Date(timestamp).getTime()\n  }\n};\n\nreturn [{ json: response }];"
+      },
+      "id": "response-assembly",
+      "name": "Response Assembly",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [2220, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {}
+      },
+      "id": "webhook-response",
+      "name": "Webhook Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [2440, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Error Handling - Standardized Error Response\nconst error = $input.first().json;\n\nconst errorResponse = {\n  success: false,\n  error: {\n    message: error.message || 'Unknown error occurred',\n    code: error.code || 'EXTRACTION_ERROR',\n    timestamp: new Date().toISOString(),\n    requestId: error.requestId || `error_${Date.now()}`\n  },\n  metadata: {\n    service: 'YouTube Project Extraction Microservice',\n    version: '1.0.0',\n    status: 'error'\n  }\n};\n\nreturn [{ json: errorResponse }];"
+      },
+      "id": "error-handling",
+      "name": "Error Handling",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [2220, 500]
+    }
+  ],
+  "connections": {
+    "YouTube Extraction Webhook": {
+      "main": [
+        [
+          {
+            "node": "Input Validation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Input Validation": {
+      "main": [
+        [
+          {
+            "node": "Channel Analysis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Channel Analysis": {
+      "main": [
+        [
+          {
+            "node": "Video Extraction",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Video Extraction": {
+      "main": [
+        [
+          {
+            "node": "Opportunity Detection",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Opportunity Detection": {
+      "main": [
+        [
+          {
+            "node": "Template Generation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Template Generation": {
+      "main": [
+        [
+          {
+            "node": "Revenue Analysis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Revenue Analysis": {
+      "main": [
+        [
+          {
+            "node": "Email Notification Decision",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Email Notification Decision": {
+      "main": [
+        [
+          {
+            "node": "Email Generation",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Agile Integration Decision",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Email Generation": {
+      "main": [
+        [
+          {
+            "node": "Response Assembly",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Agile Integration Decision": {
+      "main": [
+        [
+          {
+            "node": "Agile Integration",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Response Assembly",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Agile Integration": {
+      "main": [
+        [
+          {
+            "node": "Response Assembly",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Response Assembly": {
+      "main": [
+        [
+          {
+            "node": "Webhook Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2024-01-15T10:00:00.000Z",
+      "updatedAt": "2024-01-15T10:00:00.000Z",
+      "id": "youtube-extraction",
+      "name": "YouTube Extraction"
+    },
+    {
+      "createdAt": "2024-01-15T10:00:00.000Z",
+      "updatedAt": "2024-01-15T10:00:00.000Z",
+      "id": "microservice",
+      "name": "Microservice"
+    },
+    {
+      "createdAt": "2024-01-15T10:00:00.000Z",
+      "updatedAt": "2024-01-15T10:00:00.000Z",
+      "id": "saas",
+      "name": "SaaS"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2024-01-15T10:00:00.000Z",
+  "versionId": "1"
+}
