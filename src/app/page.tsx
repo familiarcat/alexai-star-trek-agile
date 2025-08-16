@@ -26,15 +26,15 @@ export default function HomePage() {
     systemHealth: 'Optimal',
     lastUpdate: new Date().toLocaleString()
   });
-  const [isLoading, setIsLoading] = useState(true); // Restored to normal loading state
+  const [isLoading, setIsLoading] = useState(true);
   const [activeNavigation, setActiveNavigation] = useState('dashboard');
 
   useEffect(() => {
-    // Simulate data fetching
+    // Simulate data fetching with a more reliable approach
     const fetchData = async () => {
       try {
         // Simulate API call delay
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        await new Promise(resolve => setTimeout(resolve, 1500));
         
         setStats({
           totalProjects: 12,
@@ -86,7 +86,7 @@ export default function HomePage() {
   };
 
   const handleViewCrew = async () => {
-    console.log('Viewing crew...');
+    console.log('Viewing team...');
     setActiveNavigation('crew');
     window.location.href = '/crew';
   };
@@ -98,8 +98,8 @@ export default function HomePage() {
   };
 
   const handleViewObservationLounge = async () => {
-    console.log('Entering observation lounge...');
-    setActiveNavigation('observation-lounge');
+    console.log('Viewing observation lounge...');
+    setActiveNavigation('observation');
     window.location.href = '/observation-lounge';
   };
 
@@ -123,12 +123,12 @@ export default function HomePage() {
 
   if (isLoading) {
     return (
-      <div className="main-content">
-        <div className="lcars-elbow-container">
-          <div className="lcars-elbow-header">SYSTEM INITIALIZATION</div>
-          <div className="lcars-elbow-content">
-            <p className="lcars-text">Loading Dashboard...</p>
-            <p className="lcars-text-small">Initializing LCARS systems...</p>
+      <div className="lcars-elbow-container">
+        <div className="lcars-elbow-header">SYSTEM INITIALIZATION</div>
+        <div className="lcars-elbow-content">
+          <p>Initializing project management systems...</p>
+          <div className="progress-container">
+            <div className="progress-bar" style={{ width: '75%' }}></div>
           </div>
         </div>
       </div>
@@ -136,25 +136,26 @@ export default function HomePage() {
   }
 
   return (
-    <div className="main-content">
-      {/* Quick Actions - Enhanced with LCARS Elbow Design */}
+    <div className="dashboard-container">
+      {/* Quick Actions - LCARS Elbow Container */}
       <div className="lcars-elbow-container">
         <div className="lcars-elbow-header">QUICK ACTIONS</div>
         <div className="lcars-elbow-content">
-          <div className="lcars-responsive-grid lcars-grid-4">
-            <button onClick={handleCreateProject} className="lcars-cta-button lcars-cta-primary">
+          <p className="lcars-text-secondary">Primary system operations</p>
+          <div className="functional-grid functional-grid-4">
+            <button onClick={handleCreateProject} className="functional-button functional-button-primary">
               <PlusIcon style={{ width: '20px', height: '20px' }} />
               <span>CREATE NEW PROJECT</span>
             </button>
-            <button onClick={handleViewProjects} className="lcars-cta-button lcars-cta-secondary">
+            <button onClick={handleViewProjects} className="functional-button functional-button-secondary">
               <EyeIcon style={{ width: '20px', height: '20px' }} />
               <span>BROWSE ALL PROJECTS</span>
             </button>
-            <button onClick={handleViewTasks} className="lcars-cta-button lcars-cta-success">
+            <button onClick={handleViewTasks} className="functional-button functional-button-success">
               <ClipboardDocumentListIcon style={{ width: '20px', height: '20px' }} />
               <span>MANAGE TASK QUEUE</span>
             </button>
-            <button onClick={handleViewAnalytics} className="lcars-cta-button lcars-cta-info">
+            <button onClick={handleViewAnalytics} className="functional-button functional-button-info">
               <ChartPieIcon style={{ width: '20px', height: '20px' }} />
               <span>VIEW PERFORMANCE DATA</span>
             </button>
@@ -162,68 +163,71 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* Mission Status - Enhanced with LCARS Elbow Design */}
+      {/* Project Status - LCARS Elbow Container */}
       <div className="lcars-elbow-container">
-        <div className="lcars-elbow-header">MISSION STATUS</div>
+        <div className="lcars-elbow-header">PROJECT STATUS</div>
         <div className="lcars-elbow-content">
-          <div className="lcars-responsive-grid lcars-grid-4">
-            <div className="lcars-grid-item">
-              <h3 className="lcars-text-orange lcars-text">ACTIVE PROJECTS</h3>
-              <p className="lcars-text-large">{stats.totalProjects}</p>
-              <p className="lcars-text-small">Missions in Progress</p>
+          <p className="lcars-text-secondary">Current system metrics</p>
+          <div className="functional-grid functional-grid-4">
+            <div className="metric-item">
+              <h3 className="metric-title">ACTIVE PROJECTS</h3>
+              <p className="metric-value">{stats.totalProjects}</p>
+              <p className="metric-description">Projects in Progress</p>
             </div>
-            <div className="lcars-grid-item">
-              <h3 className="lcars-text-blue lcars-text">PENDING TASKS</h3>
-              <p className="lcars-text-large">{stats.activeTasks}</p>
-              <p className="lcars-text-small">Awaiting Execution</p>
+            <div className="metric-item">
+              <h3 className="metric-title">PENDING TASKS</h3>
+              <p className="metric-value">{stats.activeTasks}</p>
+              <p className="metric-description">Ready for Development</p>
             </div>
-            <div className="lcars-grid-item">
-              <h3 className="lcars-text-green lcars-text">COMPLETED OBJECTIVES</h3>
-              <p className="lcars-text-large">{stats.completedTasks}</p>
-              <p className="lcars-text-small">Successfully Achieved</p>
+            <div className="metric-item">
+              <h3 className="metric-title">COMPLETED OBJECTIVES</h3>
+              <p className="metric-value">{stats.completedTasks}</p>
+              <p className="metric-description">Successfully Achieved</p>
             </div>
-            <div className="lcars-grid-item">
-              <h3 className="lcars-text-yellow lcars-text">CREW COMPLEMENT</h3>
-              <p className="lcars-text-large">{stats.teamMembers}</p>
-              <p className="lcars-text-small">Active Personnel</p>
+            <div className="metric-item">
+              <h3 className="metric-title">TEAM MEMBERS</h3>
+              <p className="metric-value">{stats.teamMembers}</p>
+              <p className="metric-description">Active Personnel</p>
             </div>
           </div>
         </div>
       </div>
 
-      {/* System Status - Enhanced with LCARS Elbow Design */}
+      {/* System Status - LCARS Elbow Container */}
       <div className="lcars-elbow-container">
         <div className="lcars-elbow-header">SYSTEM STATUS</div>
         <div className="lcars-elbow-content">
-          <div className="lcars-responsive-grid lcars-grid-2">
-            <div className="lcars-grid-item">
-              <h3 className="lcars-text-green lcars-text">OPERATIONAL STATUS</h3>
-              <p className="lcars-text-large">{stats.systemHealth}</p>
-              <p className="lcars-text-small">All Systems Nominal</p>
+          <div className="status-indicator status-indicator-success">{stats.systemHealth}</div>
+          <div className="functional-grid functional-grid-2">
+            <div className="metric-item">
+              <h3 className="metric-title">OPERATIONAL STATUS</h3>
+              <p className="metric-value">{stats.systemHealth}</p>
+              <p className="metric-description">All Systems Nominal</p>
             </div>
-            <div className="lcars-grid-item">
-              <h3 className="lcars-text-blue lcars-text">LAST SYSTEM UPDATE</h3>
-              <p className="lcars-text-medium">{stats.lastUpdate}</p>
-              <p className="lcars-text-small">Data Freshness Verified</p>
+            <div className="metric-item">
+              <h3 className="metric-title">LAST SYSTEM UPDATE</h3>
+              <p className="metric-value">{stats.lastUpdate}</p>
+              <p className="metric-description">Data Freshness Verified</p>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Advanced Operations - Enhanced with LCARS Elbow Design */}
+      {/* Advanced Operations - LCARS Elbow Container */}
       <div className="lcars-elbow-container">
         <div className="lcars-elbow-header">ADVANCED OPERATIONS</div>
         <div className="lcars-elbow-content">
-          <div className="lcars-responsive-grid lcars-grid-3">
-            <button onClick={handleViewWorkflows} className="lcars-cta-button lcars-cta-secondary">
+          <p className="lcars-text-secondary">System configuration and management</p>
+          <div className="functional-grid functional-grid-3">
+            <button onClick={handleViewWorkflows} className="functional-button functional-button-secondary">
               <WrenchScrewdriverIcon style={{ width: '20px', height: '20px' }} />
               <span>CONFIGURE WORKFLOWS</span>
             </button>
-            <button onClick={handleViewCrew} className="lcars-cta-button lcars-cta-success">
+            <button onClick={handleViewCrew} className="functional-button functional-button-success">
               <UserGroupIcon style={{ width: '20px', height: '20px' }} />
-              <span>MANAGE CREW ASSIGNMENTS</span>
+              <span>MANAGE TEAM ASSIGNMENTS</span>
             </button>
-            <button onClick={handleViewSecurity} className="lcars-cta-button lcars-cta-danger">
+            <button onClick={handleViewSecurity} className="functional-button functional-button-danger">
               <ShieldCheckIcon style={{ width: '20px', height: '20px' }} />
               <span>SECURITY PROTOCOLS</span>
             </button>
@@ -231,58 +235,55 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* System Administration - Enhanced with LCARS Elbow Design */}
+      {/* System Administration - LCARS Elbow Container */}
       <div className="lcars-elbow-container">
         <div className="lcars-elbow-header">SYSTEM ADMINISTRATION</div>
         <div className="lcars-elbow-content">
-          <div className="lcars-responsive-grid lcars-grid-4">
-            <button onClick={handleViewSettings} className="lcars-cta-button lcars-cta-warning">
+          <p className="lcars-text-secondary">Configuration and support</p>
+          <div className="functional-grid functional-grid-4">
+            <button onClick={handleViewSettings} className="functional-button functional-button-warning">
               <CogIcon style={{ width: '20px', height: '20px' }} />
               <span>SYSTEM CONFIGURATION</span>
             </button>
-            <button onClick={handleViewHelp} className="lcars-cta-button lcars-cta-info">
+            <button onClick={handleViewHelp} className="functional-button functional-button-info">
               <HeartIcon style={{ width: '20px', height: '20px' }} />
               <span>USER SUPPORT CENTER</span>
             </button>
-            <button onClick={handleViewAbout} className="lcars-cta-button lcars-cta-secondary">
+            <button onClick={handleViewAbout} className="functional-button functional-button-secondary">
               <ComputerDesktopIcon style={{ width: '20px', height: '20px' }} />
               <span>SYSTEM INFORMATION</span>
             </button>
-            <button onClick={handleViewObservationLounge} className="lcars-cta-button lcars-cta-primary">
-              <SignalIcon style={{ width: '20px', height: '20px' }} />
-              <span>AI ORCHESTRATION CENTER</span>
+            <button onClick={handleViewObservationLounge} className="functional-button functional-button-primary">
+              <BeakerIcon style={{ width: '20px', height: '20px' }} />
+              <span>OBSERVATION LOUNGE</span>
             </button>
           </div>
         </div>
       </div>
 
-      {/* AI Orchestrator Panel - Always Visible */}
+      {/* AI Collaboration Dashboard - LCARS Elbow Container */}
       <div className="lcars-elbow-container">
-        <div className="lcars-elbow-header">AI ORCHESTRATION STATUS</div>
+        <div className="lcars-elbow-header">AI COLLABORATION DASHBOARD</div>
         <div className="lcars-elbow-content">
-          <ShipsComputerOrchestrator />
+          <p className="lcars-text-secondary">Enhanced AI-powered insights</p>
+          <AICollaborationDashboard />
         </div>
       </div>
 
-      {/* Enhanced Ship Computer - Collective Intelligence */}
+      {/* Enhanced Ship Computer - LCARS Elbow Container */}
       <div className="lcars-elbow-container">
-        <div className="lcars-elbow-header">🧠 COLLECTIVE INTELLIGENCE SYSTEM</div>
+        <div className="lcars-elbow-header">ENHANCED SHIP COMPUTER</div>
         <div className="lcars-elbow-content">
+          <p className="lcars-text-secondary">Advanced system monitoring</p>
           <EnhancedShipComputer />
         </div>
       </div>
 
-      
-             {/* AI Collaboration Dashboard */}
-             <div className="lcars-elbow-container">
-               <div className="lcars-elbow-header">🤖 AI AGENT COLLABORATION DASHBOARD</div>
-               <div className="lcars-elbow-content">
-                 <AICollaborationDashboard />
-               </div>
-             </div>{/* Dynamic Scaling Indicator */}
+      {/* Scaling Indicator - LCARS Elbow Container */}
       <div className="lcars-elbow-container">
-        <div className="lcars-elbow-header">SYSTEM SCALING METRICS</div>
+        <div className="lcars-elbow-header">SYSTEM SCALING</div>
         <div className="lcars-elbow-content">
+          <p className="lcars-text-secondary">Performance and capacity monitoring</p>
           <ScalingIndicator />
         </div>
       </div>

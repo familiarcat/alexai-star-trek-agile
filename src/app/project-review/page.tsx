@@ -209,7 +209,7 @@ export default function ProjectReviewPage() {
         <div className="usage-instructions">
           <div className="instruction-step">
             <h3>Step 1: Extract Projects</h3>
-            <p>Click "Extract New Projects" to analyze YouTube channels and extract project ideas.</p>
+            <p>Click &quot;Extract New Projects&quot; to analyze YouTube channels and extract project ideas.</p>
           </div>
           <div className="instruction-step">
             <h3>Step 2: Review Projects</h3>

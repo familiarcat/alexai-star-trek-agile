@@ -1,25 +1,14 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import "./lcars-components.css";
-import "/public/assets/lcars.css";
 import { ProperLCARSLayout } from "@/components/lcars/proper-lcars-layout";
-import { ShipsComputerProvider } from "@/components/lcars/ships-computer-orchestrator";
+import { ShipsComputerOrchestrator } from "@/components/lcars/ships-computer-orchestrator";
 import { DynamicScalingProvider } from "@/components/lcars/dynamic-scaling-provider";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
-  title: "AlexAI Star Trek Agile Management System",
-  description: "AI-powered agile project management with authentic Star Trek LCARS interface",
+  title: "AlexAI Agile Management System",
+  description: "AI-powered agile project management with modern professional interface",
 };
 
 export const viewport = {
@@ -36,13 +25,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="preload" href="/fonts/Antonio-Regular.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" href="/fonts/Antonio-Bold.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+      </head>
+      <body>
         <DynamicScalingProvider>
-          <ShipsComputerProvider>
+          <ShipsComputerOrchestrator>
             <ProperLCARSLayout>
               {children}
             </ProperLCARSLayout>
-          </ShipsComputerProvider>
+          </ShipsComputerOrchestrator>
         </DynamicScalingProvider>
       </body>
     </html>

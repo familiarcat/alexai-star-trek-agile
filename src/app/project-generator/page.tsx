@@ -21,6 +21,16 @@ interface ProjectTemplate {
   apiRoute: string;
 }
 
+interface GeneratedProject extends ProjectTemplate {
+  status: string;
+  createdAt: string;
+  endpoints: {
+    n8nWebhook: string;
+    nextJsApi: string;
+    reactComponent: string;
+  };
+}
+
 const PROJECT_TEMPLATES: ProjectTemplate[] = [
   {
     id: 'resume-auditor',
@@ -115,7 +125,7 @@ export default function ProjectGeneratorPage() {
   const [customFeatures, setCustomFeatures] = useState<string[]>([]);
   const [isGenerating, setIsGenerating] = useState(false);
   const [generationStep, setGenerationStep] = useState(0);
-  const [generatedProject, setGeneratedProject] = useState<any>(null);
+  const [generatedProject, setGeneratedProject] = useState<GeneratedProject | null>(null);
 
   const handleTemplateSelect = (template: ProjectTemplate) => {
     setSelectedTemplate(template);
@@ -169,9 +179,15 @@ export default function ProjectGeneratorPage() {
         id: `project-${Date.now()}`,
         name: projectName,
         description: projectDescription,
-        template: selectedTemplate,
-        features: customFeatures,
         revenuePotential: selectedTemplate.revenuePotential,
+        targetMarket: selectedTemplate.targetMarket,
+        complexity: selectedTemplate.complexity,
+        estimatedTime: selectedTemplate.estimatedTime,
+        category: selectedTemplate.category,
+        features: customFeatures,
+        n8nWorkflowTemplate: selectedTemplate.n8nWorkflowTemplate,
+        nextJsComponent: selectedTemplate.nextJsComponent,
+        apiRoute: selectedTemplate.apiRoute,
         status: 'Active',
         createdAt: new Date().toISOString(),
         endpoints: {

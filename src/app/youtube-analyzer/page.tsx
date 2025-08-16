@@ -23,7 +23,7 @@ export default function YouTubeAnalyzerPage() {
       <div className="lcars-mission-panel">
         <h2>🌟 Mission Overview</h2>
         <p>
-          The YouTube Project Ideas Analyzer is a revolutionary tool that scrapes successful entrepreneurs' 
+          The YouTube Project Ideas Analyzer is a revolutionary tool that scrapes successful entrepreneurs&apos; 
           YouTube channels to extract proven business ideas and convert them into revenue-generating project templates.
         </p>
         <div className="lcars-mission-benefits">

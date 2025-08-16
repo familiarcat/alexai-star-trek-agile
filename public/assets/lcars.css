@@ -149,20 +149,20 @@ body {
     color: var(--lcars-white);
     padding: 15px 20px;
     margin: 10px 0;
-    border-radius: 0 8px 8px 0;
+    border-radius: 8px 0 0 8px;
     position: relative;
-    border-left: 4px solid var(--lcars-gold);
+    border-right: 4px solid var(--lcars-gold);
 }
 
 .lcars-l-shape::before {
     content: '';
     position: absolute;
     top: 0;
-    left: -4px;
+    right: -4px;
     width: 0;
     height: 0;
     border-top: 20px solid var(--lcars-gold);
-    border-right: 20px solid transparent;
+    border-left: 20px solid transparent;
 }
 
 .lcars-button {
@@ -217,11 +217,11 @@ body {
     content: '';
     position: absolute;
     top: 0;
-    left: 0;
+    right: 0;
     width: 4px;
     height: 100%;
     background-color: var(--lcars-gold);
-    border-radius: 4px 0 0 4px;
+    border-radius: 0 0 4px 4px;
 }
 
 .lcars-data-value {

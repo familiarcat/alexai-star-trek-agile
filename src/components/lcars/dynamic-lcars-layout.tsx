@@ -14,7 +14,7 @@ export const DynamicLCARSLayout: React.FC<DynamicLCARSLayoutProps> = ({
   initialIntent,
   onLayoutChange
 }) => {
-  const { state, updateIntent } = useShipsComputer();
+  const { state } = useShipsComputer();
   const [currentLayout, setCurrentLayout] = useState<any>(null);
   const [isAdapting, setIsAdapting] = useState(false);
 
@@ -27,17 +27,14 @@ export const DynamicLCARSLayout: React.FC<DynamicLCARSLayoutProps> = ({
   useEffect(() => {
     // Initialize with a default layout when component mounts
     if (!currentLayout) {
-      const defaultLayout = generateSimpleLayout(state.currentIntent);
+      const defaultLayout = generateSimpleLayout('dashboard');
       setCurrentLayout(defaultLayout);
       onLayoutChange?.(defaultLayout);
     }
-  }, [state.currentIntent, onLayoutChange, currentLayout]);
+  }, [onLayoutChange, currentLayout]);
 
   const handleIntentChange = (intent: string) => {
     setIsAdapting(true);
-    
-    // Update intent in the context
-    updateIntent(intent);
     
     // Generate a simple layout based on intent
     const optimalLayout = generateSimpleLayout(intent);

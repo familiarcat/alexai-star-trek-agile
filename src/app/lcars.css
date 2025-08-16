@@ -281,7 +281,7 @@ a:active {
 	width: 20px;
 	height: 240px;
 	background-color: #000;
-	border-radius: 0 10px 10px 0;
+	border-radius: 10px 0 0 10px;
 	position: absolute;
 	top: 20px;
 	left: 0;
@@ -295,7 +295,7 @@ a:active {
 	width:20px;
 	height: 280px;
 	background-color: var(--frame-color);
-	border-radius: 0 16px 16px 0;
+	border-radius: 16px 0 0 16px;
 	padding-top: 40px;
 	position: relative;
 }
@@ -1272,8 +1272,6 @@ nav a:hover {
 
 .panel-6	{
 	padding: 230px 10px 15px 0;
-	Padding-top: ;
-	padding-bottom: ;
 	background-color:#ffaa90;
 }
 
@@ -1284,13 +1282,13 @@ nav a:hover {
 }
 
 .panel-8	{
-	Padding-top: 15px;
+	padding-top: 15px;
 	padding-bottom: 110px;
 	background-color: #ffaa90;
 }
 
 .panel-9	{
-	Padding-top: 15px;
+	padding-top: 15px;
 	padding-right: 10px;
 	padding-bottom: 170px;
 	background-color: #d44;
@@ -1299,7 +1297,7 @@ nav a:hover {
 .panel-10 {
 	border-top: 5px solid #000;
 	background-color: #f70;
-	Padding-top: 15px;
+	padding-top: 15px;
 	padding-right: 10px;
 	padding-bottom: 300px;
 }
@@ -1774,7 +1772,7 @@ footer {
 	margin-top: clamp(50px, 6vw, 125px);
 	padding-block: 12px ;
 	background: linear-gradient(#78f 50%, #d44 50%);
-	border-radius: 0 20px 20px 0;
+	border-radius: 20px 0 0 20px;
 	overflow: hidden;
 	position: relative;
 	z-index: 1;
@@ -1823,7 +1821,7 @@ footer::after {
 	flex: 1;
 	min-height: 180px;
 	background-color: #000;
-	border-radius: 0 20px 20px 0;
+	border-radius: 20px 0 0 20px;
 	padding: 1.5rem 1rem; 
 	z-index: 2;
 }

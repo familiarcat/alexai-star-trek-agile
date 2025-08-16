@@ -22,7 +22,7 @@ interface ResponsiveLCARSLayoutProps {
 }
 
 export function ResponsiveLCARSLayout({ children, className = '' }: ResponsiveLCARSLayoutProps) {
-  const { state, updateLayoutElement, executeAction } = useShipsComputer();
+  const { state } = useShipsComputer();
   const [showSidebar, setShowSidebar] = useState(true);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -35,48 +35,40 @@ export function ResponsiveLCARSLayout({ children, className = '' }: ResponsiveLC
     return () => clearInterval(timer);
   }, []);
 
-  // Responsive behavior based on AI agent recommendations
+  // Responsive behavior based on device size
   useEffect(() => {
-    const device = state.userContext.device;
+    const checkDevice = () => {
+      const width = window.innerWidth;
+      if (width < 768) {
+        setShowSidebar(false);
+        setSidebarCollapsed(false);
+      } else if (width < 1024) {
+        setShowSidebar(true);
+        setSidebarCollapsed(true);
+      } else {
+        setShowSidebar(true);
+        setSidebarCollapsed(false);
+      }
+    };
     
-    // Apply AI recommendations for responsive behavior
-    if (device === 'mobile') {
-      setShowSidebar(false);
-      setSidebarCollapsed(false);
-    } else if (device === 'tablet') {
-      setShowSidebar(true);
-      setSidebarCollapsed(true);
-    } else {
-      setShowSidebar(true);
-      setSidebarCollapsed(false);
-    }
-  }, [state.userContext.device]);
+    checkDevice();
+    window.addEventListener('resize', checkDevice);
+    return () => window.removeEventListener('resize', checkDevice);
+  }, []);
 
   // Handle sidebar toggle
-  const toggleSidebar = useCallback(async () => {
+  const toggleSidebar = useCallback(() => {
     const newState = !showSidebar;
     setShowSidebar(newState);
-    
-    // Execute action through AI system
-    try {
-      await executeAction(`toggle_sidebar_${newState ? 'show' : 'hide'}`);
-    } catch (error) {
-      console.warn('AI action execution failed:', error);
-    }
-  }, [showSidebar, executeAction]);
+    console.log(`Sidebar ${newState ? 'shown' : 'hidden'}`);
+  }, [showSidebar]);
 
   // Handle sidebar collapse
-  const toggleCollapse = useCallback(async () => {
+  const toggleCollapse = useCallback(() => {
     const newCollapsed = !sidebarCollapsed;
     setSidebarCollapsed(newCollapsed);
-    
-    // Execute action through AI system
-    try {
-      await executeAction(`collapse_sidebar_${newCollapsed ? 'true' : 'false'}`);
-    } catch (error) {
-      console.warn('AI action execution failed:', error);
-    }
-  }, [sidebarCollapsed, executeAction]);
+    console.log(`Sidebar ${newCollapsed ? 'collapsed' : 'expanded'}`);
+  }, [sidebarCollapsed]);
 
   // Format time for LCARS display
   const formatLCARSTime = (date: Date) => {

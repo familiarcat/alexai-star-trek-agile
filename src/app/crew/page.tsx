@@ -176,9 +176,9 @@ export default function CrewPage() {
     <div className="main-content">
       {/* Crew Management Header */}
       <div className="lcars-elbow-container">
-        <div className="lcars-elbow-header">CREW MANAGEMENT</div>
+        <div className="lcars-elbow-header">TEAM MANAGEMENT</div>
         <div className="lcars-elbow-content">
-          <p className="lcars-text-medium">Manage Starfleet personnel and crew assignments</p>
+          <p className="lcars-text-medium">Manage team members and project assignments</p>
           <div className="lcars-responsive-grid lcars-grid-2">
             <button onClick={handleAddCrewMember} className="lcars-cta-button lcars-cta-primary">
               <PlusIcon className="lcars-icon" />
@@ -194,7 +194,7 @@ export default function CrewPage() {
 
       {/* Crew Statistics */}
       <div className="lcars-elbow-container">
-        <div className="lcars-elbow-header">CREW STATISTICS</div>
+        <div className="lcars-elbow-header">TEAM STATISTICS</div>
         <div className="lcars-elbow-content">
           <div className="lcars-responsive-grid lcars-grid-4">
             <div className="lcars-grid-item">
@@ -225,7 +225,7 @@ export default function CrewPage() {
 
       {/* Crew Directory */}
       <div className="lcars-elbow-container">
-        <div className="lcars-elbow-header">CREW DIRECTORY</div>
+        <div className="lcars-elbow-header">TEAM DIRECTORY</div>
         <div className="lcars-elbow-content">
           <div className="lcars-responsive-grid lcars-grid-2">
             {crewMembers.map(crewMember => (

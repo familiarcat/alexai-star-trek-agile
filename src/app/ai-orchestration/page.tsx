@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { ShipsComputerProvider, ShipsComputerOrchestrator } from '@/components/lcars/ships-computer-orchestrator';
+import { ShipsComputerOrchestrator } from '@/components/lcars/ships-computer-orchestrator';
 import DynamicLCARSLayout from '@/components/lcars/dynamic-lcars-layout';
 import { LCARSLayout } from '@/components/lcars/lcars-layout';
 
@@ -54,7 +54,7 @@ const AIOrchestrationPage: React.FC = () => {
   };
 
   return (
-    <ShipsComputerProvider>
+    <ShipsComputerOrchestrator>
       <LCARSLayout>
         <div className="lcars-panel lcars-p-30">
           <div className="lcars-text-xlarge lcars-text-gold lcars-mb-20">
@@ -164,7 +164,16 @@ const AIOrchestrationPage: React.FC = () => {
             
             {activeDemo === 'orchestrator' && (
               <div className="lcars-orchestrator-demo">
-                <ShipsComputerOrchestrator />
+                <ShipsComputerOrchestrator>
+                  <div className="lcars-content-area lcars-p-20">
+                    <div className="lcars-text-large lcars-text-white lcars-mb-10">
+                      SHIP&apos;S COMPUTER ORCHESTRATOR
+                    </div>
+                    <div className="lcars-text-medium lcars-text-gold">
+                      The Ship&apos;s Computer is actively orchestrating the LCARS interface based on your current mission context.
+                    </div>
+                  </div>
+                </ShipsComputerOrchestrator>
               </div>
             )}
             
@@ -275,9 +284,9 @@ const AIOrchestrationPage: React.FC = () => {
             </div>
           </div>
         </div>
-      </LCARSLayout>
-    </ShipsComputerProvider>
-  );
+              </LCARSLayout>
+      </ShipsComputerOrchestrator>
+    );
 };
 
 export default AIOrchestrationPage;

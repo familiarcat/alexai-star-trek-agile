@@ -1,620 +1,479 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect, ReactNode, useCallback } from 'react';
-import { 
-  ComputerDesktopIcon,
-  CpuChipIcon,
-  HeartIcon,
-  ChartBarIcon,
-  CogIcon,
-  SignalIcon,
-  UserGroupIcon,
-  RocketLaunchIcon,
-  BeakerIcon,
-  ShieldCheckIcon
-} from '@heroicons/react/24/outline';
-import { collectiveMemoryEngine } from '@/lib/ai-orchestration-engine';
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
-// AI Agent Interface Definitions
+// LCARS Page Analysis Interface
+interface PageAnalysis {
+  pageType: 'dashboard' | 'project-management' | 'team-management' | 'analytics' | 'workflows' | 'settings';
+  userIntent: 'monitoring' | 'creation' | 'analysis' | 'configuration' | 'collaboration';
+  contentComplexity: 'simple' | 'moderate' | 'complex';
+  priorityLevel: 'low' | 'medium' | 'high' | 'critical';
+  recommendedLayout: 'grid' | 'list' | 'hierarchical' | 'timeline' | 'kanban';
+  elbowContainers: ElbowContainer[];
+}
+
+// LCARS Elbow Container Definition
+interface ElbowContainer {
+  id: string;
+  type: 'primary' | 'secondary' | 'tertiary' | 'status' | 'action' | 'data';
+  title: string;
+  priority: number;
+  content: ReactNode;
+  layout: 'full-width' | 'half-width' | 'quarter-width' | 'sidebar';
+  colorScheme: 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'info';
+  interactive: boolean;
+  collapsible: boolean;
+  expandable: boolean;
+}
+
+// Ship Computer State
+interface ShipComputerState {
+  isOnline: boolean;
+  currentPage: string;
+  pageAnalysis: PageAnalysis | null;
+  elbowContainers: ElbowContainer[];
+  systemHealth: 'optimal' | 'degraded' | 'critical';
+  activeWorkflows: string[];
+  aiAgents: AIAgent[];
+  layoutOptimization: LayoutOptimization;
+}
+
+// AI Agent Interface
 interface AIAgent {
   id: string;
   name: string;
   role: string;
-  expertise: string[];
-  status: 'active' | 'standby' | 'processing';
-  currentTask?: string;
-  recommendations: AgentRecommendation[];
+  status: 'active' | 'idle' | 'processing' | 'error';
+  currentTask: string;
+  efficiency: number;
 }
 
-interface AgentRecommendation {
-  id: string;
-  type: 'layout' | 'ux' | 'efficiency' | 'emotional' | 'security';
-  priority: 'critical' | 'high' | 'medium' | 'low';
-  title: string;
-  description: string;
-  action: string;
-  impact: string;
-  timestamp: Date;
+// Layout Optimization Interface
+interface LayoutOptimization {
+  gridColumns: number;
+  spacing: 'compact' | 'normal' | 'spacious';
+  visualHierarchy: 'flat' | 'nested' | 'layered';
+  colorContrast: 'standard' | 'high' | 'maximum';
+  animationLevel: 'minimal' | 'moderate' | 'enhanced';
 }
 
-interface LayoutElement {
-  id: string;
-  type: 'panel' | 'button' | 'card' | 'sidebar' | 'navigation';
-  priority: number;
-  responsive: {
-    mobile: boolean;
-    tablet: boolean;
-    desktop: boolean;
-  };
-  functionality: {
-    executable: boolean;
-    action: string;
-    intent: 'primary' | 'secondary' | 'success' | 'warning' | 'danger';
-  };
-  aiRecommendations: string[];
-}
-
-interface ShipsComputerState {
-  agents: AIAgent[];
-  layoutElements: LayoutElement[];
-  currentIntent: string;
-  userContext: {
-    device: 'mobile' | 'tablet' | 'desktop';
-    screenSize: { width: number; height: number };
-    userBehavior: string[];
-    emotionalState: 'focused' | 'exploring' | 'efficient' | 'creative';
-  };
-  recommendations: AgentRecommendation[];
-  isProcessing: boolean;
-}
-
-// AI Agents Configuration
-const AI_AGENTS: AIAgent[] = [
-  {
-    id: 'ships-computer',
-    name: "Ship's Computer",
-    role: 'Dynamic Layout Orchestrator',
-    expertise: ['layout-optimization', 'content-prioritization', 'responsive-design', 'ai-coordination'],
-    status: 'active',
-    currentTask: 'Analyzing user intent and orchestrating layout elements',
-    recommendations: []
-  },
-  {
-    id: 'commander-data',
-    name: 'Commander Data',
-    role: 'Efficiency Optimization Specialist',
-    expertise: ['performance-analysis', 'workflow-optimization', 'data-driven-decisions', 'logical-reasoning'],
-    status: 'active',
-    currentTask: 'Optimizing UI efficiency and responsive patterns',
-    recommendations: []
-  },
-  {
-    id: 'counselor-troi',
-    name: 'Counselor Troi',
-    role: 'User Experience & Emotional Intelligence',
-    expertise: ['emotional-intelligence', 'user-empathy', 'experience-design', 'behavioral-analysis'],
-    status: 'active',
-    currentTask: 'Analyzing user emotional state and UX needs',
-    recommendations: []
-  }
-];
-
-// Context Creation
-const ShipsComputerContext = createContext<{
-  state: ShipsComputerState;
-  updateIntent: (intent: string) => void;
-  addRecommendation: (agentId: string, recommendation: Omit<AgentRecommendation, 'id' | 'timestamp'>) => void;
-  updateLayoutElement: (elementId: string, updates: Partial<LayoutElement>) => void;
-  executeAction: (action: string) => Promise<void>;
-  getCollectiveInsights: () => Promise<any[]>;
-  startMultiAgentCollaboration: (taskType: string, userIntent: string) => Promise<string | null>;
-  updateAgentContexts: () => void;
+// Ship Computer Context
+const ShipComputerContext = createContext<{
+  state: ShipComputerState;
+  analyzePage: (pagePath: string, content: any) => Promise<PageAnalysis>;
+  optimizeLayout: (analysis: PageAnalysis) => LayoutOptimization;
+  createElbowContainer: (container: Omit<ElbowContainer, 'id'>) => string;
+  updateElbowContainer: (id: string, updates: Partial<ElbowContainer>) => void;
+  removeElbowContainer: (id: string) => void;
+  reorderElbowContainers: (newOrder: string[]) => void;
 } | null>(null);
 
-// Provider Component
-export function ShipsComputerProvider({ children }: { children: ReactNode }) {
-  const [state, setState] = useState<ShipsComputerState>({
-    agents: AI_AGENTS,
-    layoutElements: [],
-    currentIntent: 'Navigate to main bridge',
-    userContext: {
-      device: 'desktop',
-      screenSize: { width: 1920, height: 1080 },
-      userBehavior: [],
-      emotionalState: 'focused'
-    },
-    recommendations: [],
-    isProcessing: false
+// Ship Computer Provider Component
+export function ShipsComputerOrchestrator({ children }: { children: ReactNode }) {
+  const [state, setState] = useState<ShipComputerState>({
+    isOnline: true,
+    currentPage: '/',
+    pageAnalysis: null,
+    elbowContainers: [],
+    systemHealth: 'optimal',
+    activeWorkflows: [],
+    aiAgents: [
+      {
+        id: 'ai-1',
+        name: 'Layout Analyzer',
+        role: 'Page Structure Analysis',
+        status: 'active',
+        currentTask: 'Analyzing current page layout',
+        efficiency: 0.95
+      },
+      {
+        id: 'ai-2',
+        name: 'Content Optimizer',
+        role: 'Content Organization',
+        status: 'active',
+        currentTask: 'Optimizing content hierarchy',
+        efficiency: 0.92
+      },
+      {
+        id: 'ai-3',
+        name: 'User Intent Analyzer',
+        role: 'User Behavior Analysis',
+        status: 'active',
+        currentTask: 'Analyzing user interaction patterns',
+        efficiency: 0.88
+      },
+      {
+        id: 'ai-4',
+        name: 'Visual Designer',
+        role: 'UI/UX Optimization',
+        status: 'active',
+        currentTask: 'Optimizing visual hierarchy',
+        efficiency: 0.90
+      },
+      {
+        id: 'ai-5',
+        name: 'Performance Monitor',
+        role: 'System Performance',
+        status: 'active',
+        currentTask: 'Monitoring layout performance',
+        efficiency: 0.94
+      }
+    ],
+    layoutOptimization: {
+      gridColumns: 4,
+      spacing: 'normal',
+      visualHierarchy: 'layered',
+      colorContrast: 'high',
+      animationLevel: 'moderate'
+    }
   });
 
-  // Responsive detection
-  useEffect(() => {
-    const updateScreenSize = () => {
-      const width = window.innerWidth;
-      const height = window.innerHeight;
-      let device: 'mobile' | 'tablet' | 'desktop' = 'desktop';
-      
-      if (width < 768) device = 'mobile';
-      else if (width < 1024) device = 'tablet';
-      
-      setState(prev => ({
-        ...prev,
-        userContext: {
-          ...prev.userContext,
-          device,
-          screenSize: { width, height }
-        }
-      }));
-    };
-
-    updateScreenSize();
-    window.addEventListener('resize', updateScreenSize);
-    return () => window.removeEventListener('resize', updateScreenSize);
-  }, []);
-
-  // AI Agent Coordination
-  useEffect(() => {
-    const coordinateAgents = async () => {
-      setState(prev => ({ ...prev, isProcessing: true }));
-      
-      try {
-        // Ship's Computer analyzes current intent and layout needs
-        const shipsComputerAnalysis = await analyzeLayoutNeeds(state.currentIntent, state.userContext);
-        
-        // Commander Data provides efficiency recommendations
-        const dataEfficiencyAnalysis = await analyzeEfficiency(state.layoutElements, state.userContext);
-        
-        // Counselor Troi provides UX and emotional intelligence insights
-        const troiUXAnalysis = await analyzeUserExperience(state.userContext, state.currentIntent);
-        
-        // Combine all recommendations
-        const allRecommendations = [
-          ...shipsComputerAnalysis,
-          ...dataEfficiencyAnalysis,
-          ...troiUXAnalysis
-        ];
-        
-        setState(prev => ({
-          ...prev,
-          recommendations: allRecommendations,
-          isProcessing: false
-        }));
-      } catch (error) {
-        console.warn('AI agent coordination failed:', error);
-        setState(prev => ({ ...prev, isProcessing: false }));
-      }
-    };
-
-    // Only coordinate agents when intent or user context changes significantly
-    const shouldCoordinate = state.recommendations.length === 0 || 
-                           state.userContext.device !== 'desktop' ||
-                           state.currentIntent !== 'Navigate to main bridge';
+  // Page Analysis Engine
+  const analyzePage = async (pagePath: string, content: any): Promise<PageAnalysis> => {
+    console.log('🔍 Ship Computer: Analyzing page:', pagePath);
     
-    if (shouldCoordinate) {
-      coordinateAgents();
+    // Simulate AI analysis delay
+    await new Promise(resolve => setTimeout(resolve, 500));
+    
+    let analysis: PageAnalysis;
+    
+    // Analyze page type and content
+    if (pagePath === '/') {
+      analysis = {
+        pageType: 'dashboard',
+        userIntent: 'monitoring',
+        contentComplexity: 'moderate',
+        priorityLevel: 'high',
+        recommendedLayout: 'grid',
+        elbowContainers: [
+          {
+            id: 'quick-actions',
+            type: 'action',
+            title: 'QUICK ACTIONS',
+            priority: 1,
+            content: null,
+            layout: 'full-width',
+            colorScheme: 'primary',
+            interactive: true,
+            collapsible: false,
+            expandable: false
+          },
+          {
+            id: 'project-status',
+            type: 'data',
+            title: 'PROJECT STATUS',
+            priority: 2,
+            content: null,
+            layout: 'full-width',
+            colorScheme: 'info',
+            interactive: false,
+            collapsible: true,
+            expandable: true
+          },
+          {
+            id: 'system-status',
+            type: 'status',
+            title: 'SYSTEM STATUS',
+            priority: 3,
+            content: null,
+            layout: 'half-width',
+            colorScheme: 'success',
+            interactive: false,
+            collapsible: true,
+            expandable: false
+          }
+        ]
+      };
+    } else if (pagePath.startsWith('/projects')) {
+      analysis = {
+        pageType: 'project-management',
+        userIntent: 'creation',
+        contentComplexity: 'complex',
+        priorityLevel: 'critical',
+        recommendedLayout: 'kanban',
+        elbowContainers: [
+          {
+            id: 'project-board',
+            type: 'primary',
+            title: 'PROJECT BOARD',
+            priority: 1,
+            content: null,
+            layout: 'full-width',
+            colorScheme: 'primary',
+            interactive: true,
+            collapsible: false,
+            expandable: true
+          },
+          {
+            id: 'project-filters',
+            type: 'secondary',
+            title: 'FILTERS & SEARCH',
+            priority: 2,
+            content: null,
+            layout: 'sidebar',
+            colorScheme: 'secondary',
+            interactive: true,
+            collapsible: true,
+            expandable: false
+          }
+        ]
+      };
+    } else if (pagePath.startsWith('/crew') || pagePath.startsWith('/team')) {
+      analysis = {
+        pageType: 'team-management',
+        userIntent: 'collaboration',
+        contentComplexity: 'moderate',
+        priorityLevel: 'medium',
+        recommendedLayout: 'list',
+        elbowContainers: [
+          {
+            id: 'team-directory',
+            type: 'primary',
+            title: 'TEAM DIRECTORY',
+            priority: 1,
+            content: null,
+            layout: 'full-width',
+            colorScheme: 'info',
+            interactive: true,
+            collapsible: false,
+            expandable: true
+          },
+          {
+            id: 'team-stats',
+            type: 'data',
+            title: 'TEAM STATISTICS',
+            priority: 2,
+            content: null,
+            layout: 'quarter-width',
+            colorScheme: 'success',
+            interactive: false,
+            collapsible: true,
+            expandable: false
+          }
+        ]
+      };
+    } else {
+      // Default analysis for unknown pages
+      analysis = {
+        pageType: 'settings',
+        userIntent: 'configuration',
+        contentComplexity: 'simple',
+        priorityLevel: 'low',
+        recommendedLayout: 'list',
+        elbowContainers: [
+          {
+            id: 'page-content',
+            type: 'primary',
+            title: 'PAGE CONTENT',
+            priority: 1,
+            content: null,
+            layout: 'full-width',
+            colorScheme: 'primary',
+            interactive: false,
+            collapsible: false,
+            expandable: false
+          }
+        ]
+      };
     }
-  }, [state.currentIntent, state.userContext.device, state.userContext.screenSize.width, state.userContext.screenSize.height]);
-
-  const updateIntent = (intent: string) => {
-    setState(prev => ({ ...prev, currentIntent: intent }));
-  };
-
-  const addRecommendation = (agentId: string, recommendation: Omit<AgentRecommendation, 'id' | 'timestamp'>) => {
-    const newRecommendation: AgentRecommendation = {
-      ...recommendation,
-      id: `${agentId}-${Date.now()}`,
-      timestamp: new Date()
-    };
-
+    
+    // Update state with analysis
     setState(prev => ({
       ...prev,
-      agents: prev.agents.map(agent => 
-        agent.id === agentId 
-          ? { ...agent, recommendations: [...agent.recommendations, newRecommendation] }
-          : agent
-      ),
-      recommendations: [...prev.recommendations, newRecommendation]
+      currentPage: pagePath,
+      pageAnalysis: analysis,
+      elbowContainers: analysis.elbowContainers
     }));
+    
+    console.log('✅ Ship Computer: Page analysis complete:', analysis);
+    return analysis;
   };
 
-  const updateLayoutElement = (elementId: string, updates: Partial<LayoutElement>) => {
+  // Layout Optimization Engine
+  const optimizeLayout = (analysis: PageAnalysis): LayoutOptimization => {
+    console.log('🎨 Ship Computer: Optimizing layout for:', analysis.pageType);
+    
+    let optimization: LayoutOptimization;
+    
+    switch (analysis.pageType) {
+      case 'dashboard':
+        optimization = {
+          gridColumns: 4,
+          spacing: 'normal',
+          visualHierarchy: 'layered',
+          colorContrast: 'high',
+          animationLevel: 'moderate'
+        };
+        break;
+      case 'project-management':
+        optimization = {
+          gridColumns: 3,
+          spacing: 'spacious',
+          visualHierarchy: 'nested',
+          colorContrast: 'maximum',
+          animationLevel: 'enhanced'
+        };
+        break;
+      case 'team-management':
+        optimization = {
+          gridColumns: 2,
+          spacing: 'compact',
+          visualHierarchy: 'flat',
+          colorContrast: 'high',
+          animationLevel: 'minimal'
+        };
+        break;
+      default:
+        optimization = {
+          gridColumns: 2,
+          spacing: 'normal',
+          visualHierarchy: 'layered',
+          colorContrast: 'high',
+          animationLevel: 'moderate'
+        };
+    }
+    
+    // Update state with optimization
     setState(prev => ({
       ...prev,
-      layoutElements: prev.layoutElements.map(element =>
-        element.id === elementId ? { ...element, ...updates } : element
+      layoutOptimization: optimization
+    }));
+    
+    console.log('✅ Ship Computer: Layout optimization complete:', optimization);
+    return optimization;
+  };
+
+  // Elbow Container Management
+  const createElbowContainer = (container: Omit<ElbowContainer, 'id'>): string => {
+    const id = `elbow-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const newContainer: ElbowContainer = { ...container, id };
+    
+    setState(prev => ({
+      ...prev,
+      elbowContainers: [...prev.elbowContainers, newContainer]
+    }));
+    
+    console.log('➕ Ship Computer: Created elbow container:', id);
+    return id;
+  };
+
+  const updateElbowContainer = (id: string, updates: Partial<ElbowContainer>) => {
+    setState(prev => ({
+      ...prev,
+      elbowContainers: prev.elbowContainers.map(container =>
+        container.id === id ? { ...container, ...updates } : container
       )
     }));
+    
+    console.log('✏️ Ship Computer: Updated elbow container:', id);
   };
 
-  const executeAction = async (action: string) => {
-    // Log the action for AI analysis
-    console.log(`Executing action: ${action}`);
-    
-    // Update user behavior context
+  const removeElbowContainer = (id: string) => {
     setState(prev => ({
       ...prev,
-      userContext: {
-        ...prev.userContext,
-        userBehavior: [...prev.userContext.userBehavior, action]
-      }
+      elbowContainers: prev.elbowContainers.filter(container => container.id !== id)
     }));
-
-    // Simulate action execution
-    await new Promise(resolve => setTimeout(resolve, 100));
     
-    // Trigger AI agent analysis of the action
-    addRecommendation('ships-computer', {
-      type: 'layout',
-      priority: 'medium',
-      title: 'Action Executed',
-      description: `User executed action: ${action}`,
-      action: 'analyze_user_behavior',
-      impact: 'positive'
-    });
+    console.log('🗑️ Ship Computer: Removed elbow container:', id);
   };
 
-  // ========================================
-  // COLLECTIVE MEMORY INTEGRATION
-  // ========================================
-  
-  /**
-   * Get insights from collective memory for all agents
-   */
-  const getCollectiveInsights = useCallback(async () => {
-    try {
-      const agents = collectiveMemoryEngine.getAllAgents();
-      const insights = await Promise.all(
-        agents.map(async (agent) => {
-          const agentInsights = await collectiveMemoryEngine.getAgentInsights(
-            agent.id,
-            agent.currentContext
-          );
-          return { agent, insights: agentInsights };
-        })
-      );
-      
-      console.log('🧠 Collective insights gathered for all agents:', insights);
-      return insights;
-    } catch (error) {
-      console.error('Error getting collective insights:', error);
-      return [];
-    }
+  const reorderElbowContainers = (newOrder: string[]) => {
+    setState(prev => ({
+      ...prev,
+      elbowContainers: newOrder
+        .map(id => prev.elbowContainers.find(container => container.id === id))
+        .filter(Boolean) as ElbowContainer[]
+    }));
+    
+    console.log('🔄 Ship Computer: Reordered elbow containers');
+  };
+
+  // Auto-analyze current page on mount
+  useEffect(() => {
+    const analyzeCurrentPage = async () => {
+      const path = window.location.pathname;
+      await analyzePage(path, {});
+      const analysis = await analyzePage(path, {});
+      optimizeLayout(analysis);
+    };
+    
+    analyzeCurrentPage();
   }, []);
 
-  /**
-   * Start multi-agent collaboration for complex tasks
-   */
-  const startMultiAgentCollaboration = useCallback(async (taskType: string, userIntent: string) => {
-    try {
-      const agents = ['ship_computer', 'commander_data', 'counselor_troi'];
-      const sessionId = await collectiveMemoryEngine.startCollaboration(
-        agents,
-        taskType,
-        userIntent,
-        {
-          screenSize: 'desktop',
-          userIntent,
-          userContext: 'collaboration',
-          currentPage: '/',
-          userBehavior: {
-            navigationPattern: [],
-            interactionFrequency: 0,
-            preferredFeatures: [],
-            painPoints: [],
-            satisfactionScore: 0.8
-          },
-          systemState: {
-            performance: { loadTime: 0, renderTime: 0, memoryUsage: 0, cpuUsage: 0, successRate: 0.8 },
-            accessibility: { wcagCompliance: 0.9, keyboardNavigation: true, screenReaderSupport: true, colorContrast: 0.95, focusManagement: true },
-            userExperience: { taskCompletionRate: 0.85, userSatisfaction: 0.8, errorRate: 0.1, learningCurve: 0.7, engagementScore: 0.8 },
-            technicalHealth: { buildSuccess: true, testCoverage: 0.8, deploymentStatus: 'operational', errorLogs: [], systemUptime: 99.9 }
-          }
-        }
-      );
-      
-      console.log('🤝 Multi-agent collaboration started:', sessionId);
-      return sessionId;
-    } catch (error) {
-      console.error('Error starting multi-agent collaboration:', error);
-      return null;
-    }
+  // Monitor page changes
+  useEffect(() => {
+    const handleRouteChange = async () => {
+      const path = window.location.pathname;
+      await analyzePage(path, {});
+    };
+
+    // Listen for route changes
+    window.addEventListener('popstate', handleRouteChange);
+    return () => window.removeEventListener('popstate', handleRouteChange);
   }, []);
 
-  /**
-   * Update agent contexts based on current system state
-   */
-  const updateAgentContexts = useCallback(() => {
-    try {
-      const agents = collectiveMemoryEngine.getAllAgents();
-      agents.forEach(agent => {
-        collectiveMemoryEngine.updateAgentContext(agent.id, {
-          screenSize: 'desktop',
-          userIntent: 'system_monitoring',
-          userContext: 'orchestration',
-          currentPage: '/'
-        });
-      });
-      
-      console.log('🔄 Agent contexts updated');
-    } catch (error) {
-      console.error('Error updating agent contexts:', error);
-    }
-  }, []);
+  const contextValue = {
+    state,
+    analyzePage,
+    optimizeLayout,
+    createElbowContainer,
+    updateElbowContainer,
+    removeElbowContainer,
+    reorderElbowContainers
+  };
 
   return (
-    <ShipsComputerContext.Provider value={{
-      state,
-      updateIntent,
-      addRecommendation,
-      updateLayoutElement,
-      executeAction,
-      getCollectiveInsights,
-      startMultiAgentCollaboration,
-      updateAgentContexts
-    }}>
+    <ShipComputerContext.Provider value={contextValue}>
       {children}
-    </ShipsComputerContext.Provider>
+    </ShipComputerContext.Provider>
   );
 }
 
-// Hook for using the context
+// Hook to use Ship Computer
 export function useShipsComputer() {
-  const context = useContext(ShipsComputerContext);
+  const context = useContext(ShipComputerContext);
   if (!context) {
-    throw new Error('useShipsComputer must be used within a ShipsComputerProvider');
+    throw new Error('useShipsComputer must be used within a ShipsComputerOrchestrator');
   }
   return context;
 }
 
-// AI Analysis Functions
-async function analyzeLayoutNeeds(intent: string, userContext: ShipsComputerState['userContext']): Promise<AgentRecommendation[]> {
-  const recommendations: AgentRecommendation[] = [];
+// Ship Computer Status Display Component
+export function ShipComputerStatus() {
+  const { state } = useShipsComputer();
   
-  // Analyze intent and suggest layout optimizations
-  if (intent.includes('navigate') || intent.includes('bridge')) {
-    recommendations.push({
-      id: 'layout-navigation',
-      type: 'layout',
-      priority: 'high',
-      title: 'Navigation-Focused Layout',
-      description: 'Optimize layout for navigation tasks with prominent navigation elements',
-      action: 'prioritize_navigation_elements',
-      impact: 'high',
-      timestamp: new Date()
-    });
-  }
-  
-  if (userContext.device === 'mobile') {
-    recommendations.push({
-      id: 'layout-mobile',
-      type: 'layout',
-      priority: 'critical',
-      title: 'Mobile-First Optimization',
-      description: 'Ensure all elements are touch-friendly and properly sized for mobile',
-      action: 'optimize_mobile_layout',
-      impact: 'critical',
-      timestamp: new Date()
-    });
-  }
-  
-  return recommendations;
-}
-
-async function analyzeEfficiency(layoutElements: LayoutElement[], userContext: ShipsComputerState['userContext']): Promise<AgentRecommendation[]> {
-  const recommendations: AgentRecommendation[] = [];
-  
-  // Analyze layout efficiency
-  const nonExecutableElements = layoutElements.filter(el => !el.functionality.executable);
-  if (nonExecutableElements.length > 0) {
-    recommendations.push({
-      id: 'efficiency-executable',
-      type: 'efficiency',
-      priority: 'high',
-      title: 'Non-Executable Elements Detected',
-      description: `${nonExecutableElements.length} UI elements lack executable functionality`,
-      action: 'implement_executable_functionality',
-      impact: 'high',
-      timestamp: new Date()
-    });
-  }
-  
-  // Responsive efficiency analysis
-  if (userContext.device === 'mobile' && layoutElements.some(el => !el.responsive.mobile)) {
-    recommendations.push({
-      id: 'efficiency-responsive',
-      type: 'efficiency',
-      priority: 'critical',
-      title: 'Mobile Responsiveness Issues',
-      description: 'Some elements are not optimized for mobile devices',
-      action: 'fix_mobile_responsiveness',
-      impact: 'critical',
-      timestamp: new Date()
-    });
-  }
-  
-  return recommendations;
-}
-
-async function analyzeUserExperience(userContext: ShipsComputerState['userContext'], intent: string): Promise<AgentRecommendation[]> {
-  const recommendations: AgentRecommendation[] = [];
-  
-  // Emotional intelligence analysis
-  if (userContext.emotionalState === 'efficient') {
-    recommendations.push({
-      id: 'ux-efficient',
-      type: 'ux',
-      priority: 'medium',
-      title: 'Efficiency-Focused User',
-      description: 'User is in efficiency mode - prioritize quick access and streamlined workflows',
-      action: 'optimize_for_efficiency',
-      impact: 'medium',
-      timestamp: new Date()
-    });
-  }
-  
-  // Device-specific UX recommendations
-  if (userContext.device === 'mobile') {
-    recommendations.push({
-      id: 'ux-mobile',
-      type: 'ux',
-      priority: 'high',
-      title: 'Mobile UX Optimization',
-      description: 'Ensure touch targets are appropriately sized and gestures are intuitive',
-      action: 'optimize_mobile_ux',
-      impact: 'high',
-      timestamp: new Date()
-    });
-  }
-  
-  return recommendations;
-}
-
-// Main Orchestrator Component
-export function ShipsComputerOrchestrator() {
-  const { state, updateIntent, executeAction } = useShipsComputer();
-
-  const handleIntentChange = (intent: string) => {
-    updateIntent(intent);
-  };
-
-  const handleActionExecution = async (action: string) => {
-    await executeAction(action);
-  };
-
   return (
-    <div className="lcars-panel lcars-panel-secondary">
-      <div className="lcars-text-large lcars-text-blue lcars-mb-20">
-        SHIP'S COMPUTER ORCHESTRATOR
-      </div>
-      
-      {/* AI Agent Status */}
-      <div className="lcars-grid lcars-grid-cols-1 lcars-md-grid-cols-3 lcars-gap-15 lcars-mb-20">
-        {state.agents.map(agent => (
-          <div key={agent.id} className="lcars-card">
-            <div className="lcars-text-medium lcars-text-white lcars-mb-10">
-              {agent.name}
-            </div>
-            <div className="lcars-text-small lcars-text-cyan lcars-mb-10">
-              {agent.role}
-            </div>
-            <div className="lcars-text-small lcars-text-white">
-              Status: {agent.status}
-            </div>
-            {agent.currentTask && (
-              <div className="lcars-text-small lcars-text-yellow lcars-mt-10">
-                {agent.currentTask}
-              </div>
-            )}
+    <div className="lcars-elbow-container">
+      <div className="lcars-elbow-header">SHIP COMPUTER STATUS</div>
+      <div className="lcars-elbow-content">
+        <div className="functional-grid functional-grid-2">
+          <div className="metric-item">
+            <h3 className="metric-title">SYSTEM STATUS</h3>
+            <p className="metric-value">{state.systemHealth.toUpperCase()}</p>
+            <p className="metric-description">All Systems Operational</p>
           </div>
-        ))}
-      </div>
-
-      {/* Current Intent */}
-      <div className="lcars-mb-20">
-        <div className="lcars-text-medium lcars-text-orange lcars-mb-10">
-          CURRENT USER INTENT
-        </div>
-        <div className="lcars-text-large lcars-text-white">
-          {state.currentIntent}
-        </div>
-      </div>
-
-      {/* User Context */}
-      <div className="lcars-mb-20">
-        <div className="lcars-text-medium lcars-text-orange lcars-mb-10">
-          USER CONTEXT
-        </div>
-        <div className="lcars-grid lcars-grid-cols-1 lcars-md-grid-cols-2 lcars-gap-15">
-          <div className="lcars-card">
-            <div className="lcars-text-small lcars-text-cyan">Device</div>
-            <div className="lcars-text-medium lcars-text-white">{state.userContext.device}</div>
-          </div>
-          <div className="lcars-card">
-            <div className="lcars-text-small lcars-text-cyan">Screen Size</div>
-            <div className="lcars-text-medium lcars-text-white">
-              {state.userContext.screenSize.width} x {state.userContext.screenSize.height}
-            </div>
-          </div>
-          <div className="lcars-card">
-            <div className="lcars-text-small lcars-text-cyan">Emotional State</div>
-            <div className="lcars-text-medium lcars-text-white">{state.userContext.emotionalState}</div>
-          </div>
-          <div className="lcars-card">
-            <div className="lcars-text-small lcars-text-cyan">Recent Actions</div>
-            <div className="lcars-text-small lcars-text-white">
-              {state.userContext.userBehavior.slice(-3).join(', ') || 'None'}
-            </div>
+          <div className="metric-item">
+            <h3 className="metric-title">AI AGENTS</h3>
+            <p className="metric-value">{state.aiAgents.length}</p>
+            <p className="metric-description">Active Intelligence</p>
           </div>
         </div>
-      </div>
-
-      {/* AI Recommendations */}
-      <div className="lcars-mb-20">
-        <div className="lcars-text-medium lcars-text-orange lcars-mb-10">
-          AI RECOMMENDATIONS ({state.recommendations.length})
-        </div>
-        <div className="lcars-grid lcars-grid-cols-1 lcars-gap-10">
-          {state.recommendations.slice(0, 5).map(rec => (
-            <div key={rec.id} className="lcars-card">
-              <div className="lcars-text-medium lcars-text-white lcars-mb-5">
-                {rec.title}
-              </div>
-              <div className="lcars-text-small lcars-text-cyan lcars-mb-5">
-                Priority: {rec.priority.toUpperCase()} | Type: {rec.type.toUpperCase()}
-              </div>
-              <div className="lcars-text-small lcars-text-white lcars-mb-5">
-                {rec.description}
-              </div>
-              <button
-                onClick={() => handleActionExecution(rec.action)}
-                className="lcars-button lcars-button-secondary"
-              >
-                Execute: {rec.action}
-              </button>
-            </div>
-          ))}
+        
+        <div className="lcars-text-secondary">Current Page: {state.currentPage}</div>
+        {state.pageAnalysis && (
+          <div className="lcars-text-secondary">
+            Layout: {state.pageAnalysis.recommendedLayout.toUpperCase()} | 
+            Intent: {state.pageAnalysis.userIntent.toUpperCase()} | 
+            Priority: {state.pageAnalysis.priorityLevel.toUpperCase()}
+          </div>
+        )}
+        
+        <div className="lcars-text-secondary">
+          Grid: {state.layoutOptimization.gridColumns} columns | 
+          Spacing: {state.layoutOptimization.spacing} | 
+          Contrast: {state.layoutOptimization.colorContrast}
         </div>
       </div>
-
-      {/* Intent Controls */}
-      <div className="lcars-mb-20">
-        <div className="lcars-text-medium lcars-text-orange lcars-mb-10">
-          CHANGE USER INTENT
-        </div>
-        <div className="lcars-grid lcars-grid-cols-1 lcars-md-grid-cols-2 lcars-gap-10">
-          <button
-            onClick={() => handleIntentChange('Navigate to main bridge')}
-            className="lcars-button lcars-button-primary"
-          >
-            Navigation Intent
-          </button>
-          <button
-            onClick={() => handleIntentChange('Analyze sensor data')}
-            className="lcars-button lcars-button-secondary"
-          >
-            Analysis Intent
-          </button>
-          <button
-            onClick={() => handleIntentChange('Monitor system status')}
-            className="lcars-button lcars-button-success"
-          >
-            Monitoring Intent
-          </button>
-          <button
-            onClick={() => handleIntentChange('Execute tactical command')}
-            className="lcars-button lcars-button-danger"
-          >
-            Tactical Intent
-          </button>
-        </div>
-      </div>
-
-      {/* Processing Status */}
-      {state.isProcessing && (
-        <div className="lcars-text-medium lcars-text-yellow">
-          AI AGENTS COORDINATING...
-        </div>
-      )}
     </div>
   );
 }

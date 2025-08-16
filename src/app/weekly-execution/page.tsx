@@ -72,18 +72,21 @@ export default function WeeklyExecutionPage() {
         // Ensure all required fields are present
         const validatedPlan = {
           ...data.weeklyPlan,
-          days: data.weeklyPlan.days.map((day: any) => ({
-            day: day.day || 'Unknown',
-            focus: day.focus || 'No focus defined',
-            revenueTarget: day.revenueTarget || 0,
-            timeInvestment: day.timeInvestment || '0 hours',
-            morningTasks: Array.isArray(day.morningTasks) ? day.morningTasks : [],
-            afternoonTasks: Array.isArray(day.afternoonTasks) ? day.afternoonTasks : [],
-            eveningTasks: Array.isArray(day.eveningTasks) ? day.eveningTasks : [],
-            completed: Boolean(day.completed),
-            revenueGenerated: day.revenueGenerated || 0,
-            tasksCompleted: day.tasksCompleted || 0
-          }))
+          days: data.weeklyPlan.days.map((day: unknown) => {
+            const typedDay = day as any;
+            return {
+              day: typedDay.day || 'Unknown',
+              focus: typedDay.focus || 'No focus defined',
+              revenueTarget: typedDay.revenueTarget || 0,
+              timeInvestment: typedDay.timeInvestment || '0 hours',
+              morningTasks: Array.isArray(typedDay.morningTasks) ? typedDay.morningTasks : [],
+              afternoonTasks: Array.isArray(typedDay.afternoonTasks) ? typedDay.afternoonTasks : [],
+              eveningTasks: Array.isArray(typedDay.eveningTasks) ? typedDay.eveningTasks : [],
+              completed: Boolean(typedDay.completed),
+              revenueGenerated: typedDay.revenueGenerated || 0,
+              tasksCompleted: typedDay.tasksCompleted || 0
+            };
+          })
         };
         
         setWeeklyPlan(validatedPlan);

@@ -1,7 +1,7 @@
 {
-  "name": "alexai-star-trek-agile-system",
+  "name": "alexai-agile-management-system",
   "version": "3.0.0",
-  "description": "AI-powered autonomous project management with authentic Star Trek LCARS interface - NCC-1701-B The Next Generation",
+  "description": "AI-powered autonomous project management with modern professional interface - Enterprise Agile Management Platform",
   "private": true,
   "scripts": {
     "dev": "next dev",

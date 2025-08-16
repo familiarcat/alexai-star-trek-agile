@@ -20,7 +20,7 @@ export default function N8NIntegrationPage() {
       <div className="lcars-mission-panel">
         <h2>🌟 Mission: Transform Development Workflows</h2>
         <p>
-          Instead of isolated n8n workflows, we're building <strong>individual n8n components</strong> 
+          Instead of isolated n8n workflows, we&apos;re building <strong>individual n8n components</strong> 
           that generate UI elements, which then integrate seamlessly into your Next.js ecosystem.
         </p>
         <div className="lcars-mission-benefits">
@@ -117,7 +117,7 @@ export default function N8NIntegrationPage() {
             <p>n8n workflows generate mission-specific LCARS interfaces</p>
           </div>
           <div className="lcars-vision-item">
-            <h3>🤖 Ship's Computer Orchestration</h3>
+            <h3>🤖 Ship&apos;s Computer Orchestration</h3>
             <p>AI agent manages dynamic layouts from n8n workflows</p>
           </div>
           <div className="lcars-vision-item">

@@ -25,7 +25,7 @@ export default function RevenueWorkflowsPage() {
       <div className="lcars-mission-panel">
         <h2>🌟 Revenue Strategy Overview</h2>
         <p>
-          We've successfully implemented a revolutionary approach where <strong>n8n workflows generate UI components</strong> 
+          We&apos;ve successfully implemented a revolutionary approach where <strong>n8n workflows generate UI components</strong> 
           that integrate seamlessly into your Next.js ecosystem, creating revenue-generating microservices.
         </p>
         <div className="lcars-mission-benefits">
@@ -203,7 +203,7 @@ export default function RevenueWorkflowsPage() {
           </div>
           <div className="lcars-vision-item">
             <h3>🤖 AI-Powered Orchestration</h3>
-            <p>Ship's Computer agent manages dynamic workflow combinations</p>
+            <p>Ship&apos;s Computer agent manages dynamic workflow combinations</p>
           </div>
           <div className="lcars-vision-item">
             <h3>🔄 Real-time Optimization</h3>

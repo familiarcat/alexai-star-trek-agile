@@ -150,9 +150,9 @@ export default function ProjectsPage() {
     <div className="main-content">
       {/* Mission Logs Section */}
       <div className="lcars-elbow-container">
-        <div className="lcars-elbow-header">MISSION LOGS</div>
+        <div className="lcars-elbow-header">PROJECT LOGS</div>
         <div className="lcars-elbow-content">
-          <p className="lcars-text-medium">Manage your Star Trek projects and missions</p>
+          <p className="lcars-text-medium">Manage your agile projects and sprints</p>
           <div className="lcars-responsive-grid lcars-grid-2">
             <button onClick={handleCreateProject} className="lcars-cta-button lcars-cta-primary">
               <PlusIcon className="lcars-icon" />
@@ -217,7 +217,7 @@ export default function ProjectsPage() {
 
       {/* Active Missions Section */}
       <div className="lcars-elbow-container">
-        <div className="lcars-elbow-header">ACTIVE MISSIONS</div>
+        <div className="lcars-elbow-header">ACTIVE PROJECTS</div>
         <div className="lcars-elbow-content">
           <div className="lcars-responsive-grid lcars-grid-2">
             {filteredProjects.map(project => (

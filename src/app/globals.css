@@ -7,6 +7,47 @@
 @import './lcars.css';
 @import './lcars-components.css';
 
+/* Global LCARS Font Application with High Specificity */
+* {
+  font-family: 'Antonio', 'Arial Narrow', 'Avenir Next Condensed', sans-serif !important;
+}
+
+body {
+  font-family: 'Antonio', 'Arial Narrow', 'Avenir Next Condensed', sans-serif !important;
+}
+
+html {
+  font-family: 'Antonio', 'Arial Narrow', 'Avenir Next Condensed', sans-serif !important;
+}
+
+/* Override Tailwind font utilities with LCARS fonts */
+.font-sans,
+.font-serif,
+.font-mono,
+.font-thin,
+.font-extralight,
+.font-light,
+.font-normal,
+.font-medium,
+.font-semibold,
+.font-bold,
+.font-extrabold,
+.font-black {
+  font-family: 'Antonio', 'Arial Narrow', 'Avenir Next Condensed', sans-serif !important;
+}
+
+/* Ensure all text elements use LCARS fonts */
+h1, h2, h3, h4, h5, h6,
+p, span, div, a, button, input, textarea, select,
+label, li, td, th, caption, blockquote, code, pre {
+  font-family: 'Antonio', 'Arial Narrow', 'Avenir Next Condensed', sans-serif !important;
+}
+
+/* Override any remaining Tailwind text utilities */
+.text-xs, .text-sm, .text-base, .text-lg, .text-xl, .text-2xl, .text-3xl, .text-4xl, .text-5xl, .text-6xl, .text-7xl, .text-8xl, .text-9xl {
+  font-family: 'Antonio', 'Arial Narrow', 'Avenir Next Condensed', sans-serif !important;
+}
+
 /* Real-time Collaboration Styles */
 .lcars-realtime-indicators {
   display: flex;

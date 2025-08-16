@@ -8,7 +8,7 @@ export default function ShipsComputerPage() {
   return (
     <div className="ships-computer-page">
       <div className="page-header">
-        <h1>🖖 Ship's Computer - LCARS Orchestrator</h1>
+        <h1>🖖 Ship&apos;s Computer - LCARS Orchestrator</h1>
         <p>Unified Intelligence Integration & Dynamic Layout Management</p>
       </div>
       
@@ -16,7 +16,7 @@ export default function ShipsComputerPage() {
         <div className="description-card">
           <h2>🚀 Mission Overview</h2>
           <p>
-            The Ship's Computer agent orchestrates dynamic LCARS layouts based on mission context, 
+            The Ship&apos;s Computer agent orchestrates dynamic LCARS layouts based on mission context, 
             agent learning, and collective intelligence. This unified system integrates Next.js UI, 
             n8n agents, CursorAI, and Supabase collective memory for maximum operational efficiency.
           </p>
@@ -65,7 +65,7 @@ export default function ShipsComputerPage() {
         <div className="footer-card">
           <h3>🖖 Live Long and Prosper</h3>
           <p>
-            The Ship's Computer is now operational with unified intelligence capabilities. 
+            The Ship&apos;s Computer is now operational with unified intelligence capabilities. 
             Dynamic LCARS layouts, agent coordination, and collective learning are all 
             synchronized for maximum operational efficiency.
           </p>
