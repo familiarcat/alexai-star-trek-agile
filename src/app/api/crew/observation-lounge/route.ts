@@ -1,132 +1,195 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
-    const requestData = await request.json();
-    
-    // Prepare the request for the local fallback webhook
-    const webhookRequest = {
-      query: requestData.query || requestData.meetingType || 'General crew coordination',
-      context: requestData.context || requestData.projectContext || 'crew-meeting',
-      userRole: requestData.userRole || 'user',
-      urgency: requestData.urgency || 'normal',
-      complexity: requestData.complexity || 'medium',
-      mission: requestData.mission || 'crew-coordination',
-      interfacePrefs: requestData.interfacePrefs || 'standard'
-    };
+    const body = await request.json();
+    const { meetingType, projectContext, query, context, userRole, urgency, complexity } = body;
 
-    // Use local fallback webhook instead of n8n
-    const localWebhookUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
-    
-    try {
-      // Call the local fallback webhook endpoint
-      const webhookResponse = await fetch(`${localWebhookUrl}/api/webhook/crew-request`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(webhookRequest)
-      });
+    // Observation Lounge crew coordination and collective decision making
+    const observationLoungeResponse = {
+      crewMember: 'observation-lounge',
+      role: 'Crew Coordination & Collective Decision Making',
+      meetingType: meetingType || 'crew-coordination',
+      query: query || 'General crew coordination',
+      context: context || 'crew-meeting',
+      userRole: userRole || 'developer',
+      urgency: urgency || 'normal',
+      complexity: complexity || 'medium',
 
-      if (webhookResponse.ok) {
-        const webhookData = await webhookResponse.json();
-        
-        // Return the webhook response
-        return NextResponse.json({
-          success: true,
-          source: 'local-fallback-webhook',
-          data: webhookData,
-          timestamp: new Date().toISOString()
-        });
-      } else {
-        throw new Error(`Local webhook failed: ${webhookResponse.status} ${webhookResponse.statusText}`);
-      }
-      
-    } catch (webhookError) {
-      // If local webhook fails, fall back to mock data
-      console.warn('Local webhook failed, using mock data:', webhookError);
-      
-      const mockResponse = {
-        meetingType: 'fallback-crew-meeting',
-        crewReports: {
-          captainPicard: {
-            strategicOverview: "Fallback mode activated. The crew is assembled for project review.",
-            missionObjectives: [
-              "Complete n8n workflow integration",
-              "Validate crew coordination systems",
-              "Prepare for production deployment"
-            ]
-          },
-          lieutenantData: {
-            technicalStatus: "Fallback systems operational. Technical integration proceeding.",
-            performanceMetrics: {
-              responseTime: "fallback mode",
-              accuracy: "fallback mode",
-              reliability: "fallback mode"
-            }
-          }
-        },
-        collectiveDecision: {
-          consensus: "Fallback mode: Proceed with n8n workflow testing.",
-          actionItems: [
-            "Complete n8n workflow integration testing",
-            "Validate all crew member responses"
-          ]
-        },
-        timestamp: new Date().toISOString(),
-        meetingId: `fallback-meeting-${Date.now()}`,
-        source: 'mock-fallback'
-      };
-      
-      return NextResponse.json({
-        response: mockResponse,
-        fallback: true,
-        error: 'Local webhook unavailable, using mock data'
-      }, { status: 503 });
-    }
-    
-  } catch (error) {
-    console.error('Observation lounge error:', error);
-    
-    // Final fallback to mock data if everything fails
-    const fallbackResponse = {
-      meetingType: 'emergency-fallback',
-      crewReports: {
-        captainPicard: {
-          strategicOverview: "Emergency fallback mode. Crew coordination proceeding with basic protocols.",
-          missionObjectives: [
-            "Restore system functionality",
-            "Implement emergency protocols",
-            "Coordinate crew response"
-          ]
-        },
-        lieutenantData: {
-          technicalStatus: "Emergency systems operational. Basic functionality restored.",
-          performanceMetrics: {
-            responseTime: "emergency mode",
-            accuracy: "basic",
-            reliability: "degraded"
-          }
-        }
+      // Crew coordination status
+      crewCoordination: {
+        totalCrewMembers: 8,
+        activeMembers: [
+          'captain-picard',
+          'lieutenant-data', 
+          'counselor-troi',
+          'chief-engineer-scott',
+          'commander-spock',
+          'lieutenant-worf',
+          'quark',
+          'observation-lounge'
+        ],
+        coordinationStatus: 'active',
+        meetingProtocol: 'Starfleet standard crew coordination protocols'
       },
+
+      // Collective analysis
+      collectiveAnalysis: {
+        meetingPurpose: getMeetingPurpose(meetingType, query),
+        crewPerspectives: getCrewPerspectives(),
+        consensusBuilding: 'Multi-perspective analysis and collective decision making',
+        decisionMatrix: getDecisionMatrix(urgency, complexity)
+      },
+
+      // Mission coordination
+      missionCoordination: {
+        currentMission: projectContext?.projectId || 'alexai-platform',
+        missionStatus: 'crew-coordination-active',
+        requiredCrew: getRequiredCrew(query, context),
+        missionPriority: getMissionPriority(urgency, complexity),
+        coordinationProtocol: 'Observation Lounge standard protocols'
+      },
+
+      // Interface configuration
+      interfaceConfiguration: {
+        uiLayout: getUILayout(meetingType, context),
+        priorityIndicator: urgency === 'critical' ? 'emergency-red' : 'standard-orange',
+        crewHighlights: getCrewHighlights(),
+        dynamicPanels: true,
+        missionStatus: 'crew-coordination-active'
+      },
+
+      // Collective decision
       collectiveDecision: {
-        consensus: "Emergency mode: Implement basic crew coordination protocols.",
-        actionItems: [
-          "Restore basic functionality",
-          "Implement emergency protocols",
-          "Coordinate with engineering"
-        ]
+        consensus: getConsensus(query, context),
+        actionItems: getActionItems(query, context, urgency),
+        crewAssignments: getCrewAssignments(query, context),
+        timeline: getTimeline(urgency, complexity)
       },
+
+      // Observation Lounge signature
+      observationLoungeWisdom: 'In the Observation Lounge, we find strength in unity and wisdom in diversity. Together, we are greater than the sum of our parts.',
       timestamp: new Date().toISOString(),
-      meetingId: `emergency-meeting-${Date.now()}`,
-      error: error instanceof Error ? error.message : 'Unknown error',
-      source: 'emergency-fallback'
+      meetingId: `observation-lounge-${Date.now()}`,
+      coordinationLevel: 'full-crew'
     };
-    
-    return NextResponse.json({
-      response: fallbackResponse,
-      fallback: true,
-      error: 'System error, using emergency fallback data'
-    }, { status: 503 });
+
+    return NextResponse.json(observationLoungeResponse);
+
+  } catch (error) {
+    console.error('Observation Lounge API Error:', error);
+    return NextResponse.json(
+      {
+        error: 'Observation Lounge is temporarily unavailable. Please try again later.',
+        crewMember: 'observation-lounge',
+        status: 'error'
+      },
+      { status: 500 }
+    );
   }
+}
+
+// Simplified helper functions
+function getMeetingPurpose(meetingType: string, query: string): string {
+  if (meetingType === 'project-status') return 'Project status review and crew coordination';
+  if (meetingType === 'crew-coordination') return 'General crew coordination and decision making';
+  if (meetingType === 'mission-planning') return 'Mission planning and strategic coordination';
+  if (meetingType === 'technical-review') return 'Technical review and engineering coordination';
+  if (meetingType === 'business-strategy') return 'Business strategy and profit optimization';
+  return 'Standard crew coordination meeting';
+}
+
+function getCrewPerspectives() {
+  return {
+    'captain-picard': { focus: 'Strategic leadership and mission objectives' },
+    'lieutenant-data': { focus: 'Technical analysis and computational solutions' },
+    'counselor-troi': { focus: 'Emotional intelligence and team dynamics' },
+    'chief-engineer-scott': { focus: 'Engineering solutions and system optimization' },
+    'commander-spock': { focus: 'Logical analysis and scientific reasoning' },
+    'lieutenant-worf': { focus: 'Security protocols and tactical planning' },
+    'quark': { focus: 'Business intelligence and profit optimization' }
+  };
+}
+
+function getDecisionMatrix(urgency: string, complexity: string) {
+  return {
+    urgency: urgency || 'normal',
+    complexity: complexity || 'medium',
+    priority: 'standard',
+    coordinationLevel: 'full-crew'
+  };
+}
+
+function getRequiredCrew(query: string, context: string): string[] {
+  const crew = ['captain-picard'];
+  if (query?.includes('technical') || context?.includes('engineering')) {
+    crew.push('lieutenant-data', 'chief-engineer-scott');
+  }
+  return crew;
+}
+
+function getMissionPriority(urgency: string, complexity: string): string {
+  if (urgency === 'critical' || complexity === 'expert') return 'critical';
+  if (urgency === 'high' || complexity === 'high') return 'high';
+  return 'medium';
+}
+
+function getUILayout(meetingType: string, context: string): string {
+  if (meetingType === 'technical-review') return 'technical-analysis';
+  if (meetingType === 'business-strategy') return 'business-strategy';
+  return 'standard-lcars';
+}
+
+function getCrewHighlights() {
+  return [
+    { name: 'captain-picard', status: 'active', contribution: 'Strategic leadership' },
+    { name: 'lieutenant-data', status: 'active', contribution: 'Technical analysis' },
+    { name: 'counselor-troi', status: 'active', contribution: 'Team dynamics' },
+    { name: 'chief-engineer-scott', status: 'active', contribution: 'Engineering solutions' },
+    { name: 'commander-spock', status: 'active', contribution: 'Logical analysis' },
+    { name: 'lieutenant-worf', status: 'active', contribution: 'Security protocols' },
+    { name: 'quark', status: 'active', contribution: 'Business intelligence' }
+  ];
+}
+
+function getConsensus(query: string, context: string): string {
+  if (query?.includes('crew') || context?.includes('coordination')) {
+    return 'Full crew coordination required for optimal results';
+  }
+  return 'Balanced crew approach with specialized expertise as needed';
+}
+
+function getActionItems(query: string, context: string, urgency: string): string[] {
+  const items = [
+    'Coordinate crew member responses and insights',
+    'Establish communication protocols and timelines',
+    'Implement agreed-upon strategies and solutions'
+  ];
+  
+  if (urgency === 'critical') {
+    items.unshift('Immediate crew mobilization and response');
+  }
+  
+  return items;
+}
+
+function getCrewAssignments(query: string, context: string) {
+  return {
+    'captain-picard': 'Strategic oversight and command decisions',
+    'lieutenant-data': 'Technical analysis and data processing',
+    'counselor-troi': 'Team dynamics and emotional support',
+    'chief-engineer-scott': 'Engineering solutions and implementation',
+    'commander-spock': 'Logical analysis and risk assessment',
+    'lieutenant-worf': 'Security protocols and tactical planning',
+    'quark': 'Business intelligence and profit optimization'
+  };
+}
+
+function getTimeline(urgency: string, complexity: string) {
+  return {
+    urgency: urgency || 'normal',
+    complexity: complexity || 'medium',
+    coordination: 'continuous',
+    implementation: urgency === 'critical' ? 'immediate' : 'standard'
+  };
 }
