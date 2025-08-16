@@ -1,6 +1,7 @@
 import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
+  // Explicitly use App Router (default in Next.js 13+)
   experimental: {
     optimizePackageImports: ['@heroicons/react'],
   },
