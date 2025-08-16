@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { collectiveMemoryEngine } from '@/lib/ai-orchestration-engine';
+import { collectiveMemoryEngine } from '@/core/ai-orchestration-engine';
 
 export function CollectiveMemoryStatus() {
   const [systemHealth, setSystemHealth] = useState<any>(null);

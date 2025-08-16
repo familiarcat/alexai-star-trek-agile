@@ -126,7 +126,7 @@ const YouTubeExtractionMicroservice: React.FC = () => {
       setConfig(prev => ({
         ...prev,
         [parent]: {
-          ...prev[parent as keyof MicroserviceConfig],
+          ...(prev[parent as keyof MicroserviceConfig] as Record<string, any>),
           [child]: value,
         },
       }));
@@ -376,7 +376,7 @@ const YouTubeExtractionMicroservice: React.FC = () => {
                     <span className="time-badge">{project.estimatedTime}</span>
                   </div>
                   <div className="project-features">
-                    {project.features.slice(0, 3).map((feature, idx) => (
+                    {project.features.slice(0, 3).map((feature: string, idx: number) => (
                       <span key={idx} className="feature-tag">{feature}</span>
                     ))}
                   </div>

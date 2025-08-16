@@ -1,5 +1,5 @@
 import React from 'react';
-import ResumeComplianceAuditor from '@/components/n8n/ResumeComplianceAuditor';
+import ResumeComplianceAuditor from '@/features/n8n/ResumeComplianceAuditor';
 
 // 🚀 Revolutionary n8n + Next.js Integration Showcase
 // This page demonstrates the future of unified development workflows

@@ -3,7 +3,7 @@
 
 import { create } from 'zustand';
 import { subscribeWithSelector } from 'zustand/middleware';
-import { WorkflowBoard, WorkflowTask, WorkflowStage, WorkflowActivity, WorkflowPresence, WorkflowConflict } from '@/types/workflow';
+import { WorkflowBoard, WorkflowTask, WorkflowStage, WorkflowActivity, WorkflowPresence, WorkflowConflict } from '@/core/types/workflow';
 
 interface WorkflowState {
   // Core State

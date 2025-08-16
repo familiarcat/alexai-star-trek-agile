@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { useShipsComputer } from '@/components/lcars/ships-computer-controller';
+import { useShipsComputer } from '@/core/components/lcars/ships-computer-controller';
 
 interface YouTubeAnalysisRequest {
   videoUrl: string;

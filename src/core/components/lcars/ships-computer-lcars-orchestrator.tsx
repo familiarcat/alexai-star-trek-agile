@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState, useCallback } from 'react';
-import { collectiveMemoryService, MissionOrchestration, AgentLearningProfile } from '@/lib/supabase-collective-memory';
+import { collectiveMemoryService, MissionOrchestration, AgentLearningProfile } from '@/core/supabase-collective-memory';
 
 interface LCARSLayoutConfig {
   theme: string;

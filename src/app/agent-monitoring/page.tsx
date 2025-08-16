@@ -1,10 +1,10 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Progress } from '@/components/ui/progress';
+import { Card, CardContent, CardHeader, CardTitle } from '@/core/components/ui/card';
+import { Badge } from '@/core/components/ui/badge';
+import { Button } from '@/core/components/ui/button';
+import { Progress } from '@/core/components/ui/progress';
 
 interface AgentStatus {
   agent: string;

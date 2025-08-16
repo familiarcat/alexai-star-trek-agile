@@ -132,7 +132,7 @@ const YouTubeProjectIdeasAnalyzer: React.FC = () => {
           Extract Revenue-Generating Project Ideas from YouTube Channels
         </p>
         <p className="lcars-description">
-          Analyze successful entrepreneurs' YouTube channels to discover proven business ideas
+          Analyze successful entrepreneurs&apos; YouTube channels to discover proven business ideas
           and convert them into revenue-generating project templates.
         </p>
         <div className="lcars-revenue-potential">

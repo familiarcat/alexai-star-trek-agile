@@ -15,7 +15,7 @@ import {
   SignalIcon,
   EyeIcon
 } from '@heroicons/react/24/outline';
-import { WorkflowStage, WorkflowTask, WorkflowBoard } from '@/types/workflow';
+import { WorkflowStage, WorkflowTask, WorkflowBoard } from '@/core/types/workflow';
 
 interface LCARSWorkflowBoardProps {
   board: WorkflowBoard;

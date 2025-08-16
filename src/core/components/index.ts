@@ -7,7 +7,7 @@ export * from './lcars';
 export * from './ui';
 
 // Form Components
-export * from './forms';
+// export * from './forms'; // No form components yet
 
 // Other Core Components
 export { default as AgileKanbanBoard } from './AgileKanbanBoard';

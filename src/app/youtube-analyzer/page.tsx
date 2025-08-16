@@ -1,5 +1,5 @@
 import React from 'react';
-import YouTubeProjectIdeasAnalyzer from '@/components/youtube/YouTubeProjectIdeasAnalyzer';
+import YouTubeProjectIdeasAnalyzer from '@/features/youtube/YouTubeProjectIdeasAnalyzer';
 
 // 🚀 YouTube Project Ideas Analyzer Page
 // This page showcases the YouTube channel analysis system for extracting project ideas

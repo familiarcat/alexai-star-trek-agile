@@ -1,5 +1,5 @@
 import React from 'react';
-import AgileProjectManagement from '@/components/agile/AgileProjectManagement';
+import AgileProjectManagement from '@/features/agile/AgileProjectManagement';
 
 // 🚀 Agile Project Management - Ship Operations Center
 // This page represents Data as Ship Operations Lead managing multiple n8n workflow "ship functions"

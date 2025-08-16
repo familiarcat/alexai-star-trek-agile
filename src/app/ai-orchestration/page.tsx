@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
-import { ShipsComputerOrchestrator } from '@/components/lcars/ships-computer-orchestrator';
-import DynamicLCARSLayout from '@/components/lcars/dynamic-lcars-layout';
-import { LCARSLayout } from '@/components/lcars/lcars-layout';
+import { ShipsComputerOrchestrator } from '@/core/components/lcars/ships-computer-orchestrator';
+import DynamicLCARSLayout from '@/core/components/lcars/dynamic-lcars-layout';
+import { LCARSLayout } from '@/core/components/lcars/lcars-layout';
 
 const AIOrchestrationPage: React.FC = () => {
   const [activeDemo, setActiveDemo] = useState<'orchestrator' | 'dynamic-layout'>('orchestrator');

@@ -7,7 +7,7 @@ import {
   UserIcon,
   ClockIcon
 } from '@heroicons/react/24/outline';
-import useRealtimeStore from '@/lib/realtime-store';
+import useRealtimeStore from '@/core/realtime-store';
 
 interface RealtimeChatProps {
   projectId?: string;

@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
-import { aiCollectiveMemory, CSSMemoryEntry, DesignMotivation, AgentCollaboration } from '@/lib/supabase';
-import { collectiveMemoryEngine } from '@/lib/ai-orchestration-engine';
+import { aiCollectiveMemory, CSSMemoryEntry, DesignMotivation, AgentCollaboration } from '@/core/supabase';
+import { collectiveMemoryEngine } from '@/core/ai-orchestration-engine';
 
 interface EnhancedShipComputerProps {
   className?: string;

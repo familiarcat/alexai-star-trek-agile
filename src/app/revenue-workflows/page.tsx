@@ -1,6 +1,6 @@
 import React from 'react';
-import ResumeComplianceAuditor from '@/components/n8n/ResumeComplianceAuditor';
-import BusinessIntelligenceDashboard from '@/components/n8n/BusinessIntelligenceDashboard';
+import ResumeComplianceAuditor from '@/features/n8n/ResumeComplianceAuditor';
+import BusinessIntelligenceDashboard from '@/features/n8n/BusinessIntelligenceDashboard';
 
 // 🚀 Revenue Workflows Showcase Page
 // This page demonstrates the revolutionary n8n → Next.js integration

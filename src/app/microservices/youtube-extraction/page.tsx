@@ -1,5 +1,5 @@
 import React from 'react';
-import YouTubeExtractionMicroservice from '@/components/microservices/YouTubeExtractionMicroservice';
+import YouTubeExtractionMicroservice from '@/core/components/microservices/YouTubeExtractionMicroservice';
 
 // 🚀 YouTube Project Extraction Microservice Page
 // This page showcases the reusable n8n microservice for YouTube project extraction

@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import N8nWorkflowEditor from '@/components/n8n/N8nWorkflowEditor';
+import N8nWorkflowEditor from '@/features/n8n/N8nWorkflowEditor';
 
 export default function WorkflowManagementPage() {
   return (

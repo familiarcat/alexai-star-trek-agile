@@ -3,10 +3,10 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { RocketLaunchIcon, FolderIcon, ChartBarIcon, CogIcon, UserGroupIcon, BeakerIcon, ShieldCheckIcon, SignalIcon, ComputerDesktopIcon, HeartIcon, PlusIcon, EyeIcon, ClipboardDocumentListIcon, ChartPieIcon, WrenchScrewdriverIcon, ExclamationTriangleIcon } from '@heroicons/react/24/outline';
-import { ShipsComputerOrchestrator } from '@/components/lcars/ships-computer-orchestrator';
-import { ScalingIndicator } from '@/components/lcars/scaling-indicator';
-import { EnhancedShipComputer } from '@/components/lcars/enhanced-ship-computer';
-import { AICollaborationDashboard } from '@/components/lcars/ai-collaboration-dashboard';
+import { ShipsComputerOrchestrator } from '@/core/components/lcars/ships-computer-orchestrator';
+import { ScalingIndicator } from '@/core/components/lcars/scaling-indicator';
+import { EnhancedShipComputer } from '@/core/components/lcars/enhanced-ship-computer';
+import { AICollaborationDashboard } from '@/core/components/lcars/ai-collaboration-dashboard';
 
 interface DashboardStats {
   totalProjects: number;

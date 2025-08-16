@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { DynamicLCARSLayout } from './dynamic-lcars-layout';
-import { cn } from '@/lib/utils';
+import { cn } from '@/core/utils';
 
 interface ShipComputerInterfaceProps {
   className?: string;

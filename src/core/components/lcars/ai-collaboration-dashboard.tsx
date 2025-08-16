@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { collectiveMemoryEngine } from '@/lib/ai-orchestration-engine';
-import type { AIAgent } from '@/lib/ai-orchestration-engine';
+import { collectiveMemoryEngine } from '@/core/ai-orchestration-engine';
+import type { AIAgent } from '@/core/ai-orchestration-engine';
 
 export function AICollaborationDashboard() {
   const [agents, setAgents] = useState<AIAgent[]>([]);

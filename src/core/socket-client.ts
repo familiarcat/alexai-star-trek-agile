@@ -4,7 +4,7 @@
 import React from 'react';
 import { io, Socket } from 'socket.io-client';
 import { useWorkflowStore, workflowMiddleware } from './workflow-store';
-import { WorkflowTask, WorkflowActivity, WorkflowPresence, WorkflowConflict } from '@/types/workflow';
+import { WorkflowTask, WorkflowActivity, WorkflowPresence, WorkflowConflict } from '@/core/types/workflow';
 
 class LCARSSocketClient {
   private socket: Socket | null = null;

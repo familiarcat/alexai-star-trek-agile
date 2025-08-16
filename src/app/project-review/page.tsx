@@ -1,5 +1,5 @@
 import React from 'react';
-import YouTubeProjectReview from '@/components/youtube/YouTubeProjectReview';
+import YouTubeProjectReview from '@/features/youtube/YouTubeProjectReview';
 
 // 🚀 YouTube Project Review & Management Page
 // This page provides a comprehensive interface for reviewing and managing YouTube-extracted projects

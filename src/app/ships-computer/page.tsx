@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import ShipsComputerLCARSOrchestrator from '@/components/lcars/ships-computer-lcars-orchestrator';
+import ShipsComputerLCARSOrchestrator from '@/core/components/lcars/ships-computer-lcars-orchestrator';
 import './ships-computer.css';
 
 export default function ShipsComputerPage() {

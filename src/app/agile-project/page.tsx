@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import AgileKanbanBoard from '@/components/AgileKanbanBoard';
+import AgileKanbanBoard from '@/core/components/AgileKanbanBoard';
 
 export default function AgileProjectPage() {
   const [isLoading, setIsLoading] = useState(true);

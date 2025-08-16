@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getLocalWorkflows } from '@/lib/workflow-utils';
+import { getLocalWorkflows } from '@/core/workflow-utils';
 
 export async function GET() {
   try {

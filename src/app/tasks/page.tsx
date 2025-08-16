@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { LCARSLayout } from '@/components/lcars/lcars-layout';
+import { LCARSLayout } from '@/core/components/lcars/lcars-layout';
 import { 
   CheckCircleIcon,
   ClockIcon,

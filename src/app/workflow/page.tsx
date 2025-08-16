@@ -1,11 +1,11 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { LCARSWorkflowBoard } from '@/components/lcars/lcars-workflow';
-import { LCARSPresence, LCARSActivityFeed, LCARSConflictResolution } from '@/components/lcars/lcars-presence';
-import { useWorkflowStore } from '@/lib/workflow-store';
-import { useSocketClient } from '@/lib/socket-client';
-import { WorkflowBoard, WorkflowStage, WorkflowTask } from '@/types/workflow';
+import { LCARSWorkflowBoard } from '@/core/components/lcars/lcars-workflow';
+import { LCARSPresence, LCARSActivityFeed, LCARSConflictResolution } from '@/core/components/lcars/lcars-presence';
+import { useWorkflowStore } from '@/core/workflow-store';
+import { useSocketClient } from '@/core/socket-client';
+import { WorkflowBoard, WorkflowStage, WorkflowTask } from '@/core/types/workflow';
 import { 
   PlusIcon, 
   CogIcon, 

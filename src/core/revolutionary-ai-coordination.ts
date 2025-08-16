@@ -9,7 +9,7 @@
 
 import { EventEmitter } from 'events';
 
-export interface AIAgent {
+export interface RevolutionaryAIAgent {
   id: string;
   name: string;
   type: 'strategic' | 'tactical' | 'operational' | 'miracle';
@@ -75,7 +75,7 @@ export interface SessionPerformance {
 }
 
 export class RevolutionaryAICoordination extends EventEmitter {
-  private agents: Map<string, AIAgent> = new Map();
+  private agents: Map<string, RevolutionaryAIAgent> = new Map();
   private tasks: Map<string, CoordinationTask> = new Map();
   private sessions: Map<string, CoordinationSession> = new Map();
   private miracleMode: boolean = false;
@@ -190,7 +190,7 @@ export class RevolutionaryAICoordination extends EventEmitter {
   /**
    * 📝 Register AI Agent - Revolutionary Standards
    */
-  registerAgent(agent: AIAgent): void {
+  registerAgent(agent: RevolutionaryAIAgent): void {
     this.agents.set(agent.id, agent);
     
     this.emit('agent:registered', {
@@ -289,7 +289,7 @@ export class RevolutionaryAICoordination extends EventEmitter {
   /**
    * 🧮 Calculate Agent Fitness - Miracle Worker's Algorithm
    */
-  private calculateAgentFitness(agent: AIAgent, task: CoordinationTask): number {
+  private calculateAgentFitness(agent: RevolutionaryAIAgent, task: CoordinationTask): number {
     const capabilityMatch = task.requiredCapabilities.filter(cap => 
       agent.capabilities.includes(cap)
     ).length / task.requiredCapabilities.length;

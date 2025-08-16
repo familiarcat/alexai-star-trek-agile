@@ -138,7 +138,7 @@ export default function QuarkHierarchicalDashboard() {
   return (
     <div className="bg-white rounded-lg shadow-lg p-6">
       <div className="mb-6">
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">💎 Quark's Hierarchical Business Dashboard</h2>
+        <h2 className="text-2xl font-bold text-gray-900 mb-2">💎 Quark&apos;s Hierarchical Business Dashboard</h2>
         <p className="text-gray-600">Multi-level profit optimization and crew performance analysis</p>
       </div>
 
@@ -292,7 +292,7 @@ export default function QuarkHierarchicalDashboard() {
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="bg-white p-4 rounded-lg">
-              <h4 className="font-semibold text-gray-900 mb-3">Quark's Recommendations</h4>
+              <h4 className="font-semibold text-gray-900 mb-3">Quark&apos;s Recommendations</h4>
               <ul className="space-y-2 text-sm text-gray-700">
                 <li>• Focus on {currentCrewMember.role.toLowerCase()} optimization</li>
                 <li>• Leverage {currentCrewMember.optimizationPotential}% optimization potential</li>
@@ -304,7 +304,7 @@ export default function QuarkHierarchicalDashboard() {
             <div className="bg-white p-4 rounded-lg">
               <h4 className="font-semibold text-gray-900 mb-3">Ferengi Wisdom</h4>
               <p className="text-sm text-gray-700 italic">
-                "Rule of Acquisition #{currentCrewMember.name}: The best profit is one that benefits both the individual and the collective. {currentCrewMember.name} demonstrates how excellence in {currentCrewMember.role.toLowerCase()} translates to sustainable profit growth."
+                &quot;Rule of Acquisition #{currentCrewMember.name}: The best profit is one that benefits both the individual and the collective. {currentCrewMember.name} demonstrates how excellence in {currentCrewMember.role.toLowerCase()} translates to sustainable profit growth.&quot;
               </p>
             </div>
           </div>
@@ -313,15 +313,15 @@ export default function QuarkHierarchicalDashboard() {
 
       {/* Quark's Final Assessment */}
       <div className="mt-6 bg-gradient-to-r from-yellow-50 to-green-50 border border-yellow-200 rounded-lg p-6">
-        <h3 className="text-lg font-bold text-gray-900 mb-4 text-center">💎 Quark's Business Assessment</h3>
+        <h3 className="text-lg font-bold text-gray-900 mb-4 text-center">💎 Quark&apos;s Business Assessment</h3>
         <div className="text-center">
           <p className="text-gray-700 mb-3">
-            "This crew demonstrates exceptional potential for profit optimization while maintaining the highest ethical standards. 
+            &quot;This crew demonstrates exceptional potential for profit optimization while maintaining the highest ethical standards. 
             Each member brings unique value that, when properly coordinated, creates a profit-generating machine that would make 
-            even the Grand Nagus proud!"
+            even the Grand Nagus proud!&quot;
           </p>
           <p className="text-sm text-gray-600">
-            - Quark, Ferengi Business Strategist & Profit Optimization Expert
+            - Quark, Ferengi Business Strategist &amp; Profit Optimization Expert
           </p>
         </div>
       </div>

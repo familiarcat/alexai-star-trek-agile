@@ -2,9 +2,9 @@
 
 import React, { useEffect, useState } from 'react';
 import { UserIcon, SignalIcon, WifiIcon } from '@heroicons/react/24/outline';
-import { useWorkflowStore } from '@/lib/workflow-store';
-import { useConnectionStatus } from '@/lib/socket-client';
-import { WorkflowPresence } from '@/types/workflow';
+import { useWorkflowStore } from '@/core/workflow-store';
+import { useConnectionStatus } from '@/core/socket-client';
+import { WorkflowPresence } from '@/core/types/workflow';
 
 // LCARS User Presence Component
 // Mr. Data - Analytical Intelligence Division

@@ -71,6 +71,8 @@ export interface MissionOrchestration {
   actual_completion?: string;
   lessons_learned: string[];
   next_missions: string[];
+  created_at?: string;
+  updated_at?: string;
   lcars_layout_config: {
     theme: string;
     panels: string[];
@@ -98,7 +100,7 @@ export class EnhancedCollectiveMemoryService {
         throw new Error('Supabase environment variables not found');
       }
     } catch (error) {
-      console.log('⚠️ Supabase initialization failed, using fallback mode:', error.message);
+      console.log('⚠️ Supabase initialization failed, using fallback mode:', error instanceof Error ? error.message : String(error));
       this.isFallbackMode = true;
       this.supabase = null;
     }
@@ -388,7 +390,7 @@ export class EnhancedCollectiveMemoryService {
       .select('outcome');
 
     const totalEntries = successData?.length || 0;
-    const successfulEntries = successData?.filter(entry => entry.outcome === 'success').length || 0;
+    const successfulEntries = successData?.filter((entry: any) => entry.outcome === 'success').length || 0;
     const overallSuccessRate = totalEntries > 0 ? (successfulEntries / totalEntries) * 100 : 0;
 
     // Get top performing agents
@@ -400,7 +402,7 @@ export class EnhancedCollectiveMemoryService {
       .order('impact_score', { ascending: false })
       .limit(10);
 
-    const topPerformingAgents = agentPerformance?.map(entry => entry.agent_name) || [];
+    const topPerformingAgents = agentPerformance?.map((entry: any) => entry.agent_name) || [];
 
     // Get most effective approaches
     const { data: approachData } = await this.supabase!
@@ -409,13 +411,13 @@ export class EnhancedCollectiveMemoryService {
       .eq('outcome', 'success')
       .gte('impact_score', 6);
 
-    const approachEffectiveness = approachData?.reduce((acc, entry) => {
+    const approachEffectiveness = approachData?.reduce((acc: Record<string, number>, entry: any) => {
       acc[entry.approach_used] = (acc[entry.approach_used] || 0) + entry.impact_score;
       return acc;
     }, {} as Record<string, number>) || {};
 
     const mostEffectiveApproaches = Object.entries(approachEffectiveness)
-      .sort(([, a], [, b]) => b - a)
+      .sort(([, a], [, b]) => (b as number) - (a as number))
       .slice(0, 5)
       .map(([approach]) => approach);
 
@@ -426,7 +428,7 @@ export class EnhancedCollectiveMemoryService {
       .not('failure_patterns', 'is', null)
       .limit(20);
 
-    const failurePatterns = failureData?.map(entry => entry.failure_patterns?.error_type).filter(Boolean) || [];
+    const failurePatterns = failureData?.map((entry: any) => entry.failure_patterns?.error_type).filter(Boolean) || [];
 
     return {
       overall_success_rate: overallSuccessRate,
