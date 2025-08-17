@@ -30,6 +30,7 @@
     "test:ui": "./test-ui-local-deployment.sh",
     "test:automated": "node scripts/automated-testing-orchestrator.js",
     "test:browser": "node scripts/automated-browser-testing.js",
+    "audit:visual": "node scripts/visual-consistency-audit.js",
     "test:agents": "node scripts/n8n-agent-exploration.js",
     "test:orchestration": "node scripts/automated-testing-orchestrator.js",
     "test:resolve-100": "node scripts/100-percent-success-resolver.js",
