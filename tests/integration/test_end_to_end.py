@@ -238,7 +238,7 @@ class EndToEndDeploymentTester:
                     
                     # Check crew members
                     crew_members = crew_status.get("crew_members", {})
-                    expected_crew = ["picard", "troi", "spock", "data", "scott"]
+                    expected_crew = ["picard", "troi", "spock", "data", "scott", "worf", "quark", "observationLounge"]
                     
                     for crew_id in expected_crew:
                         if crew_id in crew_members:

@@ -23,19 +23,34 @@ class AlexAICore {
         specialty: 'User experience, team morale, and emotional intelligence'
       },
       spock: {
-        name: 'Mr. Spock',
+        name: 'Commander Spock',
         role: 'Logic and Time Management',
         specialty: 'Logical analysis, time management, and efficiency'
       },
       data: {
-        name: 'Lt. Commander Data',
+        name: 'Lieutenant Commander Data',
         role: 'UI Systems and Type Safety',
         specialty: 'User interface design, type safety, and system architecture'
       },
       scott: {
-        name: 'Chief Engineer Scott',
+        name: 'Chief Engineer Montgomery Scott',
         role: 'Infrastructure and Build Systems',
         specialty: 'Infrastructure, deployment, and technical implementation'
+      },
+      worf: {
+        name: 'Lieutenant Worf',
+        role: 'Security and Compliance',
+        specialty: 'Security protocols, compliance, and risk management'
+      },
+      quark: {
+        name: 'Quark',
+        role: 'Business Intelligence',
+        specialty: 'Revenue optimization, market analysis, and profitability'
+      },
+      observationLounge: {
+        name: 'Observation Lounge',
+        role: 'Crew Coordination',
+        specialty: 'Collective decision making and team synergy'
       }
     };
 
