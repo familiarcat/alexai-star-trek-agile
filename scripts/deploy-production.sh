@@ -124,10 +124,9 @@ cp -r docs "$DEPLOYMENT_DIR/"
 cp -r scripts "$DEPLOYMENT_DIR/"
 cp package.json "$DEPLOYMENT_DIR/"
 cp package-lock.json "$DEPLOYMENT_DIR/"
-cp next.config.js "$DEPLOYMENT_DIR/"
 cp tailwind.config.js "$DEPLOYMENT_DIR/"
 cp tsconfig.json "$DEPLOYMENT_DIR/"
-cp .env.example "$DEPLOYMENT_DIR/"
+cp .env.example "$DEPLOYMENT_DIR/" 2>/dev/null || echo "  ⚠️  .env.example not found, skipping"
 
 echo -e "${GREEN}  ✅ Deployment package created: $DEPLOYMENT_DIR${NC}"
 
