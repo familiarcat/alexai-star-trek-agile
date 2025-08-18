@@ -75,7 +75,7 @@ rm -rf node_modules/.cache
 echo -e "${GREEN}  ✅ Build cache cleared${NC}"
 
 echo "  Installing dependencies..."
-npm ci --production=false
+npm install
 echo -e "${GREEN}  ✅ Dependencies installed${NC}"
 
 echo "  Building application..."
