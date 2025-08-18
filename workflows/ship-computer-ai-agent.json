@@ -135,9 +135,9 @@
       "main": [
         [
           {
-            "node": "Ship Computer Response",
-            "type": "main",
-            "index": 0"
+                      "node": "Ship Computer Response",
+          "type": "main",
+          "index": 0
           }
         ]
       ]

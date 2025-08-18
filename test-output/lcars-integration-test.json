@@ -1,0 +1,220 @@
+{
+  "timestamp": "2025-08-18T05:24:03.382Z",
+  "lcarsSystem": {
+    "status": {
+      "systemName": "Enterprise-D LCARS (Mock)",
+      "version": "2.0.0",
+      "status": "OPERATIONAL",
+      "activeCoordination": 0,
+      "memoryEntries": 0,
+      "crewMembers": 8,
+      "supabaseConnected": false,
+      "timestamp": "2025-08-18T05:24:03.389Z"
+    },
+    "coordinationSummary": {
+      "active": 0,
+      "planning": 0,
+      "completed": 0,
+      "failed": 0,
+      "totalDecisions": 0,
+      "totalOutcomes": 0,
+      "crewParticipation": {}
+    }
+  },
+  "crewCoordination": {
+    "session": {
+      "id": "mock-coordination-1755494643390",
+      "timestamp": "2025-08-18T05:24:03.390Z",
+      "initiator": "captain-picard",
+      "participants": [
+        "captain-picard",
+        "commander-data",
+        "counselor-troi"
+      ],
+      "mission": "Test Mission: LCARS Integration Verification",
+      "status": "active",
+      "crewInsights": [],
+      "decisions": [],
+      "outcomes": []
+    },
+    "insights": [
+      {
+        "id": "mock-insight-1755494643390",
+        "coordinationId": "mock-coordination-1755494643390",
+        "crewMember": "captain-picard",
+        "insight": "Strategic assessment: LCARS integration is proceeding according to plan. All systems are responding within expected parameters.",
+        "confidence": 0.95,
+        "reasoning": "Based on current system performance metrics and crew feedback",
+        "timestamp": "2025-08-18T05:24:03.390Z"
+      },
+      {
+        "id": "mock-insight-1755494643390",
+        "coordinationId": "mock-coordination-1755494643390",
+        "crewMember": "commander-data",
+        "insight": "Technical analysis: Memory system efficiency at 98.7%. Crew coordination protocols functioning optimally.",
+        "confidence": 0.99,
+        "reasoning": "Quantitative analysis of system performance data",
+        "timestamp": "2025-08-18T05:24:03.390Z"
+      },
+      {
+        "id": "mock-insight-1755494643390",
+        "coordinationId": "mock-coordination-1755494643390",
+        "crewMember": "counselor-troi",
+        "insight": "Emotional assessment: Crew morale is high. The LCARS system provides clear communication channels and reduces coordination stress.",
+        "confidence": 0.92,
+        "reasoning": "Observation of crew interaction patterns and feedback",
+        "timestamp": "2025-08-18T05:24:03.390Z"
+      }
+    ],
+    "decision": {
+      "id": "mock-decision-1755494643390",
+      "coordinationId": "mock-coordination-1755494643390",
+      "decisionType": "strategic",
+      "description": "Proceed with full LCARS system deployment",
+      "alternatives": [
+        "Proceed with full deployment",
+        "Continue testing phase",
+        "Rollback to previous system"
+      ],
+      "chosenAlternative": "Proceed with full deployment",
+      "reasoning": "All crew members have provided positive feedback and system metrics are optimal",
+      "expectedOutcome": "Successful deployment with improved crew coordination and system efficiency",
+      "crewConsensus": 0.95,
+      "timestamp": "2025-08-18T05:24:03.390Z"
+    },
+    "outcome": {
+      "id": "mock-outcome-1755494643390",
+      "decisionId": "mock-decision-1755494643390",
+      "success": true,
+      "metrics": {
+        "deploymentSuccess": 100,
+        "crewSatisfaction": 95,
+        "systemEfficiency": 98.7
+      },
+      "lessons": [
+        "LCARS system provides excellent crew coordination",
+        "Shared memory system enhances decision making",
+        "Supabase integration enables persistent learning"
+      ],
+      "crewFeedback": [
+        {
+          "crewMember": "captain-picard",
+          "rating": 10,
+          "feedback": "Excellent system integration. Crew coordination has never been more efficient.",
+          "suggestions": [
+            "Consider expanding to other departments"
+          ],
+          "timestamp": "2025-08-18T05:24:03.390Z"
+        },
+        {
+          "crewMember": "commander-data",
+          "rating": 10,
+          "feedback": "Technical implementation exceeds expectations. Memory system performance is optimal.",
+          "suggestions": [
+            "Implement additional analytics dashboards"
+          ],
+          "timestamp": "2025-08-18T05:24:03.390Z"
+        }
+      ],
+      "timestamp": "2025-08-18T05:24:03.390Z"
+    },
+    "crewMembers": {
+      "captain-picard": {
+        "status": 200,
+        "responseTime": 972,
+        "crewMember": "captain-picard",
+        "data": "{\"crewMember\":\"captain-picard\",\"response\":{\"greeting\":\"Make it so.\",\"strategicOverview\":\"Our mission is clear and our objectives are well-defined. We must proceed with determination and precision.\",\"m"
+      },
+      "commander-data": {
+        "status": 200,
+        "responseTime": 76,
+        "crewMember": "commander-data",
+        "data": "{\"message\":\"Commander Data updated successfully\",\"data\":{\"query\":\"LCARS Integration Test for commander-data\",\"context\":\"system-testing\",\"urgency\":\"low\",\"lastUpdated\":\"2025-08-18T05:24:04.422Z\",\"update"
+      },
+      "counselor-troi": {
+        "status": 200,
+        "responseTime": 69,
+        "crewMember": "counselor-troi",
+        "data": "{\"response\":{\"crewMember\":\"counselor-troi\",\"role\":\"Counselor & Emotional Intelligence Specialist\",\"greeting\":\"I sense your feelings about this matter. Let me help you process this.\",\"guidance\":\"I'm he"
+      },
+      "chief-engineer-scott": {
+        "status": 200,
+        "responseTime": 63,
+        "crewMember": "chief-engineer-scott",
+        "data": "{\"response\":{\"crewMember\":\"chief-engineer-scott\",\"role\":\"Chief Engineer & Infrastructure Specialist\",\"greeting\":\"Aye, I can fix that! Let me get my hands dirty with this engineering challenge.\",\"guida"
+      },
+      "commander-spock": {
+        "status": 200,
+        "responseTime": 69,
+        "crewMember": "commander-spock",
+        "data": "{\"crewMember\":\"commander-spock\",\"role\":\"Science Officer & First Officer\",\"query\":\"LCARS Integration Test for commander-spock\",\"context\":\"system-testing\",\"userRole\":\"developer\",\"urgency\":\"low\",\"complex"
+      },
+      "lieutenant-worf": {
+        "status": 200,
+        "responseTime": 77,
+        "crewMember": "lieutenant-worf",
+        "data": "{\"response\":{\"crewMember\":\"lieutenant-worf\",\"role\":\"Security Chief & Tactical Operations\",\"greeting\":\"Security protocols must be maintained. I will ensure the integrity of our systems.\",\"guidance\":\"Se"
+      },
+      "quark": {
+        "status": 200,
+        "responseTime": 68,
+        "crewMember": "quark",
+        "data": "{\"crewMember\":\"quark\",\"role\":\"Business Intelligence & Profit Optimization\",\"query\":\"LCARS Integration Test for quark\",\"context\":\"system-testing\",\"userRole\":\"developer\",\"urgency\":\"low\",\"businessImpact\""
+      },
+      "observation-lounge": {
+        "status": 200,
+        "responseTime": 104,
+        "crewMember": "observation-lounge",
+        "data": "{\"crewMember\":\"observation-lounge\",\"role\":\"Crew Coordination & Collective Decision Making\",\"meetingType\":\"crew-coordination\",\"query\":\"LCARS Integration Test for observation-lounge\",\"context\":\"system-t"
+      }
+    }
+  },
+  "memorySystem": {
+    "testMemory": {
+      "id": "mock-memory-1755494643391",
+      "crewMember": "lcars-system",
+      "entryType": "learning",
+      "content": {
+        "message": "LCARS Integration Test Completed Successfully",
+        "testResults": "All systems operational",
+        "recommendations": "Proceed with production deployment"
+      },
+      "context": "system-testing",
+      "priority": "high",
+      "tags": [
+        "testing",
+        "integration",
+        "success"
+      ],
+      "relatedEntries": [],
+      "crewConsensus": 1,
+      "validationStatus": "validated",
+      "timestamp": "2025-08-18T05:24:03.391Z"
+    },
+    "retrievedMemories": [
+      {
+        "id": "mock-memory-1",
+        "crewMember": "lcars-system",
+        "entryType": "learning",
+        "content": {
+          "message": "Mock LCARS system operational"
+        },
+        "context": "testing",
+        "priority": "medium",
+        "tags": [
+          "testing",
+          "mock"
+        ],
+        "crewConsensus": 1,
+        "validationStatus": "validated",
+        "timestamp": "2025-08-18T05:24:03.391Z"
+      }
+    ],
+    "contextMemories": []
+  },
+  "supabaseIntegration": {
+    "connected": false,
+    "memoryCount": 0
+  },
+  "summary": {}
+}

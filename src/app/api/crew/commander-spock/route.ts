@@ -9,7 +9,7 @@ export async function POST(request: NextRequest) {
     const spockAnalysis = {
       crewMember: 'commander-spock',
       role: 'Science Officer & First Officer',
-      query,
+      query: query || 'general inquiry',
       context: context || 'general',
       userRole: userRole || 'developer',
       urgency: urgency || 'normal',

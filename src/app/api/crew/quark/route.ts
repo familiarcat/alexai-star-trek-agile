@@ -9,7 +9,7 @@ export async function POST(request: NextRequest) {
     const quarkAnalysis = {
       crewMember: 'quark',
       role: 'Business Intelligence & Profit Optimization',
-      query,
+      query: query || 'business inquiry',
       context: context || 'general',
       userRole: userRole || 'developer',
       urgency: urgency || 'normal',

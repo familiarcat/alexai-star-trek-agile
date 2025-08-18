@@ -1,0 +1,340 @@
+{
+  "timestamp": "2025-08-18T05:09:04.318Z",
+  "production": {
+    "health": {
+      "status": 200,
+      "responseTime": 230,
+      "headers": {
+        "access-control-allow-headers": "Content-Type, Authorization",
+        "access-control-allow-methods": "GET, POST, PUT, DELETE, OPTIONS",
+        "access-control-allow-origin": "*",
+        "age": "0",
+        "cache-control": "public, max-age=0, must-revalidate",
+        "content-type": "application/json",
+        "date": "Mon, 18 Aug 2025 05:09:04 GMT",
+        "server": "Vercel",
+        "strict-transport-security": "max-age=63072000",
+        "vary": "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Router-Segment-Prefetch",
+        "x-matched-path": "/api/health",
+        "x-vercel-cache": "MISS",
+        "x-vercel-id": "cle1::iad1::j8rr9-1755493744483-23a6014ffefa",
+        "transfer-encoding": "chunked"
+      },
+      "dataLength": 213,
+      "timestamp": "2025-08-18T05:09:04.557Z"
+    },
+    "root": {
+      "status": 200,
+      "responseTime": 35,
+      "headers": {
+        "accept-ranges": "bytes",
+        "access-control-allow-origin": "*",
+        "age": "753",
+        "cache-control": "public, max-age=0, must-revalidate",
+        "content-disposition": "inline",
+        "content-length": "8020",
+        "content-type": "text/html; charset=utf-8",
+        "date": "Mon, 18 Aug 2025 05:09:04 GMT",
+        "etag": "\"297de3cf1e3078b165a070e14fe6e728\"",
+        "server": "Vercel",
+        "strict-transport-security": "max-age=63072000",
+        "vary": "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Router-Segment-Prefetch",
+        "x-matched-path": "/",
+        "x-nextjs-prerender": "1",
+        "x-nextjs-stale-time": "300",
+        "x-vercel-cache": "HIT",
+        "x-vercel-id": "cle1::hht47-1755493744573-389f62d58f71"
+      },
+      "dataLength": 8020,
+      "timestamp": "2025-08-18T05:09:04.594Z"
+    },
+    "shipComputerDemo": {
+      "status": 200,
+      "responseTime": 150,
+      "headers": {
+        "accept-ranges": "bytes",
+        "access-control-allow-origin": "*",
+        "age": "0",
+        "cache-control": "public, max-age=0, must-revalidate",
+        "content-disposition": "inline",
+        "content-length": "12078",
+        "content-type": "text/html; charset=utf-8",
+        "date": "Mon, 18 Aug 2025 05:09:04 GMT",
+        "etag": "\"4664868fd79c1e9fc6d2da609166e7c7\"",
+        "server": "Vercel",
+        "strict-transport-security": "max-age=63072000",
+        "vary": "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Router-Segment-Prefetch",
+        "x-matched-path": "/ship-computer-demo",
+        "x-nextjs-prerender": "1",
+        "x-nextjs-stale-time": "300",
+        "x-vercel-cache": "PRERENDER",
+        "x-vercel-id": "cle1::dndt7-1755493744615-19a891b8240b"
+      },
+      "dataLength": 12048,
+      "timestamp": "2025-08-18T05:09:04.745Z"
+    },
+    "responsiveBoundaryDemo": {
+      "status": 200,
+      "responseTime": 179,
+      "headers": {
+        "accept-ranges": "bytes",
+        "access-control-allow-origin": "*",
+        "age": "0",
+        "cache-control": "public, max-age=0, must-revalidate",
+        "content-disposition": "inline",
+        "content-length": "11453",
+        "content-type": "text/html; charset=utf-8",
+        "date": "Mon, 18 Aug 2025 05:09:04 GMT",
+        "etag": "\"74f12aa982eb2f32f6d589d7df4526be\"",
+        "server": "Vercel",
+        "strict-transport-security": "max-age=63072000",
+        "vary": "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Router-Segment-Prefetch",
+        "x-matched-path": "/responsive-boundary-demo",
+        "x-nextjs-prerender": "1",
+        "x-nextjs-stale-time": "300",
+        "x-vercel-cache": "PRERENDER",
+        "x-vercel-id": "cle1::sqzrh-1755493744759-75982f425b0b"
+      },
+      "dataLength": 11443,
+      "timestamp": "2025-08-18T05:09:04.924Z"
+    }
+  },
+  "local": {
+    "health": {
+      "status": 200,
+      "responseTime": 219,
+      "headers": {
+        "vary": "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Router-Segment-Prefetch",
+        "content-type": "application/json",
+        "date": "Mon, 18 Aug 2025 05:09:05 GMT",
+        "connection": "keep-alive",
+        "keep-alive": "timeout=5",
+        "transfer-encoding": "chunked"
+      },
+      "dataLength": 214,
+      "timestamp": "2025-08-18T05:09:05.144Z"
+    },
+    "root": {
+      "status": 200,
+      "responseTime": 348,
+      "headers": {
+        "vary": "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Router-Segment-Prefetch, Accept-Encoding",
+        "cache-control": "no-store, must-revalidate",
+        "content-type": "text/html; charset=utf-8",
+        "date": "Mon, 18 Aug 2025 05:09:05 GMT",
+        "connection": "keep-alive",
+        "keep-alive": "timeout=5",
+        "transfer-encoding": "chunked"
+      },
+      "dataLength": 15258,
+      "timestamp": "2025-08-18T05:09:05.496Z"
+    },
+    "shipComputerDemo": {
+      "status": 200,
+      "responseTime": 158,
+      "headers": {
+        "vary": "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Router-Segment-Prefetch, Accept-Encoding",
+        "cache-control": "no-store, must-revalidate",
+        "content-type": "text/html; charset=utf-8",
+        "date": "Mon, 18 Aug 2025 05:09:05 GMT",
+        "connection": "keep-alive",
+        "keep-alive": "timeout=5",
+        "transfer-encoding": "chunked"
+      },
+      "dataLength": 19701,
+      "timestamp": "2025-08-18T05:09:05.656Z"
+    },
+    "responsiveBoundaryDemo": {
+      "status": 200,
+      "responseTime": 108,
+      "headers": {
+        "vary": "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Router-Segment-Prefetch, Accept-Encoding",
+        "cache-control": "no-store, must-revalidate",
+        "content-type": "text/html; charset=utf-8",
+        "date": "Mon, 18 Aug 2025 05:09:05 GMT",
+        "connection": "keep-alive",
+        "keep-alive": "timeout=5",
+        "transfer-encoding": "chunked"
+      },
+      "dataLength": 19130,
+      "timestamp": "2025-08-18T05:09:05.766Z"
+    }
+  },
+  "shipComputer": {
+    "demo": {
+      "status": 200,
+      "responseTime": 27,
+      "headers": {
+        "accept-ranges": "bytes",
+        "access-control-allow-origin": "*",
+        "age": "1",
+        "cache-control": "public, max-age=0, must-revalidate",
+        "content-disposition": "inline",
+        "content-length": "12078",
+        "content-type": "text/html; charset=utf-8",
+        "date": "Mon, 18 Aug 2025 05:09:05 GMT",
+        "etag": "\"4664868fd79c1e9fc6d2da609166e7c7\"",
+        "server": "Vercel",
+        "strict-transport-security": "max-age=63072000",
+        "vary": "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Router-Segment-Prefetch",
+        "x-matched-path": "/ship-computer-demo",
+        "x-nextjs-prerender": "1",
+        "x-nextjs-stale-time": "300",
+        "x-vercel-cache": "HIT",
+        "x-vercel-id": "cle1::v72dr-1755493745780-45dbb47ed1ed"
+      },
+      "dataLength": 12048,
+      "timestamp": "2025-08-18T05:09:05.794Z"
+    },
+    "boundaryManager": {
+      "status": 200,
+      "responseTime": 380,
+      "headers": {
+        "accept-ranges": "bytes",
+        "access-control-allow-origin": "*",
+        "age": "1",
+        "cache-control": "public, max-age=0, must-revalidate",
+        "content-disposition": "inline",
+        "content-length": "11453",
+        "content-type": "text/html; charset=utf-8",
+        "date": "Mon, 18 Aug 2025 05:09:06 GMT",
+        "etag": "\"74f12aa982eb2f32f6d589d7df4526be\"",
+        "server": "Vercel",
+        "strict-transport-security": "max-age=63072000",
+        "vary": "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Router-Segment-Prefetch",
+        "x-matched-path": "/responsive-boundary-demo",
+        "x-nextjs-prerender": "1",
+        "x-nextjs-stale-time": "300",
+        "x-vercel-cache": "HIT",
+        "x-vercel-id": "cle1::7qr44-1755493745809-794cc19e8a98"
+      },
+      "dataLength": 11443,
+      "timestamp": "2025-08-18T05:09:06.175Z"
+    },
+    "workflow": {
+      "status": 200,
+      "responseTime": 192,
+      "headers": {
+        "access-control-allow-headers": "Content-Type, Authorization",
+        "access-control-allow-methods": "GET, POST, PUT, DELETE, OPTIONS",
+        "access-control-allow-origin": "*",
+        "age": "0",
+        "cache-control": "public, max-age=0, must-revalidate",
+        "content-type": "application/json",
+        "date": "Mon, 18 Aug 2025 05:09:06 GMT",
+        "server": "Vercel",
+        "strict-transport-security": "max-age=63072000",
+        "vary": "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Router-Segment-Prefetch",
+        "x-matched-path": "/api/n8n-integration/workflows",
+        "x-vercel-cache": "MISS",
+        "x-vercel-id": "cle1::iad1::lgn4z-1755493746189-1471af9caea6",
+        "transfer-encoding": "chunked"
+      },
+      "dataLength": 389807,
+      "timestamp": "2025-08-18T05:09:06.405Z"
+    }
+  },
+  "crewMembers": {
+    "captain-picard": {
+      "status": 200,
+      "responseTime": 70,
+      "crewMember": "captain-picard",
+      "greeting": "Make it so.",
+      "timestamp": "2025-08-18T05:09:06.476Z"
+    },
+    "commander-data": {
+      "status": 200,
+      "responseTime": 168,
+      "timestamp": "2025-08-18T05:09:06.644Z"
+    },
+    "counselor-troi": {
+      "status": 200,
+      "responseTime": 247,
+      "greeting": "I sense your feelings about this matter. Let me help you process this.",
+      "timestamp": "2025-08-18T05:09:06.892Z"
+    },
+    "chief-engineer-scott": {
+      "status": 200,
+      "responseTime": 133,
+      "greeting": "Aye, I can fix that! Let me get my hands dirty with this engineering challenge.",
+      "timestamp": "2025-08-18T05:09:07.025Z"
+    },
+    "commander-spock": {
+      "status": 200,
+      "responseTime": 131,
+      "crewMember": "commander-spock",
+      "timestamp": "2025-08-18T05:09:07.156Z"
+    },
+    "lieutenant-worf": {
+      "status": 200,
+      "responseTime": 202,
+      "greeting": "Security protocols must be maintained. I will ensure the integrity of our systems.",
+      "timestamp": "2025-08-18T05:09:07.370Z"
+    },
+    "quark": {
+      "status": 200,
+      "responseTime": 171,
+      "crewMember": "quark",
+      "timestamp": "2025-08-18T05:09:07.542Z"
+    },
+    "observation-lounge": {
+      "status": 200,
+      "responseTime": 144,
+      "crewMember": "observation-lounge",
+      "timestamp": "2025-08-18T05:09:07.688Z"
+    }
+  },
+  "n8n": {
+    "integration": {
+      "status": 200,
+      "responseTime": 177,
+      "headers": {
+        "access-control-allow-headers": "Content-Type, Authorization",
+        "access-control-allow-methods": "GET, POST, PUT, DELETE, OPTIONS",
+        "access-control-allow-origin": "*",
+        "age": "0",
+        "cache-control": "public, max-age=0, must-revalidate",
+        "content-type": "application/json",
+        "date": "Mon, 18 Aug 2025 05:09:07 GMT",
+        "server": "Vercel",
+        "strict-transport-security": "max-age=63072000",
+        "vary": "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Router-Segment-Prefetch",
+        "x-matched-path": "/api/n8n-integration",
+        "x-vercel-cache": "MISS",
+        "x-vercel-id": "cle1::iad1::sh4pd-1755493747716-1fad97df9586",
+        "transfer-encoding": "chunked"
+      },
+      "dataLength": 431,
+      "timestamp": "2025-08-18T05:09:07.865Z"
+    },
+    "workflows": {
+      "status": 200,
+      "responseTime": 79,
+      "headers": {
+        "access-control-allow-headers": "Content-Type, Authorization",
+        "access-control-allow-methods": "GET, POST, PUT, DELETE, OPTIONS",
+        "access-control-allow-origin": "*",
+        "age": "0",
+        "cache-control": "public, max-age=0, must-revalidate",
+        "content-type": "application/json",
+        "date": "Mon, 18 Aug 2025 05:09:07 GMT",
+        "server": "Vercel",
+        "strict-transport-security": "max-age=63072000",
+        "vary": "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Router-Segment-Prefetch",
+        "x-matched-path": "/api/n8n-integration/workflows",
+        "x-vercel-cache": "MISS",
+        "x-vercel-id": "cle1::iad1::dtlhz-1755493747880-120347ea57a3",
+        "transfer-encoding": "chunked"
+      },
+      "dataLength": 389807,
+      "timestamp": "2025-08-18T05:09:07.964Z"
+    },
+    "shipComputerWorkflow": {
+      "found": true,
+      "name": "Ship Computer - LCARS Central Agent",
+      "active": false,
+      "id": "local-ship-computer-lcars-central-agent"
+    }
+  },
+  "summary": {}
+}
