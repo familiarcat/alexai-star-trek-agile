@@ -1,0 +1,212 @@
+{
+  "Icon Optimization": {
+    "name": "Icon Optimization",
+    "description": "Optimize icons for accent-focused design system",
+    "steps": [
+      {
+        "step": 1,
+        "action": "Resize to accent size",
+        "parameters": {
+          "width": "8px-16px based on context",
+          "height": "8px-16px based on context",
+          "resample": "Bicubic Sharper",
+          "constrainProportions": true
+        }
+      },
+      {
+        "step": 2,
+        "action": "Apply consistent opacity",
+        "parameters": {
+          "opacity": "40-80% based on importance",
+          "blendMode": "Normal"
+        }
+      },
+      {
+        "step": 3,
+        "action": "Optimize for web",
+        "parameters": {
+          "format": "PNG-8",
+          "colors": "256",
+          "dither": "Pattern",
+          "transparency": true
+        }
+      },
+      {
+        "step": 4,
+        "action": "Export multiple formats",
+        "parameters": {
+          "formats": [
+            "PNG",
+            "SVG",
+            "WebP"
+          ],
+          "sizes": [
+            "1x",
+            "2x",
+            "3x"
+          ]
+        }
+      }
+    ],
+    "keyboardShortcut": "Ctrl+Shift+I",
+    "category": "Icon Design"
+  },
+  "Component Refinement": {
+    "name": "Component Refinement",
+    "description": "Apply design system rules to UI components",
+    "steps": [
+      {
+        "step": 1,
+        "action": "Apply design system colors",
+        "parameters": {
+          "primaryColor": "#FF6B35",
+          "secondaryColor": "#4ECDC4",
+          "accentColor": "#45B7D1",
+          "textColor": "#2D3436",
+          "backgroundColor": "#FFFFFF"
+        }
+      },
+      {
+        "step": 2,
+        "action": "Standardize spacing",
+        "parameters": {
+          "margin": "var(--lcars-spacing-md)",
+          "padding": "var(--lcars-spacing-sm)",
+          "gap": "var(--lcars-spacing-xs)"
+        }
+      },
+      {
+        "step": 3,
+        "action": "Optimize typography",
+        "parameters": {
+          "fontFamily": "Antonio, sans-serif",
+          "fontSize": "var(--lcars-font-size-base)",
+          "lineHeight": "1.5",
+          "fontWeight": "400"
+        }
+      },
+      {
+        "step": 4,
+        "action": "Create responsive variants",
+        "parameters": {
+          "desktop": "1920x1080",
+          "tablet": "1024x768",
+          "mobile": "375x667"
+        }
+      }
+    ],
+    "keyboardShortcut": "Ctrl+Shift+C",
+    "category": "Component Design"
+  },
+  "Export Pipeline": {
+    "name": "Export Pipeline",
+    "description": "Automated export for multiple platforms and formats",
+    "steps": [
+      {
+        "step": 1,
+        "action": "Generate web assets",
+        "parameters": {
+          "formats": [
+            "PNG",
+            "JPG",
+            "WebP"
+          ],
+          "quality": "80%",
+          "optimization": "Progressive"
+        }
+      },
+      {
+        "step": 2,
+        "action": "Create design specs",
+        "parameters": {
+          "format": "PDF",
+          "include": [
+            "measurements",
+            "colors",
+            "typography",
+            "spacing"
+          ],
+          "resolution": "300 DPI"
+        }
+      },
+      {
+        "step": 3,
+        "action": "Export for development",
+        "parameters": {
+          "format": "SVG",
+          "optimization": "Minified",
+          "include": [
+            "CSS variables",
+            "Component specs"
+          ]
+        }
+      },
+      {
+        "step": 4,
+        "action": "Version control assets",
+        "parameters": {
+          "naming": "semantic-versioning",
+          "metadata": "Design system info",
+          "backup": "Cloud storage"
+        }
+      }
+    ],
+    "keyboardShortcut": "Ctrl+Shift+E",
+    "category": "Export"
+  },
+  "Design System Application": {
+    "name": "Design System Application",
+    "description": "Apply LCARS design system consistently",
+    "steps": [
+      {
+        "step": 1,
+        "action": "Apply color palette",
+        "parameters": {
+          "primary": "#FF6B35 (LCARS Gold)",
+          "secondary": "#4ECDC4 (LCARS Blue)",
+          "accent": "#45B7D1 (LCARS Cyan)",
+          "success": "#96CEB4 (LCARS Green)",
+          "warning": "#FFEAA7 (LCARS Yellow)",
+          "error": "#DDA0DD (LCARS Red)"
+        }
+      },
+      {
+        "step": 2,
+        "action": "Apply typography scale",
+        "parameters": {
+          "h1": "2rem (32px)",
+          "h2": "1.5rem (24px)",
+          "h3": "1.25rem (20px)",
+          "body": "1rem (16px)",
+          "small": "0.875rem (14px)",
+          "caption": "0.75rem (12px)"
+        }
+      },
+      {
+        "step": 3,
+        "action": "Apply spacing scale",
+        "parameters": {
+          "xs": "0.25rem (4px)",
+          "sm": "0.5rem (8px)",
+          "md": "1rem (16px)",
+          "lg": "1.5rem (24px)",
+          "xl": "2rem (32px)",
+          "xxl": "3rem (48px)"
+        }
+      },
+      {
+        "step": 4,
+        "action": "Apply icon system",
+        "parameters": {
+          "accent": "0.875rem (14px)",
+          "small": "0.75rem (12px)",
+          "large": "1rem (16px)",
+          "xlarge": "1.25rem (20px)",
+          "opacity": "40-80%"
+        }
+      }
+    ],
+    "keyboardShortcut": "Ctrl+Shift+D",
+    "category": "Design System"
+  }
+}

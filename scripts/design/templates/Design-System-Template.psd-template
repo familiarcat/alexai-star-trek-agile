@@ -1,0 +1,31 @@
+Photoshop Template: Design System Template
+Description: Template for design system documentation
+Generated: 2025-08-18T03:49:49.060Z
+
+Artboard Settings:
+  Width: 1200px
+  Height: 800px
+  Color Mode: RGB
+  Resolution: 72 DPI
+
+Layer Structure:
+  Color Palette (group)
+    layout: grid
+    spacing: 16px
+    colors: all-lcars-colors
+
+  Typography Scale (group)
+    layout: vertical
+    spacing: 8px
+    fonts: all-lcars-fonts
+
+  Spacing Scale (group)
+    layout: visual
+    spacing: 4px
+    measurements: all-lcars-spacing
+
+  Icon System (group)
+    layout: grid
+    spacing: 8px
+    icons: all-lcars-icons
+

@@ -40,6 +40,11 @@ export interface UseShipComputerLayoutReturn {
   updateUserBehavior: (behavior: any) => void;
   updateContentContext: (context: any) => void;
   
+  // Responsive Boundary Management
+  manageResponsiveBoundaries: (screenDimensions: { width: number; height: number }, deviceType: 'mobile' | 'tablet' | 'desktop') => void;
+  generateResponsiveCSS: (componentId: string, deviceType: 'mobile' | 'tablet' | 'desktop') => string;
+  validateBoundaries: (componentId: string, screenDimensions: { width: number; height: number }) => { isValid: boolean; issues: string[]; recommendations: string[] };
+  
   // Crew Information
   crewMembers: any[];
   crewRecommendations: any[];
@@ -240,6 +245,68 @@ export const useShipComputerLayout = (options: UseShipComputerLayoutOptions): Us
     setError(null);
   }, []);
 
+  // Responsive Boundary Management
+  const manageResponsiveBoundaries = useCallback((
+    screenDimensions: { width: number; height: number },
+    deviceType: 'mobile' | 'tablet' | 'desktop'
+  ) => {
+    if (!orchestratorRef.current || !componentHierarchy.length) {
+      setError('No component hierarchy available for boundary management');
+      return;
+    }
+
+    try {
+      console.log(`📱 Ship Computer: Managing responsive boundaries for ${deviceType} (${screenDimensions.width}x${screenDimensions.height})`);
+      
+      const adjustedHierarchy = orchestratorRef.current.manageResponsiveBoundaries(
+        componentHierarchy,
+        screenDimensions,
+        deviceType
+      );
+      
+      setComponentHierarchy(adjustedHierarchy);
+      console.log(`✅ Ship Computer: Responsive boundaries applied for ${deviceType}`);
+      
+    } catch (err) {
+      const errorMessage = `Responsive boundary management failed: ${err}`;
+      setError(errorMessage);
+      console.error(errorMessage, err);
+    }
+  }, [componentHierarchy]);
+
+  const generateResponsiveCSS = useCallback((
+    componentId: string,
+    deviceType: 'mobile' | 'tablet' | 'desktop'
+  ): string => {
+    if (!orchestratorRef.current) {
+      return '';
+    }
+
+    const component = componentHierarchy.find(c => c.id === componentId);
+    if (!component) {
+      console.warn(`Component ${componentId} not found for CSS generation`);
+      return '';
+    }
+
+    return orchestratorRef.current.generateResponsiveCSS(component, deviceType);
+  }, [componentHierarchy]);
+
+  const validateBoundaries = useCallback((
+    componentId: string,
+    screenDimensions: { width: number; height: number }
+  ): { isValid: boolean; issues: string[]; recommendations: string[] } => {
+    if (!orchestratorRef.current) {
+      return { isValid: false, issues: ['Orchestrator not available'], recommendations: ['Initialize orchestrator'] };
+    }
+
+    const component = componentHierarchy.find(c => c.id === componentId);
+    if (!component) {
+      return { isValid: false, issues: [`Component ${componentId} not found`], recommendations: ['Check component ID'] };
+    }
+
+    return orchestratorRef.current.validateComponentBoundaries(component, screenDimensions);
+  }, [componentHierarchy]);
+
   // Get crew information
   const crewMembers = orchestratorRef.current?.getAllCrewMembers() || [];
   const crewRecommendations = layoutAnalysis?.implementationPlan || [];
@@ -262,6 +329,11 @@ export const useShipComputerLayout = (options: UseShipComputerLayoutOptions): Us
     optimizeLayout,
     updateUserBehavior,
     updateContentContext,
+    
+    // Responsive Boundary Management
+    manageResponsiveBoundaries,
+    generateResponsiveCSS,
+    validateBoundaries,
     
     // Crew Information
     crewMembers,

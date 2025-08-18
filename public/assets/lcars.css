@@ -797,7 +797,9 @@ body {
 }
 
 .lcars-computer-icon {
-    font-size: 32px;
+    font-size: 1.5rem; /* 24px - Computer interface icons */
+    color: var(--lcars-gold);
+    opacity: 0.9;
 }
 
 .lcars-computer-text {
@@ -921,7 +923,9 @@ body {
 }
 
 .lcars-error-icon {
-    font-size: 20px;
+    font-size: 1.125rem; /* 18px - Error and warning icons */
+    color: var(--lcars-red);
+    opacity: 0.9;
 }
 
 .lcars-error-text {
@@ -1774,4 +1778,237 @@ body {
 @keyframes loading-pulse {
   0%, 100% { opacity: 0.6; }
   50% { opacity: 0.3; }
+} 
+
+/* ===== LCARS ICON SYSTEM - ACCENT-FOCUSED ===== */
+/* Icons are visual accents supporting functionality, NOT the main focus */
+
+.lcars-computer-icon {
+  font-size: 1rem; /* 16px - Computer interface icons as subtle accents */
+  color: var(--lcars-gold);
+  opacity: 0.6;
+  transition: all 0.2s ease;
+}
+
+.lcars-error-icon {
+  font-size: 0.875rem; /* 14px - Error and warning icons as supporting accents */
+  color: var(--lcars-red);
+  opacity: 0.7;
+  transition: all 0.2s ease;
+}
+
+.lcars-success-icon {
+  font-size: 0.875rem; /* 14px - Success icons as supporting accents */
+  color: var(--lcars-green);
+  opacity: 0.7;
+  transition: all 0.2s ease;
+}
+
+.lcars-warning-icon {
+  font-size: 0.875rem; /* 14px - Warning icons as supporting accents */
+  color: var(--lcars-yellow);
+  opacity: 0.7;
+  transition: all 0.2s ease;
+}
+
+.lcars-info-icon {
+  font-size: 0.875rem; /* 14px - Info icons as supporting accents */
+  color: var(--lcars-blue);
+  opacity: 0.7;
+  transition: all 0.2s ease;
+}
+
+.lcars-nav-icon {
+  font-size: 0.75rem; /* 12px - Navigation icons as minimal guides */
+  color: var(--lcars-text-muted);
+  opacity: 0.6;
+  transition: all 0.2s ease;
+}
+
+.lcars-menu-icon {
+  font-size: 0.875rem; /* 14px - Menu icons as supporting accents */
+  color: var(--lcars-text-muted);
+  opacity: 0.7;
+  transition: all 0.2s ease;
+}
+
+.lcars-button-icon {
+  font-size: 0.75rem; /* 12px - Button icons as supporting elements */
+  color: var(--lcars-text-muted);
+  opacity: 0.7;
+  margin-right: 0.25rem;
+  transition: all 0.2s ease;
+}
+
+.lcars-cta-icon {
+  font-size: 0.875rem; /* 14px - CTA icons as supporting accents */
+  color: var(--lcars-text-muted);
+  opacity: 0.7;
+  margin-right: 0.375rem;
+  transition: all 0.2s ease;
+}
+
+.lcars-form-icon {
+  font-size: 0.625rem; /* 10px - Form icons as minimal accents */
+  color: var(--lcars-text-muted);
+  opacity: 0.5;
+  transition: all 0.2s ease;
+}
+
+.lcars-input-icon {
+  font-size: 0.5rem; /* 8px - Input icons as barely visible accents */
+  color: var(--lcars-text-muted);
+  opacity: 0.4;
+  transition: all 0.2s ease;
+}
+
+.lcars-status-icon {
+  font-size: 0.75rem; /* 12px - Status icons as subtle indicators */
+  color: var(--lcars-text-muted);
+  opacity: 0.6;
+  transition: all 0.2s ease;
+}
+
+.lcars-alert-icon {
+  font-size: 0.875rem; /* 14px - Alert icons as supporting accents */
+  color: var(--lcars-text-muted);
+  opacity: 0.7;
+  transition: all 0.2s ease;
+}
+
+.lcars-kpi-icon {
+  font-size: 0.75rem; /* 12px - KPI icons as subtle accents */
+  color: var(--lcars-text-muted);
+  opacity: 0.6;
+  transition: all 0.2s ease;
+}
+
+.lcars-trend-icon {
+  font-size: 0.625rem; /* 10px - Trend icons as minimal accents */
+  color: var(--lcars-text-muted);
+  opacity: 0.5;
+  transition: all 0.2s ease;
+}
+
+.lcars-meta-icon {
+  font-size: 0.5rem; /* 8px - Metadata icons as barely visible accents */
+  color: var(--lcars-text-muted);
+  opacity: 0.4;
+  transition: all 0.2s ease;
+}
+
+.lcars-action-icon {
+  font-size: 0.875rem; /* 14px - Action icons as supporting accents */
+  color: var(--lcars-text-muted);
+  opacity: 0.7;
+  transition: all 0.2s ease;
+}
+
+.lcars-project-icon {
+  font-size: 1rem; /* 16px - Project icons as subtle accents */
+  color: var(--lcars-text-muted);
+  opacity: 0.7;
+  transition: all 0.2s ease;
+}
+
+.lcars-system-icon {
+  font-size: 0.875rem; /* 14px - System icons as minimal accents */
+  color: var(--lcars-text-muted);
+  opacity: 0.6;
+  transition: all 0.2s ease;
+}
+
+/* Responsive scaling for accent-focused icons */
+@media (max-width: 768px) {
+  .lcars-computer-icon { font-size: 0.875rem; } /* 14px */
+  .lcars-error-icon { font-size: 0.75rem; } /* 12px */
+  .lcars-success-icon { font-size: 0.75rem; } /* 12px */
+  .lcars-warning-icon { font-size: 0.75rem; } /* 12px */
+  .lcars-info-icon { font-size: 0.75rem; } /* 12px */
+  .lcars-nav-icon { font-size: 0.625rem; } /* 10px */
+  .lcars-menu-icon { font-size: 0.75rem; } /* 12px */
+  .lcars-button-icon { font-size: 0.625rem; } /* 10px */
+  .lcars-cta-icon { font-size: 0.75rem; } /* 12px */
+  .lcars-form-icon { font-size: 0.5rem; } /* 8px */
+  .lcars-input-icon { font-size: 0.375rem; } /* 6px */
+  .lcars-status-icon { font-size: 0.625rem; } /* 10px */
+  .lcars-alert-icon { font-size: 0.75rem; } /* 12px */
+  .lcars-kpi-icon { font-size: 0.625rem; } /* 10px */
+  .lcars-trend-icon { font-size: 0.5rem; } /* 8px */
+  .lcars-meta-icon { font-size: 0.375rem; } /* 6px */
+  .lcars-action-icon { font-size: 0.75rem; } /* 12px */
+  .lcars-project-icon { font-size: 0.875rem; } /* 14px */
+  .lcars-system-icon { font-size: 0.75rem; } /* 12px */
+}
+
+@media (max-width: 480px) {
+  .lcars-computer-icon { font-size: 0.75rem; } /* 12px */
+  .lcars-error-icon { font-size: 0.625rem; } /* 10px */
+  .lcars-success-icon { font-size: 0.625rem; } /* 10px */
+  .lcars-warning-icon { font-size: 0.625rem; } /* 10px */
+  .lcars-info-icon { font-size: 0.625rem; } /* 10px */
+  .lcars-nav-icon { font-size: 0.5rem; } /* 8px */
+  .lcars-menu-icon { font-size: 0.625rem; } /* 10px */
+  .lcars-button-icon { font-size: 0.5rem; } /* 8px */
+  .lcars-cta-icon { font-size: 0.625rem; } /* 10px */
+  .lcars-form-icon { font-size: 0.375rem; } /* 6px */
+  .lcars-input-icon { font-size: 0.25rem; } /* 4px */
+  .lcars-status-icon { font-size: 0.5rem; } /* 8px */
+  .lcars-alert-icon { font-size: 0.625rem; } /* 10px */
+  .lcars-kpi-icon { font-size: 0.5rem; } /* 8px */
+  .lcars-trend-icon { font-size: 0.375rem; } /* 6px */
+  .lcars-meta-icon { font-size: 0.25rem; } /* 4px */
+  .lcars-action-icon { font-size: 0.625rem; } /* 10px */
+  .lcars-project-icon { font-size: 0.75rem; } /* 12px */
+  .lcars-system-icon { font-size: 0.625rem; } /* 10px */
+}
+
+/* Hover states - subtle enhancement only */
+.lcars-computer-icon:hover,
+.lcars-error-icon:hover,
+.lcars-success-icon:hover,
+.lcars-warning-icon:hover,
+.lcars-info-icon:hover,
+.lcars-nav-icon:hover,
+.lcars-menu-icon:hover,
+.lcars-button-icon:hover,
+.lcars-cta-icon:hover,
+.lcars-form-icon:hover,
+.lcars-input-icon:hover,
+.lcars-status-icon:hover,
+.lcars-alert-icon:hover,
+.lcars-kpi-icon:hover,
+.lcars-trend-icon:hover,
+.lcars-meta-icon:hover,
+.lcars-action-icon:hover,
+.lcars-project-icon:hover,
+.lcars-system-icon:hover {
+  opacity: 0.9;
+  transform: scale(1.05);
+  transition: all 0.15s ease;
+}
+
+/* Focus states for accessibility */
+.lcars-computer-icon:focus,
+.lcars-error-icon:focus,
+.lcars-success-icon:focus,
+.lcars-warning-icon:focus,
+.lcars-info-icon:focus,
+.lcars-nav-icon:focus,
+.lcars-menu-icon:focus,
+.lcars-button-icon:focus,
+.lcars-cta-icon:focus,
+.lcars-form-icon:focus,
+.lcars-input-icon:focus,
+.lcars-status-icon:focus,
+.lcars-alert-icon:focus,
+.lcars-kpi-icon:focus,
+.lcars-trend-icon:focus,
+.lcars-meta-icon:focus,
+.lcars-action-icon:focus,
+.lcars-project-icon:focus,
+.lcars-system-icon:focus {
+  outline: 2px solid var(--lcars-accent);
+  outline-offset: 2px;
+  border-radius: 2px;
 } 

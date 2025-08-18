@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * Ship Computer Demo Component
  * Demonstrates the intelligent layout orchestration system

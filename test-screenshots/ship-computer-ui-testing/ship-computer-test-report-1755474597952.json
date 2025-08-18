@@ -1,0 +1,154 @@
+{
+  "testRun": {
+    "timestamp": "2025-08-17T23:49:57.952Z",
+    "duration": "49082ms",
+    "totalTests": 8,
+    "passedTests": 7,
+    "failedTests": 1,
+    "successRate": "87.5%"
+  },
+  "testResults": [
+    {
+      "test": "Ship Computer Demo Page",
+      "status": "FAIL",
+      "details": "SyntaxError: Failed to execute 'querySelector' on 'Document': 'button:contains(\"Analyze Layout\")' is not a valid selector."
+    },
+    {
+      "test": "Crew Member Coordination",
+      "status": "PASS",
+      "details": "All 8 crew members tested"
+    },
+    {
+      "test": "Layout Intelligence",
+      "status": "PASS",
+      "details": "Tested 4 pages for layout adaptation"
+    },
+    {
+      "test": "User Intent Analysis",
+      "status": "PASS",
+      "details": "Tested 4 roles and 4 urgency levels"
+    },
+    {
+      "test": "Universal Navigation",
+      "status": "PASS",
+      "details": "Tested 6 pages for navigation consistency"
+    },
+    {
+      "test": "Visual Consistency",
+      "status": "PASS",
+      "details": "Colors: 3, Typography: 1, Spacing: 4"
+    },
+    {
+      "test": "Responsive Design",
+      "status": "PASS",
+      "details": "Tested 3 viewports for responsive behavior"
+    },
+    {
+      "test": "Performance Metrics",
+      "status": "PASS",
+      "details": "Load time: 0ms, Ship Computer: Inactive"
+    }
+  ],
+  "shipComputerStatus": {
+    "crewMembers": 8,
+    "allActive": true,
+    "coordinationStatus": "operational"
+  },
+  "recommendations": [
+    {
+      "priority": "high",
+      "category": "test-failures",
+      "description": "Address 1 failed tests to improve system reliability",
+      "actions": [
+        "Fix Ship Computer Demo Page: SyntaxError: Failed to execute 'querySelector' on 'Document': 'button:contains(\"Analyze Layout\")' is not a valid selector."
+      ]
+    },
+    {
+      "priority": "medium",
+      "category": "ship-computer-enhancement",
+      "description": "Optimize crew coordination algorithms for better layout consensus",
+      "actions": [
+        "Implement machine learning for crew member adaptation",
+        "Add predictive analytics for user behavior",
+        "Enhance real-time optimization cycles"
+      ]
+    },
+    {
+      "priority": "low",
+      "category": "performance-optimization",
+      "description": "Improve performance metrics and monitoring",
+      "actions": [
+        "Add performance benchmarking for layout changes",
+        "Implement A/B testing for layout variations",
+        "Add user satisfaction metrics tracking"
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "filename": "layout-intelligence-analytics-2025-08-17T23-49-23-721Z.png",
+      "path": "test-screenshots/ship-computer-ui-testing/layout-intelligence-analytics-2025-08-17T23-49-23-721Z.png",
+      "timestamp": "721Z"
+    },
+    {
+      "filename": "layout-intelligence-projects-2025-08-17T23-49-20-059Z.png",
+      "path": "test-screenshots/ship-computer-ui-testing/layout-intelligence-projects-2025-08-17T23-49-20-059Z.png",
+      "timestamp": "059Z"
+    },
+    {
+      "filename": "layout-intelligence-tasks-2025-08-17T23-49-15-952Z.png",
+      "path": "test-screenshots/ship-computer-ui-testing/layout-intelligence-tasks-2025-08-17T23-49-15-952Z.png",
+      "timestamp": "952Z"
+    },
+    {
+      "filename": "layout-intelligence-workflow-management-2025-08-17T23-49-27-166Z.png",
+      "path": "test-screenshots/ship-computer-ui-testing/layout-intelligence-workflow-management-2025-08-17T23-49-27-166Z.png",
+      "timestamp": "166Z"
+    },
+    {
+      "filename": "navigation-analytics-2025-08-17T23-49-47-654Z.png",
+      "path": "test-screenshots/ship-computer-ui-testing/navigation-analytics-2025-08-17T23-49-47-654Z.png",
+      "timestamp": "654Z"
+    },
+    {
+      "filename": "navigation-crew-2025-08-17T23-49-52-784Z.png",
+      "path": "test-screenshots/ship-computer-ui-testing/navigation-crew-2025-08-17T23-49-52-784Z.png",
+      "timestamp": "784Z"
+    },
+    {
+      "filename": "navigation-home-2025-08-17T23-49-40-863Z.png",
+      "path": "test-screenshots/ship-computer-ui-testing/navigation-home-2025-08-17T23-49-40-863Z.png",
+      "timestamp": "863Z"
+    },
+    {
+      "filename": "navigation-projects-2025-08-17T23-49-45-374Z.png",
+      "path": "test-screenshots/ship-computer-ui-testing/navigation-projects-2025-08-17T23-49-45-374Z.png",
+      "timestamp": "374Z"
+    },
+    {
+      "filename": "navigation-tasks-2025-08-17T23-49-42-807Z.png",
+      "path": "test-screenshots/ship-computer-ui-testing/navigation-tasks-2025-08-17T23-49-42-807Z.png",
+      "timestamp": "807Z"
+    },
+    {
+      "filename": "navigation-workflow-management-2025-08-17T23-49-49-889Z.png",
+      "path": "test-screenshots/ship-computer-ui-testing/navigation-workflow-management-2025-08-17T23-49-49-889Z.png",
+      "timestamp": "889Z"
+    },
+    {
+      "filename": "responsive-desktop-2025-08-17T23-49-54-649Z.png",
+      "path": "test-screenshots/ship-computer-ui-testing/responsive-desktop-2025-08-17T23-49-54-649Z.png",
+      "timestamp": "649Z"
+    },
+    {
+      "filename": "responsive-mobile-2025-08-17T23-49-57-792Z.png",
+      "path": "test-screenshots/ship-computer-ui-testing/responsive-mobile-2025-08-17T23-49-57-792Z.png",
+      "timestamp": "792Z"
+    },
+    {
+      "filename": "responsive-tablet-2025-08-17T23-49-56-391Z.png",
+      "path": "test-screenshots/ship-computer-ui-testing/responsive-tablet-2025-08-17T23-49-56-391Z.png",
+      "timestamp": "391Z"
+    }
+  ]
+}

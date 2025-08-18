@@ -1,0 +1,1374 @@
+{
+  "project": "AlexAI Agile Management System",
+  "version": "3.0.0",
+  "date": "2025-08-18T03:48:19.580Z",
+  "designSystem": {
+    "name": "LCARS Design System",
+    "version": "24.2",
+    "description": "Star Trek-inspired design system with accent-focused icons"
+  },
+  "components": {
+    "navigation": {
+      "name": "Navigation",
+      "variants": [
+        "horizontal",
+        "vertical",
+        "mobile"
+      ],
+      "states": [
+        "default",
+        "hover",
+        "active",
+        "disabled"
+      ],
+      "responsive": [
+        "desktop",
+        "tablet",
+        "mobile"
+      ],
+      "accessibility": [
+        "keyboard",
+        "screen-reader",
+        "high-contrast"
+      ]
+    },
+    "buttons": {
+      "name": "Buttons",
+      "variants": [
+        "primary",
+        "secondary",
+        "tertiary",
+        "danger"
+      ],
+      "states": [
+        "default",
+        "hover",
+        "active",
+        "disabled",
+        "loading"
+      ],
+      "responsive": [
+        "desktop",
+        "tablet",
+        "mobile"
+      ],
+      "accessibility": [
+        "keyboard",
+        "screen-reader",
+        "focus-indicator"
+      ]
+    },
+    "forms": {
+      "name": "Forms",
+      "variants": [
+        "input",
+        "textarea",
+        "select",
+        "checkbox",
+        "radio"
+      ],
+      "states": [
+        "default",
+        "focus",
+        "error",
+        "success",
+        "disabled"
+      ],
+      "responsive": [
+        "desktop",
+        "tablet",
+        "mobile"
+      ],
+      "accessibility": [
+        "labels",
+        "error-messages",
+        "validation"
+      ]
+    },
+    "cards": {
+      "name": "Cards",
+      "variants": [
+        "default",
+        "elevated",
+        "outlined",
+        "interactive"
+      ],
+      "states": [
+        "default",
+        "hover",
+        "active",
+        "selected"
+      ],
+      "responsive": [
+        "desktop",
+        "tablet",
+        "mobile"
+      ],
+      "accessibility": [
+        "semantic-markup",
+        "focus-management"
+      ]
+    }
+  },
+  "designTokens": {
+    "colors": {
+      "primary": "#FF6B35",
+      "secondary": "#4ECDC4",
+      "accent": "#45B7D1",
+      "success": "#96CEB4",
+      "warning": "#FFEAA7",
+      "error": "#DDA0DD",
+      "text": "#2D3436",
+      "background": "#FFFFFF"
+    },
+    "typography": {
+      "fontFamily": "Antonio, \"Arial Narrow\", \"Avenir Next Condensed\", sans-serif",
+      "fontSize": {
+        "small": "0.875rem",
+        "base": "1rem",
+        "large": "1.125rem",
+        "xlarge": "1.25rem"
+      },
+      "fontWeight": {
+        "normal": "400",
+        "medium": "500",
+        "bold": "700"
+      }
+    },
+    "spacing": {
+      "xs": "0.25rem",
+      "sm": "0.5rem",
+      "md": "1rem",
+      "lg": "1.5rem",
+      "xl": "2rem",
+      "xxl": "3rem"
+    },
+    "icons": {
+      "sizes": {
+        "accent": "0.875rem",
+        "small": "0.75rem",
+        "large": "1rem",
+        "xlarge": "1.25rem"
+      },
+      "opacity": {
+        "primary": "0.8",
+        "secondary": "0.6",
+        "tertiary": "0.4"
+      }
+    }
+  },
+  "screenshots": [
+    {
+      "name": "layout-intelligence-analytics-2025-08-17T23-49-23-721Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/ship-computer-ui-testing/layout-intelligence-analytics-2025-08-17T23-49-23-721Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "layout-intelligence-projects-2025-08-17T23-49-20-059Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/ship-computer-ui-testing/layout-intelligence-projects-2025-08-17T23-49-20-059Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "layout-intelligence-projects-2025-08-18T01-53-52-593Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/ship-computer-ui-testing/layout-intelligence-projects-2025-08-18T01-53-52-593Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "layout-intelligence-tasks-2025-08-17T23-49-15-952Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/ship-computer-ui-testing/layout-intelligence-tasks-2025-08-17T23-49-15-952Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "layout-intelligence-tasks-2025-08-18T01-53-48-341Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/ship-computer-ui-testing/layout-intelligence-tasks-2025-08-18T01-53-48-341Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "layout-intelligence-tasks-2025-08-18T02-11-23-017Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/ship-computer-ui-testing/layout-intelligence-tasks-2025-08-18T02-11-23-017Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "layout-intelligence-tasks-2025-08-18T02-25-30-598Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/ship-computer-ui-testing/layout-intelligence-tasks-2025-08-18T02-25-30-598Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "layout-intelligence-tasks-2025-08-18T03-47-02-152Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/ship-computer-ui-testing/layout-intelligence-tasks-2025-08-18T03-47-02-152Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "layout-intelligence-workflow-management-2025-08-17T23-49-27-166Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/ship-computer-ui-testing/layout-intelligence-workflow-management-2025-08-17T23-49-27-166Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "navigation-analytics-2025-08-17T23-49-47-654Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/ship-computer-ui-testing/navigation-analytics-2025-08-17T23-49-47-654Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "navigation-crew-2025-08-17T23-49-52-784Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/ship-computer-ui-testing/navigation-crew-2025-08-17T23-49-52-784Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "navigation-home-2025-08-17T23-49-40-863Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/ship-computer-ui-testing/navigation-home-2025-08-17T23-49-40-863Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "navigation-home-2025-08-18T01-54-35-885Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/ship-computer-ui-testing/navigation-home-2025-08-18T01-54-35-885Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "navigation-home-2025-08-18T02-12-06-423Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/ship-computer-ui-testing/navigation-home-2025-08-18T02-12-06-423Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "navigation-home-2025-08-18T02-26-13-907Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/ship-computer-ui-testing/navigation-home-2025-08-18T02-26-13-907Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "navigation-home-2025-08-18T03-47-45-439Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/ship-computer-ui-testing/navigation-home-2025-08-18T03-47-45-439Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "navigation-projects-2025-08-17T23-49-45-374Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/ship-computer-ui-testing/navigation-projects-2025-08-17T23-49-45-374Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "navigation-tasks-2025-08-17T23-49-42-807Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/ship-computer-ui-testing/navigation-tasks-2025-08-17T23-49-42-807Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "navigation-workflow-management-2025-08-17T23-49-49-889Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/ship-computer-ui-testing/navigation-workflow-management-2025-08-17T23-49-49-889Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "responsive-desktop-2025-08-17T23-49-54-649Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/ship-computer-ui-testing/responsive-desktop-2025-08-17T23-49-54-649Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "responsive-desktop-2025-08-18T01-55-07-146Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/ship-computer-ui-testing/responsive-desktop-2025-08-18T01-55-07-146Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "responsive-desktop-2025-08-18T02-12-37-685Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/ship-computer-ui-testing/responsive-desktop-2025-08-18T02-12-37-685Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "responsive-desktop-2025-08-18T02-26-45-156Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/ship-computer-ui-testing/responsive-desktop-2025-08-18T02-26-45-156Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "responsive-desktop-2025-08-18T03-48-16-734Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/ship-computer-ui-testing/responsive-desktop-2025-08-18T03-48-16-734Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "responsive-mobile-2025-08-17T23-49-57-792Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/ship-computer-ui-testing/responsive-mobile-2025-08-17T23-49-57-792Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "responsive-mobile-2025-08-18T01-55-09-388Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/ship-computer-ui-testing/responsive-mobile-2025-08-18T01-55-09-388Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "responsive-mobile-2025-08-18T02-12-39-940Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/ship-computer-ui-testing/responsive-mobile-2025-08-18T02-12-39-940Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "responsive-mobile-2025-08-18T02-26-47-372Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/ship-computer-ui-testing/responsive-mobile-2025-08-18T02-26-47-372Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "responsive-mobile-2025-08-18T03-48-18-956Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/ship-computer-ui-testing/responsive-mobile-2025-08-18T03-48-18-956Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "responsive-tablet-2025-08-17T23-49-56-391Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/ship-computer-ui-testing/responsive-tablet-2025-08-17T23-49-56-391Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "responsive-tablet-2025-08-18T01-55-08-287Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/ship-computer-ui-testing/responsive-tablet-2025-08-18T01-55-08-287Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "responsive-tablet-2025-08-18T02-12-38-847Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/ship-computer-ui-testing/responsive-tablet-2025-08-18T02-12-38-847Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "responsive-tablet-2025-08-18T02-26-46-300Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/ship-computer-ui-testing/responsive-tablet-2025-08-18T02-26-46-300Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "responsive-tablet-2025-08-18T03-48-17-865Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/ship-computer-ui-testing/responsive-tablet-2025-08-18T03-48-17-865Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "boundary-analyst-data-exploration-analytics-desktop-2025-08-18T00-06-21-096Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/boundary-analyst-data-exploration-analytics-desktop-2025-08-18T00-06-21-096Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "boundary-analyst-data-exploration-analytics-mobile-2025-08-18T00-06-37-575Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/boundary-analyst-data-exploration-analytics-mobile-2025-08-18T00-06-37-575Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "boundary-analyst-data-exploration-analytics-tablet-2025-08-18T00-06-29-422Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/boundary-analyst-data-exploration-analytics-tablet-2025-08-18T00-06-29-422Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "boundary-analyst-data-exploration-project-review-desktop-2025-08-18T00-06-26-592Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/boundary-analyst-data-exploration-project-review-desktop-2025-08-18T00-06-26-592Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "boundary-analyst-data-exploration-project-review-mobile-2025-08-18T00-06-42-758Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/boundary-analyst-data-exploration-project-review-mobile-2025-08-18T00-06-42-758Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "boundary-analyst-data-exploration-project-review-tablet-2025-08-18T00-06-34-592Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/boundary-analyst-data-exploration-project-review-tablet-2025-08-18T00-06-34-592Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "boundary-analyst-data-exploration-revenue-workflows-desktop-2025-08-18T00-06-23-314Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/boundary-analyst-data-exploration-revenue-workflows-desktop-2025-08-18T00-06-23-314Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "boundary-analyst-data-exploration-revenue-workflows-mobile-2025-08-18T00-06-40-696Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/boundary-analyst-data-exploration-revenue-workflows-mobile-2025-08-18T00-06-40-696Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "boundary-analyst-data-exploration-revenue-workflows-tablet-2025-08-18T00-06-32-386Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/boundary-analyst-data-exploration-revenue-workflows-tablet-2025-08-18T00-06-32-386Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "boundary-developer-task-management-crew-desktop-2025-08-18T00-05-37-499Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/boundary-developer-task-management-crew-desktop-2025-08-18T00-05-37-499Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "boundary-developer-task-management-crew-mobile-2025-08-18T00-05-55-004Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/boundary-developer-task-management-crew-mobile-2025-08-18T00-05-55-004Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "boundary-developer-task-management-crew-tablet-2025-08-18T00-05-46-284Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/boundary-developer-task-management-crew-tablet-2025-08-18T00-05-46-284Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "boundary-developer-task-management-tasks-desktop-2025-08-18T00-05-32-485Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/boundary-developer-task-management-tasks-desktop-2025-08-18T00-05-32-485Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "boundary-developer-task-management-tasks-mobile-2025-08-18T00-05-49-965Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/boundary-developer-task-management-tasks-mobile-2025-08-18T00-05-49-965Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "boundary-developer-task-management-tasks-tablet-2025-08-18T00-05-41-270Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/boundary-developer-task-management-tasks-tablet-2025-08-18T00-05-41-270Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "boundary-developer-task-management-workflow-management-desktop-2025-08-18T00-05-34-997Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/boundary-developer-task-management-workflow-management-desktop-2025-08-18T00-05-34-997Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "boundary-developer-task-management-workflow-management-mobile-2025-08-18T00-05-52-467Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/boundary-developer-task-management-workflow-management-mobile-2025-08-18T00-05-52-467Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "boundary-developer-task-management-workflow-management-tablet-2025-08-18T00-05-43-740Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/boundary-developer-task-management-workflow-management-tablet-2025-08-18T00-05-43-740Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "boundary-executive-overview--desktop-2025-08-18T00-21-48-937Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/boundary-executive-overview--desktop-2025-08-18T00-21-48-937Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "boundary-executive-overview--desktop-2025-08-18T01-07-11-706Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/boundary-executive-overview--desktop-2025-08-18T01-07-11-706Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "boundary-executive-overview--desktop-2025-08-18T02-00-34-983Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/boundary-executive-overview--desktop-2025-08-18T02-00-34-983Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "boundary-executive-overview--desktop-2025-08-18T02-32-02-939Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/boundary-executive-overview--desktop-2025-08-18T02-32-02-939Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "boundary-executive-overview-analytics-desktop-2025-08-18T00-07-14-746Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/boundary-executive-overview-analytics-desktop-2025-08-18T00-07-14-746Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "boundary-executive-overview-analytics-mobile-2025-08-18T00-07-37-402Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/boundary-executive-overview-analytics-mobile-2025-08-18T00-07-37-402Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "boundary-executive-overview-analytics-tablet-2025-08-18T00-07-26-166Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/boundary-executive-overview-analytics-tablet-2025-08-18T00-07-26-166Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "boundary-executive-overview-crew-desktop-2025-08-18T00-07-16-643Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/boundary-executive-overview-crew-desktop-2025-08-18T00-07-16-643Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "boundary-executive-overview-crew-mobile-2025-08-18T00-07-39-242Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/boundary-executive-overview-crew-mobile-2025-08-18T00-07-39-242Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "boundary-executive-overview-crew-tablet-2025-08-18T00-07-27-964Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/boundary-executive-overview-crew-tablet-2025-08-18T00-07-27-964Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "boundary-executive-overview-dashboard-desktop-2025-08-18T00-07-11-470Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/boundary-executive-overview-dashboard-desktop-2025-08-18T00-07-11-470Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "boundary-executive-overview-dashboard-mobile-2025-08-18T00-07-34-221Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/boundary-executive-overview-dashboard-mobile-2025-08-18T00-07-34-221Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "boundary-executive-overview-dashboard-tablet-2025-08-18T00-07-22-947Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/boundary-executive-overview-dashboard-tablet-2025-08-18T00-07-22-947Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "boundary-executive-overview-observation-lounge-desktop-2025-08-18T00-07-19-965Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/boundary-executive-overview-observation-lounge-desktop-2025-08-18T00-07-19-965Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "boundary-executive-overview-observation-lounge-mobile-2025-08-18T00-07-42-525Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/boundary-executive-overview-observation-lounge-mobile-2025-08-18T00-07-42-525Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "boundary-executive-overview-observation-lounge-tablet-2025-08-18T00-07-31-235Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/boundary-executive-overview-observation-lounge-tablet-2025-08-18T00-07-31-235Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "boundary-project-manager-analysis--desktop-2025-08-18T00-17-15-982Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/boundary-project-manager-analysis--desktop-2025-08-18T00-17-15-982Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "boundary-project-manager-analysis--desktop-2025-08-18T01-02-39-156Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/boundary-project-manager-analysis--desktop-2025-08-18T01-02-39-156Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "boundary-project-manager-analysis--desktop-2025-08-18T01-56-02-130Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/boundary-project-manager-analysis--desktop-2025-08-18T01-56-02-130Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "boundary-project-manager-analysis--desktop-2025-08-18T02-27-32-158Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/boundary-project-manager-analysis--desktop-2025-08-18T02-27-32-158Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "boundary-project-manager-analysis-analytics-desktop-2025-08-18T00-04-43-511Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/boundary-project-manager-analysis-analytics-desktop-2025-08-18T00-04-43-511Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "boundary-project-manager-analysis-analytics-mobile-2025-08-18T00-05-06-117Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/boundary-project-manager-analysis-analytics-mobile-2025-08-18T00-05-06-117Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "boundary-project-manager-analysis-analytics-tablet-2025-08-18T00-04-54-790Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/boundary-project-manager-analysis-analytics-tablet-2025-08-18T00-04-54-790Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "boundary-project-manager-analysis-dashboard-desktop-2025-08-18T00-04-38-502Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/boundary-project-manager-analysis-dashboard-desktop-2025-08-18T00-04-38-502Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "boundary-project-manager-analysis-dashboard-mobile-2025-08-18T00-05-01-047Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/boundary-project-manager-analysis-dashboard-mobile-2025-08-18T00-05-01-047Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "boundary-project-manager-analysis-dashboard-tablet-2025-08-18T00-04-49-774Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/boundary-project-manager-analysis-dashboard-tablet-2025-08-18T00-04-49-774Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "boundary-project-manager-analysis-projects-desktop-2025-08-18T00-04-41-583Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/boundary-project-manager-analysis-projects-desktop-2025-08-18T00-04-41-583Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "boundary-project-manager-analysis-projects-desktop-2025-08-18T00-17-18-074Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/boundary-project-manager-analysis-projects-desktop-2025-08-18T00-17-18-074Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "boundary-project-manager-analysis-projects-desktop-2025-08-18T01-02-41-079Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/boundary-project-manager-analysis-projects-desktop-2025-08-18T01-02-41-079Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "boundary-project-manager-analysis-projects-desktop-2025-08-18T01-56-04-255Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/boundary-project-manager-analysis-projects-desktop-2025-08-18T01-56-04-255Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "boundary-project-manager-analysis-projects-mobile-2025-08-18T00-05-03-374Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/boundary-project-manager-analysis-projects-mobile-2025-08-18T00-05-03-374Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "boundary-project-manager-analysis-projects-tablet-2025-08-18T00-04-52-940Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/boundary-project-manager-analysis-projects-tablet-2025-08-18T00-04-52-940Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "boundary-project-manager-analysis-tasks-desktop-2025-08-18T00-04-46-770Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/boundary-project-manager-analysis-tasks-desktop-2025-08-18T00-04-46-770Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "boundary-project-manager-analysis-tasks-mobile-2025-08-18T00-05-08-590Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/boundary-project-manager-analysis-tasks-mobile-2025-08-18T00-05-08-590Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "boundary-project-manager-analysis-tasks-tablet-2025-08-18T00-04-57-227Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/boundary-project-manager-analysis-tasks-tablet-2025-08-18T00-04-57-227Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "device-analyst-data-exploration-Desktop-2025-08-18T00-06-50-227Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/device-analyst-data-exploration-Desktop-2025-08-18T00-06-50-227Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "device-analyst-data-exploration-Desktop-2025-08-18T00-21-09-552Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/device-analyst-data-exploration-Desktop-2025-08-18T00-21-09-552Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "device-analyst-data-exploration-Desktop-2025-08-18T01-06-32-287Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/device-analyst-data-exploration-Desktop-2025-08-18T01-06-32-287Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "device-analyst-data-exploration-Desktop-2025-08-18T01-59-55-521Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/device-analyst-data-exploration-Desktop-2025-08-18T01-59-55-521Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "device-analyst-data-exploration-Desktop-2025-08-18T02-31-23-669Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/device-analyst-data-exploration-Desktop-2025-08-18T02-31-23-669Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "device-analyst-data-exploration-iPad-2025-08-18T00-06-49-148Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/device-analyst-data-exploration-iPad-2025-08-18T00-06-49-148Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "device-analyst-data-exploration-iPad-2025-08-18T00-21-08-473Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/device-analyst-data-exploration-iPad-2025-08-18T00-21-08-473Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "device-analyst-data-exploration-iPad-2025-08-18T01-06-31-198Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/device-analyst-data-exploration-iPad-2025-08-18T01-06-31-198Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "device-analyst-data-exploration-iPad-2025-08-18T01-59-54-442Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/device-analyst-data-exploration-iPad-2025-08-18T01-59-54-442Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "device-analyst-data-exploration-iPad-2025-08-18T02-31-22-599Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/device-analyst-data-exploration-iPad-2025-08-18T02-31-22-599Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "device-analyst-data-exploration-iPhone-SE-2025-08-18T00-06-48-078Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/device-analyst-data-exploration-iPhone-SE-2025-08-18T00-06-48-078Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "device-analyst-data-exploration-iPhone-SE-2025-08-18T00-21-07-406Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/device-analyst-data-exploration-iPhone-SE-2025-08-18T00-21-07-406Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "device-analyst-data-exploration-iPhone-SE-2025-08-18T01-06-30-112Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/device-analyst-data-exploration-iPhone-SE-2025-08-18T01-06-30-112Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "device-analyst-data-exploration-iPhone-SE-2025-08-18T01-59-53-367Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/device-analyst-data-exploration-iPhone-SE-2025-08-18T01-59-53-367Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "device-analyst-data-exploration-iPhone-SE-2025-08-18T02-31-21-511Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/device-analyst-data-exploration-iPhone-SE-2025-08-18T02-31-21-511Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "device-developer-task-management-Desktop-2025-08-18T00-06-01-782Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/device-developer-task-management-Desktop-2025-08-18T00-06-01-782Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "device-developer-task-management-Desktop-2025-08-18T00-19-32-117Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/device-developer-task-management-Desktop-2025-08-18T00-19-32-117Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "device-developer-task-management-Desktop-2025-08-18T01-04-54-987Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/device-developer-task-management-Desktop-2025-08-18T01-04-54-987Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "device-developer-task-management-Desktop-2025-08-18T01-58-18-342Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/device-developer-task-management-Desktop-2025-08-18T01-58-18-342Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "device-developer-task-management-Desktop-2025-08-18T02-29-46-424Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/device-developer-task-management-Desktop-2025-08-18T02-29-46-424Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "device-developer-task-management-iPad-2025-08-18T00-06-00-712Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/device-developer-task-management-iPad-2025-08-18T00-06-00-712Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "device-developer-task-management-iPad-2025-08-18T00-19-31-037Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/device-developer-task-management-iPad-2025-08-18T00-19-31-037Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "device-developer-task-management-iPad-2025-08-18T01-04-53-895Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/device-developer-task-management-iPad-2025-08-18T01-04-53-895Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "device-developer-task-management-iPad-2025-08-18T01-58-17-257Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/device-developer-task-management-iPad-2025-08-18T01-58-17-257Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "device-developer-task-management-iPad-2025-08-18T02-29-45-357Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/device-developer-task-management-iPad-2025-08-18T02-29-45-357Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "device-developer-task-management-iPhone-SE-2025-08-18T00-05-59-626Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/device-developer-task-management-iPhone-SE-2025-08-18T00-05-59-626Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "device-developer-task-management-iPhone-SE-2025-08-18T00-19-29-967Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/device-developer-task-management-iPhone-SE-2025-08-18T00-19-29-967Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "device-developer-task-management-iPhone-SE-2025-08-18T01-04-52-821Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/device-developer-task-management-iPhone-SE-2025-08-18T01-04-52-821Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "device-developer-task-management-iPhone-SE-2025-08-18T01-58-16-165Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/device-developer-task-management-iPhone-SE-2025-08-18T01-58-16-165Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "device-developer-task-management-iPhone-SE-2025-08-18T02-29-44-278Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/device-developer-task-management-iPhone-SE-2025-08-18T02-29-44-278Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "device-executive-overview-Desktop-2025-08-18T00-07-49-620Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/device-executive-overview-Desktop-2025-08-18T00-07-49-620Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "device-executive-overview-Desktop-2025-08-18T00-22-25-582Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/device-executive-overview-Desktop-2025-08-18T00-22-25-582Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "device-executive-overview-Desktop-2025-08-18T01-07-48-171Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/device-executive-overview-Desktop-2025-08-18T01-07-48-171Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "device-executive-overview-Desktop-2025-08-18T02-01-11-535Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/device-executive-overview-Desktop-2025-08-18T02-01-11-535Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "device-executive-overview-Desktop-2025-08-18T02-32-39-655Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/device-executive-overview-Desktop-2025-08-18T02-32-39-655Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "device-executive-overview-iPad-2025-08-18T00-07-48-547Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/device-executive-overview-iPad-2025-08-18T00-07-48-547Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "device-executive-overview-iPad-2025-08-18T00-22-24-317Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/device-executive-overview-iPad-2025-08-18T00-22-24-317Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "device-executive-overview-iPad-2025-08-18T01-07-46-895Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/device-executive-overview-iPad-2025-08-18T01-07-46-895Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "device-executive-overview-iPad-2025-08-18T02-01-10-272Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/device-executive-overview-iPad-2025-08-18T02-01-10-272Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "device-executive-overview-iPad-2025-08-18T02-32-38-394Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/device-executive-overview-iPad-2025-08-18T02-32-38-394Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "device-executive-overview-iPhone-SE-2025-08-18T00-07-47-502Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/device-executive-overview-iPhone-SE-2025-08-18T00-07-47-502Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "device-executive-overview-iPhone-SE-2025-08-18T00-22-23-152Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/device-executive-overview-iPhone-SE-2025-08-18T00-22-23-152Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "device-executive-overview-iPhone-SE-2025-08-18T01-07-45-729Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/device-executive-overview-iPhone-SE-2025-08-18T01-07-45-729Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "device-executive-overview-iPhone-SE-2025-08-18T02-01-09-107Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/device-executive-overview-iPhone-SE-2025-08-18T02-01-09-107Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "device-executive-overview-iPhone-SE-2025-08-18T02-32-37-232Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/device-executive-overview-iPhone-SE-2025-08-18T02-32-37-232Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "device-project-manager-analysis-Desktop-2025-08-18T00-05-16-006Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/device-project-manager-analysis-Desktop-2025-08-18T00-05-16-006Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "device-project-manager-analysis-Desktop-2025-08-18T00-17-54-639Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/device-project-manager-analysis-Desktop-2025-08-18T00-17-54-639Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "device-project-manager-analysis-Desktop-2025-08-18T01-03-17-646Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/device-project-manager-analysis-Desktop-2025-08-18T01-03-17-646Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "device-project-manager-analysis-Desktop-2025-08-18T01-56-40-805Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/device-project-manager-analysis-Desktop-2025-08-18T01-56-40-805Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "device-project-manager-analysis-Desktop-2025-08-18T02-28-08-766Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/device-project-manager-analysis-Desktop-2025-08-18T02-28-08-766Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "device-project-manager-analysis-iPad-2025-08-18T00-05-14-926Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/device-project-manager-analysis-iPad-2025-08-18T00-05-14-926Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "device-project-manager-analysis-iPad-2025-08-18T00-17-53-382Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/device-project-manager-analysis-iPad-2025-08-18T00-17-53-382Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "device-project-manager-analysis-iPad-2025-08-18T01-03-16-383Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/device-project-manager-analysis-iPad-2025-08-18T01-03-16-383Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "device-project-manager-analysis-iPad-2025-08-18T01-56-39-545Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/device-project-manager-analysis-iPad-2025-08-18T01-56-39-545Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "device-project-manager-analysis-iPad-2025-08-18T02-28-07-501Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/device-project-manager-analysis-iPad-2025-08-18T02-28-07-501Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "device-project-manager-analysis-iPhone-SE-2025-08-18T00-05-13-870Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/device-project-manager-analysis-iPhone-SE-2025-08-18T00-05-13-870Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "device-project-manager-analysis-iPhone-SE-2025-08-18T00-17-52-217Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/device-project-manager-analysis-iPhone-SE-2025-08-18T00-17-52-217Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "device-project-manager-analysis-iPhone-SE-2025-08-18T01-03-15-216Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/device-project-manager-analysis-iPhone-SE-2025-08-18T01-03-15-216Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "device-project-manager-analysis-iPhone-SE-2025-08-18T01-56-38-385Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/device-project-manager-analysis-iPhone-SE-2025-08-18T01-56-38-385Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "device-project-manager-analysis-iPhone-SE-2025-08-18T02-28-06-329Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/device-project-manager-analysis-iPhone-SE-2025-08-18T02-28-06-329Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "workflow-analyst-data-exploration-analytics-2025-08-18T00-06-09-068Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/workflow-analyst-data-exploration-analytics-2025-08-18T00-06-09-068Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "workflow-analyst-data-exploration-project-review-2025-08-18T00-06-17-079Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/workflow-analyst-data-exploration-project-review-2025-08-18T00-06-17-079Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "workflow-analyst-data-exploration-revenue-workflows-2025-08-18T00-06-13-285Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/workflow-analyst-data-exploration-revenue-workflows-2025-08-18T00-06-13-285Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "workflow-developer-task-management-crew-2025-08-18T00-05-29-402Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/workflow-developer-task-management-crew-2025-08-18T00-05-29-402Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "workflow-developer-task-management-tasks-2025-08-18T00-05-21-992Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/workflow-developer-task-management-tasks-2025-08-18T00-05-21-992Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "workflow-developer-task-management-workflow-management-2025-08-18T00-05-26-222Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/workflow-developer-task-management-workflow-management-2025-08-18T00-05-26-222Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "workflow-executive-overview--2025-08-18T00-21-15-519Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/workflow-executive-overview--2025-08-18T00-21-15-519Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "workflow-executive-overview--2025-08-18T01-06-38-360Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/workflow-executive-overview--2025-08-18T01-06-38-360Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "workflow-executive-overview--2025-08-18T02-00-01-551Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/workflow-executive-overview--2025-08-18T02-00-01-551Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "workflow-executive-overview--2025-08-18T02-31-29-552Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/workflow-executive-overview--2025-08-18T02-31-29-552Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "workflow-executive-overview-analytics-2025-08-18T00-07-00-641Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/workflow-executive-overview-analytics-2025-08-18T00-07-00-641Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "workflow-executive-overview-crew-2025-08-18T00-07-04-801Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/workflow-executive-overview-crew-2025-08-18T00-07-04-801Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "workflow-executive-overview-dashboard-2025-08-18T00-06-57-527Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/workflow-executive-overview-dashboard-2025-08-18T00-06-57-527Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "workflow-executive-overview-observation-lounge-2025-08-18T00-07-08-013Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/workflow-executive-overview-observation-lounge-2025-08-18T00-07-08-013Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "workflow-project-manager-analysis--2025-08-18T00-16-38-605Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/workflow-project-manager-analysis--2025-08-18T00-16-38-605Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "workflow-project-manager-analysis--2025-08-18T01-02-02-441Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/workflow-project-manager-analysis--2025-08-18T01-02-02-441Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "workflow-project-manager-analysis--2025-08-18T01-55-24-979Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/workflow-project-manager-analysis--2025-08-18T01-55-24-979Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "workflow-project-manager-analysis--2025-08-18T02-26-58-751Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/workflow-project-manager-analysis--2025-08-18T02-26-58-751Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "workflow-project-manager-analysis-analytics-2025-08-18T00-04-32-222Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/workflow-project-manager-analysis-analytics-2025-08-18T00-04-32-222Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "workflow-project-manager-analysis-dashboard-2025-08-18T00-04-24-937Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/workflow-project-manager-analysis-dashboard-2025-08-18T00-04-24-937Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "workflow-project-manager-analysis-projects-2025-08-18T00-04-28-077Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/workflow-project-manager-analysis-projects-2025-08-18T00-04-28-077Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "workflow-project-manager-analysis-projects-2025-08-18T00-16-42-825Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/workflow-project-manager-analysis-projects-2025-08-18T00-16-42-825Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "workflow-project-manager-analysis-projects-2025-08-18T01-02-06-102Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/workflow-project-manager-analysis-projects-2025-08-18T01-02-06-102Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "workflow-project-manager-analysis-projects-2025-08-18T01-55-29-026Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/workflow-project-manager-analysis-projects-2025-08-18T01-55-29-026Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "workflow-project-manager-analysis-tasks-2025-08-18T00-04-35-370Z.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/user-intent-responsive-testing/workflow-project-manager-analysis-tasks-2025-08-18T00-04-35-370Z.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "analytics-desktop.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/visual-consistency-audit/analytics-desktop.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "analytics-mobile.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/visual-consistency-audit/analytics-mobile.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "crew-desktop.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/visual-consistency-audit/crew-desktop.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "crew-mobile.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/visual-consistency-audit/crew-mobile.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "main-dashboard-desktop.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/visual-consistency-audit/main-dashboard-desktop.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "main-dashboard-mobile.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/visual-consistency-audit/main-dashboard-mobile.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "n8n-integration-desktop.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/visual-consistency-audit/n8n-integration-desktop.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "n8n-integration-mobile.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/visual-consistency-audit/n8n-integration-mobile.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "observation-lounge-desktop.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/visual-consistency-audit/observation-lounge-desktop.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "observation-lounge-mobile.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/visual-consistency-audit/observation-lounge-mobile.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "project-generator-desktop.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/visual-consistency-audit/project-generator-desktop.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "project-generator-mobile.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/visual-consistency-audit/project-generator-mobile.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "project-review-desktop.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/visual-consistency-audit/project-review-desktop.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "project-review-mobile.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/visual-consistency-audit/project-review-mobile.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "projects-desktop.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/visual-consistency-audit/projects-desktop.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "projects-mobile.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/visual-consistency-audit/projects-mobile.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "revenue-workflows-desktop.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/visual-consistency-audit/revenue-workflows-desktop.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "revenue-workflows-mobile.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/visual-consistency-audit/revenue-workflows-mobile.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "ships-computer-desktop.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/visual-consistency-audit/ships-computer-desktop.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "ships-computer-mobile.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/visual-consistency-audit/ships-computer-mobile.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "tasks-desktop.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/visual-consistency-audit/tasks-desktop.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "tasks-mobile.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/visual-consistency-audit/tasks-mobile.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "weekly-execution-desktop.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/visual-consistency-audit/weekly-execution-desktop.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "weekly-execution-mobile.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/visual-consistency-audit/weekly-execution-mobile.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "workflow-desktop.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/visual-consistency-audit/workflow-desktop.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "workflow-management-desktop.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/visual-consistency-audit/workflow-management-desktop.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "workflow-management-mobile.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/visual-consistency-audit/workflow-management-mobile.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "workflow-mobile.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/visual-consistency-audit/workflow-mobile.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "youtube-analyzer-desktop.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/visual-consistency-audit/youtube-analyzer-desktop.png",
+      "size": {},
+      "modified": {}
+    },
+    {
+      "name": "youtube-analyzer-mobile.png",
+      "path": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/test-screenshots/visual-consistency-audit/youtube-analyzer-mobile.png",
+      "size": {},
+      "modified": {}
+    }
+  ]
+}

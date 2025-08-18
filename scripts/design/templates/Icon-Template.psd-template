@@ -1,0 +1,21 @@
+Photoshop Template: Icon Template
+Description: Template for accent-focused icons
+Generated: 2025-08-18T03:49:49.059Z
+
+Artboard Settings:
+  Width: 24px
+  Height: 24px
+  Color Mode: RGB
+  Resolution: 72 DPI
+
+Layer Structure:
+  Icon Shape (vector)
+    fill: var(--lcars-accent)
+    stroke: none
+    size: 16px
+
+  Background (shape)
+    fill: transparent
+    stroke: none
+    size: 24px
+

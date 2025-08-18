@@ -1,0 +1,225 @@
+{
+  "name": "LCARS Design System",
+  "version": "24.2",
+  "description": "Star Trek-inspired design system with accent-focused icons",
+  "components": {
+    "Design System": {
+      "Colors": {
+        "Primary": {
+          "type": "color",
+          "value": "#FF6B35"
+        },
+        "Secondary": {
+          "type": "color",
+          "value": "#4ECDC4"
+        },
+        "Accent": {
+          "type": "color",
+          "value": "#45B7D1"
+        },
+        "Success": {
+          "type": "color",
+          "value": "#96CEB4"
+        },
+        "Warning": {
+          "type": "color",
+          "value": "#FFEAA7"
+        },
+        "Error": {
+          "type": "color",
+          "value": "#DDA0DD"
+        }
+      },
+      "Typography": {
+        "Heading 1": {
+          "type": "text",
+          "style": "1.25rem"
+        },
+        "Heading 2": {
+          "type": "text",
+          "style": "1.125rem"
+        },
+        "Heading 3": {
+          "type": "text",
+          "style": "1rem"
+        },
+        "Body": {
+          "type": "text",
+          "style": "1rem"
+        },
+        "Small": {
+          "type": "text",
+          "style": "0.875rem"
+        }
+      },
+      "Spacing": {
+        "XS": {
+          "type": "spacing",
+          "value": "0.25rem"
+        },
+        "SM": {
+          "type": "spacing",
+          "value": "0.5rem"
+        },
+        "MD": {
+          "type": "spacing",
+          "value": "1rem"
+        },
+        "LG": {
+          "type": "spacing",
+          "value": "1.5rem"
+        },
+        "XL": {
+          "type": "spacing",
+          "value": "2rem"
+        }
+      }
+    },
+    "Components": {
+      "Navigation": {
+        "Primary Nav": {
+          "type": "component",
+          "description": "Main navigation bar"
+        },
+        "Secondary Nav": {
+          "type": "component",
+          "description": "Secondary navigation"
+        },
+        "Mobile Nav": {
+          "type": "component",
+          "description": "Mobile navigation menu"
+        }
+      },
+      "Buttons": {
+        "Primary Button": {
+          "type": "component",
+          "description": "Primary action button"
+        },
+        "Secondary Button": {
+          "type": "component",
+          "description": "Secondary action button"
+        },
+        "Icon Button": {
+          "type": "component",
+          "description": "Icon-only button"
+        }
+      },
+      "Forms": {
+        "Input Field": {
+          "type": "component",
+          "description": "Text input field"
+        },
+        "Select Dropdown": {
+          "type": "component",
+          "description": "Dropdown selection"
+        },
+        "Checkbox": {
+          "type": "component",
+          "description": "Checkbox input"
+        }
+      },
+      "Cards": {
+        "Info Card": {
+          "type": "component",
+          "description": "Information display card"
+        },
+        "Action Card": {
+          "type": "component",
+          "description": "Interactive action card"
+        },
+        "Data Card": {
+          "type": "component",
+          "description": "Data display card"
+        }
+      }
+    },
+    "Layouts": {
+      "Page Layouts": {
+        "Dashboard": {
+          "type": "layout",
+          "description": "Main dashboard layout"
+        },
+        "Form Page": {
+          "type": "layout",
+          "description": "Form-focused page layout"
+        },
+        "List Page": {
+          "type": "layout",
+          "description": "List-based page layout"
+        }
+      },
+      "Grid Systems": {
+        "12 Column": {
+          "type": "grid",
+          "description": "12-column responsive grid"
+        },
+        "8 Column": {
+          "type": "grid",
+          "description": "8-column responsive grid"
+        },
+        "4 Column": {
+          "type": "grid",
+          "description": "4-column mobile grid"
+        }
+      },
+      "Containers": {
+        "Full Width": {
+          "type": "container",
+          "description": "Full-width container"
+        },
+        "Centered": {
+          "type": "container",
+          "description": "Centered container"
+        },
+        "Sidebar": {
+          "type": "container",
+          "description": "Sidebar container"
+        }
+      }
+    },
+    "Icons": {
+      "System Icons": {
+        "Home": {
+          "type": "icon",
+          "size": "0.875rem"
+        },
+        "Settings": {
+          "type": "icon",
+          "size": "0.875rem"
+        },
+        "User": {
+          "type": "icon",
+          "size": "0.875rem"
+        }
+      },
+      "Action Icons": {
+        "Add": {
+          "type": "icon",
+          "size": "0.875rem"
+        },
+        "Edit": {
+          "type": "icon",
+          "size": "0.875rem"
+        },
+        "Delete": {
+          "type": "icon",
+          "size": "0.875rem"
+        }
+      },
+      "Navigation Icons": {
+        "Arrow Left": {
+          "type": "icon",
+          "size": "0.875rem"
+        },
+        "Arrow Right": {
+          "type": "icon",
+          "size": "0.875rem"
+        },
+        "Menu": {
+          "type": "icon",
+          "size": "0.875rem"
+        }
+      }
+    }
+  }
+}

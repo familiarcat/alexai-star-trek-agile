@@ -1,0 +1,168 @@
+{
+  "Component Template": {
+    "name": "Component Template",
+    "description": "Standard template for UI components",
+    "layers": [
+      {
+        "name": "Background",
+        "type": "shape",
+        "properties": {
+          "fill": "var(--lcars-background)",
+          "stroke": "var(--lcars-border)",
+          "strokeWidth": "1px",
+          "cornerRadius": "4px"
+        }
+      },
+      {
+        "name": "Content",
+        "type": "text",
+        "properties": {
+          "font": "Antonio, sans-serif",
+          "size": "16px",
+          "color": "var(--lcars-text)",
+          "alignment": "left"
+        }
+      },
+      {
+        "name": "Icon",
+        "type": "smart-object",
+        "properties": {
+          "size": "16px",
+          "opacity": "60%",
+          "position": "right"
+        }
+      }
+    ],
+    "artboard": {
+      "width": "400px",
+      "height": "200px",
+      "colorMode": "RGB",
+      "resolution": "72 DPI"
+    }
+  },
+  "Icon Template": {
+    "name": "Icon Template",
+    "description": "Template for accent-focused icons",
+    "layers": [
+      {
+        "name": "Icon Shape",
+        "type": "vector",
+        "properties": {
+          "fill": "var(--lcars-accent)",
+          "stroke": "none",
+          "size": "16px"
+        }
+      },
+      {
+        "name": "Background",
+        "type": "shape",
+        "properties": {
+          "fill": "transparent",
+          "stroke": "none",
+          "size": "24px"
+        }
+      }
+    ],
+    "artboard": {
+      "width": "24px",
+      "height": "24px",
+      "colorMode": "RGB",
+      "resolution": "72 DPI"
+    }
+  },
+  "Layout Template": {
+    "name": "Layout Template",
+    "description": "Template for page layouts and wireframes",
+    "layers": [
+      {
+        "name": "Header",
+        "type": "group",
+        "properties": {
+          "height": "80px",
+          "background": "var(--lcars-primary)",
+          "position": "top"
+        }
+      },
+      {
+        "name": "Navigation",
+        "type": "group",
+        "properties": {
+          "height": "60px",
+          "background": "var(--lcars-secondary)",
+          "position": "below-header"
+        }
+      },
+      {
+        "name": "Content",
+        "type": "group",
+        "properties": {
+          "background": "var(--lcars-background)",
+          "position": "center"
+        }
+      },
+      {
+        "name": "Sidebar",
+        "type": "group",
+        "properties": {
+          "width": "300px",
+          "background": "var(--lcars-background-secondary)",
+          "position": "right"
+        }
+      }
+    ],
+    "artboard": {
+      "width": "1920px",
+      "height": "1080px",
+      "colorMode": "RGB",
+      "resolution": "72 DPI"
+    }
+  },
+  "Design System Template": {
+    "name": "Design System Template",
+    "description": "Template for design system documentation",
+    "layers": [
+      {
+        "name": "Color Palette",
+        "type": "group",
+        "properties": {
+          "layout": "grid",
+          "spacing": "16px",
+          "colors": "all-lcars-colors"
+        }
+      },
+      {
+        "name": "Typography Scale",
+        "type": "group",
+        "properties": {
+          "layout": "vertical",
+          "spacing": "8px",
+          "fonts": "all-lcars-fonts"
+        }
+      },
+      {
+        "name": "Spacing Scale",
+        "type": "group",
+        "properties": {
+          "layout": "visual",
+          "spacing": "4px",
+          "measurements": "all-lcars-spacing"
+        }
+      },
+      {
+        "name": "Icon System",
+        "type": "group",
+        "properties": {
+          "layout": "grid",
+          "spacing": "8px",
+          "icons": "all-lcars-icons"
+        }
+      }
+    ],
+    "artboard": {
+      "width": "1200px",
+      "height": "800px",
+      "colorMode": "RGB",
+      "resolution": "72 DPI"
+    }
+  }
+}

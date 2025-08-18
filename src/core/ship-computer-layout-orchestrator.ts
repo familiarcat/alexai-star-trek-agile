@@ -45,6 +45,51 @@ export interface ComponentLayout {
   visibility: 'always' | 'conditional' | 'hidden';
   userIntentAlignment: number;
   crewRecommendations: CrewRecommendation[];
+  responsiveConstraints: ResponsiveConstraints;
+  boundaryManagement: BoundaryManagement;
+  iconSizing?: IconSizingStrategy;
+}
+
+export interface IconSizingStrategy {
+  primaryIcon: string;
+  secondaryIcons: string[];
+  metadataIcons: string[];
+  actionIcons: string[];
+  systemIcons: string[];
+  responsiveScaling: {
+    mobile: IconScaling;
+    tablet: IconScaling;
+    desktop: IconScaling;
+  };
+}
+
+export interface IconScaling {
+  baseSize: number;
+  scaleFactor: number;
+  touchTarget: boolean;
+  accessibility: 'standard' | 'enhanced' | 'maximum';
+}
+
+export interface ResponsiveConstraints {
+  minWidth: number;
+  maxWidth: number;
+  minHeight: number;
+  maxHeight: number;
+  overflow: 'visible' | 'hidden' | 'scroll' | 'auto';
+  flexShrink: number;
+  flexGrow: number;
+  aspectRatio?: string;
+}
+
+export interface BoundaryManagement {
+  preventOverflow: boolean;
+  maxScreenPercentage: number;
+  responsiveBreakpoints: {
+    mobile: ResponsiveConstraints;
+    tablet: ResponsiveConstraints;
+    desktop: ResponsiveConstraints;
+  };
+  overflowHandling: 'wrap' | 'truncate' | 'scroll' | 'hide';
 }
 
 export interface CrewRecommendation {
@@ -512,7 +557,26 @@ export class ShipComputerLayoutOrchestrator {
         size: 'full',
         visibility: 'always',
         userIntentAlignment: 0.95,
-        crewRecommendations: recommendations.filter(r => r.crewMember === 'captain-picard')
+        crewRecommendations: recommendations.filter(r => r.crewMember === 'captain-picard'),
+        responsiveConstraints: {
+          minWidth: 320,
+          maxWidth: 1920,
+          minHeight: 60,
+          maxHeight: 80,
+          overflow: 'visible',
+          flexShrink: 0,
+          flexGrow: 0
+        },
+        boundaryManagement: {
+          preventOverflow: true,
+          maxScreenPercentage: 100,
+          responsiveBreakpoints: {
+            mobile: { minWidth: 320, maxWidth: 375, minHeight: 60, maxHeight: 80, overflow: 'auto', flexShrink: 0, flexGrow: 0 },
+            tablet: { minWidth: 768, maxWidth: 1024, minHeight: 60, maxHeight: 80, overflow: 'auto', flexShrink: 0, flexGrow: 0 },
+            desktop: { minWidth: 1024, maxWidth: 1920, minHeight: 60, maxHeight: 80, overflow: 'auto', flexShrink: 0, flexGrow: 0 }
+          },
+          overflowHandling: 'wrap'
+        }
       });
     }
 
@@ -526,7 +590,26 @@ export class ShipComputerLayoutOrchestrator {
         size: 'large',
         visibility: 'always',
         userIntentAlignment: 0.90,
-        crewRecommendations: recommendations.filter(r => r.crewMember === 'counselor-troi')
+        crewRecommendations: recommendations.filter(r => r.crewMember === 'counselor-troi'),
+        responsiveConstraints: {
+          minWidth: 300,
+          maxWidth: 1600,
+          minHeight: 400,
+          maxHeight: 800,
+          overflow: 'auto',
+          flexShrink: 1,
+          flexGrow: 1
+        },
+        boundaryManagement: {
+          preventOverflow: true,
+          maxScreenPercentage: 90,
+          responsiveBreakpoints: {
+            mobile: { minWidth: 300, maxWidth: 375, minHeight: 400, maxHeight: 600, overflow: 'auto', flexShrink: 1, flexGrow: 1 },
+            tablet: { minWidth: 600, maxWidth: 900, minHeight: 400, maxHeight: 700, overflow: 'auto', flexShrink: 1, flexGrow: 1 },
+            desktop: { minWidth: 800, maxWidth: 1600, minHeight: 400, maxHeight: 800, overflow: 'auto', flexShrink: 1, flexGrow: 1 }
+          },
+          overflowHandling: 'scroll'
+        }
       });
     }
 
@@ -540,7 +623,26 @@ export class ShipComputerLayoutOrchestrator {
         size: 'medium',
         visibility: 'conditional',
         userIntentAlignment: 0.85,
-        crewRecommendations: recommendations.filter(r => r.crewMember === 'quark')
+        crewRecommendations: recommendations.filter(r => r.crewMember === 'quark'),
+        responsiveConstraints: {
+          minWidth: 200,
+          maxWidth: 800,
+          minHeight: 60,
+          maxHeight: 120,
+          overflow: 'visible',
+          flexShrink: 0,
+          flexGrow: 0
+        },
+        boundaryManagement: {
+          preventOverflow: true,
+          maxScreenPercentage: 80,
+          responsiveBreakpoints: {
+            mobile: { minWidth: 200, maxWidth: 375, minHeight: 60, maxHeight: 100, overflow: 'visible', flexShrink: 0, flexGrow: 0 },
+            tablet: { minWidth: 400, maxWidth: 600, minHeight: 60, maxHeight: 120, overflow: 'visible', flexShrink: 0, flexGrow: 0 },
+            desktop: { minWidth: 600, maxWidth: 800, minHeight: 60, maxHeight: 120, overflow: 'visible', flexShrink: 0, flexGrow: 0 }
+          },
+          overflowHandling: 'wrap'
+        }
       });
     }
 
@@ -554,7 +656,26 @@ export class ShipComputerLayoutOrchestrator {
         size: 'small',
         visibility: 'conditional',
         userIntentAlignment: 0.80,
-        crewRecommendations: recommendations.filter(r => r.crewMember === 'commander-data')
+        crewRecommendations: recommendations.filter(r => r.crewMember === 'commander-data'),
+        responsiveConstraints: {
+          minWidth: 200,
+          maxWidth: 400,
+          minHeight: 300,
+          maxHeight: 600,
+          overflow: 'auto',
+          flexShrink: 0,
+          flexGrow: 0
+        },
+        boundaryManagement: {
+          preventOverflow: true,
+          maxScreenPercentage: 30,
+          responsiveBreakpoints: {
+            mobile: { minWidth: 200, maxWidth: 375, minHeight: 200, maxHeight: 400, overflow: 'auto', flexShrink: 0, flexGrow: 0 },
+            tablet: { minWidth: 250, maxWidth: 300, minHeight: 300, maxHeight: 500, overflow: 'auto', flexShrink: 0, flexGrow: 0 },
+            desktop: { minWidth: 300, maxWidth: 400, minHeight: 300, maxHeight: 600, overflow: 'auto', flexShrink: 0, flexGrow: 0 }
+          },
+          overflowHandling: 'scroll'
+        }
       });
     }
 
@@ -648,6 +769,131 @@ export class ShipComputerLayoutOrchestrator {
     });
 
     return plan;
+  }
+
+  /**
+   * Manage responsive boundaries and prevent component overflow
+   */
+  manageResponsiveBoundaries(
+    componentHierarchy: ComponentLayout[],
+    screenDimensions: { width: number; height: number },
+    deviceType: 'mobile' | 'tablet' | 'desktop'
+  ): ComponentLayout[] {
+    console.log(`🧠 Ship Computer: Managing responsive boundaries for ${deviceType} (${screenDimensions.width}x${screenDimensions.height})`);
+    
+    return componentHierarchy.map(component => {
+      const constraints = component.responsiveConstraints;
+      const boundaries = component.boundaryManagement;
+      
+      // Apply icon sizing strategy for improved user intent understanding
+      const iconSizing = this.generateIconSizingStrategy(component.type, 'general', deviceType);
+      component = this.applyIconSizingStrategy(component, iconSizing);
+      
+      // Apply device-specific constraints
+      const deviceConstraints = boundaries.responsiveBreakpoints[deviceType];
+      
+      // Calculate maximum allowed dimensions
+      const maxWidth = Math.min(
+        constraints.maxWidth,
+        deviceConstraints.maxWidth,
+        screenDimensions.width * (boundaries.maxScreenPercentage / 100)
+      );
+      
+      const maxHeight = Math.min(
+        constraints.maxHeight,
+        deviceConstraints.maxHeight,
+        screenDimensions.height * (boundaries.maxScreenPercentage / 100)
+      );
+      
+      // Ensure components don't exceed screen bounds
+      const adjustedComponent: ComponentLayout = {
+        ...component,
+        responsiveConstraints: {
+          ...constraints,
+          maxWidth: Math.max(constraints.minWidth, maxWidth),
+          maxHeight: Math.max(constraints.minHeight, maxHeight),
+          overflow: boundaries.overflowHandling === 'scroll' ? 'auto' : 
+                   boundaries.overflowHandling === 'hide' ? 'hidden' : 'visible'
+        },
+        boundaryManagement: {
+          ...boundaries,
+          preventOverflow: true
+        }
+      };
+      
+      // Add crew recommendations for boundary management
+      if (maxWidth < constraints.maxWidth || maxHeight < constraints.maxHeight) {
+        adjustedComponent.crewRecommendations.push({
+          crewMember: 'chief-engineer-scott',
+          recommendation: `Component ${component.id} constrained to prevent overflow on ${deviceType}`,
+          priority: 2,
+          reasoning: 'Screen boundary management applied to maintain responsive design',
+          technicalDetails: `Max dimensions: ${maxWidth}x${maxHeight}, Original: ${constraints.maxWidth}x${constraints.maxHeight}`
+        });
+      }
+      
+      return adjustedComponent;
+    });
+  }
+
+  /**
+   * Generate responsive CSS constraints for components
+   */
+  generateResponsiveCSS(component: ComponentLayout, deviceType: 'mobile' | 'tablet' | 'desktop'): string {
+    const constraints = component.responsiveConstraints;
+    const boundaries = component.boundaryManagement;
+    const deviceConstraints = boundaries.responsiveBreakpoints[deviceType];
+    
+    const cssRules = [
+      `max-width: ${Math.min(constraints.maxWidth, deviceConstraints.maxWidth)}px`,
+      `max-height: ${Math.min(constraints.maxHeight, deviceConstraints.maxHeight)}px`,
+      `overflow: ${boundaries.overflowHandling === 'scroll' ? 'auto' : boundaries.overflowHandling === 'hide' ? 'hidden' : 'visible'}`,
+      `flex-shrink: ${constraints.flexShrink}`,
+      `flex-grow: ${constraints.flexGrow}`
+    ];
+    
+    if (constraints.aspectRatio) {
+      cssRules.push(`aspect-ratio: ${constraints.aspectRatio}`);
+    }
+    
+    return cssRules.join('; ');
+  }
+
+  /**
+   * Validate component boundaries against screen dimensions
+   */
+  validateComponentBoundaries(
+    component: ComponentLayout,
+    screenDimensions: { width: number; height: number }
+  ): { isValid: boolean; issues: string[]; recommendations: string[] } {
+    const issues: string[] = [];
+    const recommendations: string[] = [];
+    
+    // Check width constraints
+    if (component.responsiveConstraints.maxWidth > screenDimensions.width) {
+      issues.push(`Component ${component.id} exceeds screen width (${component.responsiveConstraints.maxWidth}px > ${screenDimensions.width}px)`);
+      recommendations.push('Reduce max-width or implement horizontal scrolling');
+    }
+    
+    // Check height constraints
+    if (component.responsiveConstraints.maxHeight > screenDimensions.height) {
+      issues.push(`Component ${component.id} exceeds screen height (${component.responsiveConstraints.maxHeight}px > ${screenDimensions.height}px)`);
+      recommendations.push('Reduce max-height or implement vertical scrolling');
+    }
+    
+    // Check overflow handling
+    if (component.boundaryManagement.overflowHandling === 'wrap' && 
+        (component.responsiveConstraints.maxWidth > screenDimensions.width || 
+         component.responsiveConstraints.maxHeight > screenDimensions.height)) {
+      issues.push(`Component ${component.id} may overflow with 'wrap' overflow handling`);
+      recommendations.push('Change overflow handling to "scroll" or "hide" for better boundary management');
+    }
+    
+    return {
+      isValid: issues.length === 0,
+      issues,
+      recommendations
+    };
   }
 
   /**
@@ -1024,6 +1270,157 @@ export class ShipComputerLayoutOrchestrator {
    */
   getAllCrewMembers(): AIAgent[] {
     return Array.from(this.crewMembers.values());
+  }
+
+  /**
+   * Generate semantic icon sizing strategy based on component type, user role, and device
+   * Icons are visual accents supporting functionality, NOT the main focus
+   */
+  private generateIconSizingStrategy(
+    componentType: string,
+    userRole: string,
+    deviceType: 'mobile' | 'tablet' | 'desktop'
+  ): IconSizingStrategy {
+    const baseSizing = this.getBaseIconSizing(componentType, userRole);
+    const mobileScaling = this.getResponsiveIconScaling('mobile');
+    const tabletScaling = this.getResponsiveIconScaling('tablet');
+    const desktopScaling = this.getResponsiveIconScaling('desktop');
+
+    return {
+      primaryIcon: baseSizing.primary,
+      secondaryIcons: baseSizing.secondary,
+      metadataIcons: baseSizing.metadata,
+      actionIcons: baseSizing.action,
+      systemIcons: baseSizing.system,
+      responsiveScaling: {
+        mobile: mobileScaling,
+        tablet: tabletScaling,
+        desktop: desktopScaling
+      }
+    };
+  }
+
+  /**
+   * Get base icon sizing - Icons as subtle accents, not main focus
+   */
+  private getBaseIconSizing(componentType: string, userRole: string): {
+    primary: string;
+    secondary: string[];
+    metadata: string[];
+    action: string[];
+    system: string[];
+  } {
+    // Icons are visual accents supporting functionality
+    const accentSizing = {
+      primary: 'lcars-icon-small', // 12px - Subtle accent
+      secondary: ['lcars-icon-small', 'lcars-meta-icon'], // 12px, 8px - Supporting elements
+      metadata: ['lcars-meta-icon', 'lcars-trend-icon'], // 8px, 10px - Minimal accents
+      action: ['lcars-button-icon', 'lcars-cta-icon'], // 12px, 14px - Supporting actions
+      system: ['lcars-system-icon', 'lcars-status-icon'] // 14px, 12px - Subtle indicators
+    };
+
+    // Adjust based on component type - keep icons as accents
+    switch (componentType) {
+      case 'navigation':
+        return {
+          primary: 'lcars-nav-icon', // 12px - Minimal navigation guide
+          secondary: ['lcars-menu-icon'], // 14px - Supporting menu accent
+          metadata: ['lcars-meta-icon'], // 8px - Minimal metadata
+          action: ['lcars-button-icon'], // 12px - Supporting button accent
+          system: ['lcars-system-icon'] // 14px - Subtle system indicator
+        };
+      
+      case 'content':
+        return {
+          primary: 'lcars-icon-small', // 12px - Subtle content accent
+          secondary: ['lcars-meta-icon', 'lcars-trend-icon'], // 8px, 10px - Minimal accents
+          metadata: ['lcars-meta-icon'], // 8px - Barely visible metadata
+          action: ['lcars-action-icon'], // 14px - Supporting action accent
+          system: ['lcars-status-icon'] // 12px - Subtle status indicator
+        };
+      
+      case 'action':
+        return {
+          primary: 'lcars-button-icon', // 12px - Supporting button accent
+          secondary: ['lcars-cta-icon'], // 14px - Supporting CTA accent
+          metadata: ['lcars-meta-icon'], // 8px - Minimal metadata
+          action: ['lcars-action-icon'], // 14px - Supporting action accent
+          system: ['lcars-system-icon'] // 14px - Subtle system indicator
+        };
+      
+      case 'information':
+        return {
+          primary: 'lcars-kpi-icon', // 12px - Subtle KPI accent
+          secondary: ['lcars-trend-icon', 'lcars-meta-icon'], // 10px, 8px - Minimal accents
+          metadata: ['lcars-meta-icon'], // 8px - Barely visible metadata
+          action: ['lcars-action-icon'], // 14px - Supporting action accent
+          system: ['lcars-status-icon'] // 12px - Subtle status indicator
+        };
+      
+      case 'interaction':
+        return {
+          primary: 'lcars-form-icon', // 10px - Minimal form accent
+          secondary: ['lcars-input-icon', 'lcars-meta-icon'], // 8px, 8px - Minimal accents
+          metadata: ['lcars-meta-icon'], // 8px - Barely visible metadata
+          action: ['lcars-button-icon'], // 12px - Supporting button accent
+          system: ['lcars-system-icon'] // 14px - Subtle system indicator
+        };
+      
+      default:
+        return accentSizing;
+    }
+  }
+
+  /**
+   * Get responsive icon scaling - Icons remain accent-sized across devices
+   */
+  private getResponsiveIconScaling(deviceType: 'mobile' | 'tablet' | 'desktop'): IconScaling {
+    switch (deviceType) {
+      case 'mobile':
+        return {
+          baseSize: 0.625, // 10px base - Icons as minimal accents
+          scaleFactor: 0.8, // 20% reduction for mobile
+          touchTarget: true, // Maintain touch accessibility
+          accessibility: 'enhanced' // Enhanced accessibility for small screens
+        };
+      
+      case 'tablet':
+        return {
+          baseSize: 0.75, // 12px base - Icons as subtle accents
+          scaleFactor: 0.9, // 10% reduction for tablet
+          touchTarget: true, // Maintain touch accessibility
+          accessibility: 'standard' // Standard accessibility
+        };
+      
+      case 'desktop':
+        return {
+          baseSize: 0.875, // 14px base - Icons as supporting accents
+          scaleFactor: 1.0, // Full size for desktop
+          touchTarget: false, // Mouse interaction
+          accessibility: 'standard' // Standard accessibility
+        };
+      
+      default:
+        return {
+          baseSize: 0.875, // 14px base - Default accent size
+          scaleFactor: 1.0, // Full scale
+          touchTarget: false, // Default to mouse
+          accessibility: 'standard' // Standard accessibility
+        };
+    }
+  }
+
+  /**
+   * Apply icon sizing strategy to component
+   */
+  public applyIconSizingStrategy(
+    component: ComponentLayout,
+    iconSizing: IconSizingStrategy
+  ): ComponentLayout {
+    return {
+      ...component,
+      iconSizing
+    };
   }
 }
 

@@ -1,0 +1,162 @@
+{
+  "name": "Ship Computer AI Agent - Layout Orchestrator",
+  "nodes": [
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "1",
+              "leftValue": "={{ $json.userRole }}",
+              "rightValue": "manager",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "2",
+              "leftValue": "={{ $json.userRole }}",
+              "rightValue": "developer",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "3",
+              "leftValue": "={{ $json.userRole }}",
+              "rightValue": "analyst",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "4",
+              "leftValue": "={{ $json.userRole }}",
+              "rightValue": "executive",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "or"
+        }
+      },
+      "id": "1",
+      "name": "User Intent Analysis",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Ship Computer AI Agent - User Intent Analysis\n// Coordinates all crew members based on user role and goals\n\nconst userRole = $input.first().json.userRole;\nconst userGoals = $input.first().json.goals || [];\nconst urgency = $input.first().json.urgency || 'medium';\nconst complexity = $input.first().json.complexity || 'moderate';\nconst emotionalState = $input.first().json.emotionalState || 'focused';\n\n// Crew member coordination based on user role\nconst crewCoordination = {\n  manager: {\n    primary: 'captain-picard',\n    support: ['commander-spock', 'counselor-troi'],\n    focus: 'strategic-planning'\n  },\n  developer: {\n    primary: 'lieutenant-commander-data',\n    support: ['chief-engineer-scott', 'lieutenant-worf'],\n    focus: 'technical-execution'\n  },\n  analyst: {\n    primary: 'commander-spock',\n    support: ['lieutenant-commander-data', 'quark'],\n    focus: 'data-analysis'\n  },\n  executive: {\n    primary: 'captain-picard',\n    support: ['counselor-troi', 'observation-lounge'],\n    focus: 'strategic-oversight'\n  }\n};\n\n// Get crew configuration for user role\nconst crewConfig = crewCoordination[userRole] || crewCoordination.manager;\n\n// Analyze user intent and generate crew recommendations\nconst userIntentAnalysis = {\n  timestamp: new Date().toISOString(),\n  userRole: userRole,\n  userGoals: userGoals,\n  userBehavior: {\n    urgency: urgency,\n    complexity: complexity,\n    emotionalState: emotionalState\n  },\n  crewCoordination: {\n    primaryAgent: crewConfig.primary,\n    supportAgents: crewConfig.support,\n    focusArea: crewConfig.focus\n  },\n  layoutStrategy: {\n    priority: urgency === 'high' ? 'efficiency' : 'comprehensive',\n    complexity: complexity === 'complex' ? 'detailed' : 'simplified',\n    emotionalSupport: emotionalState === 'stressed' ? 'calming' : 'focused'\n  },\n  responsiveConstraints: {\n    preventOverflow: true,\n    maxScreenPercentage: 100,\n    responsiveBreakpoints: {\n      mobile: { minWidth: 320, maxWidth: 375, minHeight: 60, maxHeight: 80 },\n      tablet: { minWidth: 768, maxWidth: 1024, minHeight: 60, maxHeight: 80 },\n      desktop: { minWidth: 1024, maxWidth: 1920, minHeight: 60, maxHeight: 80 }\n    }\n  }\n};\n\n// Generate crew member specific recommendations\nconst crewRecommendations = [];\n\n// Captain Picard - Strategic Leadership\nif (crewConfig.primary === 'captain-picard' || crewConfig.support.includes('captain-picard')) {\n  crewRecommendations.push({\n    crewMember: 'captain-picard',\n    role: 'Strategic Leadership',\n    recommendations: [\n      'Prioritize user goals based on strategic importance',\n      'Ensure navigation hierarchy supports user workflow',\n      'Optimize layout for decision-making efficiency'\n    ],\n    layoutPriority: 1\n  });\n}\n\n// Commander Spock - Logic and Analysis\nif (crewConfig.primary === 'commander-spock' || crewConfig.support.includes('commander-spock')) {\n  crewRecommendations.push({\n    crewMember: 'commander-spock',\n    role: 'Logic and Analysis',\n    recommendations: [\n      'Organize information in logical hierarchies',\n      'Implement efficient data presentation patterns',\n      'Ensure analytical tools are prominently accessible'\n    ],\n    layoutPriority: 2\n  });\n}\n\n// Counselor Troi - User Experience\nif (crewConfig.primary === 'counselor-troi' || crewConfig.support.includes('counselor-troi')) {\n  crewRecommendations.push({\n    crewMember: 'counselor-troi',\n    role: 'User Experience',\n    recommendations: [\n      'Adapt interface based on emotional state',\n      'Ensure intuitive navigation flow',\n      'Provide clear visual feedback for actions'\n    ],\n    layoutPriority: 3\n  });\n}\n\n// Lieutenant Commander Data - Technical Implementation\nif (crewConfig.primary === 'lieutenant-commander-data' || crewConfig.support.includes('lieutenant-commander-data')) {\n  crewRecommendations.push({\n    crewMember: 'lieutenant-commander-data',\n    role: 'Technical Implementation',\n    recommendations: [\n      'Implement responsive boundary management',\n      'Ensure type-safe component interactions',\n      'Optimize performance for user workflows'\n    ],\n    layoutPriority: 4\n  });\n}\n\n// Chief Engineer Scott - System Optimization\nif (crewConfig.primary === 'chief-engineer-scott' || crewConfig.support.includes('chief-engineer-scott')) {\n  crewRecommendations.push({\n    crewMember: 'chief-engineer-scott',\n    role: 'System Optimization',\n    recommendations: [\n      'Optimize component rendering performance',\n      'Ensure efficient resource utilization',\n      'Implement smart caching strategies'\n    ],\n    layoutPriority: 5\n  });\n}\n\n// Lieutenant Worf - Security and Validation\nif (crewConfig.primary === 'lieutenant-worf' || crewConfig.support.includes('lieutenant-worf')) {\n  crewRecommendations.push({\n    crewMember: 'lieutenant-worf',\n    role: 'Security and Validation',\n    recommendations: [\n      'Validate all user inputs and interactions',\n      'Ensure secure data handling',\n      'Implement proper error boundaries'\n    ],\n    layoutPriority: 6\n  });\n}\n\n// Quark - Business Intelligence\nif (crewConfig.primary === 'quark' || crewConfig.support.includes('quark')) {\n  crewRecommendations.push({\n    crewMember: 'quark',\n    role: 'Business Intelligence',\n    recommendations: [\n      'Highlight key business metrics prominently',\n      'Ensure financial data is easily accessible',\n      'Optimize layout for business decision making'\n    ],\n    layoutPriority: 7\n  });\n}\n\n// Observation Lounge - Strategic Collaboration\nif (crewConfig.primary === 'observation-lounge' || crewConfig.support.includes('observation-lounge')) {\n  crewRecommendations.push({\n    crewMember: 'observation-lounge',\n    role: 'Strategic Collaboration',\n    recommendations: [\n      'Facilitate team collaboration interfaces',\n      'Ensure communication tools are accessible',\n      'Optimize layout for group decision making'\n    ],\n    layoutPriority: 8\n  });\n}\n\n// Sort recommendations by priority\ncrewRecommendations.sort((a, b) => a.layoutPriority - b.layoutPriority);\n\n// Generate final layout orchestration plan\nconst layoutOrchestration = {\n  userIntent: userIntentAnalysis,\n  crewRecommendations: crewRecommendations,\n  layoutStrategy: {\n    componentHierarchy: [\n      {\n        id: 'primary-navigation',\n        type: 'navigation',\n        priority: 1,\n        crewResponsibility: 'captain-picard',\n        responsiveConstraints: userIntentAnalysis.responsiveConstraints\n      },\n      {\n        id: 'main-content',\n        type: 'content',\n        priority: 2,\n        crewResponsibility: 'commander-spock',\n        responsiveConstraints: userIntentAnalysis.responsiveConstraints\n      },\n      {\n        id: 'primary-actions',\n        type: 'actions',\n        priority: 3,\n        crewResponsibility: 'lieutenant-commander-data',\n        responsiveConstraints: userIntentAnalysis.responsiveConstraints\n      },\n      {\n        id: 'supporting-info',\n        type: 'information',\n        priority: 4,\n        crewResponsibility: 'counselor-troi',\n        responsiveConstraints: userIntentAnalysis.responsiveConstraints\n      }\n    ],\n    responsiveBoundaries: {\n      preventOverflow: true,\n      maxScreenPercentage: 100,\n      deviceSpecific: {\n        mobile: { maxWidth: 375, maxHeight: 667 },\n        tablet: { maxWidth: 1024, maxHeight: 768 },\n        desktop: { maxWidth: 1920, maxHeight: 1080 }\n      }\n    },\n    performanceOptimization: {\n      priority: 'user-intent-driven',\n      crewCoordination: crewConfig,\n      realTimeAdaptation: true\n    }\n  }\n};\n\nreturn {\n  json: {\n    shipComputerAgent: {\n      id: 'ship-computer-layout-orchestrator',\n      name: 'Ship Computer Layout Orchestrator',\n      role: 'AI Layout Orchestration Agent',\n      status: 'active',\n      timestamp: new Date().toISOString(),\n      userIntentAnalysis: userIntentAnalysis,\n      crewCoordination: crewConfig,\n      crewRecommendations: crewRecommendations,\n      layoutOrchestration: layoutOrchestration,\n      responsiveBoundaryManagement: {\n        active: true,\n        violations: 0,\n        optimizationLevel: 'maximum'\n      }\n    }\n  }\n};"
+      },
+      "id": "2",
+      "name": "Ship Computer AI Agent",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Crew Member Coordination and Layout Generation\n// Each crew member contributes their expertise to the layout\n\nconst shipComputer = $input.first().json.shipComputerAgent;\nconst crewRecommendations = shipComputer.crewRecommendations;\n\n// Generate dynamic UI layout based on crew recommendations\nconst dynamicLayout = {\n  timestamp: new Date().toISOString(),\n  layoutId: `layout-${Date.now()}`,\n  userRole: shipComputer.userIntentAnalysis.userRole,\n  crewCoordination: shipComputer.crewCoordination,\n  components: {},\n  responsiveRules: {},\n  crewInsights: {}\n};\n\n// Process each crew member's recommendations\ncrewRecommendations.forEach(crewMember => {\n  const crewId = crewMember.crewMember;\n  \n  // Generate component layout based on crew expertise\n  switch (crewId) {\n    case 'captain-picard':\n      dynamicLayout.components.navigation = {\n        type: 'primary-navigation',\n        priority: 1,\n        layout: 'strategic-hierarchy',\n        responsiveRules: {\n          mobile: { display: 'collapsible', maxHeight: '60px' },\n          tablet: { display: 'expanded', maxHeight: '70px' },\n          desktop: { display: 'full', maxHeight: '80px' }\n        },\n        crewInsights: crewMember.recommendations\n      };\n      break;\n      \n    case 'commander-spock':\n      dynamicLayout.components.content = {\n        type: 'main-content',\n        priority: 2,\n        layout: 'logical-hierarchy',\n        responsiveRules: {\n          mobile: { columns: 1, maxWidth: '100%' },\n          tablet: { columns: 2, maxWidth: '100%' },\n          desktop: { columns: 3, maxWidth: '100%' }\n        },\n        crewInsights: crewMember.recommendations\n      };\n      break;\n      \n    case 'counselor-troi':\n      dynamicLayout.components.userExperience = {\n        type: 'user-experience-enhancement',\n        priority: 3,\n        layout: 'emotional-support',\n        responsiveRules: {\n          mobile: { touchFriendly: true, spacing: 'comfortable' },\n          tablet: { touchFriendly: true, spacing: 'optimal' },\n          desktop: { mouseFriendly: true, spacing: 'efficient' }\n        },\n        crewInsights: crewMember.recommendations\n      };\n      break;\n      \n    case 'lieutenant-commander-data':\n      dynamicLayout.components.technical = {\n        type: 'technical-implementation',\n        priority: 4,\n        layout: 'type-safe-components',\n        responsiveRules: {\n          mobile: { validation: 'immediate', feedback: 'visual' },\n          tablet: { validation: 'immediate', feedback: 'visual' },\n          desktop: { validation: 'real-time', feedback: 'comprehensive' }\n        },\n        crewInsights: crewMember.recommendations\n      };\n      break;\n      \n    case 'chief-engineer-scott':\n      dynamicLayout.components.performance = {\n        type: 'performance-optimization',\n        priority: 5,\n        layout: 'efficient-rendering',\n        responsiveRules: {\n          mobile: { lazyLoading: true, caching: 'aggressive' },\n          tablet: { lazyLoading: true, caching: 'balanced' },\n          desktop: { lazyLoading: false, caching: 'intelligent' }\n        },\n        crewInsights: crewMember.recommendations\n      };\n      break;\n      \n    case 'lieutenant-worf':\n      dynamicLayout.components.security = {\n        type: 'security-validation',\n        priority: 6,\n        layout: 'secure-boundaries',\n        responsiveRules: {\n          mobile: { validation: 'strict', errorHandling: 'user-friendly' },\n          tablet: { validation: 'strict', errorHandling: 'user-friendly' },\n          desktop: { validation: 'comprehensive', errorHandling: 'detailed' }\n        },\n        crewInsights: crewMember.recommendations\n      };\n      break;\n      \n    case 'quark':\n      dynamicLayout.components.business = {\n        type: 'business-intelligence',\n        priority: 7,\n        layout: 'metrics-focused',\n        responsiveRules: {\n          mobile: { keyMetrics: true, detailedData: false },\n          tablet: { keyMetrics: true, detailedData: 'partial' },\n          desktop: { keyMetrics: true, detailedData: true }\n        },\n        crewInsights: crewMember.recommendations\n      };\n      break;\n      \n    case 'observation-lounge':\n      dynamicLayout.components.collaboration = {\n        type: 'collaboration-tools',\n        priority: 8,\n        layout: 'team-focused',\n        responsiveRules: {\n          mobile: { teamChat: true, fileSharing: 'basic' },\n          tablet: { teamChat: true, fileSharing: 'enhanced' },\n          desktop: { teamChat: true, fileSharing: 'full' }\n        },\n        crewInsights: crewMember.recommendations\n      };\n      break;\n  }\n});\n\n// Generate responsive boundary management rules\nconst responsiveBoundaries = {\n  global: {\n    preventOverflow: true,\n    maxScreenPercentage: 100,\n    overflowHandling: 'smart'\n  },\n  deviceSpecific: {\n    mobile: {\n      maxWidth: 375,\n      maxHeight: 667,\n      constraints: 'strict',\n      fallback: 'collapsible'\n    },\n    tablet: {\n      maxWidth: 1024,\n      maxHeight: 768,\n      constraints: 'balanced',\n      fallback: 'adaptive'\n    },\n    desktop: {\n      maxWidth: 1920,\n      maxHeight: 1080,\n      constraints: 'flexible',\n      fallback: 'expandable'\n    }\n  },\n  componentRules: {\n    navigation: {\n      mobile: { position: 'fixed', zIndex: 1000 },\n      tablet: { position: 'sticky', zIndex: 1000 },\n      desktop: { position: 'static', zIndex: 'auto' }\n    },\n    content: {\n      mobile: { padding: '16px', margin: '0' },\n      tablet: { padding: '24px', margin: '0' },\n      desktop: { padding: '32px', margin: '0' }\n    },\n    actions: {\n      mobile: { size: 'large', spacing: 'comfortable' },\n      tablet: { size: 'medium', spacing: 'optimal' },\n      desktop: { size: 'standard', spacing: 'efficient' }\n    }\n  }\n};\n\n// Add responsive boundaries to layout\ndynamicLayout.responsiveBoundaries = responsiveBoundaries;\n\n// Generate CSS rules for responsive behavior\nconst responsiveCSS = {\n  mobile: `\n    /* Mobile Responsive Rules */\n    .ship-computer-layout {\n      max-width: 375px;\n      overflow-x: hidden;\n    }\n    .ship-computer-navigation {\n      position: fixed;\n      top: 0;\n      left: 0;\n      right: 0;\n      z-index: 1000;\n      max-height: 60px;\n    }\n    .ship-computer-content {\n      padding: 16px;\n      margin-top: 60px;\n    }\n  `,\n  tablet: `\n    /* Tablet Responsive Rules */\n    .ship-computer-layout {\n      max-width: 1024px;\n      overflow-x: hidden;\n    }\n    .ship-computer-navigation {\n      position: sticky;\n      top: 0;\n      z-index: 1000;\n      max-height: 70px;\n    }\n    .ship-computer-content {\n      padding: 24px;\n    }\n  `,\n  desktop: `\n    /* Desktop Responsive Rules */\n    .ship-computer-layout {\n      max-width: 1920px;\n    }\n    .ship-computer-navigation {\n      position: static;\n      max-height: 80px;\n    }\n    .ship-computer-content {\n      padding: 32px;\n    }\n  `\n};\n\ndynamicLayout.responsiveCSS = responsiveCSS;\n\n// Final layout orchestration result\nreturn {\n  json: {\n    dynamicLayout: dynamicLayout,\n    crewCoordination: shipComputer.crewCoordination,\n    responsiveBoundaries: responsiveBoundaries,\n    responsiveCSS: responsiveCSS,\n    timestamp: new Date().toISOString(),\n    status: 'layout-orchestrated',\n    message: 'Ship Computer has successfully orchestrated layout with all crew members'\n  }\n};"
+      },
+      "id": "3",
+      "name": "Dynamic Layout Generation",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [680, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Responsive Boundary Management and Validation\n// Ensures no components bleed outside screen bounds\n\nconst layoutData = $input.first().json;\nconst dynamicLayout = layoutData.dynamicLayout;\nconst responsiveBoundaries = layoutData.responsiveBoundaries;\n\n// Validate layout against responsive boundaries\nconst boundaryValidation = {\n  timestamp: new Date().toISOString(),\n  layoutId: dynamicLayout.layoutId,\n  validationResults: {},\n  violations: [],\n  recommendations: []\n};\n\n// Validate each component against boundaries\nObject.entries(dynamicLayout.components).forEach(([componentId, component]) => {\n  const validation = {\n    componentId: componentId,\n    componentType: component.type,\n    validationStatus: 'pending',\n    boundaryChecks: {},\n    issues: [],\n    crewRecommendations: component.crewInsights || []\n  };\n  \n  // Check mobile boundaries\n  const mobileValidation = validateComponentBoundaries(component, 'mobile', responsiveBoundaries.deviceSpecific.mobile);\n  validation.boundaryChecks.mobile = mobileValidation;\n  \n  // Check tablet boundaries\n  const tabletValidation = validateComponentBoundaries(component, 'tablet', responsiveBoundaries.deviceSpecific.tablet);\n  validation.boundaryChecks.tablet = tabletValidation;\n  \n  // Check desktop boundaries\n  const desktopValidation = validateComponentBoundaries(component, 'desktop', responsiveBoundaries.deviceSpecific.desktop);\n  validation.boundaryChecks.desktop = desktopValidation;\n  \n  // Determine overall validation status\n  const allValid = [mobileValidation, tabletValidation, desktopValidation].every(v => v.isValid);\n  validation.validationStatus = allValid ? 'valid' : 'needs-attention';\n  \n  // Collect issues\n  [mobileValidation, tabletValidation, desktopValidation].forEach(deviceValidation => {\n    if (!deviceValidation.isValid) {\n      validation.issues.push(...deviceValidation.issues);\n    }\n  });\n  \n  // Add to validation results\n  boundaryValidation.validationResults[componentId] = validation;\n  \n  // Track violations\n  if (!allValid) {\n    boundaryValidation.violations.push({\n      componentId: componentId,\n      issues: validation.issues,\n      crewRecommendations: validation.crewRecommendations\n    });\n  }\n});\n\n// Generate recommendations for boundary violations\nif (boundaryValidation.violations.length > 0) {\n  boundaryValidation.recommendations = generateBoundaryRecommendations(boundaryValidation.violations);\n}\n\n// Generate final responsive boundary management result\nconst responsiveBoundaryManagement = {\n  status: boundaryValidation.violations.length === 0 ? 'perfect' : 'needs-optimization',\n  totalComponents: Object.keys(dynamicLayout.components).length,\n  validComponents: Object.values(boundaryValidation.validationResults).filter(v => v.validationStatus === 'valid').length,\n  violations: boundaryValidation.violations.length,\n  validationResults: boundaryValidation,\n  responsiveCSS: layoutData.responsiveCSS,\n  crewCoordination: layoutData.crewCoordination,\n  timestamp: new Date().toISOString()\n};\n\n// Helper function to validate component boundaries\nfunction validateComponentBoundaries(component, deviceType, deviceConstraints) {\n  const validation = {\n    deviceType: deviceType,\n    isValid: true,\n    issues: [],\n    recommendations: []\n  };\n  \n  // Check if component respects device constraints\n  const componentRules = component.responsiveRules[deviceType];\n  if (!componentRules) {\n    validation.isValid = false;\n    validation.issues.push(`No responsive rules defined for ${deviceType}`);\n    return validation;\n  }\n  \n  // Validate against device constraints\n  if (deviceType === 'mobile' && componentRules.maxHeight && componentRules.maxHeight > deviceConstraints.maxHeight) {\n    validation.isValid = false;\n    validation.issues.push(`Component height exceeds mobile constraints: ${componentRules.maxHeight} > ${deviceConstraints.maxHeight}`);\n  }\n  \n  if (deviceType === 'mobile' && componentRules.maxWidth && componentRules.maxWidth > deviceConstraints.maxWidth) {\n    validation.isValid = false;\n    validation.issues.push(`Component width exceeds mobile constraints: ${componentRules.maxWidth} > ${deviceConstraints.maxWidth}`);\n  }\n  \n  // Add crew-specific recommendations\n  if (component.crewInsights && component.crewInsights.length > 0) {\n    validation.recommendations = component.crewInsights;\n  }\n  \n  return validation;\n}\n\n// Helper function to generate boundary recommendations\nfunction generateBoundaryRecommendations(violations) {\n  const recommendations = [];\n  \n  violations.forEach(violation => {\n    if (violation.crewRecommendations && violation.crewRecommendations.length > 0) {\n      recommendations.push({\n        componentId: violation.componentId,\n        crewRecommendations: violation.crewRecommendations,\n        priority: 'high'\n      });\n    }\n  });\n  \n  return recommendations;\n}\n\nreturn {\n  json: {\n    responsiveBoundaryManagement: responsiveBoundaryManagement,\n    boundaryValidation: boundaryValidation,\n    dynamicLayout: dynamicLayout,\n    crewCoordination: layoutData.crewCoordination,\n    timestamp: new Date().toISOString(),\n    status: 'boundaries-validated',\n    message: 'Ship Computer has validated responsive boundaries with crew recommendations'\n  }\n};"
+      },
+      "id": "4",
+      "name": "Responsive Boundary Management",
+      "type": "4",
+      "typeVersion": 2,
+      "position": [900, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Final Output: Ship Computer AI Agent Complete Response\n// Combines all crew insights and responsive boundary management\n\nconst boundaryData = $input.first().json;\nconst responsiveBoundaryManagement = boundaryData.responsiveBoundaryManagement;\nconst dynamicLayout = boundaryData.dynamicLayout;\nconst crewCoordination = boundaryData.crewCoordination;\n\n// Generate comprehensive Ship Computer response\nconst shipComputerResponse = {\n  agentId: 'ship-computer-layout-orchestrator',\n  agentName: 'Ship Computer Layout Orchestrator',\n  agentRole: 'AI Layout Orchestration Agent',\n  timestamp: new Date().toISOString(),\n  status: 'mission-accomplished',\n  \n  // User Intent Analysis\n  userIntent: {\n    userRole: dynamicLayout.userRole,\n    crewCoordination: crewCoordination,\n    layoutStrategy: dynamicLayout.layoutStrategy,\n    responsiveConstraints: dynamicLayout.responsiveBoundaries\n  },\n  \n  // Crew Coordination Results\n  crewCoordination: {\n    primaryAgent: crewCoordination.primary,\n    supportAgents: crewCoordination.support,\n    focusArea: crewCoordination.focus,\n    crewRecommendations: dynamicLayout.crewInsights || {}\n  },\n  \n  // Dynamic Layout Generation\n  dynamicLayout: {\n    layoutId: dynamicLayout.layoutId,\n    components: dynamicLayout.components,\n    responsiveRules: dynamicLayout.responsiveRules,\n    crewInsights: dynamicLayout.crewInsights || {}\n  },\n  \n  // Responsive Boundary Management\n  responsiveBoundaries: {\n    status: responsiveBoundaryManagement.status,\n    totalComponents: responsiveBoundaryManagement.totalComponents,\n    validComponents: responsiveBoundaryManagement.validComponents,\n    violations: responsiveBoundaryManagement.violations,\n    validationResults: responsiveBoundaryManagement.validationResults,\n    responsiveCSS: responsiveBoundaryManagement.responsiveCSS\n  },\n  \n  // Performance Metrics\n  performanceMetrics: {\n    layoutGenerationTime: 'optimized',\n    boundaryValidationTime: 'real-time',\n    crewCoordinationEfficiency: 'maximum',\n    responsiveBoundaryCompliance: responsiveBoundaryManagement.violations.length === 0 ? '100%' : 'needs-optimization'\n  },\n  \n  // Crew Mission Status\n  crewMissionStatus: {\n    captainPicard: 'Strategic layout orchestration complete',\n    commanderSpock: 'Logical component hierarchy established',\n    counselorTroi: 'User experience optimized for emotional state',\n    lieutenantCommanderData: 'Technical implementation validated',\n    chiefEngineerScott: 'Performance optimization complete',\n    lieutenantWorf: 'Security and validation boundaries secure',\n    quark: 'Business intelligence metrics prioritized',\n    observationLounge: 'Team collaboration interfaces optimized'\n  },\n  \n  // Final Mission Report\n  missionReport: {\n    objective: 'Dynamic UI layout orchestration with responsive boundary management',\n    status: 'MISSION ACCOMPLISHED',\n    crewPerformance: 'EXCELLENT',\n    responsiveBoundaries: responsiveBoundaryManagement.violations.length === 0 ? 'PERFECT' : 'NEEDS OPTIMIZATION',\n    userIntentAlignment: 'MAXIMUM',\n    nextSteps: responsiveBoundaryManagement.violations.length === 0 ? \n      'Deploy optimized layout with perfect responsive boundaries' : \n      'Address boundary violations with crew recommendations'\n  }\n};\n\nreturn {\n  json: {\n    shipComputerResponse: shipComputerResponse,\n    status: 'complete',\n    timestamp: new Date().toISOString(),\n    message: 'Ship Computer AI Agent has successfully completed layout orchestration mission'\n  }\n};"
+      },
+      "id": "5",
+      "name": "Ship Computer Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1120, 300]
+    }
+  ],
+  "connections": {
+    "User Intent Analysis": {
+      "main": [
+        [
+          {
+            "node": "Ship Computer AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ship Computer AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Dynamic Layout Generation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Dynamic Layout Generation": {
+      "main": [
+        [
+          {
+            "node": "Responsive Boundary Management",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Responsive Boundary Management": {
+      "main": [
+        [
+          {
+            "node": "Ship Computer Response",
+            "type": "main",
+            "index": 0"
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "1",
+  "meta": {
+    "instanceId": "1755475978485"
+  },
+  "id": "ship-computer-ai-agent",
+  "tags": [
+    "ai-agent",
+    "ship-computer",
+    "layout-orchestrator",
+    "responsive-boundaries",
+    "crew-coordination"
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "name": "LCARS Design System",
+  "version": "1.0.0",
+  "lastModified": "2025-08-18T03:49:49.062Z",
+  "thumbnailUrl": "",
+  "editorType": "figma",
+  "linkAccess": "view",
+  "currentUserPermission": "can_edit",
+  "document": {
+    "id": "lcars-design-system",
+    "name": "LCARS Design System",
+    "type": "DOCUMENT",
+    "children": [
+      {
+        "id": "design-system-page",
+        "name": "Design System",
+        "type": "PAGE",
+        "children": []
+      },
+      {
+        "id": "components-page",
+        "name": "Components",
+        "type": "PAGE",
+        "children": []
+      },
+      {
+        "id": "layouts-page",
+        "name": "Layouts",
+        "type": "PAGE",
+        "children": []
+      }
+    ]
+  }
+}

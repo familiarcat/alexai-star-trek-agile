@@ -1,0 +1,92 @@
+{
+  "testRun": {
+    "timestamp": "2025-08-17T23:44:45.268Z",
+    "duration": "6364ms",
+    "totalTests": 8,
+    "passedTests": 3,
+    "failedTests": 5,
+    "successRate": "37.5%"
+  },
+  "testResults": [
+    {
+      "test": "Ship Computer Demo Page",
+      "status": "FAIL",
+      "details": "this.page.waitForTimeout is not a function"
+    },
+    {
+      "test": "Crew Member Coordination",
+      "status": "PASS",
+      "details": "All 8 crew members tested"
+    },
+    {
+      "test": "Layout Intelligence",
+      "status": "FAIL",
+      "details": "this.page.waitForTimeout is not a function"
+    },
+    {
+      "test": "User Intent Analysis",
+      "status": "FAIL",
+      "details": "this.page.waitForTimeout is not a function"
+    },
+    {
+      "test": "Universal Navigation",
+      "status": "FAIL",
+      "details": "this.page.waitForTimeout is not a function"
+    },
+    {
+      "test": "Visual Consistency",
+      "status": "PASS",
+      "details": "Colors: 3, Typography: 1, Spacing: 3"
+    },
+    {
+      "test": "Responsive Design",
+      "status": "FAIL",
+      "details": "this.page.waitForTimeout is not a function"
+    },
+    {
+      "test": "Performance Metrics",
+      "status": "PASS",
+      "details": "Load time: 0ms, Ship Computer: Inactive"
+    }
+  ],
+  "shipComputerStatus": {
+    "crewMembers": 8,
+    "allActive": true,
+    "coordinationStatus": "operational"
+  },
+  "recommendations": [
+    {
+      "priority": "high",
+      "category": "test-failures",
+      "description": "Address 5 failed tests to improve system reliability",
+      "actions": [
+        "Fix Ship Computer Demo Page: this.page.waitForTimeout is not a function",
+        "Fix Layout Intelligence: this.page.waitForTimeout is not a function",
+        "Fix User Intent Analysis: this.page.waitForTimeout is not a function",
+        "Fix Universal Navigation: this.page.waitForTimeout is not a function",
+        "Fix Responsive Design: this.page.waitForTimeout is not a function"
+      ]
+    },
+    {
+      "priority": "medium",
+      "category": "ship-computer-enhancement",
+      "description": "Optimize crew coordination algorithms for better layout consensus",
+      "actions": [
+        "Implement machine learning for crew member adaptation",
+        "Add predictive analytics for user behavior",
+        "Enhance real-time optimization cycles"
+      ]
+    },
+    {
+      "priority": "low",
+      "category": "performance-optimization",
+      "description": "Improve performance metrics and monitoring",
+      "actions": [
+        "Add performance benchmarking for layout changes",
+        "Implement A/B testing for layout variations",
+        "Add user satisfaction metrics tracking"
+      ]
+    }
+  ],
+  "screenshots": []
+}

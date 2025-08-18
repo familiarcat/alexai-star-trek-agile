@@ -1,0 +1,261 @@
+{
+  "testRun": {
+    "timestamp": "2025-08-18T03:48:19.024Z",
+    "duration": "85585ms",
+    "totalTests": 8,
+    "passedTests": 5,
+    "failedTests": 3,
+    "successRate": "62.5%"
+  },
+  "testResults": [
+    {
+      "test": "Ship Computer Demo Page",
+      "status": "FAIL",
+      "details": "SyntaxError: Failed to execute 'querySelector' on 'Document': 'button:contains(\"Analyze Layout\")' is not a valid selector."
+    },
+    {
+      "test": "Crew Member Coordination",
+      "status": "PASS",
+      "details": "All 8 crew members tested"
+    },
+    {
+      "test": "Layout Intelligence",
+      "status": "FAIL",
+      "details": "Navigation timeout of 30000 ms exceeded"
+    },
+    {
+      "test": "User Intent Analysis",
+      "status": "PASS",
+      "details": "Tested 4 roles and 4 urgency levels"
+    },
+    {
+      "test": "Universal Navigation",
+      "status": "FAIL",
+      "details": "Navigation timeout of 30000 ms exceeded"
+    },
+    {
+      "test": "Visual Consistency",
+      "status": "PASS",
+      "details": "Colors: 3, Typography: 1, Spacing: 10"
+    },
+    {
+      "test": "Responsive Design",
+      "status": "PASS",
+      "details": "Tested 3 viewports for responsive behavior"
+    },
+    {
+      "test": "Performance Metrics",
+      "status": "PASS",
+      "details": "Load time: 0ms, Ship Computer: Inactive"
+    }
+  ],
+  "shipComputerStatus": {
+    "crewMembers": 8,
+    "allActive": true,
+    "coordinationStatus": "operational"
+  },
+  "recommendations": [
+    {
+      "priority": "high",
+      "category": "test-failures",
+      "description": "Address 3 failed tests to improve system reliability",
+      "actions": [
+        "Fix Ship Computer Demo Page: SyntaxError: Failed to execute 'querySelector' on 'Document': 'button:contains(\"Analyze Layout\")' is not a valid selector.",
+        "Fix Layout Intelligence: Navigation timeout of 30000 ms exceeded",
+        "Fix Universal Navigation: Navigation timeout of 30000 ms exceeded"
+      ]
+    },
+    {
+      "priority": "medium",
+      "category": "ship-computer-enhancement",
+      "description": "Optimize crew coordination algorithms for better layout consensus",
+      "actions": [
+        "Implement machine learning for crew member adaptation",
+        "Add predictive analytics for user behavior",
+        "Enhance real-time optimization cycles"
+      ]
+    },
+    {
+      "priority": "low",
+      "category": "performance-optimization",
+      "description": "Improve performance metrics and monitoring",
+      "actions": [
+        "Add performance benchmarking for layout changes",
+        "Implement A/B testing for layout variations",
+        "Add user satisfaction metrics tracking"
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "filename": "layout-intelligence-analytics-2025-08-17T23-49-23-721Z.png",
+      "path": "test-screenshots/ship-computer-ui-testing/layout-intelligence-analytics-2025-08-17T23-49-23-721Z.png",
+      "timestamp": "721Z"
+    },
+    {
+      "filename": "layout-intelligence-projects-2025-08-17T23-49-20-059Z.png",
+      "path": "test-screenshots/ship-computer-ui-testing/layout-intelligence-projects-2025-08-17T23-49-20-059Z.png",
+      "timestamp": "059Z"
+    },
+    {
+      "filename": "layout-intelligence-projects-2025-08-18T01-53-52-593Z.png",
+      "path": "test-screenshots/ship-computer-ui-testing/layout-intelligence-projects-2025-08-18T01-53-52-593Z.png",
+      "timestamp": "593Z"
+    },
+    {
+      "filename": "layout-intelligence-tasks-2025-08-17T23-49-15-952Z.png",
+      "path": "test-screenshots/ship-computer-ui-testing/layout-intelligence-tasks-2025-08-17T23-49-15-952Z.png",
+      "timestamp": "952Z"
+    },
+    {
+      "filename": "layout-intelligence-tasks-2025-08-18T01-53-48-341Z.png",
+      "path": "test-screenshots/ship-computer-ui-testing/layout-intelligence-tasks-2025-08-18T01-53-48-341Z.png",
+      "timestamp": "341Z"
+    },
+    {
+      "filename": "layout-intelligence-tasks-2025-08-18T02-11-23-017Z.png",
+      "path": "test-screenshots/ship-computer-ui-testing/layout-intelligence-tasks-2025-08-18T02-11-23-017Z.png",
+      "timestamp": "017Z"
+    },
+    {
+      "filename": "layout-intelligence-tasks-2025-08-18T02-25-30-598Z.png",
+      "path": "test-screenshots/ship-computer-ui-testing/layout-intelligence-tasks-2025-08-18T02-25-30-598Z.png",
+      "timestamp": "598Z"
+    },
+    {
+      "filename": "layout-intelligence-tasks-2025-08-18T03-47-02-152Z.png",
+      "path": "test-screenshots/ship-computer-ui-testing/layout-intelligence-tasks-2025-08-18T03-47-02-152Z.png",
+      "timestamp": "152Z"
+    },
+    {
+      "filename": "layout-intelligence-workflow-management-2025-08-17T23-49-27-166Z.png",
+      "path": "test-screenshots/ship-computer-ui-testing/layout-intelligence-workflow-management-2025-08-17T23-49-27-166Z.png",
+      "timestamp": "166Z"
+    },
+    {
+      "filename": "navigation-analytics-2025-08-17T23-49-47-654Z.png",
+      "path": "test-screenshots/ship-computer-ui-testing/navigation-analytics-2025-08-17T23-49-47-654Z.png",
+      "timestamp": "654Z"
+    },
+    {
+      "filename": "navigation-crew-2025-08-17T23-49-52-784Z.png",
+      "path": "test-screenshots/ship-computer-ui-testing/navigation-crew-2025-08-17T23-49-52-784Z.png",
+      "timestamp": "784Z"
+    },
+    {
+      "filename": "navigation-home-2025-08-17T23-49-40-863Z.png",
+      "path": "test-screenshots/ship-computer-ui-testing/navigation-home-2025-08-17T23-49-40-863Z.png",
+      "timestamp": "863Z"
+    },
+    {
+      "filename": "navigation-home-2025-08-18T01-54-35-885Z.png",
+      "path": "test-screenshots/ship-computer-ui-testing/navigation-home-2025-08-18T01-54-35-885Z.png",
+      "timestamp": "885Z"
+    },
+    {
+      "filename": "navigation-home-2025-08-18T02-12-06-423Z.png",
+      "path": "test-screenshots/ship-computer-ui-testing/navigation-home-2025-08-18T02-12-06-423Z.png",
+      "timestamp": "423Z"
+    },
+    {
+      "filename": "navigation-home-2025-08-18T02-26-13-907Z.png",
+      "path": "test-screenshots/ship-computer-ui-testing/navigation-home-2025-08-18T02-26-13-907Z.png",
+      "timestamp": "907Z"
+    },
+    {
+      "filename": "navigation-home-2025-08-18T03-47-45-439Z.png",
+      "path": "test-screenshots/ship-computer-ui-testing/navigation-home-2025-08-18T03-47-45-439Z.png",
+      "timestamp": "439Z"
+    },
+    {
+      "filename": "navigation-projects-2025-08-17T23-49-45-374Z.png",
+      "path": "test-screenshots/ship-computer-ui-testing/navigation-projects-2025-08-17T23-49-45-374Z.png",
+      "timestamp": "374Z"
+    },
+    {
+      "filename": "navigation-tasks-2025-08-17T23-49-42-807Z.png",
+      "path": "test-screenshots/ship-computer-ui-testing/navigation-tasks-2025-08-17T23-49-42-807Z.png",
+      "timestamp": "807Z"
+    },
+    {
+      "filename": "navigation-workflow-management-2025-08-17T23-49-49-889Z.png",
+      "path": "test-screenshots/ship-computer-ui-testing/navigation-workflow-management-2025-08-17T23-49-49-889Z.png",
+      "timestamp": "889Z"
+    },
+    {
+      "filename": "responsive-desktop-2025-08-17T23-49-54-649Z.png",
+      "path": "test-screenshots/ship-computer-ui-testing/responsive-desktop-2025-08-17T23-49-54-649Z.png",
+      "timestamp": "649Z"
+    },
+    {
+      "filename": "responsive-desktop-2025-08-18T01-55-07-146Z.png",
+      "path": "test-screenshots/ship-computer-ui-testing/responsive-desktop-2025-08-18T01-55-07-146Z.png",
+      "timestamp": "146Z"
+    },
+    {
+      "filename": "responsive-desktop-2025-08-18T02-12-37-685Z.png",
+      "path": "test-screenshots/ship-computer-ui-testing/responsive-desktop-2025-08-18T02-12-37-685Z.png",
+      "timestamp": "685Z"
+    },
+    {
+      "filename": "responsive-desktop-2025-08-18T02-26-45-156Z.png",
+      "path": "test-screenshots/ship-computer-ui-testing/responsive-desktop-2025-08-18T02-26-45-156Z.png",
+      "timestamp": "156Z"
+    },
+    {
+      "filename": "responsive-desktop-2025-08-18T03-48-16-734Z.png",
+      "path": "test-screenshots/ship-computer-ui-testing/responsive-desktop-2025-08-18T03-48-16-734Z.png",
+      "timestamp": "734Z"
+    },
+    {
+      "filename": "responsive-mobile-2025-08-17T23-49-57-792Z.png",
+      "path": "test-screenshots/ship-computer-ui-testing/responsive-mobile-2025-08-17T23-49-57-792Z.png",
+      "timestamp": "792Z"
+    },
+    {
+      "filename": "responsive-mobile-2025-08-18T01-55-09-388Z.png",
+      "path": "test-screenshots/ship-computer-ui-testing/responsive-mobile-2025-08-18T01-55-09-388Z.png",
+      "timestamp": "388Z"
+    },
+    {
+      "filename": "responsive-mobile-2025-08-18T02-12-39-940Z.png",
+      "path": "test-screenshots/ship-computer-ui-testing/responsive-mobile-2025-08-18T02-12-39-940Z.png",
+      "timestamp": "940Z"
+    },
+    {
+      "filename": "responsive-mobile-2025-08-18T02-26-47-372Z.png",
+      "path": "test-screenshots/ship-computer-ui-testing/responsive-mobile-2025-08-18T02-26-47-372Z.png",
+      "timestamp": "372Z"
+    },
+    {
+      "filename": "responsive-mobile-2025-08-18T03-48-18-956Z.png",
+      "path": "test-screenshots/ship-computer-ui-testing/responsive-mobile-2025-08-18T03-48-18-956Z.png",
+      "timestamp": "956Z"
+    },
+    {
+      "filename": "responsive-tablet-2025-08-17T23-49-56-391Z.png",
+      "path": "test-screenshots/ship-computer-ui-testing/responsive-tablet-2025-08-17T23-49-56-391Z.png",
+      "timestamp": "391Z"
+    },
+    {
+      "filename": "responsive-tablet-2025-08-18T01-55-08-287Z.png",
+      "path": "test-screenshots/ship-computer-ui-testing/responsive-tablet-2025-08-18T01-55-08-287Z.png",
+      "timestamp": "287Z"
+    },
+    {
+      "filename": "responsive-tablet-2025-08-18T02-12-38-847Z.png",
+      "path": "test-screenshots/ship-computer-ui-testing/responsive-tablet-2025-08-18T02-12-38-847Z.png",
+      "timestamp": "847Z"
+    },
+    {
+      "filename": "responsive-tablet-2025-08-18T02-26-46-300Z.png",
+      "path": "test-screenshots/ship-computer-ui-testing/responsive-tablet-2025-08-18T02-26-46-300Z.png",
+      "timestamp": "300Z"
+    },
+    {
+      "filename": "responsive-tablet-2025-08-18T03-48-17-865Z.png",
+      "path": "test-screenshots/ship-computer-ui-testing/responsive-tablet-2025-08-18T03-48-17-865Z.png",
+      "timestamp": "865Z"
+    }
+  ]
+}

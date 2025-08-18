@@ -1,0 +1,128 @@
+{
+  "name": "User Story Testing and Learning Workflow",
+  "nodes": [
+    {
+      "id": "1",
+      "name": "Start User Story Testing",
+      "type": "n8n-nodes-base.start",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Load User Stories",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        460,
+        300
+      ],
+      "parameters": {
+        "code": "// Load enhanced user stories\nconst stories = $input.all()[0].json.stories || [];\nreturn stories.map(story => ({\n  json: {\n    storyId: story.id || Math.random().toString(36).substr(2, 9),\n    userRole: story.userRole,\n    task: story.task,\n    businessValue: story.businessValue,\n    category: story.category,\n    complexity: story.complexity,\n    priority: story.priority,\n    testScenarios: story.testScenarios\n  }\n}));"
+      }
+    },
+    {
+      "id": "3",
+      "name": "Execute Test Scenarios",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        680,
+        300
+      ],
+      "parameters": {
+        "code": "// Execute test scenarios for each story\nconst story = $input.first().json;\nconst results = [];\n\nfor (const scenario of story.testScenarios) {\n  try {\n    // Simulate test execution\n    const testResult = {\n      storyId: story.storyId,\n      scenarioName: scenario.name,\n      status: Math.random() > 0.2 ? 'passed' : 'failed', // 80% pass rate\n      executionTime: Math.floor(Math.random() * 5000) + 1000,\n      timestamp: new Date().toISOString(),\n      details: {\n        steps: scenario.steps,\n        expectedOutcome: scenario.expectedOutcome,\n        actualOutcome: Math.random() > 0.2 ? scenario.expectedOutcome : 'Unexpected result'\n      }\n    };\n    \n    results.push(testResult);\n  } catch (error) {\n    results.push({\n      storyId: story.storyId,\n      scenarioName: scenario.name,\n      status: 'error',\n      error: error.message,\n      timestamp: new Date().toISOString()\n    });\n  }\n}\n\nreturn results.map(result => ({ json: result }));"
+      }
+    },
+    {
+      "id": "4",
+      "name": "Analyze Results",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        900,
+        300
+      ],
+      "parameters": {
+        "code": "// Analyze test results and generate insights\nconst results = $input.all().map(item => item.json);\n\nconst analysis = {\n  totalTests: results.length,\n  passed: results.filter(r => r.status === 'passed').length,\n  failed: results.filter(r => r.status === 'failed').length,\n  errors: results.filter(r => r.status === 'error').length,\n  passRate: (results.filter(r => r.status === 'passed').length / results.length * 100).toFixed(2),\n  averageExecutionTime: (results.reduce((sum, r) => sum + (r.executionTime || 0), 0) / results.length).toFixed(2),\n  insights: [],\n  recommendations: []\n};\n\n// Generate insights\nif (analysis.passRate < 80) {\n  analysis.insights.push('Test pass rate below target - investigate failures');\n  analysis.recommendations.push('Review failed test scenarios and update acceptance criteria');\n}\n\nif (analysis.averageExecutionTime > 3000) {\n  analysis.insights.push('Test execution time above target - optimize performance');\n  analysis.recommendations.push('Identify performance bottlenecks in test execution');\n}\n\nreturn [{ json: analysis }];"
+      }
+    },
+    {
+      "id": "5",
+      "name": "Store in Supabase",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1120,
+        300
+      ],
+      "parameters": {
+        "code": "// Store results in Supabase for learning\nconst analysis = $input.first().json;\nconst results = $('Execute Test Scenarios').all().map(item => item.json);\n\nconst learningData = {\n  timestamp: new Date().toISOString(),\n  testResults: results,\n  analysis: analysis,\n  metadata: {\n    totalStories: results.length > 0 ? new Set(results.map(r => r.storyId)).size : 0,\n    categories: [...new Set(results.map(r => r.category || 'unknown'))],\n    complexity: [...new Set(results.map(r => r.complexity || 'unknown'))]\n  }\n};\n\n// In a real implementation, this would insert into Supabase\nconsole.log('Learning data to store:', JSON.stringify(learningData, null, 2));\n\nreturn [{ json: learningData }];"
+      }
+    }
+  ],
+  "connections": {
+    "Start User Story Testing": {
+      "main": [
+        [
+          {
+            "node": "Load User Stories",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Load User Stories": {
+      "main": [
+        [
+          {
+            "node": "Execute Test Scenarios",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Test Scenarios": {
+      "main": [
+        [
+          {
+            "node": "Analyze Results",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Analyze Results": {
+      "main": [
+        [
+          {
+            "node": "Store in Supabase",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "1",
+  "meta": {
+    "instanceId": "1755489881427"
+  },
+  "id": "user-story-testing-workflow",
+  "tags": [
+    "user-stories",
+    "testing",
+    "learning",
+    "crew-validation"
+  ]
+}

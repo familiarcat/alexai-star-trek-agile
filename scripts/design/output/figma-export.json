@@ -1,0 +1,10 @@
+{
+  "designTokens": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/scripts/design/design-system/design-tokens.json",
+  "componentSpecs": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/scripts/design/design-system/component-specs.json",
+  "screenshots": "/Users/bradygeorgen/Documents/workspace/alexai_katra_transfer_package_remote_v7/scripts/design/output/processed-screenshots",
+  "exportFormats": [
+    "PNG",
+    "SVG",
+    "PDF"
+  ]
+}

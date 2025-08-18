@@ -1,0 +1,126 @@
+Photoshop Action File
+LCARS Design System Actions
+Generated: 2025-08-18T03:49:49.058Z
+
+Action: Icon Optimization
+Description: Optimize icons for accent-focused design system
+Shortcut: Ctrl+Shift+I
+Category: Icon Design
+
+  Step 1: Resize to accent size
+    width: 8px-16px based on context
+    height: 8px-16px based on context
+    resample: Bicubic Sharper
+    constrainProportions: true
+
+  Step 2: Apply consistent opacity
+    opacity: 40-80% based on importance
+    blendMode: Normal
+
+  Step 3: Optimize for web
+    format: PNG-8
+    colors: 256
+    dither: Pattern
+    transparency: true
+
+  Step 4: Export multiple formats
+    formats: PNG,SVG,WebP
+    sizes: 1x,2x,3x
+
+---
+
+Action: Component Refinement
+Description: Apply design system rules to UI components
+Shortcut: Ctrl+Shift+C
+Category: Component Design
+
+  Step 1: Apply design system colors
+    primaryColor: #FF6B35
+    secondaryColor: #4ECDC4
+    accentColor: #45B7D1
+    textColor: #2D3436
+    backgroundColor: #FFFFFF
+
+  Step 2: Standardize spacing
+    margin: var(--lcars-spacing-md)
+    padding: var(--lcars-spacing-sm)
+    gap: var(--lcars-spacing-xs)
+
+  Step 3: Optimize typography
+    fontFamily: Antonio, sans-serif
+    fontSize: var(--lcars-font-size-base)
+    lineHeight: 1.5
+    fontWeight: 400
+
+  Step 4: Create responsive variants
+    desktop: 1920x1080
+    tablet: 1024x768
+    mobile: 375x667
+
+---
+
+Action: Export Pipeline
+Description: Automated export for multiple platforms and formats
+Shortcut: Ctrl+Shift+E
+Category: Export
+
+  Step 1: Generate web assets
+    formats: PNG,JPG,WebP
+    quality: 80%
+    optimization: Progressive
+
+  Step 2: Create design specs
+    format: PDF
+    include: measurements,colors,typography,spacing
+    resolution: 300 DPI
+
+  Step 3: Export for development
+    format: SVG
+    optimization: Minified
+    include: CSS variables,Component specs
+
+  Step 4: Version control assets
+    naming: semantic-versioning
+    metadata: Design system info
+    backup: Cloud storage
+
+---
+
+Action: Design System Application
+Description: Apply LCARS design system consistently
+Shortcut: Ctrl+Shift+D
+Category: Design System
+
+  Step 1: Apply color palette
+    primary: #FF6B35 (LCARS Gold)
+    secondary: #4ECDC4 (LCARS Blue)
+    accent: #45B7D1 (LCARS Cyan)
+    success: #96CEB4 (LCARS Green)
+    warning: #FFEAA7 (LCARS Yellow)
+    error: #DDA0DD (LCARS Red)
+
+  Step 2: Apply typography scale
+    h1: 2rem (32px)
+    h2: 1.5rem (24px)
+    h3: 1.25rem (20px)
+    body: 1rem (16px)
+    small: 0.875rem (14px)
+    caption: 0.75rem (12px)
+
+  Step 3: Apply spacing scale
+    xs: 0.25rem (4px)
+    sm: 0.5rem (8px)
+    md: 1rem (16px)
+    lg: 1.5rem (24px)
+    xl: 2rem (32px)
+    xxl: 3rem (48px)
+
+  Step 4: Apply icon system
+    accent: 0.875rem (14px)
+    small: 0.75rem (12px)
+    large: 1rem (16px)
+    xlarge: 1.25rem (20px)
+    opacity: 40-80%
+
+---
+

@@ -1,0 +1,103 @@
+{
+  "navigation": {
+    "name": "Navigation",
+    "variants": [
+      "horizontal",
+      "vertical",
+      "mobile"
+    ],
+    "states": [
+      "default",
+      "hover",
+      "active",
+      "disabled"
+    ],
+    "responsive": [
+      "desktop",
+      "tablet",
+      "mobile"
+    ],
+    "accessibility": [
+      "keyboard",
+      "screen-reader",
+      "high-contrast"
+    ]
+  },
+  "buttons": {
+    "name": "Buttons",
+    "variants": [
+      "primary",
+      "secondary",
+      "tertiary",
+      "danger"
+    ],
+    "states": [
+      "default",
+      "hover",
+      "active",
+      "disabled",
+      "loading"
+    ],
+    "responsive": [
+      "desktop",
+      "tablet",
+      "mobile"
+    ],
+    "accessibility": [
+      "keyboard",
+      "screen-reader",
+      "focus-indicator"
+    ]
+  },
+  "forms": {
+    "name": "Forms",
+    "variants": [
+      "input",
+      "textarea",
+      "select",
+      "checkbox",
+      "radio"
+    ],
+    "states": [
+      "default",
+      "focus",
+      "error",
+      "success",
+      "disabled"
+    ],
+    "responsive": [
+      "desktop",
+      "tablet",
+      "mobile"
+    ],
+    "accessibility": [
+      "labels",
+      "error-messages",
+      "validation"
+    ]
+  },
+  "cards": {
+    "name": "Cards",
+    "variants": [
+      "default",
+      "elevated",
+      "outlined",
+      "interactive"
+    ],
+    "states": [
+      "default",
+      "hover",
+      "active",
+      "selected"
+    ],
+    "responsive": [
+      "desktop",
+      "tablet",
+      "mobile"
+    ],
+    "accessibility": [
+      "semantic-markup",
+      "focus-management"
+    ]
+  }
+}
