@@ -1,0 +1,18 @@
+{
+  "actions": [
+    "Icon Optimization",
+    "Component Refinement",
+    "Export Pipeline"
+  ],
+  "templates": [
+    "Component Template.psd",
+    "Icon Template.psd",
+    "Layout Template.psd"
+  ],
+  "exportFormats": [
+    "PNG",
+    "JPG",
+    "SVG",
+    "PDF"
+  ]
+}

@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Compliance Auditor - Professional Resume Analysis</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .upload-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .upload-area {
+            border: 3px dashed #667eea;
+            border-radius: 15px;
+            padding: 60px 20px;
+            margin: 20px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #f8f9ff;
+        }
+
+        .upload-area:hover {
+            border-color: #764ba2;
+            background: #f0f2ff;
+            transform: translateY(-2px);
+        }
+
+        .upload-area.dragover {
+            border-color: #764ba2;
+            background: #e8ebff;
+            transform: scale(1.02);
+        }
+
+        .upload-icon {
+            font-size: 4rem;
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        .upload-text {
+            font-size: 1.3rem;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .upload-subtext {
+            color: #999;
+            font-size: 1rem;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .supported-formats {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f9ff;
+            border-radius: 10px;
+        }
+
+        .supported-formats h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .format-list {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .format-item {
+            background: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            border: 2px solid #e0e6ff;
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .upload-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .upload-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .upload-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .progress-section {
+            display: none;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #f0f0f0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 10px;
+        }
+
+        .progress-text {
+            text-align: center;
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .results-section {
+            display: none;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .score-overview {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .overall-score {
+            font-size: 4rem;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .score-label {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .framework-scores {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .framework-card {
+            background: #f8f9ff;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            border: 2px solid #e0e6ff;
+        }
+
+        .framework-name {
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .framework-score {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .feedback-section {
+            margin-bottom: 40px;
+        }
+
+        .feedback-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .feedback-card {
+            background: #f8f9ff;
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+        }
+
+        .feedback-card h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .feedback-list {
+            list-style: none;
+        }
+
+        .feedback-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #e0e6ff;
+        }
+
+        .feedback-list li:last-child {
+            border-bottom: none;
+        }
+
+        .download-section {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid #f0f0f0;
+        }
+
+        .download-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0 10px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .download-btn:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 1px solid #f5c6cb;
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 1px solid #c3e6cb;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .upload-section, .progress-section, .results-section {
+                padding: 20px;
+            }
+            
+            .feedback-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .format-list {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📋 Resume Compliance Auditor</h1>
+            <p>Professional Resume Analysis & ATS Optimization</p>
+        </div>
+
+        <div class="upload-section" id="uploadSection">
+            <h2>Upload Your Resume</h2>
+            <p>Get instant feedback on your resume's compliance with industry standards</p>
+            
+            <div class="upload-area" id="uploadArea">
+                <div class="upload-icon">📄</div>
+                <div class="upload-text">Drag & Drop your resume here</div>
+                <div class="upload-subtext">or click to browse files</div>
+            </div>
+            
+            <input type="file" id="fileInput" class="file-input" accept=".pdf,.docx,.txt,.md">
+            <button class="upload-btn" id="uploadBtn" onclick="document.getElementById('fileInput').click()">
+                Choose File
+            </button>
+            
+            <div class="supported-formats">
+                <h3>Supported Formats</h3>
+                <div class="format-list">
+                    <div class="format-item">📄 PDF</div>
+                    <div class="format-item">📝 DOCX</div>
+                    <div class="format-item">📋 TXT</div>
+                    <div class="format-item">📖 MD</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="progress-section" id="progressSection">
+            <h2>Analyzing Your Resume...</h2>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text" id="progressText">Processing...</div>
+        </div>
+
+        <div class="results-section" id="resultsSection">
+            <div class="score-overview">
+                <div class="overall-score" id="overallScore">0%</div>
+                <div class="score-label">Overall Compliance Score</div>
+            </div>
+
+            <div class="framework-scores" id="frameworkScores">
+                <!-- Framework scores will be populated here -->
+            </div>
+
+            <div class="feedback-section">
+                <div class="feedback-grid">
+                    <div class="feedback-card">
+                        <h3>✅ Strengths</h3>
+                        <ul class="feedback-list" id="strengthsList">
+                            <!-- Strengths will be populated here -->
+                        </ul>
+                    </div>
+                    <div class="feedback-card">
+                        <h3>🔧 Improvements</h3>
+                        <ul class="feedback-list" id="improvementsList">
+                            <!-- Improvements will be populated here -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="download-section">
+                <h3>Download Your Report</h3>
+                <p>Get your detailed analysis in multiple formats</p>
+                <a href="#" class="download-btn" id="downloadMd">📄 Markdown</a>
+                <a href="#" class="download-btn" id="downloadTxt">📝 Text</a>
+                <a href="#" class="download-btn" id="downloadDocx">📋 Word</a>
+                <a href="#" class="download-btn" id="downloadPdf">📖 PDF</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const uploadBtn = document.getElementById('uploadBtn');
+        const uploadSection = document.getElementById('uploadSection');
+        const progressSection = document.getElementById('progressSection');
+        const resultsSection = document.getElementById('resultsSection');
+        const progressFill = document.getElementById('progressFill');
+        const progressText = document.getElementById('progressText');
+
+        // N8N Webhook URL - Update this with your actual n8n.pbradygeorgen.com URL
+        const N8N_WEBHOOK_URL = 'https://n8n.pbradygeorgen.com/webhook/resume-audit';
+
+        // Drag and drop functionality
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleFile(files[0]);
+            }
+        });
+
+        uploadArea.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleFile(e.target.files[0]);
+            }
+        });
+
+        function handleFile(file) {
+            // Validate file type
+            const allowedTypes = ['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'text/plain', 'text/markdown'];
+            if (!allowedTypes.includes(file.type) && !file.name.match(/\.(pdf|docx|txt|md)$/i)) {
+                showError('Please select a valid file type (PDF, DOCX, TXT, or MD)');
+                return;
+            }
+
+            // Show progress section
+            uploadSection.style.display = 'none';
+            progressSection.style.display = 'block';
+            resultsSection.style.display = 'none';
+
+            // Simulate progress
+            let progress = 0;
+            const progressInterval = setInterval(() => {
+                progress += Math.random() * 15;
+                if (progress > 90) progress = 90;
+                progressFill.style.width = progress + '%';
+                progressText.textContent = getProgressText(progress);
+            }, 200);
+
+            // Upload to N8N
+            uploadToN8N(file, progressInterval);
+        }
+
+        function getProgressText(progress) {
+            if (progress < 20) return 'Uploading file...';
+            if (progress < 40) return 'Processing document...';
+            if (progress < 60) return 'Analyzing content...';
+            if (progress < 80) return 'Generating report...';
+            return 'Finalizing results...';
+        }
+
+        async function uploadToN8N(file, progressInterval) {
+            try {
+                const formData = new FormData();
+                formData.append('resume', file);
+
+                const response = await fetch(N8N_WEBHOOK_URL, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const result = await response.json();
+                
+                // Complete progress
+                clearInterval(progressInterval);
+                progressFill.style.width = '100%';
+                progressText.textContent = 'Analysis complete!';
+
+                setTimeout(() => {
+                    showResults(result);
+                }, 500);
+
+            } catch (error) {
+                clearInterval(progressInterval);
+                console.error('Error:', error);
+                showError('An error occurred while processing your resume. Please try again.');
+                
+                // Show upload section again
+                setTimeout(() => {
+                    uploadSection.style.display = 'block';
+                    progressSection.style.display = 'none';
+                }, 2000);
+            }
+        }
+
+        function showResults(result) {
+            progressSection.style.display = 'none';
+            resultsSection.style.display = 'block';
+
+            // Populate overall score
+            const overallScore = document.getElementById('overallScore');
+            overallScore.textContent = result.json.overall + '%';
+
+            // Populate framework scores
+            const frameworkScores = document.getElementById('frameworkScores');
+            frameworkScores.innerHTML = '';
+            
+            Object.entries(result.json.frameworkScores).forEach(([name, score]) => {
+                const card = document.createElement('div');
+                card.className = 'framework-card';
+                card.innerHTML = `
+                    <div class="framework-name">${name}</div>
+                    <div class="framework-score">${score}%</div>
+                `;
+                frameworkScores.appendChild(card);
+            });
+
+            // Populate strengths
+            const strengthsList = document.getElementById('strengthsList');
+            strengthsList.innerHTML = '';
+            result.json.strengths.forEach(strength => {
+                const li = document.createElement('li');
+                li.textContent = strength;
+                strengthsList.appendChild(li);
+            });
+
+            // Populate improvements
+            const improvementsList = document.getElementById('improvementsList');
+            improvementsList.innerHTML = '';
+            result.json.improvements.forEach(improvement => {
+                const li = document.createElement('li');
+                li.textContent = improvement;
+                improvementsList.appendChild(li);
+            });
+
+            // Setup download links
+            setupDownloadLinks(result);
+        }
+
+        function setupDownloadLinks(result) {
+            // This would need to be implemented based on how N8N returns the binary data
+            // For now, we'll show the markdown content in a new window
+            document.getElementById('downloadMd').onclick = () => {
+                const win = window.open('', '_blank');
+                win.document.write(`
+                    <html>
+                        <head><title>Resume Analysis Report</title></head>
+                        <body style="font-family: Arial, sans-serif; padding: 20px;">
+                            <pre style="white-space: pre-wrap;">${result.json.data}</pre>
+                        </body>
+                    </html>
+                `);
+            };
+
+            // Placeholder for other formats
+            document.getElementById('downloadTxt').onclick = () => alert('Text format download coming soon!');
+            document.getElementById('downloadDocx').onclick = () => alert('Word format download coming soon!');
+            document.getElementById('downloadPdf').onclick = () => alert('PDF format download coming soon!');
+        }
+
+        function showError(message) {
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error-message';
+            errorDiv.textContent = message;
+            
+            if (progressSection.style.display === 'block') {
+                progressSection.appendChild(errorDiv);
+            } else {
+                uploadSection.appendChild(errorDiv);
+            }
+
+            setTimeout(() => {
+                errorDiv.remove();
+            }, 5000);
+        }
+
+        function showSuccess(message) {
+            const successDiv = document.createElement('div');
+            successDiv.className = 'success-message';
+            successDiv.textContent = message;
+            
+            uploadSection.appendChild(successDiv);
+
+            setTimeout(() => {
+                successDiv.remove();
+            }, 5000);
+        }
+    </script>
+</body>
+</html>

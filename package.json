@@ -45,6 +45,7 @@
     "design:watch": "node scripts/design/watch-design-changes.js",
     "crew:validate-stories": "node scripts/crew-user-story-validation.js",
     "demo:learning": "node scripts/demo-self-referential-learning.js",
+    "demo:lcars": "node scripts/test-lcars-architecture.js",
     "deploy:production": "./scripts/deploy-production.sh",
     "test:resolve-100": "node scripts/100-percent-success-resolver.js",
     "test:collaborative": "node scripts/collaborative-ai-analysis.js",

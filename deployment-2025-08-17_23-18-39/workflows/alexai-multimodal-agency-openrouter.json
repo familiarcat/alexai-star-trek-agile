@@ -1,0 +1,651 @@
+{
+  "name": "AlexAI Multimodal Agency - OpenRouter Integration",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "multimodal-request",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "multimodal-webhook",
+      "name": "Multimodal Request Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        100,
+        300
+      ],
+      "webhookId": "multimodal-request-webhook"
+    },
+    {
+      "parameters": {
+        "url": "https://openrouter.ai/api/v1/chat/completions",
+        "authentication": "none",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{ $env.OPENROUTER_API_KEY }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "HTTP-Referer",
+              "value": "https://n8n.pbradygeorgen.com"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyContentType": "json",
+        "jsonBody": "={\n  \"model\": \"anthropic/claude-3.5-sonnet\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"You are an AI crew coordinator for the AlexAI Star Trek system. Analyze the user request and select the most appropriate Star Trek crew member to respond. Consider: task type, complexity, emotional context, and technical depth. Return ONLY the crew member name: captain-picard, lieutenant-data, counselor-troi, chief-engineer-scott, commander-spock, lieutenant-worf, or observation-lounge for group meetings.\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"User Query: {{ $json.query }}\\nUser Context: {{ $json.context || 'general' }}\\nUser Role: {{ $json.userRole || 'developer' }}\\nUrgency: {{ $json.urgency || 'normal' }}\\nComplexity: {{ $json.complexity || 'medium' }}\"\n    }\n  ],\n  \"max_tokens\": 50,\n  \"temperature\": 0.3\n}",
+        "options": {}
+      },
+      "id": "crew-selector-openrouter",
+      "name": "Crew Selector (OpenRouter)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        350,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "rules": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "captain-picard",
+                    "leftValue": "={{ $json.choices[0].message.content.toLowerCase() }}",
+                    "rightValue": "captain-picard",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "output": 0
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "lieutenant-data",
+                    "leftValue": "={{ $json.choices[0].message.content.toLowerCase() }}",
+                    "rightValue": "lieutenant-data",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "output": 1
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "counselor-troi",
+                    "leftValue": "={{ $json.choices[0].message.content.toLowerCase() }}",
+                    "rightValue": "counselor-troi",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "output": 2
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "chief-engineer-scott",
+                    "leftValue": "={{ $json.choices[0].message.content.toLowerCase() }}",
+                    "rightValue": "chief-engineer-scott",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "output": 3
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "commander-spock",
+                    "leftValue": "={{ $json.choices[0].message.content.toLowerCase() }}",
+                    "rightValue": "commander-spock",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "output": 4
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "lieutenant-worf",
+                    "leftValue": "={{ $json.choices[0].message.content.toLowerCase() }}",
+                    "rightValue": "lieutenant-worf",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "output": 5
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "observation-lounge",
+                    "leftValue": "={{ $json.choices[0].message.content.toLowerCase() }}",
+                    "rightValue": "observation-lounge",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "output": 6
+            }
+          ]
+        },
+        "fallbackOutput": 0,
+        "options": {}
+      },
+      "id": "crew-router",
+      "name": "Crew Router",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        600,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://openrouter.ai/api/v1/chat/completions",
+        "authentication": "none",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{ $env.OPENROUTER_API_KEY }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "HTTP-Referer",
+              "value": "https://n8n.pbradygeorgen.com"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyContentType": "json",
+        "jsonBody": "={\n  \"model\": \"anthropic/claude-3.5-sonnet\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"You are Captain Jean-Luc Picard, the distinguished captain of the USS Enterprise. You embody wisdom, diplomacy, and strategic thinking. Respond to user queries with your characteristic leadership style, drawing from Starfleet principles and your vast experience. Keep responses concise but insightful.\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"{{ $('Multimodal Request Webhook').item.json.query }}\\n\\nContext: {{ $('Multimodal Request Webhook').item.json.context || 'general' }}\\nUser Role: {{ $('Multimodal Request Webhook').item.json.userRole || 'developer' }}\"\n    }\n  ],\n  \"max_tokens\": 500,\n  \"temperature\": 0.7\n}",
+        "options": {}
+      },
+      "id": "captain-picard-openrouter",
+      "name": "Captain Picard (OpenRouter)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        850,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://openrouter.ai/api/v1/chat/completions",
+        "authentication": "none",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{ $env.OPENROUTER_API_KEY }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "HTTP-Referer",
+              "value": "https://n8n.pbradygeorgen.com"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyContentType": "json",
+        "jsonBody": "={\n  \"model\": \"anthropic/claude-3.5-sonnet\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"You are Lieutenant Commander Data, an android with exceptional computational abilities and logical reasoning. You excel at technical analysis, problem-solving, and providing detailed explanations. Respond with precision, logic, and helpful technical insights.\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"{{ $('Multimodal Request Webhook').item.json.query }}\\n\\nContext: {{ $('Multimodal Request Webhook').item.json.context || 'general' }}\\nUser Role: {{ $('Multimodal Request Webhook').item.json.userRole || 'developer' }}\"\n    }\n  ],\n  \"max_tokens\": 500,\n  \"temperature\": 0.5\n}",
+        "options": {}
+      },
+      "id": "lieutenant-data-openrouter",
+      "name": "Lieutenant Data (OpenRouter)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        850,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://openrouter.ai/api/v1/chat/completions",
+        "authentication": "none",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{ $env.OPENROUTER_API_KEY }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "HTTP-Referer",
+              "value": "https://n8n.pbradygeorgen.com"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyContentType": "json",
+        "jsonBody": "={\n  \"model\": \"anthropic/claude-3.5-sonnet\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"You are Counselor Deanna Troi, a Betazoid empath with deep emotional intelligence and psychological insight. You excel at understanding human emotions, providing emotional support, and offering guidance on interpersonal matters. Respond with empathy, wisdom, and emotional understanding.\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"{{ $('Multimodal Request Webhook').item.json.query }}\\n\\nContext: {{ $('Multimodal Request Webhook').item.json.context || 'general' }}\\nUser Role: {{ $('Multimodal Request Webhook').item.json.userRole || 'developer' }}\"\n    }\n  ],\n  \"max_tokens\": 500,\n  \"temperature\": 0.8\n}",
+        "options": {}
+      },
+      "id": "counselor-troi-openrouter",
+      "name": "Counselor Troi (OpenRouter)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        850,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://openrouter.ai/api/v1/chat/completions",
+        "authentication": "none",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{ $env.OPENROUTER_API_KEY }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "HTTP-Referer",
+              "value": "https://n8n.pbradygeorgen.com"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyContentType": "json",
+        "jsonBody": "={\n  \"model\": \"anthropic/claude-3.5-sonnet\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"You are Chief Engineer Montgomery Scott, a brilliant engineer with exceptional technical skills and problem-solving abilities. You excel at engineering solutions, technical troubleshooting, and providing practical advice. Respond with technical expertise and Scottish charm.\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"{{ $('Multimodal Request Webhook').item.json.query }}\\n\\nContext: {{ $('Multimodal Request Webhook').item.json.context || 'general' }}\\nUser Role: {{ $('Multimodal Request Webhook').item.json.userRole || 'developer' }}\"\n    }\n  ],\n  \"max_tokens\": 500,\n  \"temperature\": 0.6\n}",
+        "options": {}
+      },
+      "id": "chief-engineer-scott-openrouter",
+      "name": "Chief Engineer Scott (OpenRouter)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        850,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://openrouter.ai/api/v1/chat/completions",
+        "authentication": "none",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{ $env.OPENROUTER_API_KEY }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "HTTP-Referer",
+              "value": "https://n8n.pbradygeorgen.com"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyContentType": "json",
+        "jsonBody": "={\n  \"model\": \"anthropic/claude-3.5-sonnet\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"You are Commander Spock, a Vulcan with exceptional logical reasoning and scientific knowledge. You excel at logical analysis, scientific inquiry, and providing rational perspectives. Respond with logic, precision, and scientific insight.\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"{{ $('Multimodal Request Webhook').item.json.query }}\\n\\nContext: {{ $('Multimodal Request Webhook').item.json.context || 'general' }}\\nUser Role: {{ $('Multimodal Request Webhook').item.json.userRole || 'developer' }}\"\n    }\n  ],\n  \"max_tokens\": 500,\n  \"temperature\": 0.4\n}",
+        "options": {}
+      },
+      "id": "commander-spock-openrouter",
+      "name": "Commander Spock (OpenRouter)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        850,
+        500
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://openrouter.ai/api/v1/chat/completions",
+        "authentication": "none",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{ $env.OPENROUTER_API_KEY }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "HTTP-Referer",
+              "value": "https://n8n.pbradygeorgen.com"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyContentType": "json",
+        "jsonBody": "={\n  \"model\": \"anthropic/claude-3.5-sonnet\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"You are Lieutenant Worf, a Klingon warrior and security officer with exceptional tactical thinking and security expertise. You excel at security analysis, tactical planning, and providing strategic advice. Respond with tactical insight and Klingon honor.\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"{{ $('Multimodal Request Webhook').item.json.query }}\\n\\nContext: {{ $('Multimodal Request Webhook').item.json.context || 'general' }}\\nUser Role: {{ $('Multimodal Request Webhook').item.json.userRole || 'developer' }}\"\n    }\n  ],\n  \"max_tokens\": 500,\n  \"temperature\": 0.6\n}",
+        "options": {}
+      },
+      "id": "lieutenant-worf-openrouter",
+      "name": "Lieutenant Worf (OpenRouter)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        850,
+        600
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://openrouter.ai/api/v1/chat/completions",
+        "authentication": "none",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{ $env.OPENROUTER_API_KEY }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "HTTP-Referer",
+              "value": "https://n8n.pbradygeorgen.com"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyContentType": "json",
+        "jsonBody": "={\n  \"model\": \"anthropic/claude-3.5-sonnet\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"You are coordinating a meeting in the Observation Lounge with all Star Trek crew members. This is a collaborative session where multiple perspectives are needed. Analyze the request and provide a comprehensive response that incorporates insights from all crew members.\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"{{ $('Multimodal Request Webhook').item.json.query }}\\n\\nContext: {{ $('Multimodal Request Webhook').item.json.context || 'general' }}\\nUser Role: {{ $('Multimodal Request Webhook').item.json.userRole || 'developer' }}\"\n    }\n  ],\n  \"max_tokens\": 800,\n  \"temperature\": 0.7\n}",
+        "options": {}
+      },
+      "id": "observation-lounge-openrouter",
+      "name": "Observation Lounge (OpenRouter)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        850,
+        700
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Response formatter for all crew members\nconst crewResponse = $input.all()[0].json;\nconst crewName = $input.all()[0].json.crewMember || 'Unknown Crew Member';\nconst response = $input.all()[0].json.choices[0].message.content;\n\n// Format the response with Star Trek styling\nconst formattedResponse = {\n  crewMember: crewName,\n  response: response,\n  timestamp: new Date().toISOString(),\n  model: 'anthropic/claude-3.5-sonnet via OpenRouter',\n  requestId: $('Multimodal Request Webhook').item.json.requestId || Date.now().toString()\n};\n\nreturn formattedResponse;"
+      },
+      "id": "response-formatter",
+      "name": "Response Formatter",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1100,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Multimodal Request Webhook": {
+      "main": [
+        [
+          {
+            "node": "Crew Selector (OpenRouter)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Crew Selector (OpenRouter)": {
+      "main": [
+        [
+          {
+            "node": "Crew Router",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Crew Router": {
+      "main": [
+        [
+          {
+            "node": "Captain Picard (OpenRouter)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Lieutenant Data (OpenRouter)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Counselor Troi (OpenRouter)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Chief Engineer Scott (OpenRouter)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Commander Spock (OpenRouter)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Lieutenant Worf (OpenRouter)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Observation Lounge (OpenRouter)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Captain Picard (OpenRouter)": {
+      "main": [
+        [
+          {
+            "node": "Response Formatter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lieutenant Data (OpenRouter)": {
+      "main": [
+        [
+          {
+            "node": "Response Formatter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Counselor Troi (OpenRouter)": {
+      "main": [
+        [
+          {
+            "node": "Response Formatter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Chief Engineer Scott (OpenRouter)": {
+      "main": [
+        [
+          {
+            "node": "Response Formatter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Commander Spock (OpenRouter)": {
+      "main": [
+        [
+          {
+            "node": "Response Formatter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lieutenant Worf (OpenRouter)": {
+      "main": [
+        [
+          {
+            "node": "Response Formatter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Observation Lounge (OpenRouter)": {
+      "main": [
+        [
+          {
+            "node": "Response Formatter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "multimodal-agency-v1",
+  "id": "UrYHv14Jb4Xmumm7"
+}

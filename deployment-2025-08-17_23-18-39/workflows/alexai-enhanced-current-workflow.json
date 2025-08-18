@@ -1,0 +1,225 @@
+{
+  "createdAt": "2025-08-10T21:39:59.592Z",
+  "updatedAt": "2025-08-10T22:25:03.778Z",
+  "id": "9A0buuHcoOikK0NP",
+  "name": "AlexAI Enhanced Current Workflow",
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "path": "crew-request-enhanced",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedMethods": [
+            "POST"
+          ],
+          "responseHeaders": {
+            "Access-Control-Allow-Origin": "*"
+          }
+        }
+      },
+      "id": "enhanced-webhook",
+      "name": "Enhanced Crew Request Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://openrouter.ai/api/v1/chat/completions",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{ $vars.OPENROUTER_API_KEY }}"
+            },
+            {
+              "name": "HTTP-Referer",
+              "value": "https://alexai.pbradygeorgen.com"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "jsonBody": "{\n  \"model\": \"anthropic/claude-3.5-sonnet\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"Enhanced AI Crew Selector with confidence scoring. Analyze and return JSON: {\\\"selectedCrew\\\": \\\"crew-name\\\", \\\"confidence\\\": 0.95, \\\"reasoning\\\": \\\"explanation\\\", \\\"queryType\\\": \\\"classified-type\\\"}. Available: picard, data, troi, scott, spock, worf, observation-lounge\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"Query: {{ $json.query }}\\nContext: {{ $json.context }}\\nUrgency: {{ $json.urgency }}\\nAnalyze query type and select best crew member with confidence score.\"\n    }\n  ],\n  \"max_tokens\": 150,\n  \"temperature\": 0.1\n}",
+        "options": {
+          "responseTimeout": 30000
+        }
+      },
+      "id": "enhanced-ai-selector",
+      "name": "Enhanced AI Crew Selector",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        440,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Enhanced Crew Router with Human intuition + Borg efficiency\nconst enhancedRouter = () => {\n  const requestData = $input.all()[0].json;\n  const aiResponse = requestData.choices[0].message.content;\n  \n  let selection;\n  try {\n    selection = JSON.parse(aiResponse);\n  } catch (error) {\n    // Human intuition fallback\n    selection = {\n      selectedCrew: 'picard',\n      confidence: 0.5,\n      reasoning: 'Human intuition fallback - defaulting to Captain',\n      queryType: 'general'\n    };\n  }\n  \n  // Borg efficiency validation\n  const validCrew = ['picard', 'data', 'troi', 'scott', 'spock', 'worf', 'observation-lounge'];\n  if (!validCrew.includes(selection.selectedCrew)) {\n    selection.selectedCrew = 'picard';\n    selection.confidence = 0.3;\n    selection.reasoning = 'Borg correction applied';\n  }\n  \n  // Enhanced routing data (Best of Both Worlds)\n  const routingData = {\n    ...requestData,\n    selectedCrew: selection.selectedCrew,\n    confidence: selection.confidence,\n    reasoning: selection.reasoning,\n    queryType: selection.queryType || 'general',\n    enhancementLevel: 'human-borg-hybrid',\n    processingTime: Date.now(),\n    crewEndpoint: getCrewEndpoint(selection.selectedCrew)\n  };\n  \n  return [{ json: routingData }];\n};\n\nfunction getCrewEndpoint(crew) {\n  const endpoints = {\n    'picard': 'https://alexai-star-trek-agile.vercel.app/api/crew/captain-picard',\n    'data': 'https://alexai-star-trek-agile.vercel.app/api/crew/lieutenant-data',\n    'troi': 'https://alexai-star-trek-agile.vercel.app/api/crew/counselor-troi',\n    'scott': 'https://alexai-star-trek-agile.vercel.app/api/crew/chief-engineer-scott',\n    'spock': 'https://alexai-star-trek-agile.vercel.app/api/crew/commander-spock',\n    'worf': 'https://alexai-star-trek-agile.vercel.app/api/crew/lieutenant-worf',\n    'observation-lounge': 'https://alexai-star-trek-agile.vercel.app/api/crew/observation-lounge'\n  };\n  return endpoints[crew] || endpoints['picard'];\n}\n\nreturn enhancedRouter();"
+      },
+      "id": "enhanced-router",
+      "name": "Enhanced Human-Borg Router",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        640,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.crewEndpoint }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "X-Enhancement-Level",
+              "value": "human-borg-hybrid"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "jsonBody": "{\n  \"query\": \"{{ $json.query }}\",\n  \"context\": \"{{ $json.context }}\",\n  \"urgency\": \"{{ $json.urgency }}\",\n  \"enhancement\": {\n    \"confidence\": {{ $json.confidence }},\n    \"reasoning\": \"{{ $json.reasoning }}\",\n    \"queryType\": \"{{ $json.queryType }}\",\n    \"level\": \"human-borg-hybrid\"\n  }\n}",
+        "options": {
+          "responseTimeout": 45000
+        }
+      },
+      "id": "enhanced-crew-response",
+      "name": "Enhanced Crew Response",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        840,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Best of Both Worlds Response Processor\nconst processResponse = () => {\n  const data = $input.all()[0].json;\n  \n  let response;\n  try {\n    response = data.response || data;\n  } catch (error) {\n    response = {\n      message: 'Human intuition activated: Processing error handled gracefully',\n      error: false\n    };\n  }\n  \n  // Borg efficiency metrics\n  const processingTime = Date.now() - data.processingTime;\n  \n  const finalResponse = {\n    response: response,\n    metadata: {\n      enhancement: 'human-borg-hybrid',\n      confidence: data.confidence,\n      selectedCrew: data.selectedCrew,\n      processingTime: processingTime,\n      reasoning: data.reasoning,\n      status: 'best-of-both-worlds'\n    }\n  };\n  \n  return [{ json: finalResponse }];\n};\n\nreturn processResponse();"
+      },
+      "id": "enhanced-processor",
+      "name": "Best of Both Worlds Processor",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1040,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json.response, null, 2) }}",
+        "responseHeaders": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "X-Enhancement-Level",
+              "value": "human-borg-hybrid"
+            },
+            {
+              "name": "X-Confidence",
+              "value": "={{ $json.metadata.confidence }}"
+            },
+            {
+              "name": "X-Status",
+              "value": "best-of-both-worlds"
+            }
+          ]
+        }
+      },
+      "id": "enhanced-delivery",
+      "name": "Enhanced Response Delivery",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        1240,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "enhanced-webhook": {
+      "main": [
+        [
+          {
+            "node": "enhanced-ai-selector",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "enhanced-ai-selector": {
+      "main": [
+        [
+          {
+            "node": "enhanced-router",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "enhanced-router": {
+      "main": [
+        [
+          {
+            "node": "enhanced-crew-response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "enhanced-crew-response": {
+      "main": [
+        [
+          {
+            "node": "enhanced-processor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "enhanced-processor": {
+      "main": [
+        [
+          {
+            "node": "enhanced-delivery",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "timezone": "America/Chicago"
+  },
+  "staticData": null,
+  "meta": null,
+  "pinData": null,
+  "versionId": "269b4263-9bba-4781-8653-5328f8db0653",
+  "triggerCount": 0,
+  "tags": [],
+  "syncedAt": "2025-08-12T11:34:34.391Z",
+  "syncDirection": "pulled-from-n8n",
+  "originalId": "9A0buuHcoOikK0NP"
+}

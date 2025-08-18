@@ -1,0 +1,623 @@
+{
+  "name": "AlexAI Complete Crew Coordination Workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "crew-request",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "request-analyzer",
+      "name": "Request Analyzer",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        100,
+        300
+      ],
+      "webhookId": "crew-request-webhook"
+    },
+    {
+      "parameters": {
+        "url": "https://openrouter.ai/api/v1/chat/completions",
+        "authentication": "none",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{ $env.OPENROUTER_API_KEY }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "HTTP-Referer",
+              "value": "https://n8n.pbradygeorgen.com"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyContentType": "json",
+        "jsonBody": "={\n  \"model\": \"anthropic/claude-3.5-sonnet\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"You are an AI crew coordinator for the AlexAI Star Trek system. Analyze the user request and select the most appropriate Star Trek crew member to respond. Consider: task type, complexity, emotional context, and technical depth. Return ONLY the crew member name: captain-picard, lieutenant-data, counselor-troi, chief-engineer-scott, commander-spock, lieutenant-worf, or observation-lounge for group meetings.\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"User Query: {{ $json.query }}\\nUser Context: {{ $json.context || 'general' }}\\nUser Role: {{ $json.userRole || 'developer' }}\\nUrgency: {{ $json.urgency || 'normal' }}\\nComplexity: {{ $json.complexity || 'medium' }}\"\n    }\n  ],\n  \"max_tokens\": 50,\n  \"temperature\": 0.3\n}",
+        "options": {}
+      },
+      "id": "crew-selector",
+      "name": "Crew Selector (OpenRouter)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        350,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "rules": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "captain-picard",
+                    "leftValue": "={{ $json.choices[0].message.content.toLowerCase() }}",
+                    "rightValue": "captain-picard",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "output": 0
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "lieutenant-data",
+                    "leftValue": "={{ $json.choices[0].message.content.toLowerCase() }}",
+                    "rightValue": "lieutenant-data",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "output": 1
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "counselor-troi",
+                    "leftValue": "={{ $json.choices[0].message.content.toLowerCase() }}",
+                    "rightValue": "counselor-troi",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "output": 2
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "chief-engineer-scott",
+                    "leftValue": "={{ $json.choices[0].message.content.toLowerCase() }}",
+                    "rightValue": "chief-engineer-scott",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "output": 3
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "commander-spock",
+                    "leftValue": "={{ $json.choices[0].message.content.toLowerCase() }}",
+                    "rightValue": "commander-spock",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "output": 4
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "lieutenant-worf",
+                    "leftValue": "={{ $json.choices[0].message.content.toLowerCase() }}",
+                    "rightValue": "lieutenant-worf",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "output": 5
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "observation-lounge",
+                    "leftValue": "={{ $json.choices[0].message.content.toLowerCase() }}",
+                    "rightValue": "observation-lounge",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "output": 6
+            }
+          ]
+        },
+        "fallbackOutput": 0,
+        "options": {}
+      },
+      "id": "crew-router",
+      "name": "Crew Router",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        600,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{ $env.NEXTJS_BASE_URL || 'http://localhost:3000' }}/api/crew/captain-picard",
+        "authentication": "none",
+        "method": "POST",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyContentType": "json",
+        "jsonBody": "={\n  \"query\": {{ JSON.stringify($('Request Analyzer').item.json.query) }},\n  \"context\": {{ JSON.stringify($('Request Analyzer').item.json.context || 'general') }},\n  \"userRole\": {{ JSON.stringify($('Request Analyzer').item.json.userRole || 'developer') }},\n  \"urgency\": {{ JSON.stringify($('Request Analyzer').item.json.urgency || 'normal') }}\n}",
+        "options": {}
+      },
+      "id": "captain-picard-response",
+      "name": "Captain Picard Response",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        850,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{ $env.NEXTJS_BASE_URL || 'http://localhost:3000' }}/api/crew/lieutenant-data",
+        "authentication": "none",
+        "method": "POST",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyContentType": "json",
+        "jsonBody": "={\n  \"query\": {{ JSON.stringify($('Request Analyzer').item.json.query) }},\n  \"context\": {{ JSON.stringify($('Request Analyzer').item.json.context || 'general') }},\n  \"userRole\": {{ JSON.stringify($('Request Analyzer').item.json.userRole || 'developer') }},\n  \"urgency\": {{ JSON.stringify($('Request Analyzer').item.json.urgency || 'normal') }}\n}",
+        "options": {}
+      },
+      "id": "lieutenant-data-response",
+      "name": "Lieutenant Data Response",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        850,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{ $env.NEXTJS_BASE_URL || 'http://localhost:3000' }}/api/crew/counselor-troi",
+        "authentication": "none",
+        "method": "POST",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyContentType": "json",
+        "jsonBody": "={\n  \"query\": {{ JSON.stringify($('Request Analyzer').item.json.query) }},\n  \"context\": {{ JSON.stringify($('Request Analyzer').item.json.context || 'general') }},\n  \"userRole\": {{ JSON.stringify($('Request Analyzer').item.json.userRole || 'developer') }},\n  \"urgency\": {{ JSON.stringify($('Request Analyzer').item.json.urgency || 'normal') }}\n}",
+        "options": {}
+      },
+      "id": "counselor-troi-response",
+      "name": "Counselor Troi Response",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        850,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{ $env.NEXTJS_BASE_URL || 'http://localhost:3000' }}/api/crew/chief-engineer-scott",
+        "authentication": "none",
+        "method": "POST",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyContentType": "json",
+        "jsonBody": "={\n  \"query\": {{ JSON.stringify($('Request Analyzer').item.json.query) }},\n  \"context\": {{ JSON.stringify($('Request Analyzer').item.json.context || 'general') }},\n  \"userRole\": {{ JSON.stringify($('Request Analyzer').item.json.userRole || 'developer') }},\n  \"urgency\": {{ JSON.stringify($('Request Analyzer').item.json.urgency || 'normal') }}\n}",
+        "options": {}
+      },
+      "id": "chief-engineer-scott-response",
+      "name": "Chief Engineer Scott Response",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        850,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{ $env.NEXTJS_BASE_URL || 'http://localhost:3000' }}/api/crew/commander-spock",
+        "authentication": "none",
+        "method": "POST",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyContentType": "json",
+        "jsonBody": "={\n  \"query\": {{ JSON.stringify($('Request Analyzer').item.json.query) }},\n  \"context\": {{ JSON.stringify($('Request Analyzer').item.json.context || 'general') }},\n  \"userRole\": {{ JSON.stringify($('Request Analyzer').item.json.userRole || 'developer') }},\n  \"urgency\": {{ JSON.stringify($('Request Analyzer').item.json.urgency || 'normal') }}\n}",
+        "options": {}
+      },
+      "id": "commander-spock-response",
+      "name": "Commander Spock Response",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        850,
+        500
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{ $env.NEXTJS_BASE_URL || 'http://localhost:3000' }}/api/crew/lieutenant-worf",
+        "authentication": "none",
+        "method": "POST",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyContentType": "json",
+        "jsonBody": "={\n  \"query\": {{ JSON.stringify($('Request Analyzer').item.json.query) }},\n  \"context\": {{ JSON.stringify($('Request Analyzer').item.json.context || 'general') }},\n  \"userRole\": {{ JSON.stringify($('Request Analyzer').item.json.userRole || 'developer') }},\n  \"urgency\": {{ JSON.stringify($('Request Analyzer').item.json.urgency || 'normal') }}\n}",
+        "options": {}
+      },
+      "id": "lieutenant-worf-response",
+      "name": "Lieutenant Worf Response",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        850,
+        600
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{ $env.NEXTJS_BASE_URL || 'http://localhost:3000' }}/api/crew/observation-lounge",
+        "authentication": "none",
+        "method": "POST",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyContentType": "json",
+        "jsonBody": "={\n  \"meetingType\": \"project-status\",\n  \"projectContext\": {\n    \"projectId\": \"alexai-platform\",\n    \"query\": {{ JSON.stringify($('Request Analyzer').item.json.query) }},\n    \"context\": {{ JSON.stringify($('Request Analyzer').item.json.context || 'general') }}\n  }\n}",
+        "options": {}
+      },
+      "id": "observation-lounge-response",
+      "name": "Observation Lounge Response",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        850,
+        700
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"success\": true,\n  \"crewMember\": {{ JSON.stringify($('Crew Selector (OpenRouter)').item.json.choices[0].message.content) }},\n  \"response\": {{ $json }},\n  \"timestamp\": {{ JSON.stringify(new Date().toISOString()) }},\n  \"requestId\": {{ JSON.stringify($('Request Analyzer').item.json.requestId || Math.random().toString(36).substr(2, 9)) }}\n}",
+        "options": {}
+      },
+      "id": "response-handler",
+      "name": "Response Handler",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        1100,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Local Test Data Generator for n8n UI Testing\n// This allows testing the workflow directly in the n8n interface\n\nconst testScenarios = [\n  {\n    query: \"What should I work on today?\",\n    context: \"daily-planning\",\n    userRole: \"developer\",\n    urgency: \"normal\",\n    complexity: \"medium\"\n  },\n  {\n    query: \"How do we optimize this React component?\",\n    context: \"performance-optimization\",\n    userRole: \"senior-developer\",\n    urgency: \"high\",\n    complexity: \"high\"\n  },\n  {\n    query: \"I'm feeling overwhelmed with this project\",\n    context: \"emotional-support\",\n    userRole: \"junior-developer\",\n    urgency: \"normal\",\n    complexity: \"low\"\n  },\n  {\n    query: \"We need to secure our API endpoints\",\n    context: \"security-review\",\n    userRole: \"security-engineer\",\n    urgency: \"critical\",\n    complexity: \"high\"\n  },\n  {\n    query: \"The deployment pipeline is failing\",\n    context: \"infrastructure-issue\",\n    userRole: \"devops-engineer\",\n    urgency: \"critical\",\n    complexity: \"high\"\n  },\n  {\n    query: \"Let's review the project status\",\n    context: \"project-review\",\n    userRole: \"project-manager\",\n    urgency: \"normal\",\n    complexity: \"medium\"\n  }\n];\n\n// Select a random test scenario or use the first one\nconst selectedScenario = testScenarios[Math.floor(Math.random() * testScenarios.length)];\n\n// Add request ID and timestamp\nselectedScenario.requestId = 'test-' + Math.random().toString(36).substr(2, 9);\nselectedScenario.timestamp = new Date().toISOString();\nselectedScenario.testMode = true;\n\nreturn selectedScenario;"
+      },
+      "id": "local-test-generator",
+      "name": "Local Test Generator",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        100,
+        100
+      ]
+    }
+  ],
+  "connections": {
+    "Request Analyzer": {
+      "main": [
+        [
+          {
+            "node": "Crew Selector (OpenRouter)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Crew Selector (OpenRouter)": {
+      "main": [
+        [
+          {
+            "node": "Crew Router",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Crew Router": {
+      "main": [
+        [
+          {
+            "node": "Captain Picard Response",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Lieutenant Data Response",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Counselor Troi Response",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Chief Engineer Scott Response",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Commander Spock Response",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Lieutenant Worf Response",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Observation Lounge Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Captain Picard Response": {
+      "main": [
+        [
+          {
+            "node": "Response Handler",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lieutenant Data Response": {
+      "main": [
+        [
+          {
+            "node": "Response Handler",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Counselor Troi Response": {
+      "main": [
+        [
+          {
+            "node": "Response Handler",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Chief Engineer Scott Response": {
+      "main": [
+        [
+          {
+            "node": "Response Handler",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Commander Spock Response": {
+      "main": [
+        [
+          {
+            "node": "Response Handler",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lieutenant Worf Response": {
+      "main": [
+        [
+          {
+            "node": "Response Handler",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Observation Lounge Response": {
+      "main": [
+        [
+          {
+            "node": "Response Handler",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Local Test Generator": {
+      "main": [
+        [
+          {
+            "node": "Crew Selector (OpenRouter)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "id": "7fK5hkE6yrsQZfqs"
+}

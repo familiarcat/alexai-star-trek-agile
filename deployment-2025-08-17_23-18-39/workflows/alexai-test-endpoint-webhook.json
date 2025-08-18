@@ -1,0 +1,91 @@
+{
+  "createdAt": "2025-08-12T11:33:59.396Z",
+  "updatedAt": "2025-08-12T11:33:59.396Z",
+  "id": "MlVt4BQ5cnFzaeeJ",
+  "name": "AlexAI Test Endpoint Webhook",
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "test-endpoint",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-trigger",
+      "name": "Test Endpoint Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ],
+      "webhookId": "test-endpoint"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Process test request and provide diagnostic information\nconst request = $input.first().json;\nconst { query, context, userRole, urgency, complexity } = request || {};\n\n// Generate test response with system diagnostics\nconst testResponse = {\n  status: 'operational',\n  endpoint: 'test-endpoint',\n  timestamp: new Date().toISOString(),\n  request: {\n    query: query || 'No query provided',\n    context: context || 'test',\n    userRole: userRole || 'tester',\n    urgency: urgency || 'low',\n    complexity: complexity || 'simple'\n  },\n  diagnostics: {\n    systemStatus: 'online',\n    webhookActive: true,\n    responseTime: 'immediate',\n    apiVersion: '1.0.0'\n  },\n  message: 'Test endpoint is operational and ready for crew requests'\n};\n\nreturn testResponse;"
+      },
+      "id": "test-processor",
+      "name": "Test Request Processor",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        480,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {}
+      },
+      "id": "response-formatter",
+      "name": "Response Formatter",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        720,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Test Endpoint Webhook": {
+      "main": [
+        [
+          {
+            "node": "Test Request Processor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Test Request Processor": {
+      "main": [
+        [
+          {
+            "node": "Response Formatter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "meta": null,
+  "pinData": null,
+  "versionId": "983e76e6-776f-4960-bd11-528f18f7aa53",
+  "triggerCount": 0,
+  "tags": [],
+  "syncedAt": "2025-08-12T11:34:34.382Z",
+  "syncDirection": "pulled-from-n8n",
+  "originalId": "MlVt4BQ5cnFzaeeJ"
+}

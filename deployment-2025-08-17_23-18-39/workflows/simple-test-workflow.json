@@ -1,0 +1,67 @@
+{
+  "createdAt": "2025-08-10T02:20:54.905Z",
+  "updatedAt": "2025-08-10T22:25:06.173Z",
+  "id": "b8QCCA6OPdob7Ran",
+  "name": "Simple Test Workflow",
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "test-endpoint",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-trigger",
+      "name": "Webhook Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        100,
+        300
+      ],
+      "webhookId": "test-endpoint"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"success\": true,\n  \"message\": \"Test workflow executed successfully\",\n  \"timestamp\": \"{{ new Date().toISOString() }}\",\n  \"input\": {{ JSON.stringify($json) }},\n  \"request\": {{ JSON.stringify($json) }},\n  \"workflow\": \"simple-test-workflow\",\n  \"status\": \"operational\"\n}",
+        "options": {}
+      },
+      "id": "response-node",
+      "name": "Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        400,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook Trigger": {
+      "main": [
+        [
+          {
+            "node": "Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "meta": null,
+  "pinData": null,
+  "versionId": "4fe6db99-178c-465b-a293-874d68794329",
+  "triggerCount": 1,
+  "tags": [],
+  "syncedAt": "2025-08-12T11:34:34.386Z",
+  "syncDirection": "pulled-from-n8n",
+  "originalId": "b8QCCA6OPdob7Ran"
+}

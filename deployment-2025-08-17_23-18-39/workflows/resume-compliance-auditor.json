@@ -1,0 +1,461 @@
+{
+  "name": "Resume Compliance Auditor",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "resume-audit",
+        "responseMode": "lastNode",
+        "options": {
+          "binaryData": true
+        }
+      },
+      "id": "Webhook_Entry",
+      "name": "Webhook (Upload Resume)",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [200, 300],
+      "webhookMethods": {
+        "POST": true
+      }
+    },
+    {
+      "parameters": {
+        "mode": "add",
+        "name": "resume",
+        "keepOnlySet": false,
+        "options": {}
+      },
+      "id": "RouteBinary",
+      "name": "Ensure Binary Field",
+      "type": "n8n-nodes-base.moveBinaryData",
+      "typeVersion": 1,
+      "position": [420, 300],
+      "notes": "Make sure uploaded file sits at binary 'resume'. If you POST with field 'resume', n8n puts it there automatically; this is a safety node."
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$binary.resume.fileExtension}}",
+              "operation": "equal",
+              "value2": "txt"
+            },
+            {
+              "value1": "={{$binary.resume.fileExtension}}",
+              "operation": "equal",
+              "value2": "md"
+            },
+            {
+              "value1": "={{$binary.resume.fileExtension}}",
+              "operation": "equal",
+              "value2": "docx"
+            },
+            {
+              "value1": "={{$binary.resume.fileExtension}}",
+              "operation": "equal",
+              "value2": "pdf"
+            }
+          ]
+        }
+      },
+      "id": "SwitchByExt",
+      "name": "Route by Extension",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 2,
+      "position": [640, 300]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "BinToText_TXT",
+      "name": "Binary → Text (TXT/MD)",
+      "type": "n8n-nodes-base.binaryToText",
+      "typeVersion": 1,
+      "position": [860, 160],
+      "notesInFlow": true,
+      "notes": "Converts .txt or .md to plain text",
+      "conditions": {}
+    },
+    {
+      "parameters": {
+        "fileName": "/tmp/resume_input.docx",
+        "binaryPropertyName": "resume"
+      },
+      "id": "WriteDocx",
+      "name": "Write .docx to /tmp",
+      "type": "n8n-nodes-base.writeBinaryFile",
+      "typeVersion": 1,
+      "position": [860, 300]
+    },
+    {
+      "parameters": {
+        "command": "pandoc /tmp/resume_input.docx -f docx -t markdown -o /tmp/resume.md && cat /tmp/resume.md",
+        "options": {
+          "output": "json"
+        }
+      },
+      "id": "DocxToMd",
+      "name": "docx → md (pandoc)",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [1060, 300],
+      "notes": "Requires pandoc on the host",
+      "executeOnce": false
+    },
+    {
+      "parameters": {
+        "command": "pdftotext /tmp/resume.pdf /tmp/resume.txt && cat /tmp/resume.txt",
+        "options": {
+          "output": "json"
+        }
+      },
+      "id": "PdfToText",
+      "name": "pdf → text (pdftotext)",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [1060, 440],
+      "notes": "Requires pdftotext (poppler-utils) on the host"
+    },
+    {
+      "parameters": {
+        "fileName": "/tmp/resume.pdf",
+        "binaryPropertyName": "resume"
+      },
+      "id": "WritePdf",
+      "name": "Write .pdf to /tmp",
+      "type": "n8n-nodes-base.writeBinaryFile",
+      "typeVersion": 1,
+      "position": [860, 440]
+    },
+    {
+      "parameters": {
+        "functionCode": "const ext = $binary.resume?.fileExtension?.toLowerCase();\nlet text = '';\n\nif (ext === 'txt' || ext === 'md') {\n  // Text came via Binary→Text node (BinToText_TXT)\n  text = $json.data || $json.text || Object.values($json)[0] || '';\n} else if (ext === 'docx') {\n  // ExecuteCommand returns stdout in \"stdout\" array for json mode\n  const stdout = $json.stdout || [];\n  text = stdout.join('\\n');\n} else if (ext === 'pdf') {\n  const stdout = $json.stdout || [];\n  text = stdout.join('\\n');\n}\n\n// Normalize whitespace\ntext = text.replace(/\\r/g, '').replace(/\\t/g, '    ');\n\n// ---------- Scoring Helpers ----------\nfunction percent(x){return Math.max(0, Math.min(100, Math.round(x)))}\nfunction hasAny(str, arr){return arr.some(k=>str.toLowerCase().includes(k.toLowerCase()))}\nfunction count(str, re){const m=str.match(re);return m?m.length:0}\n\n// Signals\nconst metrics = count(text, /\\b(\\d+\\.?\\d*%|\\$\\d|\\d+\\s*(x|k|million|billion))\\b/gi);\nconst actionVerbs = count(text, /\\b(led|architected|built|developed|designed|migrated|created|implemented|optimized|delivered|improved|reduced|increased|drove|owned|managed)\\b/gi);\nconst leadership = count(text, /\\b(lead|led|managed|mentored|directed|coach|stakeholder|executive|cross-functional|scrum|agile)\\b/gi);\nconst techDepth = count(text, /\\b(react|next\\.js|node|typescript|aws|docker|kubernetes|terraform|graphql|postgres|mongodb|bigquery|ci\\/cd|microservices)\\b/gi);\nconst situationWords = count(text, /\\b(situation|challenge|obstacle)\\b/gi);\nconst objectiveWords = count(text, /\\b(objective|goal|intent|target)\\b/gi);\nconst taskWords = count(text, /\\b(task|responsible for)\\b/gi);\nconst actionWords = count(text, /\\b(action|implemented|created|built|architected)\\b/gi);\nconst resultWords = count(text, /\\b(result|outcome|impact|improvement|increase|reduction|roi|kpi)\\b/gi) + metrics;\n\n// ELITE (Engage, Lead, Impress, Target, Execute)\nlet ELITE = 0;\nELITE += actionVerbs>5?20:actionVerbs>2?15:10; // Engage via strong language\nELITE += leadership>3?20:leadership>1?15:10;   // Lead\nELITE += metrics>3?20:metrics>1?15:10;         // Impress\nELITE += objectiveWords>1?20:objectiveWords?15:10; // Target\nELITE += actionVerbs>6?20:actionVerbs>3?15:10; // Execute\nELITE = percent(ELITE);\n\n// SOAR (Situation, Objective, Action, Result)\nlet SOAR = 0;\nSOAR += situationWords?25:15;\nSOAR += objectiveWords?25:15;\nSOAR += actionWords>2?25:15;\nSOAR += resultWords>2?25:15;\nSOAR = percent(SOAR);\n\n// STAR (Situation, Task, Action, Result)\nlet STAR = 0;\nSTAR += situationWords?25:15;\nSTAR += taskWords?25:15;\nSTAR += actionWords>2?25:15;\nSTAR += resultWords>2?25:15;\nSTAR = percent(STAR);\n\n// CAR (Challenge, Action, Result)\nlet CAR = 0;\nCAR += situationWords?33:20;\nCAR += actionWords>2?33:20;\nCAR += resultWords>2?34:20;\nCAR = percent(CAR);\n\n// LPS (Leadership, Problem-solving, Strategic impact)\nlet LPS = 0;\nLPS += leadership>2?34:leadership?27:20;\nLPS += hasAny(text,[\"solve\",\"solution\",\"resolved\",\"debug\",\"fix\"]) ? 33 : 25;\nLPS += hasAny(text,[\"strategy\",\"strategic\",\"architect\",\"roadmap\",\"platform\"]) ? 33 : 25;\nLPS = percent(LPS);\n\n// WHO (Who, What, How)\nlet WHO = 0;\nWHO += hasAny(text,[\"freelance\",\"bayer\",\"charter\",\"mastercard\",\"asynchrony\",\"daugherty\"]) ? 34 : 25; // Who\nWHO += actionVerbs>2?33:25; // What\nWHO += hasAny(text,[\"using\",\"leveraged\",\"applied\",\"aws\",\"react\",\"node\",\"agile\"]) ? 33 : 25; // How\nWHO = percent(WHO);\n\nconst frameworkScores = { ELITE, SOAR, STAR, CAR, LPS, WHO };\nconst overall = percent((ELITE+SOAR+STAR+CAR+LPS+WHO)/6);\n\n// Strengths & improvements (light heuristics)\nconst strengths = [];\nif (metrics>1) strengths.push(\"Consistent use of quantified results.\");\nif (leadership>1) strengths.push(\"Demonstrated leadership & cross-functional collaboration.\");\nif (techDepth>3) strengths.push(\"Strong modern tech stack coverage.\");\nif (actionVerbs>5) strengths.push(\"Clear action-oriented bullet phrasing.\");\n\nconst improvements = [];\nif (!objectiveWords) improvements.push(\"Add explicit Objective lines under each role.\");\nif (!taskWords) improvements.push(\"Separate Task from Situation before Actions.\");\nif (metrics<2) improvements.push(\"Add more numeric impact (%, $, time saved, adoption).\");\n\n// ATS/CVViZ quick checks\nconst atsIssues = [];\nif (count(text, /\\u2015|\\u2500|\\u2501/g)>0) atsIssues.push(\"Replace decorative dividers with simple ASCII or rule lines.\");\nif (count(text, /\\t/g)>5) atsIssues.push(\"Excess tabs may confuse parsers; prefer spaces.\");\n\nconst softSkills = [\"mentoring\",\"stakeholder\",\"collaboration\",\"negotiation\",\"communication\",\"facilitation\"];\nconst missingSoft = softSkills.filter(k=>!hasAny(text,[k]));\n\n// Build markdown report\nconst md = `### Overview\\n\\n**Overall Compliance Score:** ${overall}%\\n\\n### Framework Scores & Feedback\\n- ELITE: ${ELITE}%\\n- SOAR: ${SOAR}%\\n- STAR: ${STAR}%\\n- CAR: ${CAR}%\\n- LPS: ${LPS}%\\n- WHO: ${WHO}%\\n\\n**Strengths:**\\n${strengths.map(s=>`- ${s}`).join('\\n') || '- —'}\\n\\n**Improvements:**\\n${improvements.map(s=>`- ${s}`).join('\\n') || '- —'}\\n\\n### CVViZ/ATS Optimization\\n- Keyword depth (tech): ${techDepth} signals\\n- Action verbs: ${actionVerbs}\\n- Metrics found: ${metrics}\\n- Potential parsing issues: ${atsIssues.length?atsIssues.join('; '):'None detected'}\\n- Suggested soft-skill keywords to add: ${missingSoft.slice(0,5).join(', ') || '—'}\\n\\n### Overall Metrics\\n**Average Framework Score:** ${overall}%\\n\\n### Quick Win List\\n1. Add explicit Objective per role.\\n2. Separate Task from Situation before Actions.\\n3. Ensure at least one metric per role (%, $, time).\\n4. Expand soft-skill keywords (mentoring, stakeholder, negotiation).\\n5. Keep bullets action-first and concise.\\n`;\n\nreturn [{ json: { frameworkScores, overall, strengths, improvements, atsIssues, missingSoft, rawTextLength: text.length, data: md } }];"
+      },
+      "id": "ScoreResume",
+      "name": "Score & Build Markdown",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 2,
+      "position": [1280, 300]
+    },
+    {
+      "parameters": {
+        "text": "={{$json.data}}",
+        "options": {}
+      },
+      "id": "MdToBinary",
+      "name": "MD → Binary",
+      "type": "n8n-nodes-base.textToBinary",
+      "typeVersion": 1,
+      "position": [1500, 220]
+    },
+    {
+      "parameters": {
+        "command": "cat > /tmp/report.md <<'MD'\\n{{$json.data}}\\nMD\\n && pandoc /tmp/report.md -t plain -o /tmp/report.txt && cat /tmp/report.txt",
+        "options": {
+          "output": "json"
+        }
+      },
+      "id": "MakeTXT",
+      "name": "Markdown → TXT (pandoc)",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [1500, 300],
+      "notes": "Convert pandoc TXT stdout back to a binary for response"
+    },
+    {
+      "parameters": {
+        "command": "cat > /tmp/report.md <<'MD'\\n{{$json.data}}\\nMD\\n && pandoc /tmp/report.md -o /tmp/report.docx && echo '/tmp/report.docx'",
+        "options": {
+          "output": "json"
+        }
+      },
+      "id": "MakeDOCX",
+      "name": "Markdown → DOCX (pandoc)",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [1500, 380]
+    },
+    {
+      "parameters": {
+        "command": "cat > /tmp/report.md <<'MD'\\n{{$json.data}}\\nMD\\n && pandoc /tmp/report.md -o /tmp/report.pdf && echo '/tmp/report.pdf'",
+        "options": {
+          "output": "json"
+        }
+      },
+      "id": "MakePDF",
+      "name": "Markdown → PDF (pandoc + wkhtmltopdf)",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [1500, 460]
+    },
+    {
+      "parameters": {
+        "filePath": "/tmp/report.docx"
+      },
+      "id": "ReadDOCX",
+      "name": "Read DOCX",
+      "type": "n8n-nodes-base.readBinaryFile",
+      "typeVersion": 1,
+      "position": [1720, 380]
+    },
+    {
+      "parameters": {
+        "filePath": "/tmp/report.pdf"
+      },
+      "id": "ReadPDF",
+      "name": "Read PDF",
+      "type": "n8n-nodes-base.readBinaryFile",
+      "typeVersion": 1,
+      "position": [1720, 460]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "TextToBinary_TXT",
+      "name": "TXT → Binary",
+      "type": "n8n-nodes-base.textToBinary",
+      "typeVersion": 1,
+      "position": [1720, 300],
+      "notes": "Convert pandoc TXT stdout back to a binary for response",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "respondWith": "allEntries",
+        "responseCode": 200,
+        "responseMode": "onReceived",
+        "responseData": "={{ { json: $json, binary: { 'report_md': $binary.data, 'report_txt': $binary.data, 'report_docx': $binary.data, 'report_pdf': $binary.data } } }}",
+        "options": {
+          "responseBinaryPropertyName": "report_md"
+        }
+      },
+      "id": "Respond",
+      "name": "Respond with Files + JSON",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1960, 300],
+      "notes": "Returns JSON + MD/TXT/DOCX/PDF as binary parts"
+    }
+  ],
+  "connections": {
+    "Webhook (Upload Resume)": {
+      "main": [
+        [
+          {
+            "node": "Ensure Binary Field",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ensure Binary Field": {
+      "main": [
+        [
+          {
+            "node": "Route by Extension",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Route by Extension": {
+      "main": [
+        [
+          {
+            "node": "Binary → Text (TXT/MD)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Write .docx to /tmp",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Write .pdf to /tmp",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "Binary → Text (TXT/MD)": {
+      "main": [
+        [
+          {
+            "node": "Score & Build Markdown",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Write .docx to /tmp": {
+      "main": [
+        [
+          {
+            "node": "docx → md (pandoc)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "docx → md (pandoc)": {
+      "main": [
+        [
+          {
+            "node": "Score & Build Markdown",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Write .pdf to /tmp": {
+      "main": [
+        [
+          {
+            "node": "pdf → text (pdftotext)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "pdf → text (pandoc)": {
+      "main": [
+        [
+          {
+            "node": "Score & Build Markdown",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Score & Build Markdown": {
+      "main": [
+        [
+          {
+            "node": "MD → Binary",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Markdown → TXT (pandoc)",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Markdown → DOCX (pandoc)",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Markdown → PDF (pandoc + wkhtmltopdf)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Markdown → TXT (pandoc)": {
+      "main": [
+        [
+          {
+            "node": "TXT → Binary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Markdown → DOCX (pandoc)": {
+      "main": [
+        [
+          {
+            "node": "Read DOCX",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Markdown → PDF (pandoc + wkhtmltopdf)": {
+      "main": [
+        [
+          {
+            "node": "Read PDF",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MD → Binary": {
+      "main": [
+        [
+          {
+            "node": "Respond with Files + JSON",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "TXT → Binary": {
+      "main": [
+        [
+          {
+            "node": "Respond with Files + JSON",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read DOCX": {
+      "main": [
+        [
+          {
+            "node": "Respond with Files + JSON",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read PDF": {
+      "main": [
+        [
+          {
+            "node": "Respond with Files + JSON",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "id": "resume-compliance-auditor"
+}

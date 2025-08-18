@@ -1,0 +1,398 @@
+{
+  "colors": [
+    {
+      "method": "createPaintStyle",
+      "parameters": {
+        "name": "LCARS/primary",
+        "description": "LCARS primary color",
+        "paints": [
+          {
+            "type": "SOLID",
+            "color": {
+              "r": 1,
+              "g": 0.4196078431372549,
+              "b": 0.20784313725490197
+            }
+          }
+        ]
+      },
+      "code": "figma.createPaintStyle().name = \"LCARS/primary\";"
+    },
+    {
+      "method": "createPaintStyle",
+      "parameters": {
+        "name": "LCARS/secondary",
+        "description": "LCARS secondary color",
+        "paints": [
+          {
+            "type": "SOLID",
+            "color": {
+              "r": 0.3058823529411765,
+              "g": 0.803921568627451,
+              "b": 0.7686274509803922
+            }
+          }
+        ]
+      },
+      "code": "figma.createPaintStyle().name = \"LCARS/secondary\";"
+    },
+    {
+      "method": "createPaintStyle",
+      "parameters": {
+        "name": "LCARS/accent",
+        "description": "LCARS accent color",
+        "paints": [
+          {
+            "type": "SOLID",
+            "color": {
+              "r": 0.27058823529411763,
+              "g": 0.7176470588235294,
+              "b": 0.8196078431372549
+            }
+          }
+        ]
+      },
+      "code": "figma.createPaintStyle().name = \"LCARS/accent\";"
+    },
+    {
+      "method": "createPaintStyle",
+      "parameters": {
+        "name": "LCARS/success",
+        "description": "LCARS success color",
+        "paints": [
+          {
+            "type": "SOLID",
+            "color": {
+              "r": 0.5882352941176471,
+              "g": 0.807843137254902,
+              "b": 0.7058823529411765
+            }
+          }
+        ]
+      },
+      "code": "figma.createPaintStyle().name = \"LCARS/success\";"
+    },
+    {
+      "method": "createPaintStyle",
+      "parameters": {
+        "name": "LCARS/warning",
+        "description": "LCARS warning color",
+        "paints": [
+          {
+            "type": "SOLID",
+            "color": {
+              "r": 1,
+              "g": 0.9176470588235294,
+              "b": 0.6549019607843137
+            }
+          }
+        ]
+      },
+      "code": "figma.createPaintStyle().name = \"LCARS/warning\";"
+    },
+    {
+      "method": "createPaintStyle",
+      "parameters": {
+        "name": "LCARS/error",
+        "description": "LCARS error color",
+        "paints": [
+          {
+            "type": "SOLID",
+            "color": {
+              "r": 0.8666666666666667,
+              "g": 0.6274509803921569,
+              "b": 0.8666666666666667
+            }
+          }
+        ]
+      },
+      "code": "figma.createPaintStyle().name = \"LCARS/error\";"
+    },
+    {
+      "method": "createPaintStyle",
+      "parameters": {
+        "name": "LCARS/text",
+        "description": "LCARS text color",
+        "paints": [
+          {
+            "type": "SOLID",
+            "color": {
+              "r": 0.17647058823529413,
+              "g": 0.20392156862745098,
+              "b": 0.21176470588235294
+            }
+          }
+        ]
+      },
+      "code": "figma.createPaintStyle().name = \"LCARS/text\";"
+    },
+    {
+      "method": "createPaintStyle",
+      "parameters": {
+        "name": "LCARS/background",
+        "description": "LCARS background color",
+        "paints": [
+          {
+            "type": "SOLID",
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1
+            }
+          }
+        ]
+      },
+      "code": "figma.createPaintStyle().name = \"LCARS/background\";"
+    }
+  ],
+  "typography": [
+    {
+      "method": "createTextStyle",
+      "parameters": {
+        "name": "LCARS/small",
+        "description": "LCARS small text style",
+        "fontSize": 14,
+        "fontName": {
+          "family": "Antonio",
+          "style": "Regular"
+        }
+      },
+      "code": "figma.createTextStyle().name = \"LCARS/small\";"
+    },
+    {
+      "method": "createTextStyle",
+      "parameters": {
+        "name": "LCARS/base",
+        "description": "LCARS base text style",
+        "fontSize": 16,
+        "fontName": {
+          "family": "Antonio",
+          "style": "Regular"
+        }
+      },
+      "code": "figma.createTextStyle().name = \"LCARS/base\";"
+    },
+    {
+      "method": "createTextStyle",
+      "parameters": {
+        "name": "LCARS/large",
+        "description": "LCARS large text style",
+        "fontSize": 18,
+        "fontName": {
+          "family": "Antonio",
+          "style": "Regular"
+        }
+      },
+      "code": "figma.createTextStyle().name = \"LCARS/large\";"
+    },
+    {
+      "method": "createTextStyle",
+      "parameters": {
+        "name": "LCARS/xlarge",
+        "description": "LCARS xlarge text style",
+        "fontSize": 20,
+        "fontName": {
+          "family": "Antonio",
+          "style": "Regular"
+        }
+      },
+      "code": "figma.createTextStyle().name = \"LCARS/xlarge\";"
+    }
+  ],
+  "spacing": [
+    {
+      "method": "createEffectStyle",
+      "parameters": {
+        "name": "LCARS/Spacing/xs",
+        "description": "LCARS xs spacing",
+        "effects": [
+          {
+            "type": "DROP_SHADOW",
+            "color": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0.1
+            },
+            "offset": {
+              "x": 0,
+              "y": 4
+            },
+            "radius": 0
+          }
+        ]
+      },
+      "code": "figma.createEffectStyle().name = \"LCARS/Spacing/xs\";"
+    },
+    {
+      "method": "createEffectStyle",
+      "parameters": {
+        "name": "LCARS/Spacing/sm",
+        "description": "LCARS sm spacing",
+        "effects": [
+          {
+            "type": "DROP_SHADOW",
+            "color": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0.1
+            },
+            "offset": {
+              "x": 0,
+              "y": 8
+            },
+            "radius": 0
+          }
+        ]
+      },
+      "code": "figma.createEffectStyle().name = \"LCARS/Spacing/sm\";"
+    },
+    {
+      "method": "createEffectStyle",
+      "parameters": {
+        "name": "LCARS/Spacing/md",
+        "description": "LCARS md spacing",
+        "effects": [
+          {
+            "type": "DROP_SHADOW",
+            "color": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0.1
+            },
+            "offset": {
+              "x": 0,
+              "y": 16
+            },
+            "radius": 0
+          }
+        ]
+      },
+      "code": "figma.createEffectStyle().name = \"LCARS/Spacing/md\";"
+    },
+    {
+      "method": "createEffectStyle",
+      "parameters": {
+        "name": "LCARS/Spacing/lg",
+        "description": "LCARS lg spacing",
+        "effects": [
+          {
+            "type": "DROP_SHADOW",
+            "color": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0.1
+            },
+            "offset": {
+              "x": 0,
+              "y": 24
+            },
+            "radius": 0
+          }
+        ]
+      },
+      "code": "figma.createEffectStyle().name = \"LCARS/Spacing/lg\";"
+    },
+    {
+      "method": "createEffectStyle",
+      "parameters": {
+        "name": "LCARS/Spacing/xl",
+        "description": "LCARS xl spacing",
+        "effects": [
+          {
+            "type": "DROP_SHADOW",
+            "color": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0.1
+            },
+            "offset": {
+              "x": 0,
+              "y": 32
+            },
+            "radius": 0
+          }
+        ]
+      },
+      "code": "figma.createEffectStyle().name = \"LCARS/Spacing/xl\";"
+    },
+    {
+      "method": "createEffectStyle",
+      "parameters": {
+        "name": "LCARS/Spacing/xxl",
+        "description": "LCARS xxl spacing",
+        "effects": [
+          {
+            "type": "DROP_SHADOW",
+            "color": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0.1
+            },
+            "offset": {
+              "x": 0,
+              "y": 48
+            },
+            "radius": 0
+          }
+        ]
+      },
+      "code": "figma.createEffectStyle().name = \"LCARS/Spacing/xxl\";"
+    }
+  ],
+  "icons": [
+    {
+      "method": "createComponent",
+      "parameters": {
+        "name": "LCARS/Icon/accent",
+        "description": "LCARS accent icon size",
+        "size": {
+          "width": 14,
+          "height": 14
+        }
+      },
+      "code": "figma.createComponent().name = \"LCARS/Icon/accent\";"
+    },
+    {
+      "method": "createComponent",
+      "parameters": {
+        "name": "LCARS/Icon/small",
+        "description": "LCARS small icon size",
+        "size": {
+          "width": 12,
+          "height": 12
+        }
+      },
+      "code": "figma.createComponent().name = \"LCARS/Icon/small\";"
+    },
+    {
+      "method": "createComponent",
+      "parameters": {
+        "name": "LCARS/Icon/large",
+        "description": "LCARS large icon size",
+        "size": {
+          "width": 16,
+          "height": 16
+        }
+      },
+      "code": "figma.createComponent().name = \"LCARS/Icon/large\";"
+    },
+    {
+      "method": "createComponent",
+      "parameters": {
+        "name": "LCARS/Icon/xlarge",
+        "description": "LCARS xlarge icon size",
+        "size": {
+          "width": 20,
+          "height": 20
+        }
+      },
+      "code": "figma.createComponent().name = \"LCARS/Icon/xlarge\";"
+    }
+  ]
+}

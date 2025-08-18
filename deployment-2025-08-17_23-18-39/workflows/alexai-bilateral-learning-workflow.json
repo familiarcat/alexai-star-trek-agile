@@ -1,0 +1,197 @@
+{
+  "name": "AlexAI Bilateral Learning Workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "bilateral-learning",
+        "options": {}
+      },
+      "id": "bilateral-learning-webhook",
+      "name": "Bilateral Learning Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ],
+      "webhookId": "bilateral-learning-trigger"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Knowledge Discovery and Categorization\nconst processKnowledgeUpdate = () => {\n  const input = $input.all()[0].json;\n  \n  // Extract information about new files or updates\n  const fileType = input.fileType || 'unknown';\n  const filePath = input.filePath || '';\n  const content = input.content || '';\n  const updateType = input.updateType || 'creation';\n  \n  // Determine knowledge domain based on file content and path\n  let knowledgeDomain = '06-reference';\n  let agentRelevance = [];\n  \n  // Analyze file content for categorization\n  const contentLower = content.toLowerCase();\n  const pathLower = filePath.toLowerCase();\n  \n  // Domain classification logic\n  if (pathLower.includes('architecture') || contentLower.includes('system design') || contentLower.includes('lcars')) {\n    knowledgeDomain = '01-foundations/architecture';\n    agentRelevance = ['captain-picard', 'chief-engineer-scott'];\n  } else if (pathLower.includes('security') || contentLower.includes('security') || contentLower.includes('authentication')) {\n    knowledgeDomain = '01-foundations/standards/security-protocols';\n    agentRelevance = ['lieutenant-worf', 'commander-spock'];\n  } else if (pathLower.includes('agent') || pathLower.includes('crew') || pathLower.includes('n8n')) {\n    knowledgeDomain = '02-ai-agents';\n    agentRelevance = ['lieutenant-data', 'commander-spock'];\n  } else if (pathLower.includes('deploy') || pathLower.includes('script') || contentLower.includes('deployment')) {\n    knowledgeDomain = '03-operations';\n    agentRelevance = ['chief-engineer-scott', 'lieutenant-data'];\n  } else if (pathLower.includes('project') || contentLower.includes('agile') || contentLower.includes('kanban')) {\n    knowledgeDomain = '04-projects';\n    agentRelevance = ['captain-picard', 'counselor-troi'];\n  } else if (pathLower.includes('learn') || contentLower.includes('evolution') || contentLower.includes('improvement')) {\n    knowledgeDomain = '05-evolution';\n    agentRelevance = ['commander-spock', 'lieutenant-data'];\n  }\n  \n  // Extract key insights from content\n  const insights = extractKeyInsights(content, fileType);\n  \n  // Generate learning opportunities\n  const learningOpportunities = generateLearningOpportunities(content, agentRelevance);\n  \n  const processedUpdate = {\n    ...input,\n    knowledgeDomain,\n    agentRelevance,\n    insights,\n    learningOpportunities,\n    processingTimestamp: new Date().toISOString(),\n    bilateral: true\n  };\n  \n  return [{ json: processedUpdate }];\n};\n\n// Extract key insights from content\nfunction extractKeyInsights(content, fileType) {\n  const insights = [];\n  \n  if (fileType === 'markdown') {\n    // Extract headings as key topics\n    const headingMatches = content.match(/#{1,6}\\s+(.+)/g);\n    if (headingMatches) {\n      insights.push(...headingMatches.map(h => h.replace(/#{1,6}\\s+/, '')));\n    }\n    \n    // Extract key phrases\n    if (content.includes('✅')) insights.push('Contains completed tasks or achievements');\n    if (content.includes('❌')) insights.push('Contains identified issues or failures');\n    if (content.includes('🎯')) insights.push('Contains goals or targets');\n    if (content.includes('⚠️')) insights.push('Contains warnings or cautions');\n  } else if (fileType === 'shell') {\n    // Extract function names and key operations\n    const functionMatches = content.match(/function\\s+(\\w+)|([\\w_]+)\\s*\\(\\s*\\)/g);\n    if (functionMatches) {\n      insights.push('Contains functions: ' + functionMatches.join(', '));\n    }\n    \n    if (content.includes('curl')) insights.push('Contains API interactions');\n    if (content.includes('npm') || content.includes('yarn')) insights.push('Contains package management');\n    if (content.includes('docker')) insights.push('Contains containerization');\n  }\n  \n  return insights.slice(0, 10); // Limit to top 10 insights\n}\n\n// Generate learning opportunities for agents\nfunction generateLearningOpportunities(content, agentRelevance) {\n  const opportunities = [];\n  \n  for (const agent of agentRelevance) {\n    switch (agent) {\n      case 'captain-picard':\n        opportunities.push({\n          agent: 'captain-picard',\n          opportunity: 'Strategic leadership insights and project coordination patterns',\n          application: 'Apply to future strategic decision-making'\n        });\n        break;\n      case 'lieutenant-data':\n        opportunities.push({\n          agent: 'lieutenant-data',\n          opportunity: 'Technical implementation patterns and system operations',\n          application: 'Enhance technical analysis and operational efficiency'\n        });\n        break;\n      case 'counselor-troi':\n        opportunities.push({\n          agent: 'counselor-troi',\n          opportunity: 'Team dynamics and collaboration effectiveness',\n          application: 'Improve team coordination and user experience'\n        });\n        break;\n      case 'chief-engineer-scott':\n        opportunities.push({\n          agent: 'chief-engineer-scott',\n          opportunity: 'Engineering solutions and performance optimization',\n          application: 'Apply to technical problem-solving and system efficiency'\n        });\n        break;\n      case 'commander-spock':\n        opportunities.push({\n          agent: 'commander-spock',\n          opportunity: 'Logical analysis frameworks and optimization strategies',\n          application: 'Enhance analytical decision-making processes'\n        });\n        break;\n      case 'lieutenant-worf':\n        opportunities.push({\n          agent: 'lieutenant-worf',\n          opportunity: 'Security protocols and risk management strategies',\n          application: 'Strengthen security posture and threat assessment'\n        });\n        break;\n    }\n  }\n  \n  return opportunities;\n}\n\nreturn processKnowledgeUpdate();"
+      },
+      "id": "knowledge-processor",
+      "name": "Knowledge Discovery Processor",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        440,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://alexai-star-trek-agile.vercel.app/api/knowledge",
+        "method": "POST",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "jsonBody": "{\n  \"domain\": \"{{ $json.knowledgeDomain }}\",\n  \"filename\": \"bilateral-learning-{{ Date.now() }}.md\",\n  \"content\": \"# Bilateral Learning Entry\\n\\n**Generated:** {{ $json.processingTimestamp }}\\n**Domain:** {{ $json.knowledgeDomain }}\\n**Agent Relevance:** {{ $json.agentRelevance.join(', ') }}\\n\\n## Key Insights\\n{{ $json.insights.map(i => '- ' + i).join('\\\\n') }}\\n\\n## Learning Opportunities\\n{{ $json.learningOpportunities.map(o => '### ' + o.agent + '\\\\n- **Opportunity:** ' + o.opportunity + '\\\\n- **Application:** ' + o.application).join('\\\\n\\\\n') }}\\n\\n## Original Content Reference\\n**File:** {{ $json.filePath }}\\n**Type:** {{ $json.fileType }}\\n**Update:** {{ $json.updateType }}\\n\\n---\\n*Auto-generated by Bilateral Learning Workflow*\",\n  \"agent\": \"bilateral-learning-system\"\n}",
+        "options": {
+          "responseTimeout": 30000
+        }
+      },
+      "id": "update-knowledge-base",
+      "name": "Update Knowledge Base",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        640,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Agent Enhancement Notification\nconst notifyAgents = () => {\n  const input = $input.all()[0].json;\n  \n  // Create notifications for relevant agents\n  const notifications = [];\n  \n  for (const agent of input.agentRelevance) {\n    notifications.push({\n      agent: agent,\n      notificationType: 'knowledge-enhancement',\n      message: `New knowledge available in domain: ${input.knowledgeDomain}`,\n      insights: input.insights,\n      learningOpportunities: input.learningOpportunities.filter(o => o.agent === agent),\n      timestamp: new Date().toISOString(),\n      priority: input.updateType === 'critical' ? 'high' : 'normal'\n    });\n  }\n  \n  // Create summary for system monitoring\n  const summary = {\n    totalAgentsNotified: notifications.length,\n    knowledgeDomain: input.knowledgeDomain,\n    insightsGenerated: input.insights.length,\n    learningOpportunitiesCreated: input.learningOpportunities.length,\n    bilateralLearningActive: true,\n    processingComplete: true,\n    timestamp: new Date().toISOString()\n  };\n  \n  return [\n    { json: { notifications, summary } }\n  ];\n};\n\nreturn notifyAgents();"
+      },
+      "id": "agent-enhancer",
+      "name": "Agent Enhancement Notifier",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        840,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://alexai-star-trek-agile.vercel.app/api/crew/enhanced-knowledge-integration",
+        "method": "POST",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "jsonBody": "{\n  \"action\": \"bulk-enhancement\",\n  \"notifications\": \"{{ $json.notifications }}\",\n  \"summary\": \"{{ JSON.stringify($json.summary) }}\",\n  \"bilateralLearning\": true\n}",
+        "options": {
+          "responseTimeout": 30000
+        }
+      },
+      "id": "enhance-agents",
+      "name": "Enhance Agent Capabilities",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1040,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"status\": \"Bilateral Learning Complete\",\n  \"knowledgeDomain\": \"{{ $json.knowledgeDomain }}\",\n  \"agentsEnhanced\": {{ $json.agentRelevance.length }},\n  \"insightsGenerated\": {{ $json.insights.length }},\n  \"learningActive\": true,\n  \"timestamp\": \"{{ $json.processingTimestamp }}\",\n  \"message\": \"Knowledge successfully integrated into agent capabilities. Brain trust enhanced.\"\n}",
+        "responseHeaders": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "X-Bilateral-Learning",
+              "value": "active"
+            }
+          ]
+        }
+      },
+      "id": "learning-complete",
+      "name": "Learning Complete Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        1240,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "bilateral-learning-webhook": {
+      "main": [
+        [
+          {
+            "node": "knowledge-processor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "knowledge-processor": {
+      "main": [
+        [
+          {
+            "node": "update-knowledge-base",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "update-knowledge-base": {
+      "main": [
+        [
+          {
+            "node": "agent-enhancer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "agent-enhancer": {
+      "main": [
+        [
+          {
+            "node": "enhance-agents",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "enhance-agents": {
+      "main": [
+        [
+          {
+            "node": "learning-complete",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "timezone": "America/Chicago"
+  },
+  "tags": [
+    "AlexAI",
+    "Bilateral-Learning",
+    "Knowledge-Enhancement"
+  ],
+  "triggerCount": 0,
+  "id": "nOhIA5fCCA4nH2iO"
+}

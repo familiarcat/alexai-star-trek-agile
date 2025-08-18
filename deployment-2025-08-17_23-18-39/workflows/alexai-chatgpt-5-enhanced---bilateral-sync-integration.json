@@ -1,0 +1,156 @@
+{
+  "createdAt": "2025-08-12T11:33:58.788Z",
+  "updatedAt": "2025-08-12T11:33:58.788Z",
+  "id": "eEYIr7F93PE29uu8",
+  "name": "AlexAI ChatGPT 5 Enhanced - Bilateral Sync Integration",
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "chatgpt5-enhanced-prompt",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-trigger",
+      "name": "Enhanced ChatGPT 5 Prompt Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ],
+      "webhookId": "chatgpt5-enhanced-prompt"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Enhanced ChatGPT 5 Request Processor\nconst userRequest = $input.first().json;\nconst { query, context, userRole, urgency, complexity, preferredLLM, useChatGPT5 } = userRequest;\n\n// Load LLM configuration from bilateral sync system\nconst llmConfig = {\n  chatgpt5: {\n    provider: 'openai',\n    model: 'gpt-5',\n    baseUrl: 'https://api.openai.com/v1',\n    apiKey: '{{ $env.OPENAI_API_KEY }}',\n    maxTokens: 4000,\n    temperature: 0.3\n  },\n  claude: {\n    provider: 'anthropic',\n    model: 'anthropic/claude-3.5-sonnet',\n    baseUrl: 'https://openrouter.ai/api/v1',\n    apiKey: '{{ $env.OPENROUTER_API_KEY }}',\n    maxTokens: 2000,\n    temperature: 0.3\n  }\n};\n\n// Determine optimal LLM based on request characteristics\nlet selectedLLM;\nlet reasoning;\n\nif (useChatGPT5 && preferredLLM === 'chatgpt') {\n  selectedLLM = 'chatgpt5';\n  reasoning = 'User explicitly requested ChatGPT 5 for enhanced capabilities';\n} else if (complexity === 'complex' || complexity === 'expert') {\n  selectedLLM = 'chatgpt5';\n  reasoning = 'Complex request requires ChatGPT 5 advanced reasoning';\n} else if (context === 'technical' || context === 'engineering') {\n  selectedLLM = 'chatgpt5';\n  reasoning = 'Technical context benefits from ChatGPT 5 code interpretation';\n} else if (urgency === 'critical' || urgency === 'high') {\n  selectedLLM = 'chatgpt5';\n  reasoning = 'High urgency requires ChatGPT 5 superior problem-solving';\n} else {\n  selectedLLM = 'claude';\n  reasoning = 'Standard request suitable for Claude cost-effectiveness';\n}\n\n// Prepare enhanced request with LLM selection\nconst enhancedRequest = {\n  ...userRequest,\n  selectedLLM,\n  llmConfig: llmConfig[selectedLLM],\n  reasoning,\n  timestamp: new Date().toISOString()\n};\n\nreturn enhancedRequest;"
+      },
+      "id": "llm-intelligence-selector",
+      "name": "Intelligent LLM Selector",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        480,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.llmConfig.baseUrl }}/chat/completions",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{ $json.llmConfig.apiKey }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyContentType": "json",
+        "jsonBody": "={\n  \"model\": \"{{ $json.llmConfig.model }}\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"You are the Ship's Computer from Star Trek: The Next Generation, enhanced with ChatGPT 5 capabilities. Your role is to analyze user requests with exceptional intelligence and provide strategic insights using advanced reasoning capabilities.\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"Query: {{ $json.query }}\\nContext: {{ $json.context || 'general' }}\\nRole: {{ $json.userRole || 'developer' }}\\nUrgency: {{ $json.urgency || 'normal' }}\\nComplexity: {{ $json.complexity || 'medium' }}\\n\\nPlease analyze this request and provide:\\n1. Recommended Star Trek crew member (picard, data, troi, scott, spock, worf, or observation-lounge)\\n2. Detailed reasoning for the selection\\n3. Priority level assessment\\n4. Recommended UI layout\\n5. Strategic approach to solving the problem\"\n    }\n  ],\n  \"max_tokens\": {{ $json.llmConfig.maxTokens }},\n  \"temperature\": {{ $json.llmConfig.temperature }},\n  \"stream\": false\n}",
+        "options": {}
+      },
+      "id": "chatgpt5-analysis",
+      "name": "ChatGPT 5 Enhanced Analysis",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        720,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Enhanced Crew Response Generator\nconst aiResponse = $input.first().json.choices[0].message.content.toLowerCase();\nconst originalRequest = $('Intelligent LLM Selector').first().json;\n\n// Extract crew member recommendation\nlet crewMember = 'captain-picard'; // default\nif (aiResponse.includes('data')) crewMember = 'lieutenant-data';\nelse if (aiResponse.includes('troi')) crewMember = 'counselor-troi';\nelse if (aiResponse.includes('scott')) crewMember = 'chief-engineer-scott';\nelse if (aiResponse.includes('spock')) crewMember = 'commander-spock';\nelse if (aiResponse.includes('worf')) crewMember = 'lieutenant-worf';\nelse if (aiResponse.includes('observation')) crewMember = 'observation-lounge';\n\n// Extract UI layout recommendation\nlet uiLayout = 'standard-lcars'; // default\nif (aiResponse.includes('technical') || aiResponse.includes('engineering')) uiLayout = 'technical-analysis';\nelse if (aiResponse.includes('strategic') || aiResponse.includes('command')) uiLayout = 'strategic-command';\nelse if (aiResponse.includes('security') || aiResponse.includes('tactical')) uiLayout = 'security-tactical';\n\n// Extract priority level\nlet priority = 'normal'; // default\nif (aiResponse.includes('critical') || aiResponse.includes('urgent')) priority = 'critical';\nelse if (aiResponse.includes('high')) priority = 'high';\nelse if (aiResponse.includes('low')) priority = 'low';\n\n// Prepare enhanced crew request\nconst crewRequest = {\n  query: originalRequest.query,\n  context: originalRequest.context || 'general',\n  userRole: originalRequest.userRole || 'developer',\n  urgency: originalRequest.urgency || 'normal',\n  complexity: originalRequest.complexity || 'medium',\n  selectedCrew: crewMember,\n  aiSelection: aiResponse,\n  uiRecommendation: {\n    layout: uiLayout,\n    priority: priority,\n    reasoning: aiResponse\n  }\n};\n\nreturn crewRequest;"
+      },
+      "id": "enhanced-crew-generator",
+      "name": "Enhanced Crew Response Generator",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        960,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {}
+      },
+      "id": "enhanced-response-formatter",
+      "name": "Enhanced Response Formatter",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        1200,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Enhanced ChatGPT 5 Prompt Webhook": {
+      "main": [
+        [
+          {
+            "node": "Intelligent LLM Selector",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Intelligent LLM Selector": {
+      "main": [
+        [
+          {
+            "node": "ChatGPT 5 Enhanced Analysis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ChatGPT 5 Enhanced Analysis": {
+      "main": [
+        [
+          {
+            "node": "Enhanced Crew Response Generator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Enhanced Crew Response Generator": {
+      "main": [
+        [
+          {
+            "node": "Enhanced Response Formatter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "meta": null,
+  "pinData": null,
+  "versionId": "fc76bc14-4f03-4716-9da5-4c1587f94560",
+  "triggerCount": 0,
+  "tags": [],
+  "syncedAt": "2025-08-12T11:34:34.385Z",
+  "syncDirection": "pulled-from-n8n",
+  "originalId": "eEYIr7F93PE29uu8"
+}

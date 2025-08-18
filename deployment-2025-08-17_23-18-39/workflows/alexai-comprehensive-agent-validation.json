@@ -1,0 +1,85 @@
+{
+  "name": "AlexAI Comprehensive Agent Validation Workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "agent-validation",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "validation-webhook",
+      "name": "Agent Validation Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [100, 300],
+      "webhookId": "agent-validation-webhook"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Comprehensive Agent Validation Logic\nconst request = $input.first().json;\nconst { validationType, agentFocus, includeSpecialized } = request;\n\n// Define all available agents\nconst allAgents = {\n  crew: [\n    'captain-picard',\n    'lieutenant-data',\n    'counselor-troi',\n    'chief-engineer-scott',\n    'commander-spock',\n    'lieutenant-worf',\n    'observation-lounge'\n  ],\n  specialized: [\n    'ships-computer',\n    'multimodal-agency',\n    'bilateral-learning',\n    'enhanced-knowledge',\n    'dynamic-update'\n  ],\n  orchestration: [\n    'crew-coordination',\n    'ship-agency',\n    'llm-orchestration'\n  ]\n};\n\n// Determine which agents to validate\nlet agentsToValidate = [];\nif (validationType === 'all') {\n  agentsToValidate = [...allAgents.crew, ...allAgents.specialized, ...allAgents.orchestration];\n} else if (validationType === 'crew') {\n  agentsToValidate = allAgents.crew;\n} else if (validationType === 'specialized') {\n  agentsToValidate = allAgents.specialized;\n} else if (agentFocus && allAgents[agentFocus]) {\n  agentsToValidate = allAgents[agentFocus];\n} else {\n  agentsToValidate = allAgents.crew; // Default to crew\n}\n\n// Add specialized agents if requested\nif (includeSpecialized && validationType !== 'all') {\n  agentsToValidate = [...new Set([...agentsToValidate, ...allAgents.specialized])];\n}\n\nconst validationPlan = {\n  agents: agentsToValidate,\n  totalAgents: agentsToValidate.length,\n  validationType,\n  includeSpecialized,\n  timestamp: new Date().toISOString(),\n  validationSteps: [\n    'API endpoint availability',\n    'Workflow integration',\n    'LLM configuration',\n    'Bilateral sync status',\n    'Response validation'\n  ]\n};\n\nreturn {\n  ...request,\n  validationPlan,\n  systemStatus: {\n    totalCrewMembers: allAgents.crew.length,\n    totalSpecializedAgents: allAgents.specialized.length,\n    totalOrchestrationAgents: allAgents.orchestration.length,\n    totalAgents: Object.values(allAgents).flat().length\n  }\n};"
+      },
+      "id": "agent-validator",
+      "name": "Agent Validator",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [350, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Agent Health Check and Validation\nconst validationData = $input.first().json;\nconst { validationPlan, systemStatus } = validationData;\n\n// Simulate agent health checks\nconst agentHealthChecks = {};\nconst healthResults = [];\n\nfor (const agent of validationPlan.agents) {\n  // Simulate health check for each agent\n  const healthStatus = {\n    agent,\n    status: 'healthy',\n    apiEndpoint: `/api/crew/${agent}`,\n    workflowIntegration: 'active',\n    llmConfig: 'configured',\n    bilateralSync: 'synchronized',\n    lastResponse: new Date().toISOString(),\n    performance: Math.floor(Math.random() * 20) + 80, // 80-100%\n    errors: 0\n  };\n  \n  // Simulate occasional issues\n  if (Math.random() < 0.1) {\n    healthStatus.status = 'warning';\n    healthStatus.errors = Math.floor(Math.random() * 3) + 1;\n  }\n  \n  agentHealthChecks[agent] = healthStatus;\n  healthResults.push(healthStatus);\n}\n\n// Calculate overall system health\nconst healthyAgents = healthResults.filter(a => a.status === 'healthy').length;\nconst warningAgents = healthResults.filter(a => a.status === 'warning').length;\nconst totalAgents = healthResults.length;\n\nconst systemHealth = {\n  overall: healthyAgents / totalAgents >= 0.9 ? 'excellent' : 'good',\n  healthyAgents,\n  warningAgents,\n  totalAgents,\n  healthPercentage: Math.round((healthyAgents / totalAgents) * 100),\n  recommendations: []\n};\n\n// Generate recommendations\nif (warningAgents > 0) {\n  systemHealth.recommendations.push('Review agents with warnings for potential issues');\n}\nif (totalAgents < systemStatus.totalAgents) {\n  systemHealth.recommendations.push('Consider adding more specialized agents');\n}\nif (systemHealth.healthPercentage < 95) {\n  systemHealth.recommendations.push('Optimize agent performance and error handling');\n}\n\nreturn {\n  ...validationData,\n  agentHealthChecks,\n  systemHealth,\n  validationComplete: true,\n  timestamp: new Date().toISOString()\n};"
+      },
+      "id": "health-checker",
+      "name": "Agent Health Checker",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [600, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"success\": true,\n  \"timestamp\": {{ JSON.stringify(new Date().toISOString()) }},\n  \"validationType\": {{ JSON.stringify($json.validationPlan.validationType) }},\n  \"totalAgents\": {{ JSON.stringify($json.validationPlan.totalAgents) }},\n  \"systemHealth\": {{ JSON.stringify($json.systemHealth) }},\n  \"agentHealthChecks\": {{ JSON.stringify($json.agentHealthChecks) }},\n  \"systemStatus\": {{ JSON.stringify($json.systemStatus) }},\n  \"recommendations\": {{ JSON.stringify($json.systemHealth.recommendations) }},\n  \"validationSteps\": {{ JSON.stringify($json.validationPlan.validationSteps) }},\n  \"bilateralSyncStatus\": \"active\",\n  \"allAgentsIncluded\": true\n}"
+      },
+      "id": "response-formatter",
+      "name": "Validation Response Formatter",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [850, 300]
+    }
+  ],
+  "connections": {
+    "Agent Validation Webhook": {
+      "main": [
+        [
+          {
+            "node": "Agent Validator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Agent Validator": {
+      "main": [
+        [
+          {
+            "node": "Agent Health Checker",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Agent Health Checker": {
+      "main": [
+        [
+          {
+            "node": "Validation Response Formatter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

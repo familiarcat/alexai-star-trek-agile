@@ -1,0 +1,743 @@
+{
+  "createdAt": "2025-07-27T17:30:35.601Z",
+  "updatedAt": "2025-08-10T22:25:05.831Z",
+  "id": "v99DXn6yjR2SlYoa",
+  "name": "Screenplay",
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "path": "b9348b1d-b4fa-4cd0-9921-ae1402c43323",
+        "formTitle": "🎬 AI Screenplay Generator",
+        "formDescription": "Enter your screenplay concept and let our AI agents create a professional feature-length screenplay.",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Screenplay Concept",
+              "fieldType": "textarea",
+              "placeholder": "Example: A detective discovers their memories are being stolen by an AI that wants to become human",
+              "requiredField": true
+            }
+          ]
+        },
+        "responseMode": "responseNode",
+        "options": {
+          "ignoreBots": false
+        }
+      },
+      "id": "fa1ecc78-3e29-4d99-bc7a-17af9d824f03",
+      "name": "📝 Web Form",
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2,
+      "position": [
+        -2352,
+        -288
+      ],
+      "webhookId": "b9348b1d-b4fa-4cd0-9921-ae1402c43323"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "screenplay-chat",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "dc93c09d-2103-4281-8a5a-e19cc886cc38",
+      "name": "💬 Chat Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        -2352,
+        -80
+      ],
+      "webhookId": "001ca600-39ca-4b58-85f9-ee4172999544"
+    },
+    {
+      "parameters": {},
+      "id": "91193984-c20f-453d-b0ee-b9257faedaff",
+      "name": "🔧 Manual Test",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -2352,
+        128
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "0111c064-fdaf-4bbd-90ee-c38a4ed38f7e",
+      "name": "📋 Test Data",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3,
+      "position": [
+        -2144,
+        128
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Unified input processor for all trigger types\nconst inputData = $input.first().json;\nlet userPrompt = '';\nlet inputMethod = 'unknown';\nlet responseMode = 'json';\n\n// Handle Form Trigger input\nif (inputData.prompt && !inputData.body) {\n  userPrompt = inputData.prompt;\n  inputMethod = 'web_form';\n  responseMode = 'form';\n}\n// Handle Chat Webhook input\nelse if (inputData.body && inputData.body.message) {\n  userPrompt = inputData.body.message;\n  inputMethod = 'chat_webhook';\n  responseMode = 'webhook';\n}\n// Handle Manual Test input\nelse if (inputData.prompt && inputData.input_method) {\n  userPrompt = inputData.prompt;\n  inputMethod = inputData.input_method;\n  responseMode = 'manual';\n}\n// Fallback\nelse {\n  userPrompt = 'A story about human connection and unexpected transformation';\n  inputMethod = 'fallback';\n  responseMode = 'manual';\n}\n\nconst processedData = {\n  originalPrompt: userPrompt,\n  inputMethod: inputMethod,\n  responseMode: responseMode,\n  timestamp: new Date().toISOString(),\n  pipeline: {\n    stage: 'initialized',\n    totalSteps: 4,\n    currentStep: 0\n  }\n};\n\nreturn { json: processedData };"
+      },
+      "id": "fba92875-3f91-4cc0-9443-8c97b4656352",
+      "name": "🔄 Input Processor",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1952,
+        -80
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://openrouter.ai/api/v1/chat/completions",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "openRouterApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "HTTP-Referer",
+              "value": "https://n8n.io"
+            },
+            {
+              "name": "X-Title",
+              "value": "n8n Screenplay Generator"
+            },
+            {
+              "name": "X-Title",
+              "value": "n8n Screenplay Generator"
+            },
+            {
+              "name": "X-Title",
+              "value": "n8n Screenplay Generator"
+            },
+            {
+              "name": "X-Title",
+              "value": "n8n Screenplay Generator"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "model",
+              "value": "anthropic/claude-3.5-sonnet"
+            },
+            {
+              "name": "messages",
+              "value": "={{ JSON.stringify([{\"role\": \"system\", \"content\": \"You are a master STORY ARCHITECT. Analyze the screenplay concept and return ONLY a valid JSON object with these keys:\\n{\\n\\\"theme\\\": \\\"Core philosophical theme\\\",\\n\\\"genre\\\": \\\"Primary genre\\\",\\n\\\"tone\\\": \\\"Emotional atmosphere\\\",\\n\\\"setting\\\": \\\"Time and place\\\",\\n\\\"central_conflict\\\": \\\"Main dramatic tension\\\",\\n\\\"protagonist_type\\\": \\\"Type of main character\\\",\\n\\\"antagonist_force\\\": \\\"Opposing force\\\",\\n\\\"story_engine\\\": \\\"What drives the plot\\\",\\n\\\"target_audience\\\": \\\"Primary audience\\\",\\n\\\"visual_style\\\": \\\"Cinematic approach\\\",\\n\\\"core_emotion\\\": \\\"Primary feeling to evoke\\\",\\n\\\"thematic_question\\\": \\\"Central question explored\\\"\\n}\\nBe specific and creative.\"}, {\"role\": \"user\", \"content\": $json.originalPrompt}]) }}"
+            },
+            {
+              "name": "temperature",
+              "value": 0.7
+            },
+            {
+              "name": "max_tokens",
+              "value": 1500
+            },
+            {
+              "name": "stream",
+              "value": false
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "0dca42d3-f113-42d6-a991-f8e9f48c6b7d",
+      "name": "🏗️ Story Architect",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        -1728,
+        -80
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "hFpvFOGb1PikXs1O",
+          "name": "Header Auth account 2"
+        },
+        "openRouterApi": {
+          "id": "FGdmfQF4zGkTHp3W",
+          "name": "OpenRouter account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Process Story Architect response\nconst architectResponse = $input.first().json;\nconst inputData = $('🔄 Input Processor').first().json;\n\nlet storyDNA;\ntry {\n  const content = architectResponse.choices[0].message.content;\n  const jsonMatch = content.match(/\\{[\\s\\S]*\\}/);\n  storyDNA = jsonMatch ? JSON.parse(jsonMatch[0]) : null;\n} catch (e) {\n  storyDNA = null;\n}\n\n// Fallback story structure if AI fails\nif (!storyDNA) {\n  storyDNA = {\n    theme: \"Human transformation through adversity\",\n    genre: \"Drama with thriller elements\",\n    tone: \"Contemplative building to intense\",\n    setting: \"Contemporary urban environment\",\n    central_conflict: \"Internal growth vs external pressures\",\n    protagonist_type: \"Reluctant hero seeking purpose\",\n    antagonist_force: \"Systemic opposition and self-doubt\",\n    story_engine: \"Character's journey of self-discovery\",\n    target_audience: \"Adult drama enthusiasts\",\n    visual_style: \"Realistic with poetic moments\",\n    core_emotion: \"Hope emerging from struggle\",\n    thematic_question: \"What does it truly mean to live authentically?\"\n  };\n}\n\n// Add screenplay structure guidelines\nstoryDNA.structure = {\n  totalPages: 90,\n  act1: { pages: \"1-30\", focus: \"Setup and inciting incident\" },\n  act2a: { pages: \"31-60\", focus: \"Complications and character development\" },\n  act2b: { pages: \"61-75\", focus: \"Crisis and transformation\" },\n  act3: { pages: \"76-90\", focus: \"Climax and resolution\" },\n  banality_period: \"Pages 1-20: Establish mundane world\",\n  rising_action: \"Pages 21-30: Stakes emerge and escalate\"\n};\n\nconst enrichedData = {\n  ...inputData,\n  storyFoundation: storyDNA,\n  pipeline: {\n    stage: 'story_complete',\n    totalSteps: 4,\n    currentStep: 1,\n    completedSteps: ['story_architect']\n  }\n};\n\nreturn { json: enrichedData };"
+      },
+      "id": "63da2e62-119d-4752-92c4-62d4555db611",
+      "name": "📊 Process Story DNA",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1504,
+        -80
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://openrouter.ai/api/v1/chat/completions",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "openRouterApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "HTTP-Referer",
+              "value": "https://n8n.io"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "model",
+              "value": "meta-llama/llama-3.1-70b-instruct"
+            },
+            {
+              "name": "messages",
+              "value": "={{ JSON.stringify([{\"role\": \"system\", \"content\": \"You are an expert CHARACTER PSYCHOLOGIST. Create rich, complex characters for this screenplay. Return ONLY valid JSON with arrays 'primary', 'secondary', 'tertiary'.\\n\\nEach character object must include:\\n{\\n\\\"name\\\": \\\"Character name\\\",\\n\\\"age\\\": \\\"Age range\\\",\\n\\\"role\\\": \\\"Story function\\\",\\n\\\"personality\\\": \\\"Core traits\\\",\\n\\\"motivation\\\": \\\"What drives them\\\",\\n\\\"fatal_flaw\\\": \\\"Primary weakness\\\",\\n\\\"backstory\\\": \\\"Key background\\\",\\n\\\"arc_beginning\\\": \\\"Starting state\\\",\\n\\\"arc_middle\\\": \\\"Transformation\\\",\\n\\\"arc_end\\\": \\\"Final state\\\",\\n\\\"relationships\\\": \\\"Key connections\\\",\\n\\\"voice\\\": \\\"How they speak\\\",\\n\\\"serves_theme\\\": \\\"Thematic purpose\\\"\\n}\\n\\nCreate 2-3 primary, 3-4 secondary, 2-3 tertiary characters.\"}, {\"role\": \"user\", \"content\": \"Story Foundation: \" + JSON.stringify($json.storyFoundation) + \"\\n\\nOriginal Concept: \" + $json.originalPrompt + \"\\n\\nCreate interconnected characters that serve this story's theme and drive the narrative forward.\"}]) }}"
+            },
+            {
+              "name": "temperature",
+              "value": 0.8
+            },
+            {
+              "name": "max_tokens",
+              "value": 3500
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "18b17934-fa56-4301-9dd1-43676135f7d5",
+      "name": "👥 Character Psychologist",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        -1280,
+        -80
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "hFpvFOGb1PikXs1O",
+          "name": "Header Auth account 2"
+        },
+        "openRouterApi": {
+          "id": "FGdmfQF4zGkTHp3W",
+          "name": "OpenRouter account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Process Character Psychologist response\nconst characterResponse = $input.first().json;\nconst storyData = $('📊 Process Story DNA').first().json;\n\nlet characterProfiles;\ntry {\n  const content = characterResponse.choices[0].message.content;\n  const jsonMatch = content.match(/\\{[\\s\\S]*\\}/);\n  characterProfiles = jsonMatch ? JSON.parse(jsonMatch[0]) : null;\n} catch (e) {\n  characterProfiles = null;\n}\n\n// Fallback characters if AI fails\nif (!characterProfiles) {\n  characterProfiles = {\n    primary: [\n      {\n        name: \"ALEX CHEN\",\n        age: \"32\",\n        role: \"Protagonist - Truth seeker\",\n        personality: \"Intelligent, guarded, secretly longing for connection\",\n        motivation: \"Discovering authentic purpose and meaning\",\n        fatal_flaw: \"Fear of vulnerability and emotional intimacy\",\n        backstory: \"Former idealist whose trust was shattered\",\n        arc_beginning: \"Cynical and emotionally isolated\",\n        arc_middle: \"Forced to open up and trust others\",\n        arc_end: \"Embraces vulnerability as true strength\",\n        relationships: \"Guided by mentor, challenged by rival\",\n        voice: \"Sharp wit masking deeper emotional pain\",\n        serves_theme: \"Embodies the journey from isolation to authentic connection\"\n      },\n      {\n        name: \"JORDAN BLAKE\",\n        age: \"45\",\n        role: \"Antagonist/Opposition force\",\n        personality: \"Charismatic but manipulative, believes ends justify means\",\n        motivation: \"Maintaining control and existing power structures\",\n        fatal_flaw: \"Inability to see beyond their own perspective\",\n        backstory: \"Rose to power through compromise and calculation\",\n        arc_beginning: \"Confident in their worldview\",\n        arc_middle: \"Threatened by protagonist's challenge to status quo\",\n        arc_end: \"Either transforms or faces consequences of rigidity\",\n        relationships: \"Opposes protagonist, uses supporting characters\",\n        voice: \"Smooth, persuasive, occasionally revealing deeper insecurity\",\n        serves_theme: \"Represents the forces that resist authentic growth\"\n      }\n    ],\n    secondary: [\n      {\n        name: \"SAM RIVERA\",\n        age: \"58\",\n        role: \"Mentor/Wise guide\",\n        personality: \"Patient, insightful, carrying own regrets\",\n        motivation: \"Helping others avoid their past mistakes\",\n        fatal_flaw: \"Over-protectiveness can limit others' growth\",\n        backstory: \"Made a crucial choice that haunts them\",\n        arc_beginning: \"Confident teacher and advisor\",\n        arc_middle: \"Questions whether guidance is becoming control\",\n        arc_end: \"Learns to support without constraining\",\n        relationships: \"Mentors protagonist, connects with other characters\",\n        voice: \"Gentle wisdom with underlying sadness\",\n        serves_theme: \"Shows how experience can both help and hinder growth\"\n      }\n    ],\n    tertiary: [\n      {\n        name: \"CASEY WONG\",\n        age: \"28\",\n        role: \"Catalyst/Mirror character\",\n        personality: \"Energetic but insecure, seeks external validation\",\n        motivation: \"Proving their worth and gaining recognition\",\n        fatal_flaw: \"Jealousy and competitive desperation\",\n        backstory: \"Always felt overshadowed by others\",\n        arc_beginning: \"Friendly but secretly competitive\",\n        arc_middle: \"Competition becomes destructive obsession\",\n        arc_end: \"Realizes that comparison steals joy\",\n        relationships: \"Reflects protagonist's potential path\",\n        voice: \"Eager enthusiasm hiding deep insecurity\",\n        serves_theme: \"Shows the trap of external validation\"\n      }\n    ]\n  };\n}\n\nconst enrichedStoryData = {\n  ...storyData,\n  characters: characterProfiles,\n  pipeline: {\n    stage: 'characters_complete',\n    totalSteps: 4,\n    currentStep: 2,\n    completedSteps: ['story_architect', 'character_psychologist']\n  }\n};\n\nreturn { json: enrichedStoryData };"
+      },
+      "id": "f75d43e6-c258-4c5e-8769-3b27801f0342",
+      "name": "🎭 Process Characters",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1072,
+        -80
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://openrouter.ai/api/v1/chat/completions",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "openRouterApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "HTTP-Referer",
+              "value": "https://n8n.io"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "model",
+              "value": "openai/gpt-4o"
+            },
+            {
+              "name": "messages",
+              "value": "={{ JSON.stringify([{\"role\": \"system\", \"content\": \"You are a STRUCTURE ENGINEER expert in screenplay architecture. Design a detailed scene breakdown for a 90-minute feature film following this EXACT structure:\\n\\n- Pages 1-20: Banal everyday world (subtle hints of dissatisfaction)\\n- Pages 21-30: Rising action begins, stakes established and shared\\n- Pages 31-60: First half of second act (complications)\\n- Pages 61-75: Second half of second act (crisis and growth)\\n- Pages 76-90: Third act (climax and resolution)\\n\\nReturn ONLY valid JSON with 'scenes' array. Each scene object:\\n{\\n\\\"page_range\\\": \\\"Pages covered\\\",\\n\\\"act\\\": \\\"Act number\\\",\\n\\\"sequence\\\": \\\"Story sequence\\\",\\n\\\"location\\\": \\\"Where it happens\\\",\\n\\\"time\\\": \\\"Time of day/period\\\",\\n\\\"characters\\\": [\\\"Characters present\\\"],\\n\\\"purpose\\\": \\\"Scene's function\\\",\\n\\\"emotional_beat\\\": \\\"Emotional progression\\\",\\n\\\"conflict\\\": \\\"Type of conflict\\\",\\n\\\"revelation\\\": \\\"What's revealed\\\",\\n\\\"visual_elements\\\": \\\"Key visual moments\\\",\\n\\\"dialogue_focus\\\": \\\"Dialogue purpose\\\",\\n\\\"advances_plot\\\": \\\"How plot moves forward\\\",\\n\\\"character_development\\\": \\\"Character growth\\\"\\n}\\n\\nCreate 15-20 key scenes that follow the structure perfectly.\"}, {\"role\": \"user\", \"content\": \"Complete Story Data: \" + JSON.stringify($json) + \"\\n\\nCreate a scene-by-scene breakdown that weaves together all story and character elements into compelling cinematic structure.\"}]) }}"
+            },
+            {
+              "name": "temperature",
+              "value": 0.6
+            },
+            {
+              "name": "max_tokens",
+              "value": 4000
+            },
+            {
+              "name": "stream",
+              "value": false
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "5f5ebadb-cf95-492c-98b5-96447613062d",
+      "name": "🏗️ Structure Engineer",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        -848,
+        -80
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "hFpvFOGb1PikXs1O",
+          "name": "Header Auth account 2"
+        },
+        "openRouterApi": {
+          "id": "FGdmfQF4zGkTHp3W",
+          "name": "OpenRouter account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Process Structure Engineer response\nconst structureResponse = $input.first().json;\nconst characterData = $('🎭 Process Characters').first().json;\n\nlet sceneStructure;\ntry {\n  const content = structureResponse.choices[0].message.content;\n  const jsonMatch = content.match(/\\{[\\s\\S]*\\}/);\n  sceneStructure = jsonMatch ? JSON.parse(jsonMatch[0]) : null;\n} catch (e) {\n  sceneStructure = null;\n}\n\n// Fallback structure if AI fails\nif (!sceneStructure || !sceneStructure.scenes) {\n  sceneStructure = {\n    scenes: [\n      {\n        page_range: \"1-8\",\n        act: \"I\",\n        sequence: \"Opening World\",\n        location: \"Protagonist's everyday environment\",\n        time: \"Morning routine\",\n        characters: [\"Protagonist\"],\n        purpose: \"Establish normal world and character baseline\",\n        emotional_beat: \"Subtle dissatisfaction beneath routine\",\n        conflict: \"Internal restlessness\",\n        revelation: \"Character's unfulfilled potential\",\n        visual_elements: \"Repetitive actions, symbolic imagery\",\n        dialogue_focus: \"Reveal character through mundane interactions\",\n        advances_plot: \"World and character establishment\",\n        character_development: \"Show protagonist's starting emotional state\"\n      },\n      {\n        page_range: \"9-20\",\n        act: \"I\",\n        sequence: \"Building Tension\",\n        location: \"Various familiar settings\",\n        time: \"Throughout the day\",\n        characters: [\"Protagonist\", \"Supporting characters\"],\n        purpose: \"Deepen character relationships and hint at coming change\",\n        emotional_beat: \"Growing awareness of limitations\",\n        conflict: \"Small interpersonal tensions\",\n        revelation: \"Relationships are superficial\",\n        visual_elements: \"Contrasts between public and private moments\",\n        dialogue_focus: \"Subtext and unspoken feelings\",\n        advances_plot: \"Plant seeds of central conflict\",\n        character_development: \"Show character's isolation despite being surrounded\"\n      },\n      {\n        page_range: \"21-30\",\n        act: \"I\",\n        sequence: \"Inciting Incident\",\n        location: \"Place of significant change\",\n        time: \"Pivotal moment\",\n        characters: [\"Protagonist\", \"Key supporting characters\"],\n        purpose: \"Launch main story and establish stakes\",\n        emotional_beat: \"Shock, fear, determination\",\n        conflict: \"External force disrupts status quo\",\n        revelation: \"The comfortable world is an illusion\",\n        visual_elements: \"Dramatic shift in visual language\",\n        dialogue_focus: \"Stakes and new reality\",\n        advances_plot: \"Point of no return\",\n        character_development: \"Protagonist forced into action\"\n      }\n    ]\n  };\n}\n\nconst completeStoryData = {\n  ...characterData,\n  sceneStructure: sceneStructure,\n  pipeline: {\n    stage: 'structure_complete',\n    totalSteps: 4,\n    currentStep: 3,\n    completedSteps: ['story_architect', 'character_psychologist', 'structure_engineer']\n  }\n};\n\nreturn { json: completeStoryData };"
+      },
+      "id": "af7a928a-781f-4361-919b-5fedabbe7848",
+      "name": "🎬 Process Structure",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -624,
+        -80
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://openrouter.ai/api/v1/chat/completions",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "openRouterApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "HTTP-Referer",
+              "value": "https://n8n.io"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "model",
+              "value": "anthropic/claude-3.5-sonnet"
+            },
+            {
+              "name": "messages",
+              "value": "={{ JSON.stringify([{\"role\": \"system\", \"content\": \"You are a master DIALOGUE WRITER and professional screenwriter. Using ALL the provided story elements, character profiles, and scene structure, write a complete feature-length screenplay in proper markdown format.\\n\\nFORMAT REQUIREMENTS:\\n- Scene headings: **INT./EXT. LOCATION - TIME**\\n- Character names: **CHARACTER NAME** (all caps, bold)\\n- Dialogue: Regular text, natural and character-specific\\n- Action lines: Present tense, visual, concise\\n- Parentheticals: (character direction) when needed\\n- Transitions: **FADE IN:**, **CUT TO:**, **FADE OUT.**\\n\\nSTRUCTURE REQUIREMENTS:\\n- Follow EXACT pacing: Pages 1-20 banal world, Pages 21-30 rising action\\n- Each character must have their unique voice from their profile\\n- Every scene must serve multiple functions (plot, character, theme)\\n- Integrate all story elements seamlessly\\n- Write approximately 90 pages of content\\n\\nMake it feel like a real, producible screenplay with authentic dialogue and compelling visual storytelling.\"}, {\"role\": \"user\", \"content\": \"COMPLETE STORY DATA: \" + JSON.stringify($json) + \"\\n\\nWrite the full screenplay integrating all elements into a cohesive, compelling narrative.\"}]) }}"
+            },
+            {
+              "name": "temperature",
+              "value": 0.7
+            },
+            {
+              "name": "max_tokens",
+              "value": 8000
+            },
+            {
+              "name": "stream",
+              "value": false
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "006b118c-cee0-4b52-a0ec-e0aaac3c87d7",
+      "name": "✍️ Dialogue Master",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        -400,
+        -80
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "hFpvFOGb1PikXs1O",
+          "name": "Header Auth account 2"
+        },
+        "openRouterApi": {
+          "id": "FGdmfQF4zGkTHp3W",
+          "name": "OpenRouter account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Final screenplay integration and formatting\nconst screenplayResponse = $input.first().json;\nconst completeData = $('🎬 Process Structure').first().json;\n\nlet screenplay;\ntry {\n  screenplay = screenplayResponse.choices[0].message.content;\n} catch (e) {\n  screenplay = \"Error generating screenplay. Please check your OpenRouter API credentials and try again.\\n\\nIf you need help setting up credentials:\\n1. Go to OpenRouter.ai and get an API key\\n2. In n8n, create HTTP Header Auth credential\\n3. Set Header Name: Authorization\\n4. Set Header Value: Bearer YOUR_API_KEY\";\n}\n\n// Generate title from theme or prompt\nconst titleSource = completeData.storyFoundation?.theme || completeData.originalPrompt;\nconst title = titleSource\n  .split(' ')\n  .slice(0, 4)\n  .map(word => word.toUpperCase())\n  .join(' ')\n  .replace(/[^A-Z0-9\\s]/g, '') || 'UNTITLED SCREENPLAY';\n\n// Create comprehensive result\nconst finalResult = {\n  success: true,\n  title: title,\n  screenplay: screenplay,\n  metadata: {\n    originalPrompt: completeData.originalPrompt,\n    inputMethod: completeData.inputMethod,\n    responseMode: completeData.responseMode,\n    generatedAt: completeData.timestamp,\n    storyElements: {\n      theme: completeData.storyFoundation?.theme,\n      genre: completeData.storyFoundation?.genre,\n      tone: completeData.storyFoundation?.tone,\n      setting: completeData.storyFoundation?.setting\n    },\n    characterCount: {\n      primary: completeData.characters?.primary?.length || 0,\n      secondary: completeData.characters?.secondary?.length || 0,\n      tertiary: completeData.characters?.tertiary?.length || 0,\n      total: (completeData.characters?.primary?.length || 0) + \n             (completeData.characters?.secondary?.length || 0) + \n             (completeData.characters?.tertiary?.length || 0)\n    },\n    sceneCount: completeData.sceneStructure?.scenes?.length || 0,\n    estimatedRuntime: '90 minutes',\n    aiPipeline: {\n      storyArchitect: 'claude-3.5-sonnet - Story foundation & themes',\n      characterPsychologist: 'llama-3.1-70b - Character psychology & development', \n      structureEngineer: 'gpt-4o - Scene architecture & pacing',\n      dialogueMaster: 'claude-3.5-sonnet - Final screenplay & dialogue'\n    },\n    qualityFeatures: [\n      'Multi-agent AI collaboration',\n      'Specialized expertise for each story element',\n      'Psychologically complex characters',\n      'Professional screenplay formatting',\n      'Industry-standard structure',\n      'Thematic integration throughout'\n    ]\n  }\n};\n\nreturn { json: finalResult };"
+      },
+      "id": "820fe395-1ad3-41ac-8662-e6b974902c0d",
+      "name": "🎯 Final Integration",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -192,
+        -80
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "is_form",
+              "leftValue": "={{ $json.metadata.responseMode }}",
+              "rightValue": "form",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combineOperation": "all"
+        },
+        "options": {}
+      },
+      "id": "f44f1af6-c555-4227-8cff-2941e1e51ca6",
+      "name": "🔀 Response Router",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        48,
+        -80
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"success\": true,\n  \"title\": \"{{ $json.title }}\",\n  \"message\": \"🎬 Multi-Agent Screenplay Generated Successfully!\",\n  \"inputMethod\": \"{{ $json.metadata.inputMethod }}\",\n  \"generatedAt\": \"{{ $json.metadata.generatedAt }}\",\n  \"screenplay\": {{ JSON.stringify($json.screenplay) }},\n  \"storyElements\": {\n    \"theme\": \"{{ $json.metadata.storyElements.theme }}\",\n    \"genre\": \"{{ $json.metadata.storyElements.genre }}\",\n    \"tone\": \"{{ $json.metadata.storyElements.tone }}\",\n    \"setting\": \"{{ $json.metadata.storyElements.setting }}\"\n  },\n  \"characters\": {\n    \"primary\": {{ $json.metadata.characterCount.primary }},\n    \"secondary\": {{ $json.metadata.characterCount.secondary }},\n    \"tertiary\": {{ $json.metadata.characterCount.tertiary }},\n    \"total\": {{ $json.metadata.characterCount.total }}\n  },\n  \"aiPipeline\": {{ JSON.stringify($json.metadata.aiPipeline) }},\n  \"qualityFeatures\": {{ JSON.stringify($json.metadata.qualityFeatures) }}\n}",
+        "options": {}
+      },
+      "id": "0a803824-1aed-44da-852a-6fbeacd0858b",
+      "name": "📋 Form Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        256,
+        -288
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "is_webhook",
+              "leftValue": "={{ $json.metadata.responseMode }}",
+              "rightValue": "webhook",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combineOperation": "all"
+        },
+        "options": {}
+      },
+      "id": "726c1b1a-85fa-489d-af48-861b9c3b658e",
+      "name": "💬 Webhook Check",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        256,
+        -80
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"success\": true,\n  \"message\": \"🎬 Screenplay generated via chat!\",\n  \"title\": \"{{ $json.title }}\",\n  \"screenplay\": {{ JSON.stringify($json.screenplay) }},\n  \"metadata\": {{ JSON.stringify($json.metadata) }}\n}",
+        "options": {}
+      },
+      "id": "feff1eb1-384c-4ff2-9ad8-1be2429356aa",
+      "name": "💬 Chat Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        480,
+        -80
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Format output for internal n8n display\nconst data = $json;\n\nconst summary = {\n  status: \"✅ SUCCESS\",\n  title: data.title,\n  inputMethod: data.metadata.inputMethod,\n  generatedAt: data.metadata.generatedAt,\n  storyElements: data.metadata.storyElements,\n  characterBreakdown: data.metadata.characterCount,\n  sceneCount: data.metadata.sceneCount,\n  estimatedRuntime: data.metadata.estimatedRuntime,\n  aiAgentsUsed: data.metadata.aiPipeline,\n  qualityFeatures: data.metadata.qualityFeatures,\n  screenplayPreview: data.screenplay.substring(0, 500) + \"...\\n\\n[FULL SCREENPLAY GENERATED - \" + data.screenplay.length + \" characters]\",\n  fullScreenplay: data.screenplay,\n  originalPrompt: data.metadata.originalPrompt\n};\n\nreturn { json: summary };"
+      },
+      "id": "fe444c87-7865-4a52-92de-cc3a155d76cd",
+      "name": "📊 Manual Display",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        256,
+        128
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -2336,
+        320
+      ],
+      "id": "1f95bb0a-c4d4-4654-a9f3-3dc65e1df4e4",
+      "name": "When chat message received",
+      "webhookId": "202a90db-971d-40e5-a86d-6c3e748f3a40"
+    }
+  ],
+  "connections": {
+    "📝 Web Form": {
+      "main": [
+        [
+          {
+            "node": "🔄 Input Processor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "💬 Chat Webhook": {
+      "main": [
+        [
+          {
+            "node": "🔄 Input Processor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🔧 Manual Test": {
+      "main": [
+        [
+          {
+            "node": "📋 Test Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "📋 Test Data": {
+      "main": [
+        [
+          {
+            "node": "🔄 Input Processor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🔄 Input Processor": {
+      "main": [
+        [
+          {
+            "node": "🏗️ Story Architect",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🏗️ Story Architect": {
+      "main": [
+        [
+          {
+            "node": "📊 Process Story DNA",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "📊 Process Story DNA": {
+      "main": [
+        [
+          {
+            "node": "👥 Character Psychologist",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "👥 Character Psychologist": {
+      "main": [
+        [
+          {
+            "node": "🎭 Process Characters",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🎭 Process Characters": {
+      "main": [
+        [
+          {
+            "node": "🏗️ Structure Engineer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🏗️ Structure Engineer": {
+      "main": [
+        [
+          {
+            "node": "🎬 Process Structure",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🎬 Process Structure": {
+      "main": [
+        [
+          {
+            "node": "✍️ Dialogue Master",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "✍️ Dialogue Master": {
+      "main": [
+        [
+          {
+            "node": "🎯 Final Integration",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🎯 Final Integration": {
+      "main": [
+        [
+          {
+            "node": "🔀 Response Router",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🔀 Response Router": {
+      "main": [
+        [
+          {
+            "node": "📋 Form Response",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "💬 Webhook Check",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "📊 Manual Display",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "💬 Webhook Check": {
+      "main": [
+        [
+          {
+            "node": "💬 Chat Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "🔄 Input Processor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "ba9a6ad4-b1b8-447f-b29d-135ad2cbf995",
+  "triggerCount": 3,
+  "tags": [],
+  "syncedAt": "2025-08-12T11:34:34.387Z",
+  "syncDirection": "pulled-from-n8n",
+  "originalId": "v99DXn6yjR2SlYoa"
+}

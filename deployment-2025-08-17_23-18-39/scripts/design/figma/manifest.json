@@ -1,0 +1,40 @@
+{
+  "name": "LCARS Design System",
+  "id": "lcars-design-system",
+  "api": "1.0.0",
+  "main": "code.js",
+  "ui": "ui.html",
+  "capabilities": [
+    "inspect"
+  ],
+  "permissions": [
+    "currentuser"
+  ],
+  "networkAccess": {
+    "allowedDomains": [
+      "none"
+    ]
+  },
+  "parameters": [
+    {
+      "name": "Design Token",
+      "key": "token",
+      "description": "Select a design token to apply"
+    }
+  ],
+  "parametersOnly": false,
+  "menu": [
+    {
+      "name": "LCARS Design System",
+      "command": "apply-token"
+    },
+    {
+      "name": "Import Tokens",
+      "command": "import-tokens"
+    },
+    {
+      "name": "Export Components",
+      "command": "export-components"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+Photoshop Template: Component Template
+Description: Standard template for UI components
+Generated: 2025-08-18T03:49:49.059Z
+
+Artboard Settings:
+  Width: 400px
+  Height: 200px
+  Color Mode: RGB
+  Resolution: 72 DPI
+
+Layer Structure:
+  Background (shape)
+    fill: var(--lcars-background)
+    stroke: var(--lcars-border)
+    strokeWidth: 1px
+    cornerRadius: 4px
+
+  Content (text)
+    font: Antonio, sans-serif
+    size: 16px
+    color: var(--lcars-text)
+    alignment: left
+
+  Icon (smart-object)
+    size: 16px
+    opacity: 60%
+    position: right
+

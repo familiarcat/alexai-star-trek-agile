@@ -1,0 +1,169 @@
+{
+  "createdAt": "2025-08-12T11:33:59.347Z",
+  "updatedAt": "2025-08-12T11:33:59.347Z",
+  "id": "jXGDzoDhUYXWe1cB",
+  "name": "AlexAI Simplified Crew Coordination",
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "crew-request",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-trigger",
+      "name": "Crew Request Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ],
+      "webhookId": "crew-request"
+    },
+    {
+      "parameters": {
+        "url": "https://openrouter.ai/api/v1/chat/completions",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{ $env.OPENROUTER_API_KEY }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyContentType": "json",
+        "jsonBody": "={\n  \"model\": \"anthropic/claude-3.5-sonnet\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"You are a crew coordinator. Analyze the request and return ONLY one crew member name: picard, data, troi, scott, spock, worf, or observation-lounge\"\n    },\n    {\n      \"role\": \"user\", \n      \"content\": \"Query: {{ $json.query }}\\nContext: {{ $json.context }}\\nRole: {{ $json.userRole }}\"\n    }\n  ],\n  \"max_tokens\": 10\n}",
+        "options": {}
+      },
+      "id": "crew-selector",
+      "name": "AI Crew Selector",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        480,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Simple crew routing logic\nconst aiResponse = $input.first().json.choices[0].message.content.toLowerCase();\nconst originalRequest = $('Crew Request Webhook').first().json;\n\n// Determine crew member endpoint\nlet crewMember = 'captain-picard'; // default\nif (aiResponse.includes('data')) crewMember = 'lieutenant-data';\nelse if (aiResponse.includes('troi')) crewMember = 'counselor-troi';\nelse if (aiResponse.includes('scott')) crewMember = 'chief-engineer-scott';\nelse if (aiResponse.includes('spock')) crewMember = 'commander-spock';\nelse if (aiResponse.includes('worf')) crewMember = 'lieutenant-worf';\nelse if (aiResponse.includes('observation')) crewMember = 'observation-lounge';\n\n// Prepare request for crew member\nconst crewRequest = {\n  query: originalRequest.query,\n  context: originalRequest.context || 'general',\n  userRole: originalRequest.userRole || 'developer',\n  urgency: originalRequest.urgency || 'normal',\n  selectedCrew: crewMember,\n  aiSelection: aiResponse\n};\n\nreturn crewRequest;"
+      },
+      "id": "crew-router",
+      "name": "Crew Router",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        720,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{ $env.NEXTJS_BASE_URL || 'http://localhost:3000' }}/api/crew/{{ $json.selectedCrew }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyContentType": "json",
+        "jsonBody": "={\n  \"query\": {{ JSON.stringify($json.query) }},\n  \"context\": {{ JSON.stringify($json.context) }},\n  \"userRole\": {{ JSON.stringify($json.userRole) }},\n  \"urgency\": {{ JSON.stringify($json.urgency) }}\n}",
+        "options": {}
+      },
+      "id": "crew-endpoint",
+      "name": "Crew Member Response",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        960,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"success\": true,\n  \"selectedCrew\": {{ JSON.stringify($('Crew Router').first().json.selectedCrew) }},\n  \"aiSelection\": {{ JSON.stringify($('Crew Router').first().json.aiSelection) }},\n  \"response\": {{ JSON.stringify($json.response || $json) }},\n  \"timestamp\": {{ JSON.stringify(new Date().toISOString()) }}\n}",
+        "options": {}
+      },
+      "id": "response-formatter",
+      "name": "Response Formatter",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        1200,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Crew Request Webhook": {
+      "main": [
+        [
+          {
+            "node": "AI Crew Selector",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Crew Selector": {
+      "main": [
+        [
+          {
+            "node": "Crew Router",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Crew Router": {
+      "main": [
+        [
+          {
+            "node": "Crew Member Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Crew Member Response": {
+      "main": [
+        [
+          {
+            "node": "Response Formatter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "meta": null,
+  "pinData": null,
+  "versionId": "bfae0f06-2f03-442d-a68c-321b4cdcd4ae",
+  "triggerCount": 0,
+  "tags": [],
+  "syncedAt": "2025-08-12T11:34:34.386Z",
+  "syncDirection": "pulled-from-n8n",
+  "originalId": "jXGDzoDhUYXWe1cB"
+}

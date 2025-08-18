@@ -1,0 +1,70 @@
+{
+  "name": "AI Business Intelligence Dashboard",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "business-intelligence",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-node",
+      "name": "Business Intelligence Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [240, 300],
+      "webhookId": "business-intelligence-webhook"
+    },
+    {
+      "parameters": {
+        "jsCode": "// AI Business Intelligence Dashboard - Data Processing\n// This workflow analyzes business data and generates insights\n\nconst inputData = $input.all()[0].json;\n\n// Extract business metrics from input\nconst businessData = {\n  revenue: inputData.revenue || 0,\n  expenses: inputData.expenses || 0,\n  customers: inputData.customers || 0,\n  growthRate: inputData.growthRate || 0,\n  marketShare: inputData.marketShare || 0,\n  employeeCount: inputData.employeeCount || 0,\n  projectCount: inputData.projectCount || 0,\n  completionRate: inputData.completionRate || 0\n};\n\n// Calculate key performance indicators\nconst kpis = {\n  profitMargin: businessData.revenue > 0 ? Number(((businessData.revenue - businessData.expenses) / businessData.revenue * 100).toFixed(2)) : 0,\n  customerValue: businessData.customers > 0 ? Number((businessData.revenue / businessData.customers).toFixed(2)) : 0,\n  efficiencyRatio: businessData.employeeCount > 0 ? Number((businessData.revenue / businessData.employeeCount).toFixed(2)) : 0,\n  projectSuccess: businessData.projectCount > 0 ? Number((businessData.completionRate / businessData.projectCount * 100).toFixed(2)) : 0\n};\n\n// Generate business insights\nconst insights = [];\n\nif (kpis.profitMargin > 20) {\n  insights.push('Excellent profit margins indicate strong financial health');\n} else if (kpis.profitMargin > 10) {\n  insights.push('Good profit margins with room for optimization');\n} else {\n  insights.push('Profit margins need attention - consider cost reduction strategies');\n}\n\nif (businessData.growthRate > 15) {\n  insights.push('Strong growth trajectory - maintain momentum');\n} else if (businessData.growthRate > 5) {\n  insights.push('Steady growth - look for acceleration opportunities');\n} else {\n  insights.push('Growth needs attention - review business strategy');\n}\n\nif (kpis.customerValue > 1000) {\n  insights.push('High customer value - excellent customer acquisition strategy');\n} else if (kpis.customerValue > 500) {\n  insights.push('Good customer value - consider upselling opportunities');\n} else {\n  insights.push('Customer value optimization needed - review pricing strategy');\n}\n\n// Generate recommendations\nconst recommendations = [];\n\nif (kpis.profitMargin < 15) {\n  recommendations.push('Implement cost optimization strategies');\n  recommendations.push('Review pricing models for margin improvement');\n}\n\nif (businessData.growthRate < 10) {\n  recommendations.push('Explore new market opportunities');\n  recommendations.push('Enhance marketing and sales strategies');\n}\n\nif (kpis.efficiencyRatio < 50000) {\n  recommendations.push('Optimize operational efficiency');\n  recommendations.push('Consider automation opportunities');\n}\n\n// Create comprehensive business intelligence report\nconst businessIntelligence = {\n  timestamp: new Date().toISOString(),\n  businessMetrics: businessData,\n  keyPerformanceIndicators: kpis,\n  insights: insights,\n  recommendations: recommendations,\n  riskAssessment: {\n    financialRisk: kpis.profitMargin < 10 ? 'High' : kpis.profitMargin < 20 ? 'Medium' : 'Low',\n    growthRisk: businessData.growthRate < 5 ? 'High' : businessData.growthRate < 15 ? 'Medium' : 'Low',\n    operationalRisk: kpis.efficiencyRatio < 30000 ? 'High' : kpis.efficiencyRatio < 60000 ? 'Medium' : 'Low'\n  },\n  marketPosition: {\n    competitiveAdvantage: businessData.marketShare > 20 ? 'Strong' : businessData.marketShare > 10 ? 'Moderate' : 'Developing',\n    marketOpportunity: businessData.growthRate > 15 ? 'High' : businessData.growthRate > 5 ? 'Medium' : 'Low'\n  },\n  nextSteps: [\n    'Monitor KPIs weekly for trend analysis',\n    'Implement top 3 recommendations within 30 days',\n    'Schedule monthly business intelligence review',\n    'Track progress against industry benchmarks'\n  ]\n};\n\nreturn [{\n  json: businessIntelligence\n}];"
+      },
+      "id": "function-node",
+      "name": "AI Business Intelligence Engine",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {}
+      },
+      "id": "respond-node",
+      "name": "Business Intelligence Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [680, 300]
+    }
+  ],
+  "connections": {
+    "Business Intelligence Webhook": {
+      "main": [
+        [
+          {
+            "node": "AI Business Intelligence Engine",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Business Intelligence Engine": {
+      "main": [
+        [
+          {
+            "node": "Business Intelligence Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null
+}

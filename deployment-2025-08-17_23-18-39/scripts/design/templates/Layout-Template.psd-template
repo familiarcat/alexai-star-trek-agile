@@ -1,0 +1,30 @@
+Photoshop Template: Layout Template
+Description: Template for page layouts and wireframes
+Generated: 2025-08-18T03:49:49.059Z
+
+Artboard Settings:
+  Width: 1920px
+  Height: 1080px
+  Color Mode: RGB
+  Resolution: 72 DPI
+
+Layer Structure:
+  Header (group)
+    height: 80px
+    background: var(--lcars-primary)
+    position: top
+
+  Navigation (group)
+    height: 60px
+    background: var(--lcars-secondary)
+    position: below-header
+
+  Content (group)
+    background: var(--lcars-background)
+    position: center
+
+  Sidebar (group)
+    width: 300px
+    background: var(--lcars-background-secondary)
+    position: right
+

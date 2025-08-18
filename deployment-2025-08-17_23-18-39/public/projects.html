@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LCARS - Mission Log</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/lcars.css">
+    <script src="/assets/data-translator.js"></script>
+</head>
+<body>
+    <div class="lcars-container">
+        <!-- LCARS Sidebar Menu -->
+        <div class="lcars-sidebar">
+            <div class="lcars-menu-header">
+                LCARS MENU
+            </div>
+            
+            <div class="lcars-menu-item" onclick="location.href='/'">
+                <i class="fas fa-tachometer-alt lcars-mr-10"></i>
+                DASHBOARD
+            </div>
+            
+            <div class="lcars-menu-item active" onclick="location.href='/projects'">
+                <i class="fas fa-project-diagram lcars-mr-10"></i>
+                PROJECTS
+            </div>
+            
+            <div class="lcars-menu-item" onclick="location.href='/observation-lounge'">
+                <i class="fas fa-eye lcars-mr-10"></i>
+                OBSERVATION LOUNGE
+            </div>
+            
+            <div class="lcars-menu-item" onclick="location.href='/project-detail'">
+                <i class="fas fa-tasks lcars-mr-10"></i>
+                TASK MANAGER
+            </div>
+            
+            <div class="lcars-menu-item" onclick="location.href='/alexai'">
+                <i class="fas fa-robot lcars-mr-10"></i>
+                ALEXAI CORE
+            </div>
+            
+            <!-- LCARS Status Summary -->
+            <div class="lcars-panel lcars-mt-10">
+                <div class="lcars-text lcars-text-large lcars-text-gold lcars-mb-10">SYSTEM STATUS</div>
+                
+                <div class="lcars-status">
+                    <div class="lcars-status-indicator"></div>
+                    <span>MISSION DATABASE: ONLINE</span>
+                </div>
+                
+                <div class="lcars-status">
+                    <div class="lcars-status-indicator"></div>
+                    <span>PROJECT TRACKING: ACTIVE</span>
+                </div>
+                
+                <div class="lcars-status">
+                    <div class="lcars-status-indicator"></div>
+                    <span>TEAM COORDINATION: OPTIMAL</span>
+                </div>
+                
+                <div class="lcars-status">
+                    <div class="lcars-status-indicator"></div>
+                    <span>AI INSIGHTS: AVAILABLE</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="lcars-main">
+            <!-- Top Header Bar -->
+            <div class="lcars-nav">
+                <div class="lcars-nav-brand">
+                    LCARS SYSTEM 3 - MISSION LOG
+                </div>
+                <div class="lcars-nav-menu">
+                    <div class="lcars-button secondary" onclick="dataTranslator.createMockData().then(() => loadPageData())">
+                        <i class="fas fa-database lcars-mr-10"></i>
+                        INITIALIZE DATA
+                    </div>
+                    <div class="lcars-button secondary" onclick="loadPageData()">
+                        <i class="fas fa-sync-alt lcars-mr-10"></i>
+                        REFRESH
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="lcars-fade-in">
+                <!-- Mission Statistics -->
+                <div class="lcars-data-grid">
+                    <div class="lcars-data-item">
+                        <div class="lcars-data-value" id="total-projects">-</div>
+                        <div class="lcars-data-label">TOTAL MISSIONS</div>
+                    </div>
+                    
+                    <div class="lcars-data-item">
+                        <div class="lcars-data-value" id="active-projects">-</div>
+                        <div class="lcars-data-label">ACTIVE MISSIONS</div>
+                    </div>
+                    
+                    <div class="lcars-data-item">
+                        <div class="lcars-data-value" id="completed-projects">-</div>
+                        <div class="lcars-data-label">COMPLETED</div>
+                    </div>
+                    
+                    <div class="lcars-data-item">
+                        <div class="lcars-data-value" id="total-tasks">-</div>
+                        <div class="lcars-data-label">TOTAL TASKS</div>
+                    </div>
+                </div>
+
+                <!-- Projects List -->
+                <div class="lcars-panel">
+                    <div class="lcars-text lcars-text-xlarge lcars-text-gold lcars-mb-15">
+                        <i class="fas fa-rocket lcars-mr-10"></i>
+                        ACTIVE MISSIONS
+                    </div>
+                    
+                    <div id="projects-list" class="lcars-text">
+                        <div class="lcars-text-center lcars-text-grey">
+                            <i class="fas fa-spinner fa-spin lcars-mr-10"></i>
+                            Loading missions...
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Details Modal -->
+                <div id="project-modal" class="lcars-panel" style="display: none;">
+                    <div class="lcars-text lcars-text-xlarge lcars-text-gold lcars-mb-15">
+                        <i class="fas fa-info-circle lcars-mr-10"></i>
+                        MISSION DETAILS
+                    </div>
+                    
+                    <div id="project-details" class="lcars-text">
+                        <!-- Project details will be loaded here -->
+                    </div>
+                    
+                    <div class="lcars-data-grid lcars-mt-15">
+                        <div class="lcars-button" onclick="closeProjectModal()">
+                            <i class="fas fa-times lcars-mr-10"></i>
+                            CLOSE
+                        </div>
+                        <div class="lcars-button secondary" onclick="openKanbanBoard()">
+                            <i class="fas fa-columns lcars-mr-10"></i>
+                            KANBAN BOARD
+                        </div>
+                        <div class="lcars-button secondary" onclick="getAIInsights()">
+                            <i class="fas fa-robot lcars-mr-10"></i>
+                            AI INSIGHTS
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Load page data using unified data translator
+        async function loadPageData() {
+            try {
+                // Show loading state
+                document.getElementById('projects-list').innerHTML = `
+                    <div class="lcars-text-center lcars-text-grey">
+                        <i class="fas fa-spinner fa-spin lcars-mr-10"></i>
+                        Loading missions...
+                    </div>
+                `;
+
+                // Load dashboard stats
+                const stats = await dataTranslator.getDashboardStats();
+                
+                // Update metrics
+                document.getElementById('total-projects').textContent = stats.total_projects;
+                document.getElementById('total-tasks').textContent = stats.total_tasks;
+                document.getElementById('active-projects').textContent = stats.active_projects;
+                document.getElementById('completed-projects').textContent = stats.completed_projects;
+
+                // Load and render projects
+                const projects = await dataTranslator.getProjects();
+                dataTranslator.renderProjectsList('projects-list', projects);
+
+            } catch (error) {
+                console.error('Error loading page data:', error);
+                document.getElementById('projects-list').innerHTML = `
+                    <div class="lcars-text-center lcars-text-red">
+                        <i class="fas fa-exclamation-triangle lcars-mr-10"></i>
+                        Error loading missions: ${error.message}
+                    </div>
+                `;
+            }
+        }
+
+        // Modal functions
+        function closeProjectModal() {
+            document.getElementById('project-modal').style.display = 'none';
+        }
+
+        function openKanbanBoard() {
+            if (dataTranslator.selectedProjectId) {
+                window.location.href = `/project-detail?id=${dataTranslator.selectedProjectId}`;
+            } else {
+                alert('Please select a project first');
+            }
+        }
+
+        async function getAIInsights() {
+            if (dataTranslator.selectedProjectId) {
+                try {
+                    const insights = await dataTranslator.getProjectInsights(dataTranslator.selectedProjectId);
+                    if (insights.error) {
+                        alert(insights.error);
+                    } else {
+                        alert('AI Insights: ' + JSON.stringify(insights, null, 2));
+                    }
+                } catch (error) {
+                    alert('Error getting AI insights: ' + error.message);
+                }
+            } else {
+                alert('Please select a project first');
+            }
+        }
+
+        // Subscribe to real-time updates
+        dataTranslator.subscribe('projects', (data) => {
+            console.log('Projects updated:', data);
+            loadPageData();
+        });
+
+        dataTranslator.subscribe('dashboard', (data) => {
+            console.log('Dashboard updated:', data);
+            loadPageData();
+        });
+
+        // Load data on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadPageData();
+        });
+    </script>
+</body>
+</html> 

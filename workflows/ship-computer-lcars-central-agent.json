@@ -1,0 +1,81 @@
+{
+  "name": "Ship Computer - LCARS Central Agent",
+  "nodes": [
+    {
+      "id": "1",
+      "name": "LCARS Interface",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [100, 300],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "lcars-interface",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "webhookId": "lcars-central-interface"
+    },
+    {
+      "id": "2",
+      "name": "Ship Computer - Central Processing",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [350, 300],
+      "parameters": {
+        "jsCode": "// Ship Computer - LCARS Central Processing Unit\n// This is the main computer that all crew members interface with\n\nconst request = $input.first().json;\nconst { query, crewMember, requestType, context, urgency, priority } = request;\n\n// Ship Computer's central knowledge base\nconst shipComputer = {\n  identity: 'Enterprise-D Main Computer',\n  system: 'LCARS (Library Computer Access/Retrieval System)',\n  status: 'OPERATIONAL',\n  crewAccess: 'AUTHORIZED',\n  mission: 'Central coordination and knowledge management for all crew operations'\n};\n\n// Central processing logic\nconst processRequest = () => {\n  switch (requestType) {\n    case 'crew_coordination':\n      return coordinateCrewRequest();\n    case 'knowledge_query':\n      return processKnowledgeQuery();\n    case 'system_status':\n      return getSystemStatus();\n    case 'mission_analysis':\n      return analyzeMission();\n    case 'crew_communication':\n      return facilitateCrewCommunication();\n    case 'data_analysis':\n      return performDataAnalysis();\n    case 'resource_allocation':\n      return allocateResources();\n    case 'emergency_protocol':\n      return activateEmergencyProtocol();\n    default:\n      return { error: 'Unknown request type' };\n  }\n};\n\n// Crew coordination through Ship Computer\nconst coordinateCrewRequest = () => {\n  const crewMembers = [\n    'captain-picard', 'commander-data', 'counselor-troi',\n    'chief-engineer-scott', 'commander-spock', 'lieutenant-worf',\n    'quark', 'observation-lounge'\n  ];\n  \n  return {\n    requestType: 'crew_coordination',\n    crewMember,\n    query,\n    shipComputerResponse: {\n      status: 'COORDINATING',\n      crewMembers: crewMembers,\n      coordinationProtocol: 'LCARS_Protocol_Alpha',\n      response: `Ship Computer coordinating request from ${crewMember}: ${query}`\n    },\n    timestamp: new Date().toISOString()\n  };\n};\n\n// Knowledge processing through central LCARS\nconst processKnowledgeQuery = () => {\n  return {\n    requestType: 'knowledge_query',\n    query,\n    shipComputerResponse: {\n      status: 'PROCESSING',\n      knowledgeBase: 'LCARS_Central_Knowledge',\n      accessLevel: 'CREW_LEVEL_1',\n      response: `Accessing LCARS knowledge base for: ${query}`\n    },\n    timestamp: new Date().toISOString()\n  };\n};\n\n// System status through Ship Computer\nconst getSystemStatus = () => {\n  return {\n    requestType: 'system_status',\n    shipComputerResponse: {\n      status: 'OPERATIONAL',\n      systems: {\n        lcars: 'ONLINE',\n        aiAgents: 'ACTIVE',\n        crewCoordination: 'OPERATIONAL',\n        knowledgeBase: 'ACCESSIBLE',\n        emergencyProtocols: 'READY'\n      },\n      response: 'All systems operational. LCARS ready for crew access.'\n    },\n    timestamp: new Date().toISOString()\n  };\n};\n\n// Mission analysis through central computer\nconst analyzeMission = () => {\n  return {\n    requestType: 'mission_analysis',\n    context,\n    shipComputerResponse: {\n      status: 'ANALYZING',\n      missionProtocol: 'LCARS_Mission_Protocol_Gamma',\n      analysis: `Ship Computer analyzing mission context: ${context}`,\n      recommendations: 'Awaiting crew input for mission parameters'\n    },\n    timestamp: new Date().toISOString()\n  };\n};\n\n// Crew communication facilitation\nconst facilitateCrewCommunication = () => {\n  return {\n    requestType: 'crew_communication',\n    crewMember,\n    shipComputerResponse: {\n      status: 'FACILITATING',\n      communicationProtocol: 'LCARS_Communication_Protocol_Beta',\n      channels: ['crew_channel_alpha', 'emergency_channel', 'mission_channel'],\n      response: `Facilitating communication for ${crewMember} through LCARS`\n    },\n    timestamp: new Date().toISOString()\n  };\n};\n\n// Central data analysis\nconst performDataAnalysis = () => {\n  return {\n    requestType: 'data_analysis',\n    query,\n    shipComputerResponse: {\n      status: 'ANALYZING',\n      analysisProtocol: 'LCARS_Data_Analysis_Protocol_Delta',\n      dataSources: ['crew_reports', 'system_logs', 'mission_data', 'knowledge_base'],\n      response: `Performing LCARS data analysis for: ${query}`\n    },\n    timestamp: new Date().toISOString()\n  };\n};\n\n// Resource allocation through Ship Computer\nconst allocateResources = () => {\n  return {\n    requestType: 'resource_allocation',\n    context,\n    shipComputerResponse: {\n      status: 'ALLOCATING',\n      resourceProtocol: 'LCARS_Resource_Protocol_Epsilon',\n      availableResources: ['ai_agents', 'computing_power', 'knowledge_access', 'crew_time'],\n      response: `LCARS allocating resources for: ${context}`\n    },\n    timestamp: new Date().toISOString()\n  };\n};\n\n// Emergency protocol activation\nconst activateEmergencyProtocol = () => {\n  return {\n    requestType: 'emergency_protocol',\n    urgency,\n    shipComputerResponse: {\n      status: 'EMERGENCY_ACTIVE',\n      emergencyProtocol: 'LCARS_Emergency_Protocol_Omega',\n      alertLevel: urgency === 'critical' ? 'RED_ALERT' : 'YELLOW_ALERT',\n      response: `EMERGENCY PROTOCOL ACTIVATED. LCARS coordinating all crew members.`\n    },\n    timestamp: new Date().toISOString()\n  };\n};\n\n// Process the request and return response\nconst response = processRequest();\n\nreturn {\n  ...request,\n  ...response,\n  shipComputer,\n  lcarsSystem: 'ACTIVE',\n  crewInterface: 'THROUGH_SHIP_COMPUTER',\n  coordinationStatus: 'CENTRALIZED'\n};"
+      }
+    },
+    {
+      "id": "3",
+      "name": "LCARS Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [600, 300],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"success\": true,\n  \"timestamp\": {{ JSON.stringify(new Date().toISOString()) }},\n  \"shipComputer\": {{ JSON.stringify($json.shipComputer) }},\n  \"lcarsSystem\": {{ JSON.stringify($json.lcarsSystem) }},\n  \"crewInterface\": {{ JSON.stringify($json.crewInterface) }},\n  \"coordinationStatus\": {{ JSON.stringify($json.coordinationStatus) }},\n  \"request\": {{ JSON.stringify($json.requestType) }},\n  \"response\": {{ JSON.stringify($json.shipComputerResponse) }},\n  \"crewMember\": {{ JSON.stringify($json.crewMember) }},\n  \"query\": {{ JSON.stringify($json.query) }}\n}"
+      }
+    }
+  ],
+  "connections": {
+    "LCARS Interface": {
+      "main": [
+        [
+          {
+            "node": "Ship Computer - Central Processing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ship Computer - Central Processing": {
+      "main": [
+        [
+          {
+            "node": "LCARS Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "1",
+  "meta": {
+    "instanceId": "1755475978485"
+  },
+  "id": "ship-computer-lcars-central-agent",
+  "tags": [
+    "ship-computer",
+    "lcars",
+    "central-agent",
+    "crew-coordination",
+    "star-trek",
+    "enterprise"
+  ]
+}

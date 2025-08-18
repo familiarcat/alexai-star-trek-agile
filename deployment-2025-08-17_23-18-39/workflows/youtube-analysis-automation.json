@@ -1,0 +1,364 @@
+{
+  "name": "YouTube Content Analysis & Project Generation Workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "url": "https://www.youtube.com/watch?v=S8a7gkFhoBA&t=398s",
+        "options": {
+          "transcription": true,
+          "sentiment": true,
+          "keywords": true,
+          "summary": true
+        }
+      },
+      "id": "youtube-analyzer",
+      "name": "YouTube Content Analyzer",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [240, 300],
+      "webhookId": "youtube-analysis"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Extract key insights from YouTube content\nconst content = $input.first().json;\nconst transcription = content.transcription;\nconst keywords = content.keywords;\nconst sentiment = content.sentiment;\n\n// Analyze content for business opportunities\nconst businessOpportunities = [];\n\nif (transcription.includes('automation') || transcription.includes('AI')) {\n  businessOpportunities.push({\n    category: 'AI Automation',\n    opportunity: 'Business Process Automation Platform',\n    roi: 450,\n    complexity: 'high',\n    timeline: '6-8 months'\n  });\n}\n\nif (transcription.includes('workflow') || transcription.includes('optimization')) {\n  businessOpportunities.push({\n    category: 'Workflow Optimization',\n    opportunity: 'Intelligent Workflow Engine',\n    roi: 280,\n    complexity: 'medium',\n    timeline: '4-6 months'\n  });\n}\n\nif (transcription.includes('analytics') || transcription.includes('dashboard')) {\n  businessOpportunities.push({\n    category: 'Business Intelligence',\n    opportunity: 'Real-time Analytics Dashboard',\n    roi: 320,\n    complexity: 'medium',\n    timeline: '3-4 months'\n  });\n}\n\nif (transcription.includes('LLM') || transcription.includes('multi-model')) {\n  businessOpportunities.push({\n    category: 'Multi-LLM Integration',\n    opportunity: 'LLM Orchestration Framework',\n    roi: 380,\n    complexity: 'high',\n    timeline: '5-7 months'\n  });\n}\n\nreturn {\n  content: content,\n  businessOpportunities: businessOpportunities,\n  analysis: {\n    sentiment: sentiment,\n    keywords: keywords,\n    opportunities: businessOpportunities.length,\n    estimatedTotalROI: businessOpportunities.reduce((sum, opp) => sum + opp.roi, 0)\n  }\n};"
+      },
+      "id": "content-analyzer",
+      "name": "Content Analysis Engine",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "url": "https://api.anthropic.com/v1/messages",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "httpHeaderAuth": "x-api-key",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "anthropic-version",
+              "value": "2023-06-01"
+            },
+            {
+              "name": "content-type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "model",
+              "value": "claude-3-5-sonnet-20241022"
+            },
+            {
+              "name": "max_tokens",
+              "value": "4000"
+            },
+            {
+              "name": "messages",
+              "value": "=[\n  {\n    \"role\": \"user\",\n    \"content\": \"Analyze this YouTube content for business automation opportunities:\\n\\nContent: {{ $json.content.transcription }}\\n\\nKey Topics: {{ $json.content.keywords.join(', ') }}\\n\\nSentiment: {{ $json.content.sentiment }}\\n\\nPlease provide:\\n1. Executive summary of business opportunities\\n2. Technical feasibility assessment\\n3. Market analysis and competitive landscape\\n4. Implementation roadmap with timelines\\n5. Risk assessment and mitigation strategies\\n6. ROI projections and success metrics\\n\\nFormat as structured JSON for automation workflow integration.\"\n  }\n]"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "claude-analysis",
+      "name": "Claude AI Analysis",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [680, 300]
+    },
+    {
+      "parameters": {
+        "url": "https://api.openai.com/v1/chat/completions",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "httpHeaderAuth": "Bearer",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "content-type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "model",
+              "value": "gpt-4-turbo-preview"
+            },
+            {
+              "name": "messages",
+              "value": "=[\n  {\n    \"role\": \"system\",\n    \"content\": \"You are an expert business strategist and automation consultant. Analyze the provided content and generate actionable business recommendations.\"\n  },\n  {\n    \"role\": \"user\",\n    \"content\": \"Based on this analysis: {{ $json }}\\n\\nGenerate:\\n1. Business model recommendations\\n2. Go-to-market strategy\\n3. Partnership opportunities\\n4. Revenue streams and pricing models\\n5. Customer acquisition strategies\\n\\nFormat as structured JSON.\"\n  }\n]"
+            },
+            {
+              "name": "max_tokens",
+              "value": "3000"
+            },
+            {
+              "name": "temperature",
+              "value": "0.7"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "openai-strategy",
+      "name": "OpenAI Strategy Generation",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [900, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Integrate multiple LLM analyses and generate crew recommendations\nconst claudeAnalysis = $input.first().json;\nconst openaiStrategy = $input.all()[1].json;\nconst contentAnalysis = $input.all()[2].json;\n\n// Generate crew-specific recommendations\nconst crewRecommendations = [\n  {\n    crewMember: 'Captain Picard',\n    role: 'Strategic Leadership',\n    recommendations: [\n      'Focus on enterprise consulting services',\n      'Establish strategic partnerships with major tech companies',\n      'Develop thought leadership in AI automation space'\n    ],\n    priority: 'critical',\n    timeline: '1-2 months'\n  },\n  {\n    crewMember: 'Commander Data',\n    role: 'AI & Technical Architecture',\n    recommendations: [\n      'Design multi-LLM orchestration platform',\n      'Implement advanced workflow optimization algorithms',\n      'Develop real-time analytics and monitoring systems'\n    ],\n    priority: 'high',\n    timeline: '3-4 months'\n  },\n  {\n    crewMember: 'Chief Engineer Scott',\n    role: 'Infrastructure & Scalability',\n    recommendations: [\n      'Build cloud-native architecture for enterprise deployment',\n      'Implement security and compliance frameworks',\n      'Design scalable data processing pipelines'\n    ],\n    priority: 'high',\n    timeline: '2-3 months'\n  },\n  {\n    crewMember: 'Counselor Troi',\n    role: 'Market Analysis & UX',\n    recommendations: [\n      'Conduct comprehensive market research',\n      'Design intuitive user experience for business users',\n      'Develop customer success and support programs'\n    ],\n    priority: 'medium',\n    timeline: '2-3 months'\n  },\n  {\n    crewMember: 'Chief Communications Officer',\n    role: 'Business Development',\n    recommendations: [\n      'Create compelling value propositions',\n      'Develop sales and marketing strategies',\n      'Establish customer pilot programs'\n    ],\n    priority: 'medium',\n    timeline: '2-4 months'\n  }\n];\n\n// Generate implementation roadmap\nconst implementationRoadmap = [\n  {\n    phase: 'Phase 1: Foundation (Months 1-2)',\n    activities: [\n      'Technical architecture design',\n      'Market research and validation',\n      'Team assembly and planning'\n    ],\n    deliverables: [\n      'Architecture documentation',\n      'Market analysis report',\n      'Project plan and timeline'\n    ]\n  },\n  {\n    phase: 'Phase 2: Development (Months 3-6)',\n    activities: [\n      'Core platform development',\n      'LLM integration and testing',\n      'UI/UX development'\n    ],\n    deliverables: [\n      'MVP platform',\n      'Integration documentation',\n      'User interface prototype'\n    ]\n  },\n  {\n    phase: 'Phase 3: Launch (Months 7-8)',\n    activities: [\n      'Pilot customer onboarding',\n      'Performance optimization',\n      'Marketing campaign launch'\n    ],\n    deliverables: [\n      'Pilot program',\n      'Performance metrics',\n      'Marketing materials'\n    ]\n  }\n];\n\n// Calculate profitability metrics\nconst profitabilityMetrics = {\n  estimatedTotalROI: contentAnalysis.analysis.estimatedTotalROI,\n  marketSize: 'Multi-billion dollar AI automation market',\n  competitiveAdvantage: 'Multi-LLM orchestration + n8n integration',\n  timeToMarket: '6-8 months',\n  breakEvenPoint: '12-18 months',\n  projectedRevenue: '5-10M USD in first 3 years'\n};\n\nreturn {\n  crewRecommendations,\n  implementationRoadmap,\n  profitabilityMetrics,\n  claudeAnalysis,\n  openaiStrategy,\n  contentAnalysis,\n  timestamp: new Date().toISOString(),\n  workflowVersion: '1.0.0'\n};"
+      },
+      "id": "crew-integration",
+      "name": "Crew Integration Engine",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [1120, 300]
+    },
+    {
+      "parameters": {
+        "url": "http://localhost:3000/api/crew-coordination",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "analysis",
+              "value": "={{ $json }}"
+            },
+            {
+              "name": "action",
+              "value": "youtube-analysis-complete"
+            },
+            {
+              "name": "priority",
+              "value": "high"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "crew-coordination",
+      "name": "Crew Coordination API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [1340, 300]
+    },
+    {
+      "parameters": {
+        "url": "http://localhost:3000/api/projects",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "name",
+              "value": "AI-Powered Business Process Automation Platform"
+            },
+            {
+              "name": "description",
+              "value": "Multi-LLM orchestration platform for enterprise process automation, generated from YouTube content analysis"
+            },
+            {
+              "name": "status",
+              "value": "planning"
+            },
+            {
+              "name": "priority",
+              "value": "high"
+            },
+            {
+              "name": "category",
+              "value": "AI/ML"
+            },
+            {
+              "name": "team_size",
+              "value": "8"
+            },
+            {
+              "name": "progress",
+              "value": "0"
+            },
+            {
+              "name": "deadline",
+              "value": "2025-04-30T23:59:59Z"
+            },
+            {
+              "name": "metadata",
+              "value": "={{ { source: 'youtube-analysis', roi: $json.profitabilityMetrics.estimatedTotalROI, complexity: 'high' } }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "project-creation",
+      "name": "Create Automation Project",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [1560, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Generate comprehensive report and next steps\nconst analysis = $input.first().json;\nconst project = $input.all()[1].json;\n\n// Create executive summary\nconst executiveSummary = {\n  title: 'YouTube Content Analysis & Project Generation Report',\n  timestamp: new Date().toISOString(),\n  videoUrl: 'https://www.youtube.com/watch?v=S8a7gkFhoBA&t=398s',\n  summary: 'AI automation market analysis reveals significant opportunities for multi-LLM orchestration platform',\n  keyFindings: [\n    'Market experiencing exponential growth in AI automation',\n    'Multi-LLM integration provides competitive advantage',\n    'Workflow optimization has immediate ROI potential',\n    'Enterprise consulting services in high demand'\n  ],\n  recommendations: [\n    'Launch AI automation platform development immediately',\n    'Focus on enterprise consulting services',\n    'Establish strategic partnerships',\n    'Develop thought leadership position'\n  ]\n};\n\n// Generate next steps\nconst nextSteps = [\n  {\n    action: 'Assemble Development Team',\n    responsible: 'Commander Data & Chief Engineer Scott',\n    timeline: '2 weeks',\n    priority: 'critical'\n  },\n  {\n    action: 'Develop Technical Architecture',\n    responsible: 'Chief Engineer Scott',\n    timeline: '1 month',\n    priority: 'high'\n  },\n  {\n    action: 'Create Business Development Strategy',\n    responsible: 'Captain Picard & Counselor Troi',\n    timeline: '2 weeks',\n    priority: 'high'\n  },\n  {\n    action: 'Launch Pilot Customer Program',\n    responsible: 'Chief Communications Officer',\n    timeline: '3 months',\n    priority: 'medium'\n  }\n];\n\n// Calculate success metrics\nconst successMetrics = {\n  technical: ['Platform functionality', 'Performance benchmarks', 'Security compliance'],\n  business: ['Customer acquisition', 'Revenue generation', 'Market penetration'],\n  operational: ['Team efficiency', 'Process optimization', 'Quality assurance']\n};\n\nreturn {\n  executiveSummary,\n  nextSteps,\n  successMetrics,\n  analysis,\n  project,\n  status: 'complete',\n  message: 'YouTube analysis workflow completed successfully. New automation project created and crew coordinated.'\n};"
+      },
+      "id": "report-generator",
+      "name": "Report Generator",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [1780, 300]
+    },
+    {
+      "parameters": {
+        "url": "http://localhost:3000/api/ships-computer/layout-engine",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "action",
+              "value": "update-system-status"
+            },
+            {
+              "name": "status",
+              "value": "YouTube Analysis Complete - New Project Generated"
+            },
+            {
+              "name": "data",
+              "value": "={{ $json }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "ship-computer-update",
+      "name": "Ship Computer Update",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [2000, 300]
+    }
+  ],
+  "connections": {
+    "YouTube Content Analyzer": {
+      "main": [
+        [
+          {
+            "node": "Content Analysis Engine",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Content Analysis Engine": {
+      "main": [
+        [
+          {
+            "node": "Claude AI Analysis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude AI Analysis": {
+      "main": [
+        [
+          {
+            "node": "OpenAI Strategy Generation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Strategy Generation": {
+      "main": [
+        [
+          {
+            "node": "Crew Integration Engine",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Crew Integration Engine": {
+      "main": [
+        [
+          {
+            "node": "Crew Coordination API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Crew Coordination API": {
+      "main": [
+        [
+          {
+            "node": "Create Automation Project",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Automation Project": {
+      "main": [
+        [
+          {
+            "node": "Report Generator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Report Generator": {
+      "main": [
+        [
+          {
+            "node": "Ship Computer Update",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-01-11T00:00:00.000Z",
+      "updatedAt": "2025-01-11T00:00:00.000Z",
+      "id": "youtube-analysis",
+      "name": "YouTube Analysis"
+    },
+    {
+      "createdAt": "2025-01-11T00:00:00.000Z",
+      "updatedAt": "2025-01-11T00:00:00.000Z",
+      "id": "ai-automation",
+      "name": "AI Automation"
+    },
+    {
+      "createdAt": "2025-01-11T00:00:00.000Z",
+      "name": "Crew Integration"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-01-11T00:00:00.000Z",
+  "versionId": "1"
+}

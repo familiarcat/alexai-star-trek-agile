@@ -1,0 +1,193 @@
+{
+  "name": "LCARS Design System",
+  "version": "24.2",
+  "description": "Star Trek-inspired design system with accent-focused icons",
+  "symbols": {
+    "Design System": {
+      "Colors": {
+        "Primary": {
+          "color": "#FF6B35",
+          "description": "LCARS Gold"
+        },
+        "Secondary": {
+          "color": "#4ECDC4",
+          "description": "LCARS Blue"
+        },
+        "Accent": {
+          "color": "#45B7D1",
+          "description": "LCARS Cyan"
+        },
+        "Success": {
+          "color": "#96CEB4",
+          "description": "LCARS Green"
+        },
+        "Warning": {
+          "color": "#FFEAA7",
+          "description": "LCARS Yellow"
+        },
+        "Error": {
+          "color": "#DDA0DD",
+          "description": "LCARS Red"
+        }
+      },
+      "Typography": {
+        "Heading 1": {
+          "size": "32px",
+          "weight": "700",
+          "description": "Page titles"
+        },
+        "Heading 2": {
+          "size": "24px",
+          "weight": "600",
+          "description": "Section titles"
+        },
+        "Heading 3": {
+          "size": "20px",
+          "weight": "500",
+          "description": "Subsection titles"
+        },
+        "Body": {
+          "size": "16px",
+          "weight": "400",
+          "description": "Main text"
+        },
+        "Small": {
+          "size": "14px",
+          "weight": "400",
+          "description": "Secondary text"
+        }
+      },
+      "Spacing": {
+        "XS": {
+          "value": "4px",
+          "description": "Minimal spacing"
+        },
+        "SM": {
+          "value": "8px",
+          "description": "Small spacing"
+        },
+        "MD": {
+          "value": "16px",
+          "description": "Medium spacing"
+        },
+        "LG": {
+          "value": "24px",
+          "description": "Large spacing"
+        },
+        "XL": {
+          "value": "32px",
+          "description": "Extra large spacing"
+        }
+      },
+      "Icons": {
+        "Accent": {
+          "size": "14px",
+          "description": "Standard accent icon"
+        },
+        "Small": {
+          "size": "12px",
+          "description": "Small accent icon"
+        },
+        "Large": {
+          "size": "16px",
+          "description": "Large accent icon"
+        },
+        "XLarge": {
+          "size": "20px",
+          "description": "Extra large accent icon"
+        }
+      }
+    },
+    "Components": {
+      "Navigation": {
+        "Primary Nav": {
+          "type": "component",
+          "description": "Main navigation bar"
+        },
+        "Secondary Nav": {
+          "type": "component",
+          "description": "Secondary navigation"
+        },
+        "Mobile Nav": {
+          "type": "component",
+          "description": "Mobile navigation menu"
+        },
+        "Breadcrumb": {
+          "type": "component",
+          "description": "Breadcrumb navigation"
+        }
+      },
+      "Buttons": {
+        "Primary Button": {
+          "type": "component",
+          "description": "Primary action button"
+        },
+        "Secondary Button": {
+          "type": "component",
+          "description": "Secondary action button"
+        },
+        "Tertiary Button": {
+          "type": "component",
+          "description": "Tertiary action button"
+        },
+        "Icon Button": {
+          "type": "component",
+          "description": "Icon-only button"
+        },
+        "Danger Button": {
+          "type": "component",
+          "description": "Danger action button"
+        }
+      },
+      "Forms": {
+        "Input Field": {
+          "type": "component",
+          "description": "Text input field"
+        },
+        "Select Dropdown": {
+          "type": "component",
+          "description": "Dropdown selection"
+        },
+        "Checkbox": {
+          "type": "component",
+          "description": "Checkbox input"
+        },
+        "Radio Button": {
+          "type": "component",
+          "description": "Radio button input"
+        },
+        "Textarea": {
+          "type": "component",
+          "description": "Multi-line text input"
+        }
+      },
+      "Cards": {
+        "Info Card": {
+          "type": "component",
+          "description": "Information display card"
+        },
+        "Action Card": {
+          "type": "component",
+          "description": "Interactive action card"
+        },
+        "Data Card": {
+          "type": "component",
+          "description": "Data display card"
+        },
+        "Profile Card": {
+          "type": "component",
+          "description": "User profile card"
+        },
+        "Status Card": {
+          "type": "component",
+          "description": "Status information card"
+        }
+      }
+    }
+  },
+  "artboards": {
+    "Design System": "1200x800",
+    "Components": "1600x1200",
+    "Layouts": "1920x1080"
+  }
+}
