@@ -1,0 +1,397 @@
+{
+  "timestamp": "2025-08-18T04:29:57.945Z",
+  "local": {
+    "port": 3000,
+    "endpoints": [
+      "/",
+      "/api/health",
+      "/api/crew/captain-picard",
+      "/api/crew/commander-data",
+      "/api/crew/counselor-troi",
+      "/api/crew/chief-engineer-scott",
+      "/api/crew/commander-spock",
+      "/api/crew/lieutenant-worf",
+      "/api/crew/quark",
+      "/api/crew/observation-lounge",
+      "/ship-computer-demo",
+      "/responsive-boundary-demo"
+    ],
+    "results": {
+      "/": {
+        "status": 500,
+        "responseTime": 923,
+        "headers": {
+          "vary": "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Router-Segment-Prefetch, Accept-Encoding",
+          "cache-control": "no-store, must-revalidate",
+          "etag": "\"6wqoj9n8dn8by\"",
+          "content-type": "text/html; charset=utf-8",
+          "content-length": "10798",
+          "date": "Mon, 18 Aug 2025 04:29:58 GMT",
+          "connection": "keep-alive",
+          "keep-alive": "timeout=5"
+        },
+        "dataLength": 10798,
+        "timestamp": "2025-08-18T04:29:58.873Z"
+      },
+      "/api/health": {
+        "status": 200,
+        "responseTime": 238,
+        "headers": {
+          "vary": "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Router-Segment-Prefetch",
+          "content-type": "application/json",
+          "date": "Mon, 18 Aug 2025 04:29:59 GMT",
+          "connection": "keep-alive",
+          "keep-alive": "timeout=5",
+          "transfer-encoding": "chunked"
+        },
+        "dataLength": 214,
+        "timestamp": "2025-08-18T04:29:59.111Z"
+      },
+      "/api/crew/captain-picard": {
+        "status": 405,
+        "responseTime": 115,
+        "headers": {
+          "vary": "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Router-Segment-Prefetch",
+          "date": "Mon, 18 Aug 2025 04:29:59 GMT",
+          "connection": "keep-alive",
+          "keep-alive": "timeout=5",
+          "transfer-encoding": "chunked"
+        },
+        "dataLength": 0,
+        "timestamp": "2025-08-18T04:29:59.226Z"
+      },
+      "/api/crew/commander-data": {
+        "status": 200,
+        "responseTime": 109,
+        "headers": {
+          "vary": "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Router-Segment-Prefetch",
+          "content-type": "application/json",
+          "date": "Mon, 18 Aug 2025 04:29:59 GMT",
+          "connection": "keep-alive",
+          "keep-alive": "timeout=5",
+          "transfer-encoding": "chunked"
+        },
+        "dataLength": 421,
+        "timestamp": "2025-08-18T04:29:59.335Z"
+      },
+      "/api/crew/counselor-troi": {
+        "status": 200,
+        "responseTime": 111,
+        "headers": {
+          "vary": "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Router-Segment-Prefetch",
+          "content-type": "application/json",
+          "date": "Mon, 18 Aug 2025 04:29:59 GMT",
+          "connection": "keep-alive",
+          "keep-alive": "timeout=5",
+          "transfer-encoding": "chunked"
+        },
+        "dataLength": 306,
+        "timestamp": "2025-08-18T04:29:59.446Z"
+      },
+      "/api/crew/chief-engineer-scott": {
+        "status": 200,
+        "responseTime": 118,
+        "headers": {
+          "vary": "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Router-Segment-Prefetch",
+          "content-type": "application/json",
+          "date": "Mon, 18 Aug 2025 04:29:59 GMT",
+          "connection": "keep-alive",
+          "keep-alive": "timeout=5",
+          "transfer-encoding": "chunked"
+        },
+        "dataLength": 351,
+        "timestamp": "2025-08-18T04:29:59.564Z"
+      },
+      "/api/crew/commander-spock": {
+        "status": 405,
+        "responseTime": 124,
+        "headers": {
+          "vary": "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Router-Segment-Prefetch",
+          "date": "Mon, 18 Aug 2025 04:29:59 GMT",
+          "connection": "keep-alive",
+          "keep-alive": "timeout=5",
+          "transfer-encoding": "chunked"
+        },
+        "dataLength": 0,
+        "timestamp": "2025-08-18T04:29:59.689Z"
+      },
+      "/api/crew/lieutenant-worf": {
+        "status": 200,
+        "responseTime": 128,
+        "headers": {
+          "vary": "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Router-Segment-Prefetch",
+          "content-type": "application/json",
+          "date": "Mon, 18 Aug 2025 04:29:59 GMT",
+          "connection": "keep-alive",
+          "keep-alive": "timeout=5",
+          "transfer-encoding": "chunked"
+        },
+        "dataLength": 328,
+        "timestamp": "2025-08-18T04:29:59.817Z"
+      },
+      "/api/crew/quark": {
+        "status": 405,
+        "responseTime": 129,
+        "headers": {
+          "vary": "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Router-Segment-Prefetch",
+          "date": "Mon, 18 Aug 2025 04:29:59 GMT",
+          "connection": "keep-alive",
+          "keep-alive": "timeout=5",
+          "transfer-encoding": "chunked"
+        },
+        "dataLength": 0,
+        "timestamp": "2025-08-18T04:29:59.947Z"
+      },
+      "/api/crew/observation-lounge": {
+        "status": 405,
+        "responseTime": 134,
+        "headers": {
+          "vary": "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Router-Segment-Prefetch",
+          "date": "Mon, 18 Aug 2025 04:30:00 GMT",
+          "connection": "keep-alive",
+          "keep-alive": "timeout=5",
+          "transfer-encoding": "chunked"
+        },
+        "dataLength": 0,
+        "timestamp": "2025-08-18T04:30:00.081Z"
+      },
+      "/ship-computer-demo": {
+        "status": 500,
+        "responseTime": 33,
+        "headers": {
+          "cache-control": "no-store, must-revalidate",
+          "etag": "\"svchv6zmfr8d6\"",
+          "content-type": "text/html; charset=utf-8",
+          "content-length": "10842",
+          "vary": "Accept-Encoding",
+          "date": "Mon, 18 Aug 2025 04:30:00 GMT",
+          "connection": "keep-alive",
+          "keep-alive": "timeout=5"
+        },
+        "dataLength": 10842,
+        "timestamp": "2025-08-18T04:30:00.114Z"
+      },
+      "/responsive-boundary-demo": {
+        "status": 500,
+        "responseTime": 588,
+        "headers": {
+          "vary": "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Router-Segment-Prefetch, Accept-Encoding",
+          "cache-control": "no-store, must-revalidate",
+          "etag": "\"uygoz5km7a8cy\"",
+          "content-type": "text/html; charset=utf-8",
+          "content-length": "10834",
+          "date": "Mon, 18 Aug 2025 04:30:00 GMT",
+          "connection": "keep-alive",
+          "keep-alive": "timeout=5"
+        },
+        "dataLength": 10834,
+        "timestamp": "2025-08-18T04:30:00.702Z"
+      }
+    }
+  },
+  "vercel": {
+    "baseUrl": "https://your-app.vercel.app",
+    "endpoints": [
+      "/",
+      "/api/health",
+      "/api/crew/captain-picard",
+      "/ship-computer-demo"
+    ],
+    "results": {},
+    "status": "NOT_CONFIGURED",
+    "message": "Vercel deployment URL needs to be configured"
+  },
+  "n8n": {
+    "baseUrl": "https://n8n.pbradygeorgen.com",
+    "endpoints": [
+      "/",
+      "/api/webhook/lcars-interface",
+      "/api/webhook/crew-request",
+      "/api/webhook/ship-computer"
+    ],
+    "workflows": [
+      "ship-computer-lcars-central-agent",
+      "ship-computer-ai-agent",
+      "alexai-complete-crew-workflow"
+    ],
+    "results": {
+      "/": {
+        "status": 200,
+        "responseTime": 219,
+        "headers": {
+          "server": "nginx/1.24.0 (Ubuntu)",
+          "date": "Mon, 18 Aug 2025 04:30:00 GMT",
+          "content-type": "text/html; charset=utf-8",
+          "content-length": "1975",
+          "connection": "keep-alive",
+          "accept-ranges": "bytes",
+          "cache-control": "public, max-age=86400",
+          "last-modified": "Thu, 24 Jul 2025 23:57:28 GMT",
+          "etag": "W/\"7b7-1983eded948\"",
+          "vary": "Accept-Encoding"
+        },
+        "dataLength": 1975,
+        "timestamp": "2025-08-18T04:30:00.922Z"
+      },
+      "/api/webhook/lcars-interface": {
+        "status": 404,
+        "responseTime": 39,
+        "headers": {
+          "server": "nginx/1.24.0 (Ubuntu)",
+          "date": "Mon, 18 Aug 2025 04:30:00 GMT",
+          "content-type": "text/html; charset=utf-8",
+          "content-length": "166",
+          "connection": "keep-alive",
+          "content-security-policy": "default-src 'none'",
+          "x-content-type-options": "nosniff",
+          "vary": "Accept-Encoding"
+        },
+        "dataLength": 166,
+        "timestamp": "2025-08-18T04:30:00.962Z"
+      },
+      "/api/webhook/crew-request": {
+        "status": 404,
+        "responseTime": 31,
+        "headers": {
+          "server": "nginx/1.24.0 (Ubuntu)",
+          "date": "Mon, 18 Aug 2025 04:30:01 GMT",
+          "content-type": "text/html; charset=utf-8",
+          "content-length": "163",
+          "connection": "keep-alive",
+          "content-security-policy": "default-src 'none'",
+          "x-content-type-options": "nosniff",
+          "vary": "Accept-Encoding"
+        },
+        "dataLength": 163,
+        "timestamp": "2025-08-18T04:30:00.993Z"
+      },
+      "/api/webhook/ship-computer": {
+        "status": 404,
+        "responseTime": 32,
+        "headers": {
+          "server": "nginx/1.24.0 (Ubuntu)",
+          "date": "Mon, 18 Aug 2025 04:30:01 GMT",
+          "content-type": "text/html; charset=utf-8",
+          "content-length": "164",
+          "connection": "keep-alive",
+          "content-security-policy": "default-src 'none'",
+          "x-content-type-options": "nosniff",
+          "vary": "Accept-Encoding"
+        },
+        "dataLength": 164,
+        "timestamp": "2025-08-18T04:30:01.025Z"
+      },
+      "workflow-ship-computer-lcars-central-agent": {
+        "status": 404,
+        "responseTime": 41,
+        "headers": {
+          "server": "nginx/1.24.0 (Ubuntu)",
+          "date": "Mon, 18 Aug 2025 04:30:01 GMT",
+          "content-type": "text/html; charset=utf-8",
+          "content-length": "186",
+          "connection": "keep-alive",
+          "content-security-policy": "default-src 'none'",
+          "x-content-type-options": "nosniff",
+          "vary": "Accept-Encoding"
+        },
+        "dataLength": 186,
+        "timestamp": "2025-08-18T04:30:01.067Z"
+      },
+      "workflow-ship-computer-ai-agent": {
+        "status": 404,
+        "responseTime": 36,
+        "headers": {
+          "server": "nginx/1.24.0 (Ubuntu)",
+          "date": "Mon, 18 Aug 2025 04:30:01 GMT",
+          "content-type": "text/html; charset=utf-8",
+          "content-length": "175",
+          "connection": "keep-alive",
+          "content-security-policy": "default-src 'none'",
+          "x-content-type-options": "nosniff",
+          "vary": "Accept-Encoding"
+        },
+        "dataLength": 175,
+        "timestamp": "2025-08-18T04:30:01.103Z"
+      },
+      "workflow-alexai-complete-crew-workflow": {
+        "status": 404,
+        "responseTime": 31,
+        "headers": {
+          "server": "nginx/1.24.0 (Ubuntu)",
+          "date": "Mon, 18 Aug 2025 04:30:01 GMT",
+          "content-type": "text/html; charset=utf-8",
+          "content-length": "182",
+          "connection": "keep-alive",
+          "content-security-policy": "default-src 'none'",
+          "x-content-type-options": "nosniff",
+          "vary": "Accept-Encoding"
+        },
+        "dataLength": 182,
+        "timestamp": "2025-08-18T04:30:01.135Z"
+      }
+    }
+  },
+  "supabase": {
+    "status": "CONFIGURED",
+    "features": [
+      "user_stories",
+      "test_executions",
+      "learning_insights",
+      "crew_coordination",
+      "lcars_system_status"
+    ],
+    "results": {
+      "environment": {
+        "hasSupabaseUrl": true,
+        "hasSupabaseKey": true,
+        "configured": true
+      },
+      "schema": {
+        "exists": true,
+        "tables": [
+          "user_stories",
+          "test_executions",
+          "learning_insights"
+        ],
+        "timestamp": "2025-08-18T04:30:01.137Z"
+      }
+    }
+  },
+  "lcars": {
+    "workflow": "ship-computer-lcars-central-agent.json",
+    "capabilities": [
+      "crew_coordination",
+      "knowledge_query",
+      "system_status",
+      "mission_analysis",
+      "crew_communication",
+      "data_analysis",
+      "resource_allocation",
+      "emergency_protocol"
+    ],
+    "results": {
+      "workflow": {
+        "exists": true,
+        "name": "Ship Computer - LCARS Central Agent",
+        "nodes": 3,
+        "active": false,
+        "tags": [
+          "ship-computer",
+          "lcars",
+          "central-agent",
+          "crew-coordination",
+          "star-trek",
+          "enterprise"
+        ],
+        "timestamp": "2025-08-18T04:30:01.138Z"
+      },
+      "structure": {
+        "hasWebhook": true,
+        "hasCode": true,
+        "hasResponse": true,
+        "valid": true
+      }
+    }
+  },
+  "summary": {}
+}
