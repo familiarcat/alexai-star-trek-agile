@@ -1393,6 +1393,217 @@ p, .text-body {
   }
 }
 
+/* 🌟 PHASE 3 LLM OPTIMIZATION DEMO STYLES */
+/* ========================================== */
+
+.phase-3-demo {
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+}
+
+/* Strategy Grid */
+.strategy-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-lg);
+  margin-bottom: var(--space-2xl);
+}
+
+.strategy-grid .enhanced-glass-card {
+  height: 100%;
+}
+
+.strategy-grid h3 {
+  color: var(--modern-primary);
+  margin-bottom: var(--space-md);
+}
+
+.strategy-grid ul {
+  margin-top: var(--space-md);
+  padding-left: var(--space-lg);
+}
+
+.strategy-grid li {
+  margin-bottom: var(--space-xs);
+  color: var(--text-secondary);
+}
+
+/* Optimization Report */
+.optimization-report {
+  margin-bottom: var(--space-2xl);
+}
+
+.report-container {
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.optimization-report-text {
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: var(--font-size-sm);
+  line-height: 1.5;
+  color: var(--text-primary);
+  white-space: pre-wrap;
+  margin: 0;
+}
+
+/* Execution Control */
+.execution-control {
+  margin-bottom: var(--space-2xl);
+}
+
+.control-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+}
+
+.control-buttons {
+  display: flex;
+  gap: var(--space-md);
+  justify-content: center;
+  margin-bottom: var(--space-xl);
+  flex-wrap: wrap;
+}
+
+.execution-status {
+  text-align: center;
+}
+
+.execution-status h3 {
+  margin-bottom: var(--space-lg);
+  color: var(--text-primary);
+}
+
+.status-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--space-md);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.status-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--space-md);
+  background: var(--bg-elevated);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-primary);
+}
+
+.status-label {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-xs);
+  text-align: center;
+}
+
+.status-value {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+}
+
+/* Execution Report */
+.execution-report {
+  margin-bottom: var(--space-2xl);
+}
+
+.execution-report-text {
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: var(--font-size-sm);
+  line-height: 1.5;
+  color: var(--text-primary);
+  white-space: pre-wrap;
+  margin: 0;
+}
+
+/* Crew Details */
+.crew-details {
+  margin-bottom: var(--space-2xl);
+}
+
+.crew-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--space-lg);
+}
+
+.crew-card {
+  text-align: center;
+}
+
+.crew-card h3 {
+  color: var(--modern-primary);
+  margin-bottom: var(--space-md);
+  text-transform: capitalize;
+}
+
+.crew-stats {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-xs) 0;
+  border-bottom: 1px solid var(--border-primary);
+}
+
+.stat-row:last-child {
+  border-bottom: none;
+}
+
+.stat-label {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+}
+
+.stat-value {
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+}
+
+/* Loading Container */
+.loading-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+}
+
+/* Responsive Design for Phase 3 Demo */
+@media (max-width: 768px) {
+  .strategy-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .control-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .status-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .crew-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .report-container {
+    max-height: 300px;
+  }
+}
+
 .text-large {
   font-size: var(--font-size-lg);
   line-height: var(--line-height-relaxed);
