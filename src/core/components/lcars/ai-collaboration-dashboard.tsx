@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { collectiveMemoryEngine } from '@/core/ai-orchestration-engine';
 import type { AIAgent } from '@/core/ai-orchestration-engine';
 
