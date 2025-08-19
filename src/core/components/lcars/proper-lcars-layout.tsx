@@ -43,6 +43,9 @@ export function ProperLCARSLayout({ children, className = '' }: ProperLCARSLayou
   const [isClient, setIsClient] = useState(false);
   const [isNavVisible, setIsNavVisible] = useState(false);
   const [activeNavigation, setActiveNavigation] = useState('dashboard');
+  
+  // Ref to prevent infinite loop in responsive boundaries
+  const lastProcessedHierarchy = React.useRef<string>('');
 
   // Fix hydration error by only rendering time on client
   useEffect(() => {
@@ -59,23 +62,12 @@ export function ProperLCARSLayout({ children, className = '' }: ProperLCARSLayou
   // Manage responsive boundaries when layout changes
   useEffect(() => {
     if (componentHierarchy.length > 0 && typeof window !== 'undefined') {
-      const screenDimensions = {
-        width: window.innerWidth,
-        height: window.innerHeight
-      };
-      const deviceType = screenDimensions.width < 768 ? 'mobile' : 
-                        screenDimensions.width < 1024 ? 'tablet' : 'desktop';
+      // Use ref to prevent infinite loop - only process if hierarchy actually changed
+      const currentHierarchyHash = JSON.stringify(componentHierarchy.map(c => c.id));
       
-      manageResponsiveBoundaries(screenDimensions, deviceType);
-    }
-  }, [componentHierarchy]); // Remove manageResponsiveBoundaries dependency
-  
-  // Handle window resize for responsive boundaries
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    
-    const handleResize = () => {
-      if (componentHierarchy.length > 0) {
+      if (currentHierarchyHash !== lastProcessedHierarchy.current) {
+        lastProcessedHierarchy.current = currentHierarchyHash;
+        
         const screenDimensions = {
           width: window.innerWidth,
           height: window.innerHeight
@@ -85,11 +77,36 @@ export function ProperLCARSLayout({ children, className = '' }: ProperLCARSLayou
         
         manageResponsiveBoundaries(screenDimensions, deviceType);
       }
+    }
+  }, [componentHierarchy]); // Only depend on componentHierarchy
+  
+  // Handle window resize for responsive boundaries
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
+    const handleResize = () => {
+      if (componentHierarchy.length > 0) {
+        // Use ref to prevent infinite loop - only process if hierarchy actually changed
+        const currentHierarchyHash = JSON.stringify(componentHierarchy.map(c => c.id));
+        
+        if (currentHierarchyHash !== lastProcessedHierarchy.current) {
+          lastProcessedHierarchy.current = currentHierarchyHash;
+          
+          const screenDimensions = {
+            width: window.innerWidth,
+            height: window.innerHeight
+          };
+          const deviceType = screenDimensions.width < 768 ? 'mobile' : 
+                            screenDimensions.width < 1024 ? 'tablet' : 'desktop';
+          
+          manageResponsiveBoundaries(screenDimensions, deviceType);
+        }
+      }
     };
     
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, [componentHierarchy]); // Remove manageResponsiveBoundaries dependency
+  }, [componentHierarchy]); // Only depend on componentHierarchy
 
   const formatTime = (date: Date) => {
     return date.toLocaleTimeString('en-US', {
