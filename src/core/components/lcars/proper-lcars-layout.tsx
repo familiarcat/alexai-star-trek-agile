@@ -47,15 +47,18 @@ export function ProperLCARSLayout({ children, className = '' }: ProperLCARSLayou
   // Fix hydration error by only rendering time on client
   useEffect(() => {
     setIsClient(true);
-    const timer = setInterval(() => {
-      setCurrentTime(new Date());
-    }, 1000);
-    return () => clearInterval(timer);
+    // Only set timer if we're on the client side
+    if (typeof window !== 'undefined') {
+      const timer = setInterval(() => {
+        setCurrentTime(new Date());
+      }, 1000);
+      return () => clearInterval(timer);
+    }
   }, []);
   
   // Manage responsive boundaries when layout changes
   useEffect(() => {
-    if (componentHierarchy.length > 0) {
+    if (componentHierarchy.length > 0 && typeof window !== 'undefined') {
       const screenDimensions = {
         width: window.innerWidth,
         height: window.innerHeight
@@ -65,10 +68,12 @@ export function ProperLCARSLayout({ children, className = '' }: ProperLCARSLayou
       
       manageResponsiveBoundaries(screenDimensions, deviceType);
     }
-  }, [componentHierarchy, manageResponsiveBoundaries]);
+  }, [componentHierarchy]); // Remove manageResponsiveBoundaries dependency
   
   // Handle window resize for responsive boundaries
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
     const handleResize = () => {
       if (componentHierarchy.length > 0) {
         const screenDimensions = {
@@ -84,7 +89,7 @@ export function ProperLCARSLayout({ children, className = '' }: ProperLCARSLayou
     
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, [componentHierarchy, manageResponsiveBoundaries]);
+  }, [componentHierarchy]); // Remove manageResponsiveBoundaries dependency
 
   const formatTime = (date: Date) => {
     return date.toLocaleTimeString('en-US', {

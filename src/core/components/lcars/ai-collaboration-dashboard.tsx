@@ -15,7 +15,7 @@ export function AICollaborationDashboard() {
     return () => clearInterval(interval);
   }, []);
 
-  const loadDashboardData = () => {
+  const loadDashboardData = useCallback(() => {
     try {
       const allAgents = collectiveMemoryEngine.getAllAgents();
       setAgents(allAgents);
@@ -25,7 +25,7 @@ export function AICollaborationDashboard() {
     } catch (error) {
       console.error('Error loading dashboard data:', error);
     }
-  };
+  }, []); // Empty dependency array - only load once
 
   const startCollaboration = async (agentIds: string[], type: string) => {
     try {
