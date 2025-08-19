@@ -78,7 +78,7 @@ export class LLMOptimizationStrategy {
     this.llmConfigs.set('expert-complex', {
       model: 'claude-3.5-sonnet',
       provider: 'openrouter',
-      costPerToken: 0000015,
+      costPerToken: 0.000015,
       speed: 'slow',
       capability: 'expert',
       maxTokens: 16384,

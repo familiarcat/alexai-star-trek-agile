@@ -315,7 +315,7 @@ const Phase4FinalIntegrationDemo: React.FC = () => {
             <EnhancedGlassCard variant="elevated" className="report-container">
               <pre className="execution-report-text">{executionReport}</pre>
             </EnhancedGlassCard>
-          </EnhancedGlassCard>
+          </section>
         )}
 
         {/* Optimization Summary */}

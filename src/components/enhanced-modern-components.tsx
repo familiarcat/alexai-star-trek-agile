@@ -618,12 +618,4 @@ export const EnhancedPerformanceDisplay: React.FC<PerformanceDisplayProps> = ({
   );
 };
 
-// Export all enhanced components
-export {
-  EnhancedGlassCard,
-  EnhancedGlowButton,
-  EnhancedInteractivePanel,
-  EnhancedScrollTrigger,
-  EnhancedThemeToggle,
-  EnhancedPerformanceDisplay
-};
+
