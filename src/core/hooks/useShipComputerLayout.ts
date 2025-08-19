@@ -250,29 +250,37 @@ export const useShipComputerLayout = (options: UseShipComputerLayoutOptions): Us
     screenDimensions: { width: number; height: number },
     deviceType: 'mobile' | 'tablet' | 'desktop'
   ) => {
-    if (!orchestratorRef.current || !componentHierarchy.length) {
-      setError('No component hierarchy available for boundary management');
+    if (!orchestratorRef.current) {
+      setError('No orchestrator available for boundary management');
       return;
     }
 
     try {
       console.log(`📱 Ship Computer: Managing responsive boundaries for ${deviceType} (${screenDimensions.width}x${screenDimensions.height})`);
       
-      const adjustedHierarchy = orchestratorRef.current.manageResponsiveBoundaries(
-        componentHierarchy,
-        screenDimensions,
-        deviceType
-      );
-      
-      setComponentHierarchy(adjustedHierarchy);
-      console.log(`✅ Ship Computer: Responsive boundaries applied for ${deviceType}`);
+      // Use functional update to avoid dependency on componentHierarchy
+      setComponentHierarchy(prevHierarchy => {
+        if (!prevHierarchy.length) {
+          setError('No component hierarchy available for boundary management');
+          return prevHierarchy;
+        }
+        
+        const adjustedHierarchy = orchestratorRef.current!.manageResponsiveBoundaries(
+          prevHierarchy,
+          screenDimensions,
+          deviceType
+        );
+        
+        console.log(`✅ Ship Computer: Responsive boundaries applied for ${deviceType}`);
+        return adjustedHierarchy;
+      });
       
     } catch (err) {
       const errorMessage = `Responsive boundary management failed: ${err}`;
       setError(errorMessage);
       console.error(errorMessage, err);
     }
-  }, [componentHierarchy]);
+  }, []); // Remove componentHierarchy dependency
 
   const generateResponsiveCSS = useCallback((
     componentId: string,
@@ -282,14 +290,16 @@ export const useShipComputerLayout = (options: UseShipComputerLayoutOptions): Us
       return '';
     }
 
-    const component = componentHierarchy.find(c => c.id === componentId);
+    // Use current componentHierarchy state directly without dependency
+    const currentHierarchy = componentHierarchy;
+    const component = currentHierarchy.find(c => c.id === componentId);
     if (!component) {
       console.warn(`Component ${componentId} not found for CSS generation`);
       return '';
     }
 
     return orchestratorRef.current.generateResponsiveCSS(component, deviceType);
-  }, [componentHierarchy]);
+  }, []); // Remove componentHierarchy dependency
 
   const validateBoundaries = useCallback((
     componentId: string,
@@ -299,13 +309,15 @@ export const useShipComputerLayout = (options: UseShipComputerLayoutOptions): Us
       return { isValid: false, issues: ['Orchestrator not available'], recommendations: ['Initialize orchestrator'] };
     }
 
-    const component = componentHierarchy.find(c => c.id === componentId);
+    // Use current componentHierarchy state directly without dependency
+    const currentHierarchy = componentHierarchy;
+    const component = currentHierarchy.find(c => c.id === componentId);
     if (!component) {
       return { isValid: false, issues: [`Component ${componentId} not found`], recommendations: ['Check component ID'] };
     }
 
     return orchestratorRef.current.validateComponentBoundaries(component, screenDimensions);
-  }, [componentHierarchy]);
+  }, []); // Remove componentHierarchy dependency
 
   // Get crew information
   const crewMembers = orchestratorRef.current?.getAllCrewMembers() || [];
