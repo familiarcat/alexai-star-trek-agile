@@ -2212,6 +2212,59 @@ p, .text-body {
   }
 }
 
+/* 📱 RESPONSIVE DESIGN SYSTEM */
+.glass-card-responsive {
+  transition: all var(--transition-duration) var(--transition-timing);
+}
+
+.glass-card-mobile {
+  padding: var(--spacing-md);
+  margin: var(--spacing-sm);
+  border-radius: var(--border-radius-md);
+}
+
+.glass-card-tablet {
+  padding: var(--spacing-lg);
+  margin: var(--spacing-md);
+  border-radius: var(--border-radius-lg);
+}
+
+.glass-card-desktop {
+  padding: var(--spacing-xl);
+  margin: var(--spacing-lg);
+  border-radius: var(--border-radius-xl);
+}
+
+/* Responsive breakpoints */
+@media (max-width: 768px) {
+  .glass-card-responsive {
+    padding: var(--spacing-md);
+    margin: var(--spacing-sm);
+  }
+  
+  .enhanced-interactive-panel {
+    padding: var(--spacing-md);
+  }
+  
+  .enhanced-scroll-trigger {
+    margin: var(--spacing-sm);
+  }
+}
+
+@media (max-width: 1024px) {
+  .glass-card-responsive {
+    padding: var(--spacing-lg);
+    margin: var(--spacing-md);
+  }
+}
+
+@media (min-width: 1025px) {
+  .glass-card-responsive {
+    padding: var(--spacing-xl);
+    margin: var(--spacing-lg);
+  }
+}
+
 /* 🚀 DEMO PAGE STYLES */
 .phase-2-demo-page,
 .phase-3-demo-page,

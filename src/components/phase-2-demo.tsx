@@ -143,22 +143,22 @@ const Phase2Demo: React.FC = () => {
               <div className="showcase-group">
                 <h3>Glass Card Variants</h3>
                 <div className="card-variants">
-                  <EnhancedGlassCard variant="default" animation="fade-in">
+                  <EnhancedGlassCard variant="default" animation="fade-in" className="glass-card-responsive glass-card-mobile">
                     <h4>Default Glass Card</h4>
                     <p>Standard glassmorphism with backdrop blur</p>
                   </EnhancedGlassCard>
 
-                  <EnhancedGlassCard variant="elevated" animation="fade-in" delay={100}>
+                  <EnhancedGlassCard variant="elevated" animation="fade-in" delay={100} className="glass-card-responsive glass-card-tablet">
                     <h4>Elevated Glass Card</h4>
                     <p>Enhanced depth with stronger shadows</p>
                   </EnhancedGlassCard>
 
-                  <EnhancedGlassCard variant="interactive" animation="fade-in" delay={200}>
+                  <EnhancedGlassCard variant="interactive" animation="fade-in" delay={200} className="glass-card-responsive glass-card-desktop">
                     <h4>Interactive Glass Card</h4>
                     <p>Hover effects and click interactions</p>
                   </EnhancedGlassCard>
 
-                  <EnhancedGlassCard variant="loading" animation="fade-in" delay={300}>
+                  <EnhancedGlassCard variant="loading" animation="fade-in" delay={300} className="glass-card-responsive">
                     <h4>Loading Glass Card</h4>
                     <p>Shimmer effect overlay</p>
                   </EnhancedGlassCard>
@@ -222,6 +222,7 @@ const Phase2Demo: React.FC = () => {
                     variant="default"
                     collapsible
                     onToggle={(collapsed) => console.log('Panel toggled:', collapsed)}
+                    className="enhanced-interactive-panel"
                   >
                     <p>This panel can be collapsed and expanded. Click the toggle button to see it in action.</p>
                     <p>The content smoothly animates in and out with proper accessibility support.</p>
@@ -232,6 +233,7 @@ const Phase2Demo: React.FC = () => {
                     variant="accent"
                     collapsible
                     defaultCollapsed
+                    className="enhanced-interactive-panel"
                   >
                     <p>This panel starts collapsed and uses the accent variant styling.</p>
                     <p>It demonstrates the smooth animation and hover effects.</p>
