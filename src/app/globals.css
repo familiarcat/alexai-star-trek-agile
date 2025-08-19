@@ -7,6 +7,9 @@
 @import './lcars.css';
 @import './lcars-components.css';
 
+/* Import Modern Design System CSS */
+@import '../styles/modern-design-system.css';
+
 /* Global LCARS Font Application with High Specificity */
 * {
   font-family: 'Antonio', 'Arial Narrow', 'Avenir Next Condensed', sans-serif !important;

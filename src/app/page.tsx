@@ -287,6 +287,25 @@ export default function HomePage() {
           <ScalingIndicator />
         </div>
       </div>
+
+      {/* Modern UI Design System Showcase - LCARS Elbow Container */}
+      <div className="lcars-elbow-container">
+        <div className="lcars-elbow-header">MODERN UI DESIGN SYSTEM</div>
+        <div className="lcars-elbow-content">
+          <p className="lcars-text-secondary">2025 Design Trends & Crew Optimization</p>
+          <div className="functional-grid functional-grid-3">
+            <Link href="/phase-2-demo" className="functional-button functional-button-primary">
+              <span>🚀 PHASE 2 DEMO</span>
+            </Link>
+            <Link href="/phase-3-llm-optimization-demo" className="functional-button functional-button-success">
+              <span>🧠 LLM OPTIMIZATION</span>
+            </Link>
+            <Link href="/phase-4-final-integration-demo" className="functional-button functional-button-warning">
+              <span>🎯 PHASE 4 FINAL</span>
+            </Link>
+          </div>
+        </div>
+      </div>
     </div>
   );
 } 
