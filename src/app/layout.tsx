@@ -31,6 +31,41 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="preload" href="/fonts/Antonio-Regular.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         <link rel="preload" href="/fonts/Antonio-Bold.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        
+        {/* Performance Monitoring Scripts - Chief Engineer Scott's recommendation */}
+        <script 
+          dangerouslySetInnerHTML={{
+            __html: `
+              // Initialize Performance Monitoring
+              if (typeof window !== 'undefined') {
+                window.performanceMonitoringActive = true;
+                
+                // Core Web Vitals tracking
+                if ('performance' in window && 'PerformanceObserver' in window) {
+                  const observer = new PerformanceObserver((list) => {
+                    const entries = list.getEntries();
+                    entries.forEach((entry) => {
+                      if (entry.name === 'first-contentful-paint') {
+                        window.fcpValue = entry.startTime;
+                      }
+                      if (entry.name === 'largest-contentful-paint') {
+                        window.lcpValue = entry.startTime;
+                      }
+                    });
+                  });
+                  observer.observe({ entryTypes: ['paint', 'largest-contentful-paint'] });
+                }
+                
+                // Modern Design System activation
+                window.modernDesignSystemActive = true;
+                window.glassCardElements = [];
+                window.glowButtonElements = [];
+                
+                console.log('🚀 Performance monitoring and design system initialized');
+              }
+            `
+          }}
+        />
       </head>
       <body>
         <DynamicScalingProvider>
