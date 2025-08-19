@@ -1,0 +1,115 @@
+{
+  "source": "https://webflow.com/blog/web-design-trends-2025",
+  "date": "2025-01-19",
+  "trends": [
+    {
+      "name": "Futuristic, sci-fi gaming UI aesthetics",
+      "description": "Gaming UIs with sci-fi design aesthetic, glowing edges, holographic elements, complex motion graphics, 3D depth, intricate UI details, detailed microinteractions",
+      "keyFeatures": [
+        "Layered visual elements simulating advanced digital environments",
+        "Translucent panels and augmented reality-inspired experiences",
+        "Interactive components with cinematic fluidity",
+        "Electric blues, stark whites, and neon accents",
+        "3D-like depth and sophisticated microinteractions"
+      ],
+      "examples": [
+        "ChainGPT.org",
+        "Advanced gaming interfaces"
+      ],
+      "implementation": "GSAP, Three.js, WebGL, complex animations"
+    },
+    {
+      "name": "Window and shadow overlays",
+      "description": "Sophisticated evolution of visual communication, bridging digital interfaces and spatial representation",
+      "keyFeatures": [
+        "Photorealistic shadows mimicking natural light",
+        "Sense of depth and materiality",
+        "Organic, natural elements in digital spaces",
+        "Textured qualities of natural light and space",
+        "Sophisticated yet approachable digital spaces"
+      ],
+      "examples": [
+        "Daylight Computer website",
+        "Product design mockups"
+      ],
+      "implementation": "CSS shadows, SVG overlays, natural lighting simulation"
+    },
+    {
+      "name": "Glow effects",
+      "description": "Luminous aesthetics with sophisticated glows and light blooms creating depth and dynamic energy",
+      "keyFeatures": [
+        "Simulates light behavior on high-end displays",
+        "Borrows visual language from OLED technologies",
+        "Subtle attention drawing to interactive elements",
+        "Visual feedback for responsive websites",
+        "Range from subtle halos to dramatic blooms"
+      ],
+      "examples": [
+        "Modern web applications",
+        "High-end device interfaces"
+      ],
+      "implementation": "CSS box-shadow, SVG filters, GSAP animations"
+    },
+    {
+      "name": "Nostalgic, early web aesthetics",
+      "description": "Deliberate invocation of playful, slightly chaotic aesthetic of early web experiences",
+      "keyFeatures": [
+        "Bold animations and unexpected interactions",
+        "Digital spontaneity and human touch",
+        "Animated loaders and fun 404 pages",
+        "Konami codes and cursor interactions",
+        "Cultural pendulum stabilization"
+      ],
+      "examples": [
+        "Retro Nova World",
+        "Early web art and interactivity"
+      ],
+      "implementation": "GSAP, Rive, Spline, playful animations"
+    },
+    {
+      "name": "Sophisticated, animated scrolls",
+      "description": "Evolution of scrolling techniques transforming mundane navigation into dynamic storytelling",
+      "keyFeatures": [
+        "Scroll-based animations and interactions",
+        "Dynamic content revelation and visual narratives",
+        "Multi-layered visual landscapes",
+        "Active user participation in content revelation",
+        "Immersive data and product visualizations"
+      ],
+      "examples": [
+        "This Is Onward",
+        "Data visualization websites"
+      ],
+      "implementation": "Three.js, GSAP, scroll-triggered animations"
+    },
+    {
+      "name": "AI-generated imagery",
+      "description": "AI-powered image creation ranging from prototyping to production-ready imagery",
+      "keyFeatures": [
+        "Detailed, stylized illustrations",
+        "Hyper-realistic product visualizations",
+        "Creative exploration and concept development",
+        "Integration with traditional design workflows",
+        "Orchestration of visual generation"
+      ],
+      "examples": [
+        "Midjourney",
+        "Visual Electric",
+        "Pentagram designs"
+      ],
+      "implementation": "AI image generation tools, creative AI workflows"
+    }
+  ],
+  "technology": {
+    "tools": [
+      "GSAP",
+      "Three.js",
+      "WebGL",
+      "Rive",
+      "Spline",
+      "LottieFiles"
+    ],
+    "focus": "Performance, interactivity, visual design boundaries",
+    "challenge": "Balancing immersive experiences with performance optimization"
+  }
+}

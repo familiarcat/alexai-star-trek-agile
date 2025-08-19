@@ -1,0 +1,30 @@
+{
+  "accessibility": [
+    "WCAG 2.1 AA compliance",
+    "High contrast ratios",
+    "Keyboard navigation support",
+    "Screen reader compatibility",
+    "Color-blind friendly palettes"
+  ],
+  "performance": [
+    "Core Web Vitals optimization",
+    "Lazy loading and code splitting",
+    "Image optimization and WebP support",
+    "Minimal JavaScript bundles",
+    "Progressive enhancement"
+  ],
+  "responsive": [
+    "Mobile-first design approach",
+    "Flexible grid systems",
+    "Adaptive typography",
+    "Touch-friendly interfaces",
+    "Cross-device consistency"
+  ],
+  "modern": [
+    "Glassmorphism and neumorphism",
+    "Micro-interactions and animations",
+    "Dark mode support",
+    "Variable fonts and custom properties",
+    "CSS Grid and Flexbox layouts"
+  ]
+}

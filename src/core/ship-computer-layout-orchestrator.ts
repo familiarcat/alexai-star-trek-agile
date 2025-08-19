@@ -30,6 +30,7 @@ export interface LayoutStrategy {
   name: string;
   description: string;
   priority: number;
+  priorities: string[];
   crewConsensus: number;
   implementationComplexity: 'low' | 'medium' | 'high';
   userImpact: 'low' | 'medium' | 'high';
@@ -232,14 +233,24 @@ export class ShipComputerLayoutOrchestrator {
   ): Promise<LayoutAnalysis> {
     console.log(`🧠 Ship Computer: Analyzing layout for ${pageId}...`);
 
+    // Safety check for required parameters
+    if (!pageId) {
+      throw new Error('Ship Computer Error: pageId is required for layout analysis');
+    }
+
+    // Ensure userBehavior and contentContext have default values
+    const safeUserBehavior = userBehavior || {};
+    const safeContentContext = contentContext || {};
+    const safeCurrentLayout = currentLayout || {};
+
     // 1. Captain Picard - Strategic Layout Analysis
-    const strategicAnalysis = await this.captainPicardStrategicAnalysis(pageId, userBehavior, contentContext);
+    const strategicAnalysis = await this.captainPicardStrategicAnalysis(pageId, safeUserBehavior, safeContentContext);
     
     // 2. Commander Data - Technical Performance Analysis
-    const technicalAnalysis = await this.commanderDataTechnicalAnalysis(pageId, currentLayout);
+    const technicalAnalysis = await this.commanderDataTechnicalAnalysis(pageId, safeCurrentLayout);
     
     // 3. Counselor Troi - User Experience Analysis
-    const uxAnalysis = await this.counselorTroiUXAnalysis(pageId, userBehavior, contentContext);
+    const uxAnalysis = await this.counselorTroiUXAnalysis(pageId, safeUserBehavior, safeContentContext);
     
     // 4. Chief Engineer Scott - Implementation Feasibility
     const implementationAnalysis = await this.chiefEngineerScottImplementation(pageId, strategicAnalysis, technicalAnalysis);
@@ -251,38 +262,45 @@ export class ShipComputerLayoutOrchestrator {
     const securityAnalysis = await this.lieutenantWorfSecurity(pageId, strategicAnalysis);
     
     // 7. Quark - Business Intelligence
-    const businessAnalysis = await this.quarkBusinessIntelligence(pageId, userBehavior, contentContext);
+    const businessAnalysis = await this.quarkBusinessIntelligence(pageId, safeUserBehavior, safeContentContext);
     
-    // 8. Observation Lounge - Collective Consensus
-    const consensusAnalysis = await this.observationLoungeConsensus(
-      pageId,
-      strategicAnalysis,
-      technicalAnalysis,
-      uxAnalysis,
-      implementationAnalysis,
-      optimizationAnalysis,
-      securityAnalysis,
-      businessAnalysis
-    );
+    try {
+      // 8. Observation Lounge - Collective Consensus
+      const consensusAnalysis = await this.observationLoungeConsensus(
+        pageId,
+        strategicAnalysis,
+        technicalAnalysis,
+        uxAnalysis,
+        implementationAnalysis,
+        optimizationAnalysis,
+        securityAnalysis,
+        businessAnalysis
+      );
 
-    // Create comprehensive layout analysis
-    const layoutAnalysis: LayoutAnalysis = {
-      pageId,
-      userIntent: this.synthesizeUserIntent(userBehavior, contentContext),
-      layoutStrategy: consensusAnalysis.strategy,
-      componentHierarchy: consensusAnalysis.componentHierarchy,
-      crewConsensus: consensusAnalysis.consensusScore,
-      optimizationScore: consensusAnalysis.optimizationScore,
-      implementationPlan: consensusAnalysis.implementationPlan
-    };
+      // Create comprehensive layout analysis
+      const layoutAnalysis: LayoutAnalysis = {
+        pageId,
+        userIntent: this.synthesizeUserIntent(safeUserBehavior, safeContentContext),
+        layoutStrategy: consensusAnalysis.strategy,
+        componentHierarchy: consensusAnalysis.componentHierarchy,
+        crewConsensus: consensusAnalysis.consensusScore,
+        optimizationScore: consensusAnalysis.optimizationScore,
+        implementationPlan: consensusAnalysis.implementationPlan
+      };
 
-    // Store and queue for optimization
-    this.currentLayouts.set(pageId, layoutAnalysis);
-    this.layoutOptimizationQueue.push(layoutAnalysis);
+      // Store and queue for optimization
+      this.currentLayouts.set(pageId, layoutAnalysis);
+      this.layoutOptimizationQueue.push(layoutAnalysis);
 
-    console.log(`✅ Ship Computer: Layout analysis complete for ${pageId} - Score: ${layoutAnalysis.optimizationScore}/100`);
-    
-    return layoutAnalysis;
+      console.log(`✅ Ship Computer: Layout analysis complete for ${pageId} - Score: ${layoutAnalysis.optimizationScore}/100`);
+      
+      return layoutAnalysis;
+    } catch (error) {
+      console.error(`❌ Ship Computer Error: Layout analysis failed for ${pageId}:`, error);
+      
+      // Return a fallback layout analysis
+      return this.createFallbackLayoutAnalysis(pageId, error);
+    }
   }
 
   /**
@@ -546,6 +564,12 @@ export class ShipComputerLayoutOrchestrator {
    */
   private createComponentHierarchy(strategy: any, recommendations: any[]): ComponentLayout[] {
     const hierarchy: ComponentLayout[] = [];
+
+    // Safety check for strategy and priorities
+    if (!strategy || !strategy.priorities || !Array.isArray(strategy.priorities)) {
+      console.warn('Ship Computer: Invalid strategy or priorities, using default layout');
+      return this.createDefaultComponentHierarchy();
+    }
 
     // Navigation components (highest priority)
     if (strategy.priorities.includes('navigation')) {
@@ -1015,16 +1039,18 @@ export class ShipComputerLayoutOrchestrator {
   }
 
   private assessTechnicalFeasibility(strategic: any, technical: any): string {
+    if (!technical?.constraints || !Array.isArray(technical.constraints)) return 'high';
     if (technical.constraints.length > 2) return 'low';
     if (technical.constraints.length > 0) return 'medium';
     return 'high';
   }
 
   private estimateResourceRequirements(strategic: any): any {
+    const prioritiesLength = strategic?.priorities?.length || 1;
     return {
-      development: strategic.priorities.length * 2, // days
-      testing: strategic.priorities.length * 1,    // days
-      deployment: 1                                // day
+      development: prioritiesLength * 2, // days
+      testing: prioritiesLength * 1,    // days
+      deployment: 1                     // day
     };
   }
 
@@ -1034,8 +1060,8 @@ export class ShipComputerLayoutOrchestrator {
 
   private applyOptimizationAlgorithms(strategic: any, technical: any, ux: any): string[] {
     const algorithms = ['layout-optimization', 'performance-enhancement'];
-    if (technical.constraints.includes('slow-loading')) algorithms.push('lazy-loading');
-    if (ux.userNeeds.includes('efficiency')) algorithms.push('workflow-optimization');
+    if (technical?.constraints?.includes('slow-loading')) algorithms.push('lazy-loading');
+    if (ux?.userNeeds?.includes('efficiency')) algorithms.push('workflow-optimization');
     return algorithms;
   }
 
@@ -1072,7 +1098,7 @@ export class ShipComputerLayoutOrchestrator {
   private defineAccessControl(security: any): any {
     return {
       roles: ['user', 'admin'],
-      permissions: security.includes('access-control') ? ['read', 'write'] : ['read']
+      permissions: Array.isArray(security) && security.includes('access-control') ? ['read', 'write'] : ['read']
     };
   }
 
@@ -1100,29 +1126,183 @@ export class ShipComputerLayoutOrchestrator {
   }
 
   private collectCrewRecommendations(analyses: any[]): any[] {
-    return analyses.map(analysis => ({
-      crewMember: analysis.crewMember,
-      recommendations: analysis.recommendations || [],
-      priority: analysis.priority || 1
-    }));
+    if (!Array.isArray(analyses)) {
+      console.warn('Ship Computer: Invalid analyses array, using empty array');
+      return [];
+    }
+    
+    return analyses
+      .filter(analysis => analysis && typeof analysis === 'object')
+      .map(analysis => ({
+        crewMember: analysis.crewMember || 'unknown',
+        recommendations: analysis.recommendations || [],
+        priority: analysis.priority || 1
+      }));
   }
 
   private calculateConsensusScore(recommendations: any[]): number {
-    if (recommendations.length === 0) return 0;
-    const totalPriority = recommendations.reduce((sum, r) => sum + r.priority, 0);
-    return totalPriority / recommendations.length;
+    if (!Array.isArray(recommendations) || recommendations.length === 0) return 0.5;
+    
+    const validRecommendations = recommendations.filter(r => r && typeof r === 'object' && typeof r.priority === 'number');
+    if (validRecommendations.length === 0) return 0.5;
+    
+    const totalPriority = validRecommendations.reduce((sum, r) => sum + (r.priority || 1), 0);
+    return Math.min(1, Math.max(0, totalPriority / validRecommendations.length));
   }
 
   private synthesizeFinalStrategy(crewRecommendations: any[], consensusScore: number): LayoutStrategy {
+    // Extract priorities from crew recommendations
+    const priorities = this.extractPrioritiesFromRecommendations(crewRecommendations);
+    
     return {
       id: `strategy-${Date.now()}`,
       name: 'Crew-Consensus Layout Strategy',
       description: 'Intelligent layout strategy based on crew consensus',
       priority: Math.round(consensusScore * 10),
+      priorities: priorities,
       crewConsensus: consensusScore,
       implementationComplexity: consensusScore > 0.7 ? 'low' : consensusScore > 0.4 ? 'medium' : 'high',
       userImpact: 'high',
       technicalFeasibility: consensusScore > 0.6 ? 'high' : consensusScore > 0.3 ? 'medium' : 'low'
+    };
+  }
+
+  /**
+   * Extract layout priorities from crew recommendations
+   */
+  private extractPrioritiesFromRecommendations(crewRecommendations: any[]): string[] {
+    const priorities = new Set<string>();
+    
+    // Default priorities that should always be included
+    priorities.add('navigation');
+    priorities.add('content');
+    
+    // Extract priorities from crew recommendations
+    if (Array.isArray(crewRecommendations)) {
+      crewRecommendations.forEach(recommendation => {
+        if (recommendation && recommendation.recommendation && typeof recommendation.recommendation === 'string') {
+          const rec = recommendation.recommendation.toLowerCase();
+          if (rec.includes('action') || rec.includes('button') || rec.includes('cta')) {
+            priorities.add('actions');
+          }
+          if (rec.includes('info') || rec.includes('data') || rec.includes('metrics')) {
+            priorities.add('information');
+          }
+          if (rec.includes('interaction') || rec.includes('form') || rec.includes('input')) {
+            priorities.add('interaction');
+          }
+        }
+      });
+    }
+    
+    return Array.from(priorities);
+  }
+
+  /**
+   * Create default component hierarchy when strategy is invalid
+   */
+  private createDefaultComponentHierarchy(): ComponentLayout[] {
+    return [
+      {
+        id: 'default-navigation',
+        type: 'navigation',
+        priority: 1,
+        position: 'top',
+        size: 'full',
+        visibility: 'always',
+        userIntentAlignment: 0.8,
+        crewRecommendations: [],
+        responsiveConstraints: {
+          minWidth: 320,
+          maxWidth: 1920,
+          minHeight: 60,
+          maxHeight: 80,
+          overflow: 'visible',
+          flexShrink: 0,
+          flexGrow: 0
+        },
+        boundaryManagement: {
+          preventOverflow: true,
+          maxScreenPercentage: 100,
+          responsiveBreakpoints: {
+            mobile: { minWidth: 320, maxWidth: 375, minHeight: 60, maxHeight: 80, overflow: 'auto', flexShrink: 0, flexGrow: 0 },
+            tablet: { minWidth: 768, maxWidth: 1024, minHeight: 60, maxHeight: 80, overflow: 'auto', flexShrink: 0, flexGrow: 0 },
+            desktop: { minWidth: 1024, maxWidth: 1920, minHeight: 60, maxHeight: 80, overflow: 'auto', flexShrink: 0, flexGrow: 0 }
+          },
+          overflowHandling: 'wrap'
+        }
+      },
+      {
+        id: 'default-content',
+        type: 'content',
+        priority: 2,
+        position: 'center',
+        size: 'large',
+        visibility: 'always',
+        userIntentAlignment: 0.7,
+        crewRecommendations: [],
+        responsiveConstraints: {
+          minWidth: 300,
+          maxWidth: 1600,
+          minHeight: 400,
+          maxHeight: 800,
+          overflow: 'auto',
+          flexShrink: 1,
+          flexGrow: 1
+        },
+        boundaryManagement: {
+          preventOverflow: true,
+          maxScreenPercentage: 90,
+          responsiveBreakpoints: {
+            mobile: { minWidth: 300, maxWidth: 375, minHeight: 400, maxHeight: 600, overflow: 'auto', flexShrink: 1, flexGrow: 1 },
+            tablet: { minWidth: 600, maxWidth: 900, minHeight: 400, maxHeight: 700, overflow: 'auto', flexShrink: 1, flexGrow: 1 },
+            desktop: { minWidth: 800, maxWidth: 1600, minHeight: 400, maxHeight: 800, overflow: 'auto', flexShrink: 1, flexGrow: 1 }
+          },
+          overflowHandling: 'scroll'
+        }
+      }
+    ];
+  }
+
+  /**
+   * Create fallback layout analysis when main analysis fails
+   */
+  private createFallbackLayoutAnalysis(pageId: string, error: any): LayoutAnalysis {
+    console.log(`🔄 Ship Computer: Creating fallback layout for ${pageId} due to error:`, error.message);
+    
+    return {
+      pageId,
+      userIntent: {
+        primary: 'explore-platform',
+        secondary: ['find-information'],
+        urgency: 'low',
+        complexity: 'simple',
+        context: 'general',
+        emotionalState: 'focused',
+        userRole: 'general'
+      },
+      layoutStrategy: {
+        id: `fallback-${Date.now()}`,
+        name: 'Fallback Layout Strategy',
+        description: 'Safe fallback layout when analysis fails',
+        priority: 1,
+        priorities: ['navigation', 'content'],
+        crewConsensus: 0.5,
+        implementationComplexity: 'low',
+        userImpact: 'medium',
+        technicalFeasibility: 'high'
+      },
+      componentHierarchy: this.createDefaultComponentHierarchy(),
+      crewConsensus: 0.5,
+      optimizationScore: 50,
+      implementationPlan: [{
+        step: 1,
+        description: 'Implement fallback layout',
+        crewResponsible: 'ship-computer',
+        estimatedEffort: 'low',
+        dependencies: [],
+        successCriteria: ['page loads without errors', 'basic navigation available']
+      }]
     };
   }
 

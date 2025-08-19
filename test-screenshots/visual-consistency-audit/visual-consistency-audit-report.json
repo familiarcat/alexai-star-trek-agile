@@ -1,22 +1,19 @@
 {
-  "timestamp": "2025-08-17T23:29:10.000Z",
+  "timestamp": "2025-08-19T08:29:23.322Z",
   "summary": {
     "totalPages": 15,
-    "consistencyIssues": 246,
+    "consistencyIssues": 116,
     "criticalIssues": 0,
-    "moderateIssues": 241,
-    "minorIssues": 5
+    "moderateIssues": 107,
+    "minorIssues": 9
   },
   "pages": [
     {
       "pageName": "main-dashboard",
       "url": "http://localhost:3000/",
       "description": "Main dashboard page",
-      "screenshots": {
-        "desktop": "test-screenshots/visual-consistency-audit/main-dashboard-desktop.png",
-        "mobile": "test-screenshots/visual-consistency-audit/main-dashboard-mobile.png"
-      },
-      "timestamp": "2025-08-17T23:29:16.181Z",
+      "error": "Navigation timeout of 30000 ms exceeded",
+      "timestamp": "2025-08-19T08:29:57.096Z",
       "issues": 16,
       "criticalIssues": 0,
       "moderateIssues": 15,
@@ -26,11 +23,8 @@
       "pageName": "tasks",
       "url": "http://localhost:3000/tasks",
       "description": "Task management page",
-      "screenshots": {
-        "desktop": "test-screenshots/visual-consistency-audit/tasks-desktop.png",
-        "mobile": "test-screenshots/visual-consistency-audit/tasks-mobile.png"
-      },
-      "timestamp": "2025-08-17T23:29:21.187Z",
+      "error": "Navigation timeout of 30000 ms exceeded",
+      "timestamp": "2025-08-19T08:30:27.994Z",
       "issues": 11,
       "criticalIssues": 0,
       "moderateIssues": 10,
@@ -40,11 +34,8 @@
       "pageName": "weekly-execution",
       "url": "http://localhost:3000/weekly-execution",
       "description": "Weekly execution planning",
-      "screenshots": {
-        "desktop": "test-screenshots/visual-consistency-audit/weekly-execution-desktop.png",
-        "mobile": "test-screenshots/visual-consistency-audit/weekly-execution-mobile.png"
-      },
-      "timestamp": "2025-08-17T23:29:25.884Z",
+      "error": "Navigation timeout of 30000 ms exceeded",
+      "timestamp": "2025-08-19T08:31:00.162Z",
       "issues": 7,
       "criticalIssues": 0,
       "moderateIssues": 6,
@@ -54,11 +45,8 @@
       "pageName": "projects",
       "url": "http://localhost:3000/projects",
       "description": "Project management",
-      "screenshots": {
-        "desktop": "test-screenshots/visual-consistency-audit/projects-desktop.png",
-        "mobile": "test-screenshots/visual-consistency-audit/projects-mobile.png"
-      },
-      "timestamp": "2025-08-17T23:29:30.624Z",
+      "error": "Navigation timeout of 30000 ms exceeded",
+      "timestamp": "2025-08-19T08:31:31.680Z",
       "issues": 15,
       "criticalIssues": 0,
       "moderateIssues": 15,
@@ -68,11 +56,8 @@
       "pageName": "analytics",
       "url": "http://localhost:3000/analytics",
       "description": "Analytics dashboard",
-      "screenshots": {
-        "desktop": "test-screenshots/visual-consistency-audit/analytics-desktop.png",
-        "mobile": "test-screenshots/visual-consistency-audit/analytics-mobile.png"
-      },
-      "timestamp": "2025-08-17T23:29:35.276Z",
+      "error": "Navigation timeout of 30000 ms exceeded",
+      "timestamp": "2025-08-19T08:32:06.055Z",
       "issues": 5,
       "criticalIssues": 0,
       "moderateIssues": 4,
@@ -82,53 +67,41 @@
       "pageName": "workflow-management",
       "url": "http://localhost:3000/workflow-management",
       "description": "Workflow management",
-      "screenshots": {
-        "desktop": "test-screenshots/visual-consistency-audit/workflow-management-desktop.png",
-        "mobile": "test-screenshots/visual-consistency-audit/workflow-management-mobile.png"
-      },
-      "timestamp": "2025-08-17T23:29:40.547Z",
-      "issues": 122,
+      "error": "Navigation timeout of 30000 ms exceeded",
+      "timestamp": "2025-08-19T08:32:38.479Z",
+      "issues": 8,
       "criticalIssues": 0,
-      "moderateIssues": 122,
+      "moderateIssues": 8,
       "minorIssues": 0
     },
     {
       "pageName": "observation-lounge",
       "url": "http://localhost:3000/observation-lounge",
       "description": "Crew coordination",
-      "screenshots": {
-        "desktop": "test-screenshots/visual-consistency-audit/observation-lounge-desktop.png",
-        "mobile": "test-screenshots/visual-consistency-audit/observation-lounge-mobile.png"
-      },
-      "timestamp": "2025-08-17T23:29:45.285Z",
-      "issues": 10,
+      "error": "Navigation timeout of 30000 ms exceeded",
+      "timestamp": "2025-08-19T08:33:10.646Z",
+      "issues": 11,
       "criticalIssues": 0,
       "moderateIssues": 10,
-      "minorIssues": 0
+      "minorIssues": 1
     },
     {
       "pageName": "crew",
       "url": "http://localhost:3000/crew",
       "description": "Crew management",
-      "screenshots": {
-        "desktop": "test-screenshots/visual-consistency-audit/crew-desktop.png",
-        "mobile": "test-screenshots/visual-consistency-audit/crew-mobile.png"
-      },
-      "timestamp": "2025-08-17T23:29:50.276Z",
-      "issues": 21,
+      "error": "Navigation timeout of 30000 ms exceeded",
+      "timestamp": "2025-08-19T08:33:44.680Z",
+      "issues": 2,
       "criticalIssues": 0,
-      "moderateIssues": 21,
-      "minorIssues": 0
+      "moderateIssues": 1,
+      "minorIssues": 1
     },
     {
       "pageName": "workflow",
       "url": "http://localhost:3000/workflow",
       "description": "Workflow board",
-      "screenshots": {
-        "desktop": "test-screenshots/visual-consistency-audit/workflow-desktop.png",
-        "mobile": "test-screenshots/visual-consistency-audit/workflow-mobile.png"
-      },
-      "timestamp": "2025-08-17T23:29:54.676Z",
+      "error": "Navigation timeout of 30000 ms exceeded",
+      "timestamp": "2025-08-19T08:34:40.727Z",
       "issues": 1,
       "criticalIssues": 0,
       "moderateIssues": 1,
@@ -138,11 +111,8 @@
       "pageName": "project-generator",
       "url": "http://localhost:3000/project-generator",
       "description": "Project generation",
-      "screenshots": {
-        "desktop": "test-screenshots/visual-consistency-audit/project-generator-desktop.png",
-        "mobile": "test-screenshots/visual-consistency-audit/project-generator-mobile.png"
-      },
-      "timestamp": "2025-08-17T23:29:58.959Z",
+      "error": "Navigation timeout of 30000 ms exceeded",
+      "timestamp": "2025-08-19T08:35:12.311Z",
       "issues": 4,
       "criticalIssues": 0,
       "moderateIssues": 4,
@@ -152,11 +122,8 @@
       "pageName": "project-review",
       "url": "http://localhost:3000/project-review",
       "description": "Project review",
-      "screenshots": {
-        "desktop": "test-screenshots/visual-consistency-audit/project-review-desktop.png",
-        "mobile": "test-screenshots/visual-consistency-audit/project-review-mobile.png"
-      },
-      "timestamp": "2025-08-17T23:30:03.581Z",
+      "error": "Navigation timeout of 30000 ms exceeded",
+      "timestamp": "2025-08-19T08:35:52.424Z",
       "issues": 15,
       "criticalIssues": 0,
       "moderateIssues": 15,
@@ -166,25 +133,19 @@
       "pageName": "revenue-workflows",
       "url": "http://localhost:3000/revenue-workflows",
       "description": "Revenue workflow management",
-      "screenshots": {
-        "desktop": "test-screenshots/visual-consistency-audit/revenue-workflows-desktop.png",
-        "mobile": "test-screenshots/visual-consistency-audit/revenue-workflows-mobile.png"
-      },
-      "timestamp": "2025-08-17T23:30:08.309Z",
-      "issues": 6,
+      "error": "Navigation timeout of 30000 ms exceeded",
+      "timestamp": "2025-08-19T08:36:23.281Z",
+      "issues": 7,
       "criticalIssues": 0,
       "moderateIssues": 6,
-      "minorIssues": 0
+      "minorIssues": 1
     },
     {
       "pageName": "ships-computer",
       "url": "http://localhost:3000/ships-computer",
       "description": "Ship computer interface",
-      "screenshots": {
-        "desktop": "test-screenshots/visual-consistency-audit/ships-computer-desktop.png",
-        "mobile": "test-screenshots/visual-consistency-audit/ships-computer-mobile.png"
-      },
-      "timestamp": "2025-08-17T23:30:13.005Z",
+      "error": "Navigation timeout of 30000 ms exceeded",
+      "timestamp": "2025-08-19T08:36:54.199Z",
       "issues": 4,
       "criticalIssues": 0,
       "moderateIssues": 3,
@@ -194,11 +155,8 @@
       "pageName": "youtube-analyzer",
       "url": "http://localhost:3000/youtube-analyzer",
       "description": "YouTube analysis",
-      "screenshots": {
-        "desktop": "test-screenshots/visual-consistency-audit/youtube-analyzer-desktop.png",
-        "mobile": "test-screenshots/visual-consistency-audit/youtube-analyzer-mobile.png"
-      },
-      "timestamp": "2025-08-17T23:30:17.667Z",
+      "error": "Navigation timeout of 30000 ms exceeded",
+      "timestamp": "2025-08-19T08:37:24.685Z",
       "issues": 5,
       "criticalIssues": 0,
       "moderateIssues": 5,
@@ -208,15 +166,12 @@
       "pageName": "n8n-integration",
       "url": "http://localhost:3000/n8n-integration",
       "description": "N8N integration",
-      "screenshots": {
-        "desktop": "test-screenshots/visual-consistency-audit/n8n-integration-desktop.png",
-        "mobile": "test-screenshots/visual-consistency-audit/n8n-integration-mobile.png"
-      },
-      "timestamp": "2025-08-17T23:30:21.977Z",
-      "issues": 4,
+      "error": "Navigation timeout of 30000 ms exceeded",
+      "timestamp": "2025-08-19T08:37:56.921Z",
+      "issues": 5,
       "criticalIssues": 0,
       "moderateIssues": 4,
-      "minorIssues": 0
+      "minorIssues": 1
     }
   ],
   "consistencyIssues": [
@@ -397,9 +352,9 @@
           "24px",
           "42px",
           "21px",
-          "23.8203px",
+          "16px",
+          "12px",
           "30px",
-          "22.9816px",
           "60px",
           "18px",
           "43.2px"
@@ -523,18 +478,18 @@
       "page": "tasks",
       "details": {
         "expected": "6-8 font sizes maximum",
-        "found": 12,
+        "found": 11,
         "sizes": [
           "24px",
           "42px",
           "21px",
-          "22.44px",
+          "16px",
+          "12px",
           "19.2px",
           "16.8px",
           "21.6px",
           "14.4px",
-          "12px",
-          "17.952px"
+          "72px"
         ]
       }
     },
@@ -611,18 +566,18 @@
       "page": "weekly-execution",
       "details": {
         "expected": "6-8 font sizes maximum",
-        "found": 15,
+        "found": 13,
         "sizes": [
           "24px",
           "42px",
           "21px",
-          "21.9624px",
+          "16px",
+          "12px",
           "19.2px",
           "16.8px",
           "21.6px",
           "14.4px",
-          "12px",
-          "17.5699px"
+          "72px"
         ]
       }
     },
@@ -845,18 +800,18 @@
       "page": "analytics",
       "details": {
         "expected": "6-8 font sizes maximum",
-        "found": 12,
+        "found": 11,
         "sizes": [
           "24px",
           "42px",
           "21px",
-          "21.9538px",
+          "16px",
+          "12px",
           "19.2px",
           "16.8px",
           "21.6px",
           "14.4px",
-          "12px",
-          "17.563px"
+          "72px"
         ]
       }
     },
@@ -935,1260 +890,6 @@
         "expected": "rgb(255, 128, 0)",
         "found": "rgb(107, 107, 107)",
         "elementIndex": 7
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 8
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 9
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 10
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 11
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 12
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 13
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 14
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 15
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 16
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 17
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 18
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 19
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 20
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 21
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 22
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 23
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 24
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 25
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 26
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 27
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 28
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 29
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 30
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 31
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 32
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 33
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 34
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 35
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 36
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 37
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 38
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 39
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 40
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 41
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 42
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 43
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 44
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 45
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 46
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 47
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 48
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 49
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 50
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 51
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 52
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 53
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 54
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 55
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 56
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 57
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 58
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 59
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 60
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 61
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 62
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 63
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 64
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 65
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 66
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 67
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 68
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 69
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 70
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 71
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 72
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 73
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 74
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 75
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 76
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 77
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 78
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 79
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 80
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 81
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 82
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 83
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 84
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 85
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 86
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 87
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 88
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 89
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 90
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 91
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 92
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 93
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 94
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 95
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 96
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 97
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 98
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 99
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 100
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 101
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 102
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 103
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 104
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 105
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 106
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 107
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 108
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 109
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 110
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 111
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 112
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 113
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 114
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 115
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 116
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 117
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 118
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 119
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 120
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "workflow-management",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 121
       }
     },
     {
@@ -2313,224 +1014,31 @@
       }
     },
     {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "crew",
+      "type": "minor",
+      "category": "layout",
+      "description": "Too many different font sizes detected",
+      "page": "observation-lounge",
       "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 1
+        "expected": "6-8 font sizes maximum",
+        "found": 9,
+        "sizes": [
+          "24px",
+          "42px",
+          "21px",
+          "16px",
+          "12px",
+          "76.8px",
+          "55.2px",
+          "43.2px",
+          "19.2px"
+        ]
       }
     },
     {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "crew",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 2
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "crew",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 3
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "crew",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 4
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "crew",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 5
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "crew",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 6
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "crew",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 7
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "crew",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 8
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "crew",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 9
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "crew",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 10
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "crew",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 11
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "crew",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 12
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "crew",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 13
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "crew",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 14
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "crew",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 15
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "crew",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 16
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "crew",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 17
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "crew",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 18
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "crew",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 19
-      }
-    },
-    {
-      "type": "moderate",
-      "category": "functionality",
-      "description": "Inconsistent button styling",
-      "page": "crew",
-      "details": {
-        "expected": "rgb(255, 128, 0)",
-        "found": "rgb(107, 107, 107)",
-        "elementIndex": 20
-      }
+      "type": "minor",
+      "category": "forms",
+      "description": "No form elements found",
+      "page": "crew"
     },
     {
       "type": "moderate",
@@ -2539,10 +1047,8 @@
       "page": "crew",
       "details": {
         "expected": "At least 3 LCARS colors",
-        "found": 1,
-        "colors": [
-          "rgb(0, 255, 0)"
-        ]
+        "found": 0,
+        "colors": []
       }
     },
     {
@@ -2832,6 +1338,27 @@
       }
     },
     {
+      "type": "minor",
+      "category": "layout",
+      "description": "Too many different font sizes detected",
+      "page": "revenue-workflows",
+      "details": {
+        "expected": "6-8 font sizes maximum",
+        "found": 9,
+        "sizes": [
+          "24px",
+          "42px",
+          "21px",
+          "16px",
+          "12px",
+          "76.8px",
+          "55.2px",
+          "43.2px",
+          "21.6px"
+        ]
+      }
+    },
+    {
       "type": "moderate",
       "category": "functionality",
       "description": "Inconsistent button styling",
@@ -2876,13 +1403,13 @@
           "24px",
           "42px",
           "21px",
+          "16px",
+          "12px",
           "60px",
           "28.8px",
           "36px",
           "26.4px",
-          "21.6px",
-          "43.2px",
-          "31.2px"
+          "21.6px"
         ]
       }
     },
@@ -2984,6 +1511,27 @@
         "found": 0,
         "colors": []
       }
+    },
+    {
+      "type": "minor",
+      "category": "layout",
+      "description": "Too many different font sizes detected",
+      "page": "n8n-integration",
+      "details": {
+        "expected": "6-8 font sizes maximum",
+        "found": 9,
+        "sizes": [
+          "24px",
+          "42px",
+          "21px",
+          "16px",
+          "12px",
+          "76.8px",
+          "55.2px",
+          "43.2px",
+          "21.6px"
+        ]
+      }
     }
   ],
   "recommendations": [
@@ -2995,6 +1543,16 @@
         "Create consistent navigation component",
         "Implement standardized color scheme",
         "Ensure consistent spacing and typography"
+      ]
+    },
+    {
+      "category": "Forms",
+      "priority": "Medium",
+      "description": "Standardize form element styling",
+      "actions": [
+        "Create reusable form components",
+        "Implement consistent input styling",
+        "Standardize button appearance"
       ]
     },
     {

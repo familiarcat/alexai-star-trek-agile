@@ -314,7 +314,7 @@ export function EnhancedLCARSLayout({ children }: { children: React.ReactNode })
       const missionName = `Mission ${Date.now()}`;
       
       // Start coordination session
-      const coordination = await actions.addCoordinationSession(
+      await actions.addCoordinationSession(
         `mission-${Date.now()}`,
         {
           mission: missionName,
@@ -327,7 +327,8 @@ export function EnhancedLCARSLayout({ children }: { children: React.ReactNode })
       // Update current mission
       actions.updateData('currentMission', missionName);
       
-      console.log('🚀 New mission started:', coordination.id);
+      // Log mission start
+      console.log('🚀 New mission started:', missionName);
       
     } catch (error) {
       console.error('❌ Failed to start new mission:', error);

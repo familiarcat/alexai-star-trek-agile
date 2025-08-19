@@ -84,7 +84,7 @@ interface LCARSContextType {
     updateData: (key: string, data: any) => void;
     updateUIState: (uiState: Partial<LCARSDataState['ui']>) => void;
     syncN8nWorkflows: () => Promise<void>;
-    addMemoryEntry: (entry: any) => Promise<void>;
+    addMemoryEntry: (entry: any) => Promise<any>;
     clearCache: (key: string) => void;
     resetState: () => void;
   };
@@ -176,8 +176,13 @@ function lcarsReducer(state: LCARSDataState, action: LCARSAction): LCARSDataStat
       workflows.completed = workflows.completed.filter(id => id !== workflowId);
       workflows.failed = workflows.failed.filter(id => id !== workflowId);
       
-      // Add to new status array
-      workflows[status as keyof typeof workflows].push(workflowId);
+      // Add to new status array with proper type checking
+      if (status === 'active' || status === 'pending' || status === 'completed' || status === 'failed') {
+        workflows[status].push(workflowId);
+      } else {
+        console.warn(`Invalid workflow status: ${status}, defaulting to pending`);
+        workflows.pending.push(workflowId);
+      }
       
       return {
         ...state,
@@ -271,7 +276,7 @@ export function LCARSDataProvider({ children }: { children: ReactNode }) {
       });
 
       // Initialize crew members
-      const crewMembers = systemStatus.crewMembers || [];
+      const crewMembers = Array.isArray(systemStatus.crewMembers) ? systemStatus.crewMembers : [];
       const crewStatus: Record<string, 'active' | 'busy' | 'offline'> = {};
       crewMembers.forEach(member => {
         crewStatus[member] = 'active';

@@ -1,0 +1,160 @@
+{
+  "pages": [
+    {
+      "name": "workflow-project-manager-analysis-analytics-2025-08-18T00-04-32-222Z",
+      "artboards": [
+        {
+          "name": "workflow-project-manager-analysis-analytics-2025-08-18T00-04-32-222Z",
+          "frame": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          },
+          "layers": [
+            {
+              "type": "rectangle",
+              "name": "Background",
+              "frame": {
+                "x": 0,
+                "y": 0,
+                "width": 1920,
+                "height": 1080
+              },
+              "style": {
+                "fills": [
+                  {
+                    "color": "#1a1a1a"
+                  }
+                ]
+              }
+            },
+            {
+              "type": "rectangle",
+              "name": "Navigation",
+              "frame": {
+                "x": 0,
+                "y": 0,
+                "width": 1920,
+                "height": 60
+              },
+              "style": {
+                "fills": [
+                  {
+                    "color": "#FF9900"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "document": {
+    "colors": [
+      {
+        "name": "primary",
+        "color": "#FF9900",
+        "_class": "color"
+      },
+      {
+        "name": "secondary",
+        "color": "#FFFF00",
+        "_class": "color"
+      },
+      {
+        "name": "accent",
+        "color": "#00FFFF",
+        "_class": "color"
+      },
+      {
+        "name": "success",
+        "color": "#00FF00",
+        "_class": "color"
+      },
+      {
+        "name": "warning",
+        "color": "#FF00FF",
+        "_class": "color"
+      },
+      {
+        "name": "info",
+        "color": "#0000FF",
+        "_class": "color"
+      },
+      {
+        "name": "dark",
+        "color": "#1a1a1a",
+        "_class": "color"
+      },
+      {
+        "name": "light",
+        "color": "#f5f5f5",
+        "_class": "color"
+      }
+    ],
+    "textStyles": [
+      {
+        "name": "text-xs",
+        "fontSize": 0.75,
+        "fontFamily": "Inter, -apple-system, BlinkMacSystemFont, sans-serif",
+        "_class": "textStyle"
+      },
+      {
+        "name": "text-sm",
+        "fontSize": 0.875,
+        "fontFamily": "Inter, -apple-system, BlinkMacSystemFont, sans-serif",
+        "_class": "textStyle"
+      },
+      {
+        "name": "text-base",
+        "fontSize": 1,
+        "fontFamily": "Inter, -apple-system, BlinkMacSystemFont, sans-serif",
+        "_class": "textStyle"
+      },
+      {
+        "name": "text-lg",
+        "fontSize": 1.125,
+        "fontFamily": "Inter, -apple-system, BlinkMacSystemFont, sans-serif",
+        "_class": "textStyle"
+      },
+      {
+        "name": "text-xl",
+        "fontSize": 1.25,
+        "fontFamily": "Inter, -apple-system, BlinkMacSystemFont, sans-serif",
+        "_class": "textStyle"
+      },
+      {
+        "name": "text-2xl",
+        "fontSize": 1.5,
+        "fontFamily": "Inter, -apple-system, BlinkMacSystemFont, sans-serif",
+        "_class": "textStyle"
+      },
+      {
+        "name": "text-3xl",
+        "fontSize": 1.875,
+        "fontFamily": "Inter, -apple-system, BlinkMacSystemFont, sans-serif",
+        "_class": "textStyle"
+      },
+      {
+        "name": "text-4xl",
+        "fontSize": 2.25,
+        "fontFamily": "Inter, -apple-system, BlinkMacSystemFont, sans-serif",
+        "_class": "textStyle"
+      }
+    ],
+    "layerStyles": [
+      {
+        "name": "Primary Button",
+        "fills": [
+          {
+            "color": "#FF9900"
+          }
+        ],
+        "borderRadius": 4,
+        "_class": "style"
+      }
+    ]
+  }
+}

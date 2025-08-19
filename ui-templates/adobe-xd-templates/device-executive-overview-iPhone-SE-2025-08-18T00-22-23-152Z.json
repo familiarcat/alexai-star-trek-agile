@@ -1,0 +1,149 @@
+{
+  "artboards": [
+    {
+      "name": "device-executive-overview-iPhone-SE-2025-08-18T00-22-23-152Z",
+      "width": 360,
+      "height": 9331,
+      "elements": [
+        {
+          "type": "rectangle",
+          "name": "Background",
+          "x": 0,
+          "y": 0,
+          "width": 360,
+          "height": 9331,
+          "fill": "#1a1a1a"
+        },
+        {
+          "type": "rectangle",
+          "name": "Navigation",
+          "x": 0,
+          "y": 0,
+          "width": 360,
+          "height": 60,
+          "fill": "#FF9900"
+        }
+      ],
+      "styles": {
+        "colors": [
+          {
+            "name": "primary",
+            "value": "#FF9900",
+            "type": "color"
+          },
+          {
+            "name": "secondary",
+            "value": "#FFFF00",
+            "type": "color"
+          },
+          {
+            "name": "accent",
+            "value": "#00FFFF",
+            "type": "color"
+          },
+          {
+            "name": "success",
+            "value": "#00FF00",
+            "type": "color"
+          },
+          {
+            "name": "warning",
+            "value": "#FF00FF",
+            "type": "color"
+          },
+          {
+            "name": "info",
+            "value": "#0000FF",
+            "type": "color"
+          },
+          {
+            "name": "dark",
+            "value": "#1a1a1a",
+            "type": "color"
+          },
+          {
+            "name": "light",
+            "value": "#f5f5f5",
+            "type": "color"
+          }
+        ],
+        "characterStyles": [
+          {
+            "name": "text-xs",
+            "fontSize": 0.75,
+            "fontFamily": "Inter, -apple-system, BlinkMacSystemFont, sans-serif"
+          },
+          {
+            "name": "text-sm",
+            "fontSize": 0.875,
+            "fontFamily": "Inter, -apple-system, BlinkMacSystemFont, sans-serif"
+          },
+          {
+            "name": "text-base",
+            "fontSize": 1,
+            "fontFamily": "Inter, -apple-system, BlinkMacSystemFont, sans-serif"
+          },
+          {
+            "name": "text-lg",
+            "fontSize": 1.125,
+            "fontFamily": "Inter, -apple-system, BlinkMacSystemFont, sans-serif"
+          },
+          {
+            "name": "text-xl",
+            "fontSize": 1.25,
+            "fontFamily": "Inter, -apple-system, BlinkMacSystemFont, sans-serif"
+          },
+          {
+            "name": "text-2xl",
+            "fontSize": 1.5,
+            "fontFamily": "Inter, -apple-system, BlinkMacSystemFont, sans-serif"
+          },
+          {
+            "name": "text-3xl",
+            "fontSize": 1.875,
+            "fontFamily": "Inter, -apple-system, BlinkMacSystemFont, sans-serif"
+          },
+          {
+            "name": "text-4xl",
+            "fontSize": 2.25,
+            "fontFamily": "Inter, -apple-system, BlinkMacSystemFont, sans-serif"
+          }
+        ]
+      }
+    }
+  ],
+  "components": {
+    "buttons": [
+      {
+        "name": "Primary Button",
+        "width": 120,
+        "height": 40,
+        "fill": "#FF9900",
+        "cornerRadius": 4
+      }
+    ],
+    "cards": [
+      {
+        "name": "Content Card",
+        "width": 300,
+        "height": 200,
+        "fill": "#f5f5f5",
+        "cornerRadius": 8
+      }
+    ]
+  },
+  "assets": {
+    "colors": [
+      "#FF9900",
+      "#FFFF00",
+      "#00FFFF",
+      "#00FF00",
+      "#FF00FF",
+      "#0000FF",
+      "#1a1a1a",
+      "#f5f5f5"
+    ],
+    "gradients": [],
+    "symbols": []
+  }
+}

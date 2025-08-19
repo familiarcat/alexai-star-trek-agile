@@ -253,7 +253,7 @@ export class LCARSSystem {
 
         if (!error && data) {
           // Add new entries to cache and results
-          data.forEach(entry => {
+          data.forEach((entry: any) => {
             if (!this.memoryCache.has(entry.id)) {
               this.memoryCache.set(entry.id, entry);
               results.push(entry);

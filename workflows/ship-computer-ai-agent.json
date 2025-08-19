@@ -82,7 +82,7 @@
       },
       "id": "4",
       "name": "Responsive Boundary Management",
-      "type": "4",
+      "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [900, 300]
     },
@@ -135,7 +135,7 @@
       "main": [
         [
           {
-                      "node": "Ship Computer Response",
+            "node": "Ship Computer Response",
           "type": "main",
           "index": 0
           }

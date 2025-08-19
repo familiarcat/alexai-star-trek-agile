@@ -1,0 +1,313 @@
+{
+  "name": "device-developer-task-management-iPad-2025-08-18T01-58-17-257Z-figma-template",
+  "type": "DOCUMENT",
+  "children": [
+    {
+      "type": "PAGE",
+      "name": "device-developer-task-management-iPad-2025-08-18T01-58-17-257Z",
+      "children": [
+        {
+          "type": "FRAME",
+          "name": "Main Container",
+          "width": 753,
+          "height": 2754,
+          "backgroundColor": "#1a1a1a",
+          "children": [
+            {
+              "type": "RECTANGLE",
+              "name": "Navigation Bar",
+              "x": 0,
+              "y": 0,
+              "width": 753,
+              "height": 60,
+              "backgroundColor": "#FF9900",
+              "cornerRadius": 0
+            },
+            {
+              "type": "RECTANGLE",
+              "name": "Content Area",
+              "x": 0,
+              "y": 60,
+              "width": 753,
+              "height": 2694,
+              "backgroundColor": "#f5f5f5",
+              "cornerRadius": 0
+            },
+            {
+              "type": "RECTANGLE",
+              "name": "container",
+              "x": 20,
+              "y": 80,
+              "width": 180,
+              "height": 120,
+              "backgroundColor": "#FFFF00",
+              "cornerRadius": 8
+            },
+            {
+              "type": "RECTANGLE",
+              "name": "content",
+              "x": 220,
+              "y": 80,
+              "width": 180,
+              "height": 120,
+              "backgroundColor": "#FFFF00",
+              "cornerRadius": 8
+            },
+            {
+              "type": "RECTANGLE",
+              "name": "navigation",
+              "x": 420,
+              "y": 80,
+              "width": 180,
+              "height": 120,
+              "backgroundColor": "#FFFF00",
+              "cornerRadius": 8
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "styles": {
+    "colors": [
+      {
+        "name": "color/primary",
+        "type": "PAINT",
+        "description": "primary color",
+        "paints": [
+          {
+            "type": "SOLID",
+            "color": {
+              "r": 0,
+              "g": 0,
+              "b": 0
+            }
+          }
+        ]
+      },
+      {
+        "name": "color/secondary",
+        "type": "PAINT",
+        "description": "secondary color",
+        "paints": [
+          {
+            "type": "SOLID",
+            "color": {
+              "r": 0,
+              "g": 0,
+              "b": 0
+            }
+          }
+        ]
+      },
+      {
+        "name": "color/accent",
+        "type": "PAINT",
+        "description": "accent color",
+        "paints": [
+          {
+            "type": "SOLID",
+            "color": {
+              "r": 0,
+              "g": 0,
+              "b": 0
+            }
+          }
+        ]
+      },
+      {
+        "name": "color/success",
+        "type": "PAINT",
+        "description": "success color",
+        "paints": [
+          {
+            "type": "SOLID",
+            "color": {
+              "r": 0,
+              "g": 0,
+              "b": 0
+            }
+          }
+        ]
+      },
+      {
+        "name": "color/warning",
+        "type": "PAINT",
+        "description": "warning color",
+        "paints": [
+          {
+            "type": "SOLID",
+            "color": {
+              "r": 0,
+              "g": 0,
+              "b": 0
+            }
+          }
+        ]
+      },
+      {
+        "name": "color/info",
+        "type": "PAINT",
+        "description": "info color",
+        "paints": [
+          {
+            "type": "SOLID",
+            "color": {
+              "r": 0,
+              "g": 0,
+              "b": 0
+            }
+          }
+        ]
+      },
+      {
+        "name": "color/dark",
+        "type": "PAINT",
+        "description": "dark color",
+        "paints": [
+          {
+            "type": "SOLID",
+            "color": {
+              "r": 0,
+              "g": 0,
+              "b": 0
+            }
+          }
+        ]
+      },
+      {
+        "name": "color/light",
+        "type": "PAINT",
+        "description": "light color",
+        "paints": [
+          {
+            "type": "SOLID",
+            "color": {
+              "r": 0,
+              "g": 0,
+              "b": 0
+            }
+          }
+        ]
+      }
+    ],
+    "typography": [
+      {
+        "name": "text/xs",
+        "type": "TEXT",
+        "description": "xs text style",
+        "style": {
+          "fontFamily": "Inter, -apple-system, BlinkMacSystemFont, sans-serif",
+          "fontSize": 0.75,
+          "fontWeight": "400"
+        }
+      },
+      {
+        "name": "text/sm",
+        "type": "TEXT",
+        "description": "sm text style",
+        "style": {
+          "fontFamily": "Inter, -apple-system, BlinkMacSystemFont, sans-serif",
+          "fontSize": 0.875,
+          "fontWeight": "400"
+        }
+      },
+      {
+        "name": "text/base",
+        "type": "TEXT",
+        "description": "base text style",
+        "style": {
+          "fontFamily": "Inter, -apple-system, BlinkMacSystemFont, sans-serif",
+          "fontSize": 1,
+          "fontWeight": "400"
+        }
+      },
+      {
+        "name": "text/lg",
+        "type": "TEXT",
+        "description": "lg text style",
+        "style": {
+          "fontFamily": "Inter, -apple-system, BlinkMacSystemFont, sans-serif",
+          "fontSize": 1.125,
+          "fontWeight": "400"
+        }
+      },
+      {
+        "name": "text/xl",
+        "type": "TEXT",
+        "description": "xl text style",
+        "style": {
+          "fontFamily": "Inter, -apple-system, BlinkMacSystemFont, sans-serif",
+          "fontSize": 1.25,
+          "fontWeight": "400"
+        }
+      },
+      {
+        "name": "text/2xl",
+        "type": "TEXT",
+        "description": "2xl text style",
+        "style": {
+          "fontFamily": "Inter, -apple-system, BlinkMacSystemFont, sans-serif",
+          "fontSize": 1.5,
+          "fontWeight": "400"
+        }
+      },
+      {
+        "name": "text/3xl",
+        "type": "TEXT",
+        "description": "3xl text style",
+        "style": {
+          "fontFamily": "Inter, -apple-system, BlinkMacSystemFont, sans-serif",
+          "fontSize": 1.875,
+          "fontWeight": "400"
+        }
+      },
+      {
+        "name": "text/4xl",
+        "type": "TEXT",
+        "description": "4xl text style",
+        "style": {
+          "fontFamily": "Inter, -apple-system, BlinkMacSystemFont, sans-serif",
+          "fontSize": 2.25,
+          "fontWeight": "400"
+        }
+      }
+    ]
+  },
+  "components": {
+    "buttons": [
+      {
+        "name": "Primary Button",
+        "type": "COMPONENT",
+        "backgroundColor": "#FF9900",
+        "cornerRadius": 4,
+        "padding": {
+          "horizontal": 16,
+          "vertical": 8
+        }
+      },
+      {
+        "name": "Secondary Button",
+        "type": "COMPONENT",
+        "backgroundColor": "#FFFF00",
+        "cornerRadius": 4,
+        "padding": {
+          "horizontal": 16,
+          "vertical": 8
+        }
+      }
+    ],
+    "cards": [
+      {
+        "name": "Info Card",
+        "type": "COMPONENT",
+        "backgroundColor": "#f5f5f5",
+        "cornerRadius": 8,
+        "padding": {
+          "horizontal": 16,
+          "vertical": 12
+        }
+      }
+    ]
+  }
+}

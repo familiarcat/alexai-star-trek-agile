@@ -469,8 +469,13 @@ function enhancedLCARSReducer(state: EnhancedLCARSState, action: EnhancedLCARSAc
       workflows.completed = workflows.completed.filter(id => id !== workflowId);
       workflows.failed = workflows.failed.filter(id => id !== workflowId);
       
-      // Add to new status array
-      workflows[status as keyof typeof workflows].push(workflowId);
+      // Add to new status array with proper type checking
+      if (status === 'active' || status === 'pending' || status === 'completed' || status === 'failed') {
+        workflows[status].push(workflowId);
+      } else {
+        console.warn(`Invalid workflow status: ${status}, defaulting to pending`);
+        workflows.pending.push(workflowId);
+      }
       
       return {
         ...state,
@@ -685,7 +690,7 @@ export function EnhancedLCARSProvider({ children }: { children: ReactNode }) {
       dispatch({ type: 'SET_INITIALIZATION_PROGRESS', payload: 30 });
       
       // Step 3: Initialize crew members
-      const crewMembers = systemStatus.crewMembers || [];
+      const crewMembers = Array.isArray(systemStatus.crewMembers) ? systemStatus.crewMembers : [];
       const crewStatus: Record<string, 'active' | 'busy' | 'offline' | 'error'> = {};
       crewMembers.forEach(member => {
         crewStatus[member] = 'active';

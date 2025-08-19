@@ -76,6 +76,9 @@ function analyzeQuery(query: string) {
 }
 
 function assessContext(context: string) {
+  if (!context) {
+    return 'General context - applying standard protocols';
+  }
   const contextLower = context.toLowerCase();
   if (contextLower.includes('system') || contextLower.includes('technical')) {
     return 'Technical context - requires systematic analysis';

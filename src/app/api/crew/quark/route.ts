@@ -113,7 +113,7 @@ export async function POST(request: NextRequest) {
 // Business Intelligence Functions
 function analyzeProfitOpportunities(query: string, context: string) {
   const queryLower = query.toLowerCase();
-  const contextLower = context.toLowerCase();
+  const contextLower = context ? context.toLowerCase() : '';
   
   const opportunities = [];
   
