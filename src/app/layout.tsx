@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "./modern-design-system.css";
 import { ProperLCARSLayout } from "@/core/components/lcars/proper-lcars-layout";
 import { ShipsComputerOrchestrator } from "@/core/components/lcars/ships-computer-orchestrator";
 import { DynamicScalingProvider } from "@/core/components/lcars/dynamic-scaling-provider";
