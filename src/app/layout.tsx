@@ -4,8 +4,7 @@ import "./modern-design-system.css";
 import { ProperLCARSLayout } from "@/core/components/lcars/proper-lcars-layout";
 import { ShipsComputerOrchestrator } from "@/core/components/lcars/ships-computer-orchestrator";
 import { DynamicScalingProvider } from "@/core/components/lcars/dynamic-scaling-provider";
-
-
+import { LayoutSelector } from "@/core/components/layout-selector";
 
 export const metadata: Metadata = {
   title: "AlexAI Agile Management System",
@@ -68,13 +67,15 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <DynamicScalingProvider>
-          <ShipsComputerOrchestrator>
-            <ProperLCARSLayout>
-              {children}
-            </ProperLCARSLayout>
-          </ShipsComputerOrchestrator>
-        </DynamicScalingProvider>
+        <LayoutSelector>
+          <DynamicScalingProvider>
+            <ShipsComputerOrchestrator>
+              <ProperLCARSLayout>
+                {children}
+              </ProperLCARSLayout>
+            </ShipsComputerOrchestrator>
+          </DynamicScalingProvider>
+        </LayoutSelector>
       </body>
     </html>
   );
