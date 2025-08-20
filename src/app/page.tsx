@@ -3,11 +3,11 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { RocketLaunchIcon, FolderIcon, ChartBarIcon, CogIcon, UserGroupIcon, BeakerIcon, ShieldCheckIcon, SignalIcon, ComputerDesktopIcon, HeartIcon, PlusIcon, EyeIcon, ClipboardDocumentListIcon, ChartPieIcon, WrenchScrewdriverIcon, ExclamationTriangleIcon } from '@heroicons/react/24/outline';
-// Temporarily comment out potentially problematic imports
-// import { ShipsComputerOrchestrator } from '@/core/components/lcars/ships-computer-orchestrator';
-// import { ScalingIndicator } from '@/core/components/lcars/scaling-indicator';
-// import { EnhancedShipComputer } from '@/core/components/lcars/enhanced-ship-computer';
-// import { AICollaborationDashboard } from '@/core/components/lcars/ai-collaboration-dashboard';
+// Fixed imports using correct named exports
+import { ShipsComputerOrchestrator } from '@/core/components/lcars/ships-computer-orchestrator';
+import { ScalingIndicator } from '@/core/components/lcars/scaling-indicator';
+import { EnhancedShipComputer } from '@/core/components/lcars/enhanced-ship-computer';
+import { AICollaborationDashboard } from '@/core/components/lcars/ai-collaboration-dashboard';
 
 interface DashboardStats {
   totalProjects: number;
@@ -284,7 +284,7 @@ export default function HomePage() {
         <div className="lcars-elbow-header">AI COLLABORATION DASHBOARD</div>
         <div className="lcars-elbow-content">
           <p className="lcars-text-secondary">Enhanced AI-powered insights</p>
-          <p>Component temporarily disabled for debugging</p>
+          <AICollaborationDashboard />
         </div>
       </div>
 
@@ -293,7 +293,7 @@ export default function HomePage() {
         <div className="lcars-elbow-header">ENHANCED SHIP COMPUTER</div>
         <div className="lcars-elbow-content">
           <p className="lcars-text-secondary">Advanced system monitoring</p>
-          <p>Component temporarily disabled for debugging</p>
+          <EnhancedShipComputer />
         </div>
       </div>
 
@@ -302,7 +302,7 @@ export default function HomePage() {
         <div className="lcars-elbow-header">SYSTEM SCALING</div>
         <div className="lcars-elbow-content">
           <p className="lcars-text-secondary">Performance and capacity monitoring</p>
-          <p>Component temporarily disabled for debugging</p>
+          <ScalingIndicator />
         </div>
       </div>
 
