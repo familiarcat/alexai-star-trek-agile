@@ -50,6 +50,9 @@ export function ProperLCARSLayout({ children, className = '' }: ProperLCARSLayou
   // Fix hydration error by only rendering time on client
   useEffect(() => {
     setIsClient(true);
+    // Set initial time immediately
+    setCurrentTime(new Date());
+    
     // Only set timer if we're on the client side
     if (typeof window !== 'undefined') {
       const timer = setInterval(() => {
@@ -139,8 +142,8 @@ export function ProperLCARSLayout({ children, className = '' }: ProperLCARSLayou
               </>
             ) : (
               <>
-                <span>Date: --</span>
-                <span>Time: --</span>
+                <span>Date: {new Date().toLocaleDateString()}</span>
+                <span>Time: {new Date().toLocaleTimeString()}</span>
               </>
             )}
           </div>

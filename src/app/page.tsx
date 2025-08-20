@@ -33,8 +33,8 @@ export default function HomePage() {
     // Simulate data fetching with a more reliable approach
     const fetchData = async () => {
       try {
-        // Simulate API call delay
-        await new Promise(resolve => setTimeout(resolve, 1500));
+        // Simulate API call delay - reduced for better UX
+        await new Promise(resolve => setTimeout(resolve, 800));
         
         setStats({
           totalProjects: 12,
@@ -46,12 +46,28 @@ export default function HomePage() {
         });
       } catch (error) {
         console.error('Failed to fetch dashboard data:', error);
+        // Set default stats even on error
+        setStats({
+          totalProjects: 0,
+          activeTasks: 0,
+          completedTasks: 0,
+          teamMembers: 0,
+          systemHealth: 'Warning',
+          lastUpdate: new Date().toLocaleString()
+        });
       } finally {
         setIsLoading(false);
       }
     };
 
+    // Add a fallback timeout to ensure loading state is cleared
+    const timeoutId = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+
     fetchData();
+
+    return () => clearTimeout(timeoutId);
   }, []);
 
   // Functional CTA handlers with proper navigation
