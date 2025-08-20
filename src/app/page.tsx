@@ -3,10 +3,11 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { RocketLaunchIcon, FolderIcon, ChartBarIcon, CogIcon, UserGroupIcon, BeakerIcon, ShieldCheckIcon, SignalIcon, ComputerDesktopIcon, HeartIcon, PlusIcon, EyeIcon, ClipboardDocumentListIcon, ChartPieIcon, WrenchScrewdriverIcon, ExclamationTriangleIcon } from '@heroicons/react/24/outline';
-import { ShipsComputerOrchestrator } from '@/core/components/lcars/ships-computer-orchestrator';
-import { ScalingIndicator } from '@/core/components/lcars/scaling-indicator';
-import { EnhancedShipComputer } from '@/core/components/lcars/enhanced-ship-computer';
-import { AICollaborationDashboard } from '@/core/components/lcars/ai-collaboration-dashboard';
+// Temporarily comment out potentially problematic imports
+// import { ShipsComputerOrchestrator } from '@/core/components/lcars/ships-computer-orchestrator';
+// import { ScalingIndicator } from '@/core/components/lcars/scaling-indicator';
+// import { EnhancedShipComputer } from '@/core/components/lcars/enhanced-ship-computer';
+// import { AICollaborationDashboard } from '@/core/components/lcars/ai-collaboration-dashboard';
 
 interface DashboardStats {
   totalProjects: number;
@@ -137,19 +138,20 @@ export default function HomePage() {
     window.location.href = '/about';
   };
 
-  if (isLoading) {
-    return (
-      <div className="lcars-elbow-container">
-        <div className="lcars-elbow-header">SYSTEM INITIALIZATION</div>
-        <div className="lcars-elbow-content">
-          <p>Initializing project management systems...</p>
-          <div className="progress-container">
-            <div className="progress-bar" style={{ width: '75%' }}></div>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  // Temporarily disable loading state for debugging
+  // if (isLoading) {
+  //   return (
+  //     <div className="lcars-elbow-container">
+  //       <div className="lcars-elbow-header">SYSTEM INITIALIZATION</div>
+  //       <div className="lcars-elbow-content">
+  //         <p>Initializing project management systems...</p>
+  //         <div className="progress-container">
+  //           <div className="progress-bar" style={{ width: '75%' }}></div>
+  //         </div>
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="dashboard-container">
@@ -282,7 +284,7 @@ export default function HomePage() {
         <div className="lcars-elbow-header">AI COLLABORATION DASHBOARD</div>
         <div className="lcars-elbow-content">
           <p className="lcars-text-secondary">Enhanced AI-powered insights</p>
-          <AICollaborationDashboard />
+          <p>Component temporarily disabled for debugging</p>
         </div>
       </div>
 
@@ -291,7 +293,7 @@ export default function HomePage() {
         <div className="lcars-elbow-header">ENHANCED SHIP COMPUTER</div>
         <div className="lcars-elbow-content">
           <p className="lcars-text-secondary">Advanced system monitoring</p>
-          <EnhancedShipComputer />
+          <p>Component temporarily disabled for debugging</p>
         </div>
       </div>
 
@@ -300,7 +302,7 @@ export default function HomePage() {
         <div className="lcars-elbow-header">SYSTEM SCALING</div>
         <div className="lcars-elbow-content">
           <p className="lcars-text-secondary">Performance and capacity monitoring</p>
-          <ScalingIndicator />
+          <p>Component temporarily disabled for debugging</p>
         </div>
       </div>
 
